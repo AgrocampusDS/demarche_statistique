@@ -139,14 +139,12 @@ liste_complete <- liste_complete %>%
 ```
 
 
-### Commandes R
 
-```{r commandes_R, echo = FALSE, eval = TRUE, results='markup'}
+### Statistique
 
-print_liste('Commandes R')
+```{r stat, echo = FALSE, eval = TRUE, results='markup'}
+print_liste('Statistique')
 ```
-
-
 
 
 ### Environnement R
@@ -156,8 +154,12 @@ print_liste('Environnement R')
 ```
 
 
-### Statistique
+### Commandes R
 
-```{r stat, echo = FALSE, eval = TRUE, results='markup'}
-print_liste('Statistique')
+```{r commandes_R, echo = FALSE, eval = TRUE, results='markup'}
+
+print_liste('Commandes R')
 ```
+
+
+
