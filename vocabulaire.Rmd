@@ -46,16 +46,15 @@ ll <- lapply(liste_td, function(f){
 })
 
 
-print(ll[1])
-# 
-# liste_complete <- do.call('rbind', ll) %>%
-#   mutate(nom = str_remove(text, '- ')) %>%
-#   select(-text) %>%
-#   select(nom, themes, TD) %>%
-#   arrange(nom) %>%
-#   mutate(TD_url = paste0(TD, '.html')) %>%
-#   arrange(nom)
-# 
+
+liste_complete <- do.call('rbind', ll) %>%
+  mutate(nom = str_remove(text, '- ')) %>%
+  select(-text) %>%
+  select(nom, themes, TD) %>%
+  arrange(nom) %>%
+  mutate(TD_url = paste0(TD, '.html')) %>%
+  arrange(nom)
+
 # 
 # print_liste <- function(theme_choisi){
 #   liste_complete %>%
