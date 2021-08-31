@@ -63,7 +63,7 @@ dta$compote <- as.factor(dta$compote)
 
 #### Visualisation des données
 
-* Visualisez les données pour avoir une idée des saveurs de pomme crue selon les compotes et calculez quelques statistiques descriptives par compote.
+* Visualiser les données pour avoir une idée des saveurs de pomme crue selon les compotes et calculez quelques statistiques descriptives par compote.
 
 ```{r boxplot, echo = FALSE}
 dta %>% 
