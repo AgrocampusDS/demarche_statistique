@@ -14,7 +14,7 @@ header-includes:
 ---
 
 
-```{r setup-TDvocabulaire, include=FALSE}
+```{r setup-TDvocabulaire, include=FALSE, results='asis'}
 knitr::opts_chunk$set(echo = FALSE, cache= FALSE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'markup' )
 library(tidyverse)
 library(kableExtra)
@@ -46,14 +46,17 @@ ll <- lapply(liste_td, function(f){
 })
 
 
+liste_complete <- do.call('rbind', ll) %>% 
+  mutate(nom = str_remove(text, '- ')) %>% 
+  dplyr::select(-text)
 
-liste_complete <- do.call('rbind', ll) %>%
-  mutate(nom = str_remove(text, '- ')) %>%
-  select(-text) %>%
-  select(nom, themes, TD) %>%
-  arrange(nom) %>%
-  mutate(TD_url = paste0(TD, '.html')) %>%
-  arrange(nom)
+print(liste_complete)
+
+# %>%
+#   select(nom, themes, TD) %>%
+#   arrange(nom) %>%
+#   mutate(TD_url = paste0(TD, '.html')) %>%
+#   arrange(nom)
 
 # 
 # print_liste <- function(theme_choisi){
