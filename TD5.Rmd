@@ -63,7 +63,6 @@ est évaluée par des filles.
 * Importer le jeu de données `angle.csv` dans un  objet nommé `don_Angle`  en utilisant un script `TD5_script.R` que vous aurez créé dans votre répertoire de projet.
 
 ```{r import_data}
-#don_Angle <- read.table('http://dsr-rennes.github.io/data/angle.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
 don_Angle <- read.table('angle.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
 ```
 

@@ -59,7 +59,7 @@ Exécuter la première ligne du script.
 Exécuter la ligne suivante.
 
 ```{r import, eval = TRUE, echo = FALSE}
-penguins <- read.table('penguins.csv', sep = ';', header = TRUE)
+penguins <- read.table('https://agrocampusds.github.io/demarche_statistique/penguins.csv', sep = ';', header = TRUE)
 
 ```
 

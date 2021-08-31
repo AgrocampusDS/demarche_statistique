@@ -59,7 +59,7 @@ Plus précisément, cette étude s'est intéressée à six sports : l'athlétism
 
 
 ```{r import_data_V1}
-data.sport.V1 <- read.table('dataSportV1.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
+data.sport.V1 <- read.table('https://agrocampusds.github.io/demarche_statistique/dataSportV1.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
 ```
 
 #### Visualisation des données
@@ -116,7 +116,7 @@ Surpris du résultat, les chercheurs organisent une seconde collecte de données
 * Importer les 10 nouveaux individus statistiques à partir de la table `dataSportV2.csv`. Vérifier que ce nouveau jeu de données contient bien 60 individus : 10 individus par sport.
 
 ```{r import_data_V2}
-data.sport.V2 <- read.table('dataSportV2.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
+data.sport.V2 <- read.table('https://agrocampusds.github.io/demarche_statistique/dataSportV2.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
 ```
 
 A l'aide de la fonction *bind_rows*, créer le jeu de données complet, que vous nommerez *data.sport.Vf*, contenant les 13 individus statistiques.

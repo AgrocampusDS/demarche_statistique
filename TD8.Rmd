@@ -77,7 +77,7 @@ write.table(dta2,file="puissance_2.csv", sep = ";",col.names =TRUE,row.names = F
 * Importez le jeu de données intial `puissance_1.csv`.
 
 ```{r import_data}
-dta <- read.table('puissance_1.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
+dta <- read.table('https://agrocampusds.github.io/demarche_statistique/puissance_1.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
 ```
 
 * D'après vous, et sans faire de calcul, quelles sont les situations où il y a le plus de puissance 
@@ -186,7 +186,7 @@ power.t.test(n=5, delta=0.1,sd=1,sig.level=0.05)
 * Importez le jeu de données intial `puissance_2.csv`.
 
 ```{r}
-dta2 <- read.table('puissance_2.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
+dta2 <- read.table('https://agrocampusds.github.io/demarche_statistique/puissance_2.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
 ```
 
 #### Visualisation des données
