@@ -19,50 +19,50 @@ knitr::opts_chunk$set(echo = FALSE, cache= FALSE, eval = TRUE, fig.show='hide', 
 library(tidyverse)
 library(kableExtra)
 liste_td <- list.files(pattern = '.Rmd')
+liste_td <- liste_td[which(! (liste_td%in% c("vocabulaire.Rmd", "index.Rmd")))]
 
 
-
-ll <- lapply(liste_td, function(f){
-  if(! (f %in% c("vocabulaire.Rmd", "index.Rmd"))){
-    print(f)
-    vocabulaire <- tibble(text = readLines(f) ) %>%
-      mutate(TD = str_remove(f, pattern = '.Rmd')) %>%
-      slice((which(str_detect(text, "vocabulaire"))+1):n()) %>%
-      filter(!(text == ''))
-
-    themes <-  vocabulaire %>%
-      filter(str_detect(text, '###')) %>%
-      mutate(text = str_remove(text, '###')) %>%
-      mutate(text = trimws(text)) %>%
-      pull(text)
-
-    sep <- which(str_detect(vocabulaire$text, pattern = paste(themes, collapse = '|')))
-    vocabulaire <- vocabulaire %>%
-      rowid_to_column() %>%
-      mutate(themes = rep(themes, diff(c(sep, nrow(vocabulaire)+1)))) %>%
-      filter(!str_detect(text, pattern = paste(themes, collapse = '|') ) )
-
-    return(vocabulaire)}
-})
-
-
-liste_complete <- do.call('rbind', ll) %>%
-  mutate(nom = str_remove(text, '- ')) %>%
-  select(-text) %>%
-  select(nom, themes, TD) %>%
-  arrange(nom) %>%
-  mutate(TD_url = paste0(TD, '.html')) %>%
-  arrange(nom)
-
-
-print_liste <- function(theme_choisi){
-  liste_complete %>%
-  filter(themes == theme_choisi) %>%
-  select(-themes) %>%
-  kable("html", escape = FALSE) %>%
-  collapse_rows(columns = 1, valign = 'top') %>%
-  kable_classic(full_width = F, html_font = "Cambria")
-}
+# 
+# ll <- lapply(liste_td, function(f){
+#     print(f)
+#     vocabulaire <- tibble(text = readLines(f) ) %>%
+#       mutate(TD = str_remove(f, pattern = '.Rmd')) %>%
+#       slice((which(str_detect(text, "vocabulaire"))+1):n()) %>%
+#       filter(!(text == ''))
+# 
+#     themes <-  vocabulaire %>%
+#       filter(str_detect(text, '###')) %>%
+#       mutate(text = str_remove(text, '###')) %>%
+#       mutate(text = trimws(text)) %>%
+#       pull(text)
+# 
+#     sep <- which(str_detect(vocabulaire$text, pattern = paste(themes, collapse = '|')))
+#     vocabulaire <- vocabulaire %>%
+#       rowid_to_column() %>%
+#       mutate(themes = rep(themes, diff(c(sep, nrow(vocabulaire)+1)))) %>%
+#       filter(!str_detect(text, pattern = paste(themes, collapse = '|') ) )
+# 
+#     return(vocabulaire)
+# })
+# 
+# 
+# liste_complete <- do.call('rbind', ll) %>%
+#   mutate(nom = str_remove(text, '- ')) %>%
+#   select(-text) %>%
+#   select(nom, themes, TD) %>%
+#   arrange(nom) %>%
+#   mutate(TD_url = paste0(TD, '.html')) %>%
+#   arrange(nom)
+# 
+# 
+# print_liste <- function(theme_choisi){
+#   liste_complete %>%
+#   filter(themes == theme_choisi) %>%
+#   select(-themes) %>%
+#   kable("html", escape = FALSE) %>%
+#   collapse_rows(columns = 1, valign = 'top') %>%
+#   kable_classic(full_width = F, html_font = "Cambria")
+# }
 ```
 
 # {.tabset .tabset-fade .tabset-pills}
