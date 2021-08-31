@@ -7,11 +7,6 @@ output:
     theme: united
     css: style.css
     highlight: tango
-  pdf_document:
-    number_sections: true
-    includes:
-      in_header: common_preamble.tex
-    keep_tex: yes
 mainfont: SourceSansPro
 header-includes:
 - \usepackage[default]{sourcesanspro}
