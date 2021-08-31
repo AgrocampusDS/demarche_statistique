@@ -45,12 +45,11 @@ print(is_pdf)
 
 ### Problématique
 
-On cherche à évaluer comment sont perçues 6 compotes de pommes au niveau de la saveur de pomme crue. Une dégustation est mise en place et 6 juges vont déguster chacune des 6 copmotes. Les notes sont attribuées sur une échelle allant de 0 à 10.
+On cherche à évaluer comment sont perçues 6 compotes de pommes au niveau de la saveur de pomme crue. Une dégustation est mise en place et 6 juges vont déguster chacune des 6 compotes. Les notes sont attribuées sur une échelle allant de 0 à 10.
 
 La question est donc de savoir si certaines compotes sont en moyenne perçues comme ayant une plus forte saveur de pomme crue.
 
 ### Analyse prenant en compte l'effet compote uniquement
-
 
 #### Importation du premier jeu de données
 
@@ -134,8 +133,8 @@ dta %>%
 
 Plusieurs modèles ont été construits, et plusieurs tests sont proposés permettant de tester un modèle contre un autre. 
 
-* Dire à quelle question répond chacune des tests ci-dessous.
-* Par rapport à la problématique permettant de savoir s'il y a des différences de saveur de pomme crue entre les compotes, dire quels tests vous allez commenter.
+* Dire à quelle question répond chacun des tests ci-dessous.
+* Par rapport à la problématique permettant de savoir s'il y a des différences de saveur de pomme crue entre les compotes, indiquer quels tests vous allez commenter.
 * Commenter et interpréter le test en lien avec votre problématique.
 
 ```{r testGlobal, echo = TRUE, results='markup'}
@@ -149,8 +148,8 @@ anova(mod2,mod1.compote)
 
 * Dans le modele mod1.compote, où se trouve la variabilité associé aux juges ? Pourquoi cela est-il gênant losqu'on s'intéresse à tester un effet compote ?
 
-* La fonction `Anova` (avec un A majuscule) du package `car` (qu'il vous faudra sûrement installer) permet de retrouver en une seule commande les probabilités critiques de chacun des effets. Retrouver ces probabilités critiques.
-Remarque : dans le cas de données déséquilibrées, les probabilités critiques obtenus avec `anova' et `Anova' peuvent être légèrement différentes. On préférera généralement utiliser les résultats fournis par la fonction `Anova'. 
+* La fonction `Anova` (avec un A majuscule) du package `car` (qu'il vous faudra sûrement installer) permet de retrouver en une seule commande les probabilités critiques de tests associés à chacun des effets. Retrouver ces probabilités critiques.
+Remarque : dans le cas de données déséquilibrées, les probabilités critiques obtenus avec `anova` et `Anova` peuvent être légèrement différentes. On préférera généralement utiliser les résultats fournis par la fonction `Anova'. 
 
 ```{r Anova, echo = TRUE, results='markup'}
 library(car)
@@ -172,10 +171,11 @@ test_AllPairs <- glht(mod2,linfct=mcp(compote="Tukey"))
 summary(test_AllPairs, test = adjusted("bonferroni"))
 ```
 
-On peut aussi tester si la saveur de pomme crue d'une compote particulière est égale ou différente de la moyenne de l'ensemble des compotes. La moyenne correspond à des coefficient de -1.6 pour chaque compote, et donc si on compare la chaque compote à la moyenne, on écria:
+
+On peut aussi tester si la saveur de pomme crue d'une compote particulière est égale ou différente de la moyenne de l'ensemble des compotes. La moyenne correspond à des coefficients de -1/6 pour chaque compote, et donc si on compare la note de chaque compote à la note moyenne moyenne, on écrira:
 
 ```{r , echo = TRUE, results='markup'}
-Tests <- rbind("comp1 - moy"=c((1 -1/6),-1/6,-1/6,-1/6,-1/6,-1/6),
+Tests <- rbind("comp1 - moy"=c((1 - 1/6),-1/6,-1/6,-1/6,-1/6,-1/6),
               "comp2 - moy"=c(-1/6,(1 -1/6),-1/6,-1/6,-1/6,-1/6),
               "comp3 - moy"=c(-1/6,-1/6,(1 -1/6),-1/6,-1/6,-1/6),
               "comp4 - moy"=c(-1/6,-1/6,-1/6,(1 -1/6),-1/6,-1/6),
