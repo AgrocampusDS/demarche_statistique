@@ -45,6 +45,8 @@ ll <- lapply(liste_td, function(f){
     return(vocabulaire)
 })
 
+
+print(ll[1])
 # 
 # liste_complete <- do.call('rbind', ll) %>%
 #   mutate(nom = str_remove(text, '- ')) %>%
