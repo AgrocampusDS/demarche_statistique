@@ -63,7 +63,15 @@ liste_complete %>%
 
 ```
 
-## Liste des jeux de données utilisées dans le module
+## Liste des scripts et jeux de données utilisés dans le module
+
+
+### Script
+
+- [TD1_script.R](TD1_script.R) : le script pour bien démarrer le TD1.
+
+
+### Données
 
 - [Angle](angle.csv) : données sur l'évaluation des angles, 
 - [Cafe](cafe_DM.csv) : données sur la qualité des cafés en fonction de différentes provenances,
