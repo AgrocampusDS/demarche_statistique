@@ -52,6 +52,7 @@ penguins <- rename(.data = penguins, espece = species,
 Au cours de la dernière séance, vous avez créé un projet dans Rstudio et enregistré un script R qui permet notamment d'importer des données. Le TD d'aujourd'hui s'inscrit dans la continuité du précédent et propose de poursuivre la découverte du jeu de données des manchots de Palmer.
 
 Aller dans le répertoire `ds_TD` et cliquer sur l'icone associé au projet créé lors de la dernière séance. Rstudio s'ouvre et reprend apparemment la session là où elle s'était arrêtée :
+
 * la fenêtre Environment, en haut à droite, indique que l'objet penguins a été sauvegardé,
 * la fenêtre Files, en bas à droite, indique que le script R `TD1_script.R` a été sauvegardé.
 
@@ -70,6 +71,7 @@ library(tidyverse)
 ```
 
 Le `tidyverse` est en fait un ensemble de packages, contenant  entre autres
+
 * le package `dplyr` dédié à la manipulation de données,
 * le package `ggplot2` dédié à la visualisation de données.
 
