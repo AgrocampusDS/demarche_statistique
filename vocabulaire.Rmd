@@ -21,7 +21,7 @@ liste_td <- list.files(pattern = '.Rmd')
 
 
 ll <- lapply(liste_td, function(f){
-  if(! (f %in% c("vocabulaire.Rmd", "liste_TD.Rmd"))){
+  if(! (f %in% c("vocabulaire.Rmd", "index.Rmd"))){
     print(f)
     vocabulaire <- tibble(text = readLines(f) ) %>% 
       mutate(TD = str_remove(f, pattern = '.Rmd')) %>% 
