@@ -21,7 +21,7 @@ library(kableExtra)
 liste_td <- list.files(pattern = '.Rmd')
 liste_td <- liste_td[which(! (liste_td%in% c("vocabulaire.Rmd", "index.Rmd")))]
 
-
+print(liste_td)
 # 
 # ll <- lapply(liste_td, function(f){
 #     print(f)
