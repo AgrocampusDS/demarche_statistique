@@ -81,7 +81,7 @@ write.table(dta2,file="puissance_2.csv", sep = ";",col.names =TRUE,row.names = F
 * Importez le jeu de données intial `puissance_1.csv`.
 
 ```{r import_data}
-dta <- read.table('C:/Users/husson/AOBox/TD_2021_partage/puissance_1.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
+dta <- read.table('puissance_1.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
 ```
 
 * D'après vous, et sans faire de calcul, quelles sont les situations où il y a le plus de puissance 

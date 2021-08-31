@@ -63,3 +63,11 @@ liste_complete %>%
 
 ```
 
+## Liste des jeux de données utilisées dans le module
+
+- [Angle](Angle.csv) : données sur l'évaluation des angles, 
+- [Cafe](cafe.csv) : données sur la qualité des cafés en fonction de différentes provenances,
+- [Compote](compote.csv) : données sur les compotes,
+- [dataSportV1](dataSportV1.csv) et [dataSportV2](dataSportV2.csv),
+- [Manchots de Palmer](penguins.csv) : ce jeu de données est distribué dans le package [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/) d'Allison Horst.
+- [puissance1](puissance_1.csv) et [puissance2](puissance_2.csv)

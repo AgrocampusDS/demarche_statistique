@@ -61,7 +61,7 @@ La question est donc de savoir si certaines compotes sont en moyenne perçues co
 * Importez le jeu de données intial `compote.csv`.
 
 ```{r import_data}
-dta <- read.table('C:/Users/husson/AOBox/TD_2021_partage/compote.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
+dta <- read.table('compote.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
 dta$juge <- as.factor(dta$juge)
 dta$compote <- as.factor(dta$compote)
 ```
