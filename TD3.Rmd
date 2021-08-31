@@ -60,10 +60,10 @@ Un groupe industriel commercialisant du café souhaite comparer les cafés prove
 
 #### Importation du jeu de données
 
-* Importer le jeu de données `cafe.csv` disponible sur la page des [jeux de données ](https://dsr-rennes.github.io/data.html) dans un  objet nommé `cafe`  en utilisant un script `TD3_script.R` que vous aurez créé dans votre répertoire de projet.
+* Importer le jeu de données `cafe_DM.csv` disponible sur la page des [jeux de données ](index.html) dans un  objet nommé `cafe`  en utilisant un script `TD3_script.R` que vous aurez créé dans votre répertoire de projet.
 
 ```{r import_data}
-cafe <- read.table('cafe.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
+cafe <- read.table('cafe_DM.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
 ```
 
 * Utilisez la commande `summary` pour obtenir un descriptif des données
