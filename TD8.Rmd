@@ -7,10 +7,6 @@ output:
     theme: united
     css: style.css
     highlight: tango
-  pdf_document:
-    includes:
-      in_header: common_preamble.tex
-    keep_tex: yes
 mainfont: SourceSansPro
 header-includes:
 - \usepackage[default]{sourcesanspro}
@@ -190,7 +186,7 @@ power.t.test(n=5, delta=0.1,sd=1,sig.level=0.05)
 * Importez le jeu de données intial `puissance_2.csv`.
 
 ```{r}
-dta2 <- read.table('C:/Users/husson/AOBox/TD_2021_partage/puissance_2.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
+dta2 <- read.table('puissance_2.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
 ```
 
 #### Visualisation des données
