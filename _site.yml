@@ -6,6 +6,10 @@ navbar:
   - text: ""
     icon: fa-github
     href: https://github.com/AgrocampusDS/demarche_statistique
+ right:
+  - text: ""
+    icon: fa-home
+    href: index.html
 
 
 output:

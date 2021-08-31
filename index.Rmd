@@ -71,3 +71,93 @@ liste_complete %>%
 - [dataSportV1](dataSportV1.csv) et [dataSportV2](dataSportV2.csv),
 - [Manchots de Palmer](penguins.csv) : ce jeu de données est distribué dans le package [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/) d'Allison Horst.
 - [puissance1](puissance_1.csv) et [puissance2](puissance_2.csv)
+
+
+## Vocabulaire du module
+
+
+
+
+```{r setup-TDvocabulaire, include=FALSE, results='hide'}
+knitr::opts_chunk$set(echo = FALSE, cache= FALSE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'markup' )
+library(tidyverse)
+library(kableExtra)
+liste_td <- list.files(pattern = '.Rmd')
+liste_td <- liste_td[which(! (liste_td%in% c("vocabulaire.Rmd", "index.Rmd")))]
+
+print(liste_td)
+
+ll <- lapply(liste_td, function(f){
+    print(f)
+    vocabulaire <- tibble(text = readLines(f) ) %>%
+      mutate(TD = str_remove(f, pattern = '.Rmd')) %>%
+      slice((which(str_detect(text, "vocabulaire"))+1):n()) %>%
+      filter(!(text == ''))
+
+    themes <-  vocabulaire %>%
+      filter(str_detect(text, '###')) %>%
+      mutate(text = str_remove(text, '###')) %>%
+      mutate(text = trimws(text)) %>%
+      pull(text)
+
+    sep <- which(str_detect(vocabulaire$text, pattern = paste(themes, collapse = '|')))
+    vocabulaire <- vocabulaire %>%
+      rowid_to_column() %>%
+      mutate(themes = rep(themes, diff(c(sep, nrow(vocabulaire)+1)))) %>%
+      filter(!str_detect(text, pattern = paste(themes, collapse = '|') ) )
+
+    return(vocabulaire)
+})
+
+
+liste_complete <- do.call('rbind', ll) %>% 
+  mutate(nom = str_remove(text, '- ')) %>% 
+  dplyr::select(-text) %>%
+  select(nom, themes, TD) %>%
+  arrange(nom) %>%
+  mutate(TD_url = paste0(TD, '.html')) %>%
+  arrange(nom)
+
+
+print_liste <- function(theme_choisi){
+  liste_complete %>%
+  filter(themes == theme_choisi) %>%
+  select(-themes) %>%
+  kable("html", escape = FALSE) %>%
+  collapse_rows(columns = 1, valign = 'top') %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+}
+```
+
+```{r echo = FALSE, eval = TRUE, results='hide'}
+liste_complete <- liste_complete %>%
+  mutate(TD = cell_spec(TD, "html", link = TD_url)) %>%
+  select(-TD_url)
+
+
+
+```
+
+
+### Commandes R
+
+```{r commandes_R, echo = FALSE, eval = TRUE, results='markup'}
+
+print_liste('Commandes R')
+```
+
+
+
+
+### Environnement R
+
+```{r env_R, echo = FALSE, eval = TRUE, results='markup'}
+print_liste('Environnement R')
+```
+
+
+### Statistique
+
+```{r stat, echo = FALSE, eval = TRUE, results='markup'}
+print_liste('Statistique')
+```
