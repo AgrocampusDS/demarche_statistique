@@ -1,0 +1,308 @@
+---
+title: "TD8 : Puissance de test"
+author: "UP Mathématique appliquée"
+date: ''
+output:
+  html_document:
+    theme: united
+    css: style.css
+    highlight: tango
+  pdf_document:
+    includes:
+      in_header: common_preamble.tex
+    keep_tex: yes
+mainfont: SourceSansPro
+header-includes:
+- \usepackage[default]{sourcesanspro}
+- \usepackage[T1]{fontenc}
+---
+
+
+```{r setup-TD8, include=FALSE, }
+knitr::opts_chunk$set(echo = FALSE, cache= TRUE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'hide' )
+library(tidyverse)
+library(kableExtra)
+out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+
+```
+
+```{r}
+print(out_type)
+
+is_pdf <-  (out_type=='latex')
+print(is_pdf)
+```
+
+# {.tabset .tabset-fade .tabset-pills}
+
+##  Objectifs de la séance  
+
+
+* Puissance des tests
+  + Effet de la taille de l'échantillon
+  + Effet de la variance
+  + Effet de l'écart entre les 2 moyennes
+  + Prise en compte d'un 2ème facteur en analyse de variance
+
+## Exercices 
+
+On a simulé 5 variables quantitatives indépendantes ($Y_1$, $Y_2$, $Y_3$, $Y_4$ et $Y_5$) en tirant des valeurs dans une loi normale de moyenne $\mu_A$ et de variance $\sigma_A^2$ pour les $n/2$ premières données et de moyenne $\mu_B$ (différente de $\mu_A$) et de variance $\sigma_B^2$ (égale à $\sigma_A^2$) pour les $n/2$ dernières données.  L'objectif est ici de voir dans quelles situations les tests de comparaison de moyenne permettent de mettre en évidence l'écart de moyenne qui existe entre $\mu_A$ et $\mu_B$.
+
+Les situations sont les suivantes :
+
+* pour $Y_1$ : $n=100$, $\mu_A=0$, $\mu_B=1$ et $\sigma_A=\sigma_B=1$
+* pour $Y_2$ : $n=100$, $\mu_A=0$, $\mu_B=0.1$ et $\sigma_A=\sigma_B=1$
+* pour $Y_3$ : $n=100$, $\mu_A=0$, $\mu_B=0.1$ et $\sigma_A=\sigma_B=0.05$
+* pour $Y_4$ : $n=10$, $\mu_A=0$, $\mu_B=1$ et $\sigma_A=\sigma_B=1$
+* pour $Y_5$ : $n=10$, $\mu_A=0$, $\mu_B=0.1$ et $\sigma_A=\sigma_B=1$ mais les données dépendent aussi d'un second facteur
+
+### Effet de la variance et de l'écart entre moyennes sur la puissance des tests
+
+#### Importation du premier jeu de données
+
+```{r, echo=FALSE}
+set.seed(123)
+fac <- rep(c("A","B"),50)
+Y1 <- rep(c(0,1),50)+ rnorm(100,0,1)
+Y2 <- rep(c(0,0.1),50)+ rnorm(100,0,1)
+Y3 <- rep(c(0,0.1),50)+ rnorm(100,0,0.05)
+dta <- cbind.data.frame(fac,Y1,Y2,Y3)
+write.table(dta,file="puissance_1.csv", sep = ";",col.names =TRUE,row.names = FALSE)
+
+fact <- rep(c("A","B"),5)
+fact2 <- letters[rep(1:5,each=2)]
+Y4 <- rep(c(0,2),5)+ rnorm(10)
+alea <- rnorm(5)
+Y5 <- rep(c(0,0.2),5)+ rep(alea,each=2) + rnorm(10)*0.01
+dta2 <- cbind.data.frame(fact,Y4,Y5,fact2)
+write.table(dta2,file="puissance_2.csv", sep = ";",col.names =TRUE,row.names = FALSE)
+```
+
+* Importez le jeu de données intial `puissance_1.csv`.
+
+```{r import_data}
+dta <- read.table('C:/Users/husson/AOBox/TD_2021_partage/puissance_1.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
+```
+
+* D'après vous, et sans faire de calcul, quelles sont les situations où il y a le plus de puissance 
+ 
+ +  entre $Y_1$ et $Y_2$ ?
+ +  entre $Y_2$ et $Y_3$ ?
+ +  entre $Y_1$ et $Y_4$ ?
+
+#### Visualisation des données
+
+* Visualisez les variables $Y_1$ pour voir s'il y a un éventuel effet de la variable qualitative `fac1`.
+* Calculez les statistiques descriptives par modalité
+* D'après vous, et à partir des graphes seulement, est-ce que le test de comparaison de moyenne sera significatif ?
+* Faire de même pour $Y_2$ et $Y_3$
+
+```{r boxplot, echo = FALSE}
+dta %>% 
+  ggplot() + aes(x=fac, y = Y1, col=fac) + 
+  geom_boxplot()+ geom_jitter()
+```
+
+```{r mean, echo = FALSE}
+stat_desc1 <- dta %>% 
+  group_by(fac) %>% 
+  summarise(Y1_mean = mean(Y1), 
+            Y1_sd = sd(Y1), 
+            Y1_q05 = quantile(Y1, probs = 0.05 ),
+            Y1_q50 = quantile(Y1, probs = 0.5 ),
+            Y1_q95 = quantile(Y1, probs = 0.95))
+stat_desc2 <- dta %>% 
+  group_by(fac) %>% 
+  summarise(Y2_mean = mean(Y2), 
+            Y2_sd = sd(Y2), 
+            Y2_q05 = quantile(Y2, probs = 0.05 ),
+            Y2_q50 = quantile(Y2, probs = 0.5 ),
+            Y2_q95 = quantile(Y2, probs = 0.95 ))
+stat_desc3 <- dta %>% 
+  group_by(fac) %>% 
+  summarise(Y3_mean = mean(Y3), 
+            Y3_sd = sd(Y3), 
+            Y3_q05 = quantile(Y3, probs = 0.05 ),
+            Y3_q50 = quantile(Y3, probs = 0.5 ),
+            Y3_q95 = quantile(Y3, probs = 0.95 ))
+```
+
+```{r stat_desc_html, echo = FALSE, eval = !is_pdf}
+stat_desc1 %>% 
+  kable(digits=2, format = "html", escape = FALSE) %>%
+  collapse_rows(columns = 1, valign = 'top') %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+stat_desc2 %>% 
+  kable(digits=2, format = "html", escape = FALSE) %>%
+  collapse_rows(columns = 1, valign = 'top') %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+stat_desc3 %>% 
+  kable(digits=2, format = "html", escape = FALSE) %>%
+  collapse_rows(columns = 1, valign = 'top') %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+```
+
+```{r stat_desc, echo = FALSE, eval = is_pdf}
+stat_desc1 %>% 
+  kable(digits=2, booktabs = T)%>%
+  kable_styling(latex_options = "striped")
+stat_desc2 %>% 
+  kable(digits=2, booktabs = T)%>%
+  kable_styling(latex_options = "striped")
+stat_desc3 %>% 
+  kable(digits=2, booktabs = T)%>%
+  kable_styling(latex_options = "striped")
+```
+
+#### Test statistique
+
+##### Test de comparaison de moyenne et anayse de variance à 1 facteur
+
+* Tester la significativité de la différence de moyennes de $Y_1$ quand le facteur `fac1` prend les modalités `A` et `B` (2 tests sont possibles). Faire de même avec $Y_2$ et $Y_3$.
+
+```{r modele1, echo = FALSE}
+mod1 <- anova(lm(Y1 ~ fac,data=dta))
+t.test(Y1 ~ fac,data = dta)
+t.test(Y2 ~ fac,data = dta)
+t.test(Y3 ~ fac,data = dta)
+```
+
+#### Calcul de puissance avec la fonction `power.t.test`
+
+A l'aide de la fonction `power.t.test`, déterminer dans quelle situation, entre celles qui ont permis les simultations de $Y_1$, $Y_2$, $Y_3$ et $Y_4$, la puissance de détecter une différence de moyenne est la plus importante.
+
+Commenter par rapport à la question 1.1.
+
+_Remarque_ : l'utilisation de la fonction `power.t.test` nécessite ici de connaître la différence de moyenne et l'écart-type __sans incertitude__.
+
+```{r, echo=TRUE,results='markup'}
+power.t.test(n=50, delta=1,sd=1,sig.level=0.05)
+```
+
+```{r, echo=FALSE}
+power.t.test(n=50, delta=0.1,sd=1,sig.level=0.05)
+power.t.test(n=50, delta=0.1,sd=0.05,sig.level=0.05)
+power.t.test(n=5, delta=0.1,sd=1,sig.level=0.05)
+```
+
+### Effet de la taille de l'échantillon et de la prise en compte d'un second facteur sur la puissance des tests
+
+* Importez le jeu de données intial `puissance_2.csv`.
+
+```{r}
+dta2 <- read.table('C:/Users/husson/AOBox/TD_2021_partage/puissance_2.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
+```
+
+#### Visualisation des données
+
+* Visualisez les variables $Y_4$ et $Y_5$ pour voir s'il y a un éventuel effet de la variable qualitative `fac1`.
+* Calculez les statistiques descriptives par modalité
+
+```{r, echo = FALSE}
+dta2 %>% 
+  ggplot() + aes(x=fact, y = Y4) + 
+  geom_boxplot()+ geom_jitter()
+```
+
+```{r mean4, echo = FALSE}
+stat_desc4 <- dta2 %>% 
+  group_by(fact) %>% 
+  summarise(Y4_mean = mean(Y4), 
+            Y4_sd = sd(Y4), 
+            Y4_q05 = quantile(Y4, probs = 0.05 ),
+            Y4_q50 = quantile(Y4, probs = 0.5),
+            Y4_q95 = quantile(Y4, probs = 0.95))
+stat_desc5 <- dta2 %>% 
+  group_by(fact) %>% 
+  summarise(Y5_mean = mean(Y5), 
+            Y5_sd = sd(Y5), 
+            Y5_q05 = quantile(Y5, probs = 0.05 ),
+            Y5_q50 = quantile(Y5, probs = 0.5),
+            Y5_q95 = quantile(Y5, probs = 0.95))
+```
+
+```{r stat_desc4_html, echo = FALSE, eval = !is_pdf}
+stat_desc4 %>% 
+  kable(digits=2, format = "html", escape = FALSE) %>%
+  collapse_rows(columns = 1, valign = 'top') %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+stat_desc5 %>% 
+  kable(digits=2, format = "html", escape = FALSE) %>%
+  collapse_rows(columns = 1, valign = 'top') %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+```
+
+```{r stat_desc4, echo = FALSE, eval = is_pdf}
+stat_desc4 %>% 
+  kable(digits=2, booktabs = T)%>%
+  kable_styling(latex_options = "striped")
+stat_desc5 %>% 
+  kable(digits=2, booktabs = T)%>%
+  kable_styling(latex_options = "striped")
+```
+
+#### Prise en compte d'un 2ème facteur
+
+* Visualisez la réponse Y5 en fonction du facteur `fact` mais en coloriant les points de couleur différente selon le facteur `fact2`.
+
+```{r, echo=FALSE}
+dta2 %>% 
+  ggplot() + aes(x = fact, y = Y5, col = fact2) + 
+  geom_point()
+```
+
+#### Tests
+* Ecrire le modèle et les hypothèses permettant de tester l'effet de la variable `fact` sur `Y4`. Faire de même avec `Y5` mais en prenant en compte l'effet de la variable `fact2`.
+
+```{r, echo = FALSE}
+t.test(Y4~fact,data=dta2)
+mod1 <- anova(lm(Y4 ~ fact,data=dta2))
+```
+
+```{r, echo = FALSE}
+t.test(Y5~fact,data=dta2)
+
+mod1 <- anova(lm(Y5 ~ fact,data=dta2))
+mod2 <- lm(Y5 ~ fact + fact2,data=dta2)
+anova(mod2)
+library(car)
+Anova(mod2)
+```
+### Calcul de la puissance d'un test
+
+On veut mettre en évidence un potentiel effet entre deux traitements A et B. On sait que l'écart-type de la variable réponse est de 1 mais la moyenne peut différer selon le traitement. On veut détecter une différence de moyenne si celle-ci dépasse 0.2. Combien faut-il faire de mesure si on veut détecter dans 80% des cas une telle différence au seuil 95% (utiliser la fonction `power.t.test`) ?
+
+```{r, echo=FALSE}
+power.t.test(delta=0.2, sd=1, sig.level=0.05, power=0.8)
+```
+
+
+### Conclusion de l'étude
+
+La puissance des tests augmente quand (rayer les mentions inutiles) : 
+
++ la variance augmente, 
++ le nombre d'individus augmente, 
++ l'écart entre les moyennes augmente.
+
+Si un 2ème facteur a un effet significatif, il faut (rayer les mentions inutiles) :
+
++ ne pas mettre ce 2ème facteur dans le modèle modèle,
++ mettre ce 2ème facteur dans le modèle et interpréter la significativité du test qui lui est associé associé sans regarder le test du 1er facteur
++ mettre ce 2ème facteur dans le modèle, même si celui-ci n'est pas intéressant à interpréter
+  
+## Le vocabulaire de la séance
+
+### Commandes R
+- t.test
+- anova
+- power.t.test
+- Anova (package car)
+
+### Environnement R
+
+
+### Statistique 
+- test de comparaison de moyenne
+- test d'analyse de la variance
+- puissance des tests

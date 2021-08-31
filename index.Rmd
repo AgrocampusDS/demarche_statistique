@@ -1,0 +1,70 @@
+---
+title: "Liste des Travaux dirigés du module démarche statistique"
+author: "UP Mathématiques appliquées"
+date: ''
+output:
+  html_document:
+    theme: united
+    css: style.css
+    highlight: tango
+  pdf_document:
+    number_sections: true
+    includes:
+      in_header: common_preamble.tex
+    keep_tex: yes
+mainfont: SourceSansPro
+header-includes:
+- \usepackage[default]{sourcesanspro}
+- \usepackage[T1]{fontenc}
+---
+
+
+
+Vous trouverez sur ce site les énonces de TDs associés au cours de démarche statistique
+
+```{r setup-TD_liste, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, cache= FALSE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'markup' )
+library(tidyverse)
+library(kableExtra)
+liste_td  <- list.files(pattern = '.Rmd')  
+
+
+ll <- lapply(liste_td, function(f){
+  if(! (f %in% c("vocabulaire.Rmd", "liste_TD.Rmd") ) ){
+    print(f)
+    td_content <- tibble(text = readLines(f) ) %>% 
+      mutate(TD = str_remove(f, pattern = '.Rmd')) %>% 
+      filter(str_detect(text, "title:")) %>%
+      mutate(Nom = str_remove(text, pattern = "title: [\'\"]"))    %>% 
+      mutate(Nom = str_sub(Nom, start = 1, end = -2)) %>% 
+      select(-text)
+    return(td_content)}
+})
+
+
+liste_complete <- do.call('rbind', ll) %>% 
+  mutate(TD_url = paste0(TD, '.html')) %>% 
+  arrange(Nom)
+
+
+```
+
+# {.tabset .tabset-fade .tabset-pills}
+
+
+## Liste des TDs du module 
+
+```{r echo = FALSE, eval = TRUE, results='markup'}
+
+liste_complete %>%
+  mutate(Lien = cell_spec(TD, "html", link = TD_url)) %>% 
+  select(-TD_url)    %>%
+  select(-TD) %>% 
+  kable("html", escape = FALSE) %>%
+  collapse_rows(columns = 1, valign = 'top') %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+
+
+
+```
+

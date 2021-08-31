@@ -1,0 +1,221 @@
+---
+title: 'TD1 : Charger, manipuler et visualiser des données dans R'
+author: "UP Mathématiques appliquées"
+date: ''
+output:
+  html_document:
+    theme: united
+    css: style.css
+    highlight: tango
+  pdf_document:
+    includes:
+      in_header: common_preamble.tex
+    keep_tex: yes
+mainfont: SourceSansPro
+header-includes:
+- \usepackage[default]{sourcesanspro}
+- \usepackage[T1]{fontenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# {.tabset .tabset-fade .tabset-pills}
+
+##  Objectifs de la séance  
+
+* Manipulation de données     
+  * Importer des données dans un objet R :
+    * différencier l'objet R du fichier contenant les données,
+    * vérifier la bonne importation.  
+  * Changer les libellés des variables
+* Visualisation de données     
+  * Représentation d'une variable qualitative
+  * Représentation d'une variable quantitative
+* Analyse de données     
+  * Faire la distinction entre variable quantitative et qualitative
+  
+## Exercices 
+
+### Importation de données dans R 
+
+#### Créer l'environnement de travail 
+
+Télécharger les données de manchots de Palmers `penguins.csv` disponibles sur la page des [jeux de données ](https://dsr-rennes.github.io/data.html) ainsi que le fichier `TD1_script.R` dans le répertoire Téléchargement par défaut.
+
+Créer un projet dans RStudio (à partir d'un nouveau répertoire) intitulé `ds_TD`.
+
+Déplacer le fichier de données ainsi que le fichier `TD1_script.R` vers ce nouveau répertoire `ds_TD`.
+
+Ouvrir le fichier `TD1_script.R` dans RStudio.
+
+
+Les lignes qui commencent par `#` ne sont pas interprétées par R, elles permettent de faire des commentaires et donc de contextualiser le script.
+
+
+####  Utiliser un script ` R` pour importer des données
+
+Exécuter la première ligne du script.
+
+* Que constatez-vous ?
+
+Exécuter la ligne suivante.
+
+```{r import, eval = TRUE, echo = FALSE}
+penguins <- read.table('penguins.csv', sep = ';', header = TRUE)
+
+```
+
+
+* Un objet apparaît dans l'environnement, quel est son nom ?
+* Que fait la fonction `read.table` ?
+* Quels arguments est-il important de spécifier pour une importation réussie ? 
+
+Il est essentiel de vérifier l'importation. La commande `summary` permet d'obtenir un résumé du jeu de données importé.
+
+* Exécuter la fonction `summary` en spécifiant l'argument adéquat pour vérifier l'importation. Discuter de la nature des variables.
+
+####  Utiliser une fonction d'un package pour renommer les variables
+
+`R` est un logiciel collaboratif, chacun peut contribuer à enrichir les fonctions de base en proposant un ensemble de fonctions appelé package. Pour utiliser un package, il faut l'installer une fois et le charger avant  chaque première utilisation.
+
+* Installer le package `tidyverse` à partir du menu.
+* Ajouter le chargement du package dans le script `TD1_script.R` grâce à la fonction `library( )` appliquée au package désiré.
+
+```{r tidyverse, eval = TRUE, echo = FALSE, message=FALSE}
+library(tidyverse)
+```
+
+On souhaite traduire certains libellés des variables de l’anglais vers le français. C'est possible avec la fonction `rename` (issue du package `tidyverse`).  
+
+* Que fait le code suivant ? 
+
+```{r code, eval = TRUE, echo = FALSE}
+penguins <- rename(.data = penguins, longueur_bec = bill_length_mm, 
+                   epaisseur_bec = bill_depth_mm)
+```
+
+* Renommer de la même manière `species` en espece, `island` en ile, `body_mass_g` en poids et `flipper_length_mm` en longueur_nageoire, `sex` en sexe et `year` en annee. (il faut éviter les caractères accenués et les espaces dans les noms de variables)
+
+```{r rename_esp, echo = FALSE, eval = TRUE}
+penguins <- rename(.data = penguins, espece = species, 
+                   ile = island, poids = body_mass_g,
+                   longueur_nageoire= flipper_length_mm,
+                   sexe = sex,
+                   annee = year)
+```
+
+### Visualisation de données
+
+
+#### Utiliser un package pour produire des graphiques 
+
+De nombreuses fonction de visualisation sont disponibles dans le package `ggplot2`. 
+
+* Installer puis charger le package `ggplot2`.
+
+#### Visualisation d'une variable qualitative à l'aide d'un diagramme en bâtons
+
+Une variable qualitative peut être visualisée à l'aide d'un diagramme en bâtons (barplot).
+
+* Ajouter la commande ci-dessous dans votre script`R` puis l'exécuter.
+
+```{r barplot, eval = FALSE}
+ggplot(data = penguins) + 
+  geom_bar(aes(x = espece))
+```
+
+La fonction `aes` permet de spécifier ce qui est représenté. Ici `aes( x = espece)` indique que la variable `espece` sera représentée sur l'abcisse du graphique. L'ordonnée n'étant pas spécifiée, le comportement par défaut sera utilisé et l'ordonnée correspond ainsi à l'effectif de chaque classe. 
+
+#### Visualisation d'une variable quantitative à l'aide d'un histogramme
+
+La distribution  des valeurs possibles d'une variable quantitative peut être représentée à l'aide d'un histogramme.
+
+* En vous aidant de la commandant précédente, proposer une commande pour dessiner un histogramme des longueurs de bec (fonction `geom_histogram`). 
+
+Par défaut, sans autre indication dans la fonction `aes`, l'ordonnée de l'histogramme indique l'effectif de manchots par classe de valeurs. Il est possible de demander des fréquences de chaque classe au lieu des effectifs. Dans ce cas, il faut modifier le comportement par défaut de la fonction `aes` pour spécifier l'ordonnée explicitement avec un mot réservé `..density..`. 
+
+```{r histogram,  fig.show='hide'}
+ggplot(data = penguins) +
+  geom_histogram(aes(x = longueur_bec, y = ..density..))
+```
+
+
+Il est possible de modifier le nombre de classes pour l'histogramme grâce à l'argument ` bins` de la fonction `geom_histogram`. 
+
+* Proposer une représentation de la distribution des longueurs de bec qui ne contient que 10 classes de valeurs.
+
+La couleur de fond de l'histogramme peut être modifiée grâce à l'argument `fill` .
+
+```{r histogram_fill, fig.show='hide'}
+ggplot(data = penguins) +
+  geom_histogram(aes(x = longueur_bec, y = ..density..), fill = 'green')
+```
+La couleur peut être choisie plus harmonieusement et spécifiée sous [format html](https://htmlcolorcodes.com/color-picker/), par exemple
+
+```{r histogram_fill_nice, fig.show='hide'}
+ggplot(data = penguins) +
+  geom_histogram(aes(x = longueur_bec, y = ..density..), fill = '#59C9A5')
+```
+Enfin, il est possible de modifier la couleur des traits
+
+```{r histogram_fill_nice_col, fig.show='hide'}
+ggplot(data = penguins) +
+  geom_histogram(aes(x = longueur_bec, y = ..density..), fill = '#59C9A5', col = '#5C6D70')
+```
+
+
+Il est possible de modifier le nombre de classes pour l'histogramme grâce à l'argument ` bins` de la fonction `geom_histogram`. 
+
+* Proposer une représentation de la distribution des longueurs de bec qui ne contient que 10 classes de valeurs.
+
+
+Il est possible d'enregistrer l'objet graphique produit par `R`.
+
+
+```{r histogram_save, fig.show='hide'}
+p1 <- ggplot(data = penguins) +
+  geom_histogram(aes(x = longueur_bec, y = ..density..))
+p1
+```
+
+Il est facile d'ajouter un titre grâce à la fonction ggtitle.
+
+```{r title, fig.show='hide'}
+p1 + 
+  ggtitle('Distribution des longueurs de becs chez les manchots')
+```
+
+### Terminer une session de travail 
+
+Il est essentiel de nettoyer (ne garder que les commandes pertinentes) et de sauvegarder le script final pour pouvoir le réutiliser lors d'une séance prochaine.
+
+* Enregistrer votre script avant de quitter `R`.  
+
+
+
+## Le vocabulaire de la séance
+
+### Commandes R
+- geom_bar
+- geom_histogram
+- ggplot
+- ggtitle
+- library
+- read.table
+- rename
+- summary
+
+
+### Environnement R
+- projet
+- script
+- fonction
+- argument
+- package
+
+### Statistique 
+- variable quantitative
+- variable qualitative
+- distribution d'une variable

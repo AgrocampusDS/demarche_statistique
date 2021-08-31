@@ -1,0 +1,14 @@
+name: "Démarche statistique"
+output_dir: "./build"
+navbar:
+ title: "Site web associé au cours de démarche statistique"
+ left:
+  - text: ""
+    icon: fa-github
+    href: https://github.com/AgrocampusDS/demarche_statistique
+
+
+output:
+  html_document:
+    theme: flatly
+    highlight: tango

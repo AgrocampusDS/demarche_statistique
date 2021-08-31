@@ -1,0 +1,240 @@
+---
+title: "TD6 : Puissance et comparaison post-Hoc"
+author: "UP Mathématique appliquée"
+date: ''
+output:
+  html_document:
+    theme: united
+    css: style.css
+    highlight: tango
+  pdf_document:
+    includes:
+      in_header: common_preamble.tex
+    keep_tex: yes
+mainfont: SourceSansPro
+header-includes:
+- \usepackage[default]{sourcesanspro}
+- \usepackage[T1]{fontenc}
+---
+
+
+```{r setup-TD5, include=FALSE, }
+knitr::opts_chunk$set(echo = FALSE, cache= TRUE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'hide' )
+library(tidyverse)
+library(kableExtra)
+out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+
+```
+
+```{r}
+print(out_type)
+
+is_pdf <-  (out_type=='latex')
+print(is_pdf)
+```
+
+# {.tabset .tabset-fade .tabset-pills}
+
+##  Objectifs de la séance  
+
+
+* Puissance des tests
+  + Effet de la taille de l'échantillon
+  + Etude par simulations
+* Analyse Post-Hoc (si test global significatif)
+  - Comparaison entre paires de modalités
+  - Tests d'hypothèses plus complexes par contrasts
+  
+## Exercices 
+
+
+### Problématique
+
+Dans une étude menée à l'université de Lyon, des scientifiques s'intéressent à l'association entre le sport pratiqué par un athlète et son développement morphologique. Pour répondre à cette question de recherche, les chercheurs vont chercher à tester l'hypothèse selon laquelle la carrure dépend du sport pratiqué.
+
+Plus précisément, cette étude s'est intéressée à six sports : l'athlétisme, le football, le handball, le judo, la natation et le volley. D'autre part, la carrure a été mesurée par la distance en cm entre les 2 épaules. Pour gagner du temps et limiter les coûts, les chercheurs réalisent un recueil de données où le nombre d'individus observés par sport est égal à $n_i=3$.
+
+### Analyse avec $n_i=3$
+
+
+#### Importation du premier jeu de données
+
+* Importer le jeu de données intial `dataSportV1.csv`. Vérifier que le jeu de données contient bien 18 individus statistiques : 3 individus par sport.
+
+
+```{r import_data_V1}
+data.sport.V1 <- read.table('/Users/memily/AOBox/Enseignement/2021-2022/DemarcheStat/TD_ME/dataSportV1.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
+```
+
+#### Visualisation des données
+
+* Visualiser les données pour avoir une idée de la distribution des carrures par sport et calculer quelques statistiques descriptives par sport.
+
+
+```{r boxplot_V1, echo = FALSE}
+data.sport.V1 %>% 
+  ggplot() + aes(x=Sport, y = Carrure, fill=Sport, col=Sport) + 
+  geom_boxplot()+ geom_jitter()
+```
+
+```{r mean_V1, echo = FALSE, results='markup'}
+stat_desc.V1 <- data.sport.V1 %>% 
+  group_by(Sport) %>% 
+  summarise(Carrure_mean = mean(Carrure), 
+            Carrure_sd = sd(Carrure)
+            #q05 = quantile(Carrure, probs = 0.05 ),
+            #q50 = quantile(Carrure, probs = 0.5 ),
+            #q95 = quantile(Carrure, probs = 0.95 )
+            )
+```
+
+```{r stat_desc_html_V1, echo = FALSE, results='markup', eval = TRUE}
+stat_desc.V1 %>% 
+  kable(digits=2, format = "html", escape = FALSE) %>%
+  collapse_rows(columns = 1, valign = 'top') %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+```
+
+
+#### Test statistique
+
+
+* Traduire la problématique ci-dessus sous la forme d'un test d'hypothèses.
+* Réaliser le test avec R et conclure
+
+##### Test global (=Effet des facteurs)
+
+
+```{r testGlobal_V1, echo = FALSE, results='markup'}
+mod.V1 <- lm(Carrure ~ Sport,data=data.sport.V1)
+mod0.V1 <- lm(Carrure~1,data=data.sport.V1)
+anova(mod0.V1,mod.V1)
+```
+
+### Analyse avec $n_i=13$
+
+Surpris du résultat, les chercheurs organisent une seconde collecte de données qui permet d'augmenter la taille de l'échantillon avec 10 observations supplémentaires par sport pour arriver à $n_i=13$.
+
+#### Importation du jeu de données final
+
+* Importer les 10 nouveaux individus statistiques à partir de la table `dataSportV2.csv`. Vérifier que ce nouveau jeu de données contient bien 60 individus : 10 individus par sport.
+
+```{r import_data_V2}
+data.sport.V2 <- read.table('/Users/memily/AOBox/Enseignement/2021-2022/DemarcheStat/TD_ME/dataSportV2.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
+```
+
+A l'aide de la fonction *bind_rows*, créer le jeu de données complet, que vous nommerez *data.sport.Vf*, contenant les 13 individus statistiques.
+
+```{r import_data_Vf}
+data.sport.Vf <- bind_rows(data.sport.V1,data.sport.V2)
+```
+
+#### Visualisation des données
+
+* Comme pour le jeu de données initial, visualiser et calculer quelques statistiques descriptives par sport. Comparer avec la visualisation et le résumé obtenu pour $n_i=3$, en particulier comparer la moyenne et la variance de la carrure par sport.
+
+```{r boxplot_Vf, echo = FALSE}
+data.sport.Vf %>% 
+  ggplot() + aes(x=Sport, y = Carrure, fill=Sport, col=Sport) + 
+  geom_boxplot()+ geom_jitter()
+```
+
+```{r mean_Vf, echo = FALSE, results='markup'}
+stat_desc.Vf <- data.sport.Vf %>% 
+  group_by(Sport) %>% 
+  summarise(Carrure_mean = mean(Carrure), 
+            Carrure_sd = sd(Carrure)
+            #q05 = quantile(Carrure, probs = 0.05 ),
+            #q50 = quantile(Carrure, probs = 0.5 ),
+            #q95 = quantile(Carrure, probs = 0.95 )
+            )
+```
+
+```{r stat_desc_html_Vf, echo = FALSE, results='markup', eval = !is_pdf}
+stat_desc.Vf %>% 
+  kable(digits=2, format = "html", escape = FALSE) %>%
+  collapse_rows(columns = 1, valign = 'top') %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+```
+
+```{r stat_desc_pdf_Vf, echo = FALSE, results='markup', eval = is_pdf}
+stat_desc.V1 %>% 
+  kable(digits=2, booktabs = T)%>%
+  kable_styling(latex_options = "striped")
+```
+
+#### Test statistique
+
+* Ecrire le modèle et les hypothèses permettant de tester l'effet du sport sur la carrure.
+* Réaliser le test avec R.
+
+
+##### Test global (=Effet des facteurs)
+
+
+```{r testGlobal_Vf, echo = FALSE, results='markup', eval=FALSE}
+mod.Vf <- lm(Carrure ~ Sport,data=data.sport.Vf)
+mod0.Vf <- lm(Carrure~1,data=data.sport.Vf)
+anova(mod0.Vf,mod.Vf)
+```
+
+##### Test Post-Hoc (=Comparaison entre les modalités des facteurs)
+
+```{r testCoeff_Vf, echo = FALSE, results='markup', eval=FALSE}
+summary(mod.Vf)
+```
+
+
+```{r testCoeff2_Vf, echo = FALSE, results='markup', eval=FALSE}
+pairwise.t.test(data.sport.Vf$Carrure, data.sport.Vf$Sport, p.adj = "bonf")
+```
+
+Si le test est significatif, on cherche à déterminer quels sports permettent de développer des carrures significativement différentes.
+
+* Exprimer cette question sous la forme d'hypothèses statistiques.
+
+* A l'aide de la fonction *emmeans* du package *emmeans*, tester quelles sont les sports qui, deux à deux, donnent des carrures différentes.
+
+```{r testCoeff3_Vf, echo = FALSE, results='markup',eval=FALSE}
+library(emmeans)
+sport_comp_Vf <- emmeans(mod.Vf,  ~ Sport )
+pairs(sport_comp_Vf)
+plot(sport_comp_Vf)
+```
+
+
+##### Test Post-Hoc (Pour aller plus loin)
+
+Les scientifiques cherchent à présent à savoir si les sports collectifs donnent une carrure différente de celle pour les sportifs pratiquant un sport individuel.
+
+*  Exprimer cette question sous la forme d'un test d'hypothèse qui s'appuie sur le modèle global.
+
+* A l'aide de la fonction *glht* du package *multcomp*, effectuer ce test sous R.
+
+```{r testCoeff4_Vf, echo = FALSE, results='markup', eval=FALSE}
+require(multcomp)
+#test_AllPairs <- glht(mod.Vf,linfct=mcp(Sport="Tukey"))
+#summary(test_AllPairs, test = adjusted("bonferroni"))
+
+test_IndividualVsCollectif <- glht(mod.Vf,linfct=mcp(Sport=c(1,-1,-1,1,1,-1)))
+summary(test_IndividualVsCollectif, test = adjusted("bonferroni"))
+```
+
+
+### Conclusion de l'étude
+
+L'effet d'un facteur sur une variable réponse doit être testé en premier. Si un facteur a un effet, il est alors possible d'aller *creuser* quelles sont les modalités (ou les combinaisons de modalités) du facteur qui ont une moyenne de la variable réponse différente.
+
+
+## Le vocabulaire de la séance
+
+### Commandes R
+- anova et lm
+- pairwise.t.test
+- emmeans (package emmeans)
+- glht (package multcomp)
+
+### Statistique 
+- Effet de la taille d'échantillon sur la puissance de détection
+- test d'analyse de la variance
+- test post-hoc (comparaison entre modalités d'un facteur)

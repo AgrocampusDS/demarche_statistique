@@ -1,0 +1,19 @@
+
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\renewcommand{\familydefault}{\sfdefault}
+
+%%% title in small caps
+\usepackage{titlesec}
+\renewcommand\thesection{\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\arabic{subsubsection}}
+\renewcommand{\theparagraph}{\arabic{subsubsection}.\arabic{paragraph}}
+\titleformat{\section}{\bf\scshape\Large}{}{1em}{}
+ \titleformat{\subsubsection}[block]{\bf\scshape\large\hspace{1em}}{\thesubsubsection}{1em}{}
+\titleformat{\paragraph}[block]{\it\hspace{1em}}{\theparagraph}{2em}{}
+

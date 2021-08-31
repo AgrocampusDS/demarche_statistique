@@ -1,0 +1,209 @@
+---
+title: "TD7 : Analyse de variance à 2 facteurs"
+author: "UP Mathématique appliquée"
+date: ''
+output:
+  html_document:
+    theme: united
+    css: style.css
+    highlight: tango
+  pdf_document:
+    includes:
+      in_header: common_preamble.tex
+    keep_tex: yes
+mainfont: SourceSansPro
+header-includes:
+- \usepackage[default]{sourcesanspro}
+- \usepackage[T1]{fontenc}
+---
+
+
+```{r setup-TD5, include=FALSE, }
+knitr::opts_chunk$set(echo = FALSE, cache= TRUE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'hide' )
+library(tidyverse)
+library(kableExtra)
+out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+
+```
+
+```{r}
+print(out_type)
+
+is_pdf <-  (out_type=='latex')
+print(is_pdf)
+```
+
+# {.tabset .tabset-fade .tabset-pills}
+
+##  Objectifs de la séance  
+
+
+* Analyse de variance à 2 facteurs
+  + Prise en compte d'un 2ème facteur
+* Puissance des tests
+  + Effet de la taille de l'échantillon
+  + Etude par simulations
+
+## Exercices 
+
+
+### Problématique
+
+On cherche à évaluer comment sont perçues 6 compotes de pommes au niveau de la saveur de pomme crue. Une dégustation est mise en place et 6 juges vont déguster chacune des 6 copmotes. Les notes sont attribuées sur une échelle allant de 0 à 10.
+
+La question est donc de savoir si certaines compotes sont en moyenne perçues comme ayant une plus forte saveur de pomme crue.
+
+### Analyse prenant en compte l'effet compote uniquement
+
+
+#### Importation du premier jeu de données
+
+* Importez le jeu de données intial `compote.csv`.
+
+```{r import_data}
+dta <- read.table('C:/Users/husson/AOBox/TD_2021_partage/compote.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
+dta$juge <- as.factor(dta$juge)
+dta$compote <- as.factor(dta$compote)
+```
+
+#### Visualisation des données
+
+* Visualisez les données pour avoir une idée des saveurs de pomme crue selon les compotes et calculez quelques statistiques descriptives par compote.
+
+```{r boxplot, echo = FALSE}
+dta %>% 
+  ggplot() + aes(x=compote, y = S.pom.crue, col=compote) + 
+  geom_boxplot()+ geom_jitter()
+```
+
+```{r mean, echo = FALSE, results='markup'}
+stat_desc <- dta %>% 
+  group_by(compote) %>% 
+  summarise(note_mean = mean(S.pom.crue), 
+            S.pom.crue_sd = sd(S.pom.crue), 
+            q05 = quantile(S.pom.crue, probs = 0.05 ),
+            q50 = quantile(S.pom.crue, probs = 0.5 ),
+            q95 = quantile(S.pom.crue, probs = 0.95 )
+            )
+```
+
+```{r stat_desc_html, echo = FALSE, results='markup', eval = !is_pdf}
+stat_desc %>% 
+  kable(digits=2, format = "html", escape = FALSE) %>%
+  collapse_rows(columns = 1, valign = 'top') %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+```
+
+```{r stat_desc, echo = FALSE, results='markup', eval = is_pdf}
+stat_desc %>% 
+  kable(digits=2, booktabs = T)%>%
+  kable_styling(latex_options = "striped")
+```
+
+
+#### Test statistique
+
+On cherche à savoir si la saveur de pomme crue est différente selon la compote.
+
+##### Test global (=Effet des facteurs)
+
+
+```{r modele1, echo = TRUE, results='markup'}
+mod1.compote <- lm(S.pom.crue ~ compote,data=dta)
+mod0 <- lm(S.pom.crue~1,data=dta)
+anova(mod0,mod1.compote)
+```
+
+### Prise en compte de la variable juge
+
+Surpris du résultat, on décide de prendre en compte la variable juge.
+
+#### Visualisation
+
+* Visualisez les notes en fonction de la compote mais en coloriant les points de couleur différente selon les juges.
+
+```{r ggplot}
+dta %>% 
+  ggplot() + aes(x=compote, y = S.pom.crue, col=juge) + 
+  geom_point()
+```
+
+#### Test statistique
+
+* Ecrire le modèle et les hypothèses permettant de tester l'effet compote sur la saveur mais en prenant en compte l'effet du juge.
+* Réaliser le test avec R.
+
+
+##### Test global (= Effet des facteurs)
+
+Plusieurs modèles ont été construits, et plusieurs tests sont proposés permettant de tester un modèle contre un autre. 
+
+* Dire à quelle question répond chacune des tests ci-dessous.
+* Par rapport à la problématique permettant de savoir s'il y a des différences de saveur de pomme crue entre les compotes, dire quels tests vous allez commenter.
+* Commenter et interpréter le test en lien avec votre problématique.
+
+```{r testGlobal, echo = TRUE, results='markup'}
+mod2 <- lm(S.pom.crue ~ compote + juge,data=dta)
+mod1.compote <- lm(S.pom.crue ~ compote,data=dta)
+mod1.juge <- lm(S.pom.crue ~ juge,data=dta)
+anova(mod2,mod0)
+anova(mod2,mod1.juge)
+anova(mod2,mod1.compote)
+```
+
+* Dans le modele mod1.compote, où se trouve la variabilité associé aux juges ? Pourquoi cela est-il gênant losqu'on s'intéresse à tester un effet compote ?
+
+* La fonction `Anova` (avec un A majuscule) du package `car` (qu'il vous faudra sûrement installer) permet de retrouver en une seule commande les probabilités critiques de chacun des effets. Retrouver ces probabilités critiques.
+Remarque : dans le cas de données déséquilibrées, les probabilités critiques obtenus avec `anova' et `Anova' peuvent être légèrement différentes. On préférera généralement utiliser les résultats fournis par la fonction `Anova'. 
+
+```{r Anova, echo = TRUE, results='markup'}
+library(car)
+Anova(mod2)
+```
+
+##### Test Post-Hoc (=Comparaison entre les modalités des facteurs)
+
+```{r emmeans, echo = TRUE, results='markup'}
+library(emmeans)
+comparaison_compote <- emmeans(mod2,  ~ compote )
+pairs(comparaison_compote)
+plot(comparaison_compote)
+```
+
+```{r multcomp, echo = TRUE, results='markup'}
+require(multcomp)
+test_AllPairs <- glht(mod2,linfct=mcp(compote="Tukey"))
+summary(test_AllPairs, test = adjusted("bonferroni"))
+```
+
+On peut aussi tester si la saveur de pomme crue d'une compote particulière est égale ou différente de la moyenne de l'ensemble des compotes. La moyenne correspond à des coefficient de -1.6 pour chaque compote, et donc si on compare la chaque compote à la moyenne, on écria:
+
+```{r , echo = TRUE, results='markup'}
+Tests <- rbind("comp1 - moy"=c((1 -1/6),-1/6,-1/6,-1/6,-1/6,-1/6),
+              "comp2 - moy"=c(-1/6,(1 -1/6),-1/6,-1/6,-1/6,-1/6),
+              "comp3 - moy"=c(-1/6,-1/6,(1 -1/6),-1/6,-1/6,-1/6),
+              "comp4 - moy"=c(-1/6,-1/6,-1/6,(1 -1/6),-1/6,-1/6),
+              "comp5 - moy"=c(-1/6,-1/6,-1/6,-1/6,(1 -1/6),-1/6),
+              "comp6 - moy"=c(-1/6,-1/6,-1/6,-1/6,-1/6),(1 -1/6))
+test_1Pair <- glht(mod2,linfct=mcp(compote=Tests))
+summary(test_1Pair, test = adjusted("bonferroni"))
+```
+
+### Conclusion de l'étude
+
+Il est indispensable de lister tous les facteurs qui peuvent influer sur la variable réponse, même si ceux-ci ne sont pas intéressants à interpréter. Cela permet de réduire la variabilité résiduelle et par suite de mieux mettre en évidence l'effet potentiel qui nous intéresse.
+
+## Le vocabulaire de la séance
+
+### Commandes R
+- anova et lm
+- Anova (package car)
+- emmeans (package emmeans)
+- glht (package multcomp)
+
+### Environnement R
+
+
+### Statistique 
+- test d'analyse de la variance
+- test post-hoc (comparaison entre modalités d'un facteur)
