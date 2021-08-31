@@ -1,0 +1,22 @@
+name: website
+on:
+  push:
+    branches:
+      - master
+
+jobs:   
+  build:
+    name: Build website with rmarkdown
+    runs-on: ubuntu-latest
+    container: stateofther/demarche_statistique:0.1
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Generate slides
+        run: Rscript -e "rmarkdown::render_site(encoding = 'UTF-8')"
+      - name: GitHub Pages action
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
