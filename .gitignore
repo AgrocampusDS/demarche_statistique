@@ -2,3 +2,10 @@
 .Rhistory
 .RData
 .Ruserdata
+*_html
+*_files
+*_cache
+TD*.html
+site_libs/
+	
+

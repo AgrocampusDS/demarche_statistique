@@ -12,7 +12,7 @@ header-includes:
 - \usepackage[default]{sourcesanspro}
 - \usepackage[T1]{fontenc}
 ---
-```{r setup-TD2, include=FALSE}
+```{r setup-TDvocabulaire, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, cache= FALSE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'markup' )
 library(tidyverse)
 library(kableExtra)
