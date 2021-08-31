@@ -1,5 +1,5 @@
 ---
-title: "Liste des Travaux dirigés du module démarche statistique"
+title: "UC  démarche statistique"
 author: "UP Mathématiques appliquées"
 date: ''
 output:
@@ -15,7 +15,7 @@ header-includes:
 
 
 
-Vous trouverez sur ce site les énonces de TDs associés au cours de démarche statistique
+Vous trouverez sur ce site les énoncés de TDs associés au cours de démarche statistique
 
 ```{r setup-TD_liste, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, cache= FALSE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'markup' )

@@ -1,7 +1,7 @@
 name: "Démarche statistique"
 output_dir: "./build"
 navbar:
- title: "Site web associé au cours de démarche statistique"
+ title: "Agrocampus Ouest : démarche statistique"
  left:
   - text: ""
     icon: fa-github
