@@ -658,37 +658,12 @@ st mamet
 ## Results are averaged over the levels of: juge 
 ## P value adjustment: tukey method for comparing a family of 6 estimates</code></pre>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(comparaison_compote)</span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(multcomp)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>test_AllPairs <span class="ot">&lt;-</span> <span class="fu">glht</span>(mod2,<span class="at">linfct=</span><span class="fu">mcp</span>(<span class="at">compote=</span><span class="st">&quot;Tukey&quot;</span>))</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(test_AllPairs, <span class="at">test =</span> <span class="fu">adjusted</span>(<span class="st">&quot;bonferroni&quot;</span>))</span></code></pre></div>
-<pre><code>## 
-##   Simultaneous Tests for General Linear Hypotheses
-## 
-## Multiple Comparisons of Means: Tukey Contrasts
-## 
-## 
-## Fit: lm(formula = S.pom.crue ~ compote + juge, data = dta)
-## 
-## Linear Hypotheses:
-##                             Estimate Std. Error t value Pr(&gt;|t|)  
-## carrefour - andros == 0    5.000e-01  9.623e-01   0.520   1.0000  
-## delisse - andros == 0      2.000e+00  9.623e-01   2.078   0.7213  
-## poti - andros == 0        -1.167e+00  9.623e-01  -1.212   1.0000  
-## scoup - andros == 0       -1.000e+00  9.623e-01  -1.039   1.0000  
-## st mamet - andros == 0    -1.000e+00  9.623e-01  -1.039   1.0000  
-## delisse - carrefour == 0   1.500e+00  9.623e-01   1.559   1.0000  
-## poti - carrefour == 0     -1.667e+00  9.623e-01  -1.732   1.0000  
-## scoup - carrefour == 0    -1.500e+00  9.623e-01  -1.559   1.0000  
-## st mamet - carrefour == 0 -1.500e+00  9.623e-01  -1.559   1.0000  
-## poti - delisse == 0       -3.167e+00  9.623e-01  -3.291   0.0446 *
-## scoup - delisse == 0      -3.000e+00  9.623e-01  -3.118   0.0681 .
-## st mamet - delisse == 0   -3.000e+00  9.623e-01  -3.118   0.0681 .
-## scoup - poti == 0          1.667e-01  9.623e-01   0.173   1.0000  
-## st mamet - poti == 0       1.667e-01  9.623e-01   0.173   1.0000  
-## st mamet - scoup == 0      3.331e-16  9.623e-01   0.000   1.0000  
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## (Adjusted p values reported -- bonferroni method)</code></pre>
+<p><img src="TD7_files/figure-html/emmeans-1.png" width="672" /></p>
+<!-- ```{r multcomp, echo = TRUE, results='markup'} -->
+<!-- require(multcomp) -->
+<!-- test_AllPairs <- glht(mod2,linfct=mcp(compote="Tukey")) -->
+<!-- summary(test_AllPairs, test = adjusted("bonferroni")) -->
+<!-- ``` -->
 <!-- On peut aussi tester si la saveur de pomme crue d'une compote particulière est égale ou différente de la moyenne de l'ensemble des compotes. La moyenne correspond à des coefficients de -1/6 pour chaque compote, et donc si on compare la note de chaque compote à la note moyenne moyenne, on écrira: -->
 <!-- ```{r , echo = TRUE, results='markup'} -->
 <!-- Tests <- rbind("comp1 - moy"=c((1 - 1/6),-1/6,-1/6,-1/6,-1/6,-1/6), -->
@@ -725,8 +700,8 @@ st mamet
 <div id="statistique" class="section level3">
 <h3>Statistique</h3>
 <ul>
-<li>test d’analyse de la variance</li>
-<li>test post-hoc (comparaison entre modalités d’un facteur)</li>
+<li>Test d’analyse de la variance</li>
+<li>Test post-hoc (comparaison entre modalités d’un facteur)</li>
 </ul>
 </div>
 </div>
