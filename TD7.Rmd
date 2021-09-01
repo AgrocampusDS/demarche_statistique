@@ -172,18 +172,18 @@ summary(test_AllPairs, test = adjusted("bonferroni"))
 ```
 
 
-On peut aussi tester si la saveur de pomme crue d'une compote particulière est égale ou différente de la moyenne de l'ensemble des compotes. La moyenne correspond à des coefficients de -1/6 pour chaque compote, et donc si on compare la note de chaque compote à la note moyenne moyenne, on écrira:
+<!-- On peut aussi tester si la saveur de pomme crue d'une compote particulière est égale ou différente de la moyenne de l'ensemble des compotes. La moyenne correspond à des coefficients de -1/6 pour chaque compote, et donc si on compare la note de chaque compote à la note moyenne moyenne, on écrira: -->
 
-```{r , echo = TRUE, results='markup'}
-Tests <- rbind("comp1 - moy"=c((1 - 1/6),-1/6,-1/6,-1/6,-1/6,-1/6),
-              "comp2 - moy"=c(-1/6,(1 -1/6),-1/6,-1/6,-1/6,-1/6),
-              "comp3 - moy"=c(-1/6,-1/6,(1 -1/6),-1/6,-1/6,-1/6),
-              "comp4 - moy"=c(-1/6,-1/6,-1/6,(1 -1/6),-1/6,-1/6),
-              "comp5 - moy"=c(-1/6,-1/6,-1/6,-1/6,(1 -1/6),-1/6),
-              "comp6 - moy"=c(-1/6,-1/6,-1/6,-1/6,-1/6,(1 -1/6)))
-test_1Pair <- glht(mod2,linfct=mcp(compote=Tests))
-summary(test_1Pair, test = adjusted("bonferroni"))
-```
+<!-- ```{r , echo = TRUE, results='markup'} -->
+<!-- Tests <- rbind("comp1 - moy"=c((1 - 1/6),-1/6,-1/6,-1/6,-1/6,-1/6), -->
+<!--               "comp2 - moy"=c(-1/6,(1 -1/6),-1/6,-1/6,-1/6,-1/6), -->
+<!--               "comp3 - moy"=c(-1/6,-1/6,(1 -1/6),-1/6,-1/6,-1/6), -->
+<!--               "comp4 - moy"=c(-1/6,-1/6,-1/6,(1 -1/6),-1/6,-1/6), -->
+<!--               "comp5 - moy"=c(-1/6,-1/6,-1/6,-1/6,(1 -1/6),-1/6), -->
+<!--               "comp6 - moy"=c(-1/6,-1/6,-1/6,-1/6,-1/6,(1 -1/6))) -->
+<!-- test_1Pair <- glht(mod2,linfct=mcp(compote=Tests)) -->
+<!-- summary(test_1Pair, test = adjusted("bonferroni")) -->
+<!-- ``` -->
 
 ### Conclusion de l'étude
 
