@@ -432,7 +432,7 @@ $(document).ready(function () {
 <ul>
 <li>Créer un nouveau jeu de données à partir du jeu de données penguins, en supprimant la variable <code>poids</code>.</li>
 </ul>
-<p>Il est possible de sauvegarder ce jeu de données simplifier dans l’objet penguins lui-même, c’est ce qu’illustre la ligne de commande suivante :</p>
+<p>Il est possible de sauvegarder ce jeu de données simplifié dans l’objet penguins lui-même, c’est ce qu’illustre la ligne de commande suivante :</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> <span class="fu">select</span>( <span class="sc">-</span>poids)</span></code></pre></div>
 </div>
 <div id="sélectionner-des-individus-opérations-sur-les-lignes" class="section level4">
@@ -455,7 +455,7 @@ $(document).ready(function () {
 </ul>
 <p>Remarque : pour transformer vos variables, vous utiliserez des opérateurs arithmétiques tels que <code>+</code>, pour additionner deux variables par exemple.</p>
 <ul>
-<li>Dans le jeu de données penguins, le sexe de certains individus n’est pas renseigné. On peut identifier ces individus grâce à la commande</li>
+<li>Dans le jeu de données penguins, le sexe de certains individus n’est pas renseigné (on parle de données manquantes - Not Available en anglais). On peut identifier ces individus grâce à la commande</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">is.na</span>(sexe))</span></code></pre></div>
 <ul>
@@ -493,7 +493,7 @@ $(document).ready(function () {
 <ul>
 <li>Rappeler la nature des varaibles <code>sexe</code> et <code>longueur_bec</code>.</li>
 </ul>
-<p>Les boîtes à moustaches sont une représentation adaptée à la visualisation de l’effet d’une variable qualitative sur une variable quantitative, elles sont obtenues dans <code>R</code> grâce à la fonction graphique <code>geom_boxplot</code>. Il faut spécifier que l’abcisse est la variable qualitative et l’ordonnée la variable quantitative.</p>
+<p>Les boîtes à moustaches sont une représentation adaptée à la visualisation de l’effet d’une variable qualitative sur une variable quantitative, elles sont obtenues dans <code>R</code> grâce à la fonction graphique <code>geom_boxplot</code>. Il faut spécifier que l’abscisse est la variable qualitative et l’ordonnée la variable quantitative.</p>
 <ul>
 <li>Représenter à l’aide de boîtes à moustaches les distributions des longueurs de bec en fonction du sexe.</li>
 </ul>
@@ -502,8 +502,8 @@ $(document).ready(function () {
 <div id="visualiser-le-lien-entre-taille-du-bec-et-longueur-des-nageoires" class="section level4">
 <h4>Visualiser le lien entre taille du bec et longueur des nageoires</h4>
 <ul>
-<li><p>Rappeler la nature des variables longueur du bec et longueur des nageoires. Quelle sorte de graphique semple le plus adpatée ?</p></li>
-<li><p>Utiliser la fonction graphique <code>geom_point</code> en précisant bien les abcisses et les ordonnées pour obtenir une visulaisation du lien entre la longueur des nageaoires sur la longueur du bec.</p></li>
+<li><p>Rappeler la nature des variables longueur du bec et longueur des nageoires. Quelle sorte de graphique semble le plus adpatée ?</p></li>
+<li><p>Utiliser la fonction graphique <code>geom_point</code> en précisant bien les abscisses et les ordonnées pour obtenir une visulaisation du lien entre la longueur des nageaoires sur la longueur du bec.</p></li>
 <li><p>Utiliser la couleur pour différencier les mâles des femelles.</p></li>
 <li><p>Ajouter un titre au graphique précédent</p></li>
 </ul>
@@ -514,19 +514,19 @@ $(document).ready(function () {
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>manchots <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sexe, <span class="at">y =</span> longueur_bec))  <span class="sc">+</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span><span class="st">&#39;Sexe&#39;</span>, <span class="at">y =</span> <span class="st">&#39;Longueur du bec (mm)&#39;</span> )</span></code></pre></div>
-<p>Il est également possible de représenter les données elles-mêmes. On peut utiliser la commande <code>geom_point</code> qui va dessiner un point aux abcisses et ordonnées spécifiées.</p>
+<p>Il est également possible de représenter les données elles-mêmes. On peut utiliser la commande <code>geom_point</code> qui va dessiner un point aux abscisses et ordonnées spécifiées.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>manchots <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sexe, <span class="at">y =</span> longueur_bec))  <span class="sc">+</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span><span class="st">&#39;Sexe&#39;</span>, <span class="at">y =</span> <span class="st">&#39;Longueur du bec (mm)&#39;</span> ) <span class="sc">+</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> sexe, <span class="at">y =</span> longueur_bec))  </span></code></pre></div>
-<p>Le résultat n’est pas très satisfaisant, car tous les points ayant la même abcisse, il est difficile de les différencier. Il est possible de perturber légèrement l’abcisse de manière à mieux distinguer les différentes mesures.</p>
+<p>Le résultat n’est pas très satisfaisant, car tous les points ayant la même abscisse, il est difficile de les différencier. Il est possible de perturber légèrement l’abscisse de manière à mieux distinguer les différentes mesures.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>manchots <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sexe, <span class="at">y =</span> longueur_bec))  <span class="sc">+</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span><span class="st">&#39;Sexe&#39;</span>, <span class="at">y =</span> <span class="st">&#39;Longueur du bec (mm)&#39;</span> ) <span class="sc">+</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">x =</span> sexe, <span class="at">y =</span> longueur_bec))  </span></code></pre></div>
 <p>Finalement pour avoir un très joli graphique, il est possible de</p>
 <ul>
-<li>limiter la perturbation de l’abcisse,</li>
+<li>limiter la perturbation de l’abscisse,</li>
 <li>dessiner des points plus petits,</li>
 <li>les rendre légèrement transparents.</li>
 </ul>
