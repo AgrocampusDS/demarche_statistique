@@ -38,7 +38,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 
 #### Créer l'environnement de travail 
 
-Télécharger les données de manchots de Palmers `penguins.csv` disponibles sur la page des [jeux de données ](https://dsr-rennes.github.io/https://agrocampusds.github.io/demarche_statistique/index.html#scripts-et-donn%C3%A9es) ainsi que le fichier `TD1_script.R` dans le répertoire Téléchargement par défaut.
+Télécharger les données de manchots de Palmers `penguins.csv` disponibles sur la page des [jeux de données ](ttps://agrocampusds.github.io/demarche_statistique/index.html#scripts-et-donn%C3%A9es) ainsi que le fichier `TD1_script.R` dans le répertoire Téléchargement par défaut.
 
 Créer un projet dans RStudio (à partir d'un nouveau répertoire) intitulé `ds_TD`.
 
