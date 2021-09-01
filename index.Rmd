@@ -202,4 +202,4 @@ Les travaux dirigés sont l'occasion d'explorer quelques fonctionalités de R, s
 
 **Des aides mémoires **
 
-* (Data Wrangling Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
+* [Data Wrangling Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
