@@ -423,7 +423,7 @@ $(document).ready(function () {
 <p>On souhaite traduire certains libellés des variables de l’anglais vers le français. C’est possible avec la fonction <code>rename</code> (issue du package <code>tidyverse</code>).</p>
 <ul>
 <li><p>Que fait le code suivant ?</p></li>
-<li><p>Renommer de la même manière <code>species</code> en espece, <code>island</code> en ile, <code>body_mass_g</code> en poids et <code>flipper_length_mm</code> en longueur_nageoire, <code>sex</code> en sexe et <code>year</code> en annee. (il faut éviter les caractères accenués et les espaces dans les noms de variables)</p></li>
+<li><p>Renommer de la même manière <code>species</code> en espece, <code>island</code> en ile, <code>body_mass_g</code> en poids et <code>flipper_length_mm</code> en longueur_nageoire, <code>sex</code> en sexe et <code>year</code> en annee. (il faut éviter les caractères accentués et ne pas utiliser les espaces dans les noms de variables)</p></li>
 </ul>
 </div>
 </div>
@@ -440,11 +440,11 @@ $(document).ready(function () {
 <h4>Visualisation d’une variable qualitative à l’aide d’un diagramme en bâtons</h4>
 <p>Une variable qualitative peut être visualisée à l’aide d’un diagramme en bâtons (barplot).</p>
 <ul>
-<li>Ajouter la commande ci-dessous dans votre script<code>R</code> puis l’exécuter.</li>
+<li>Ajouter la commande ci-dessous dans votre script <code>R</code> puis l’exécuter.</li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins) <span class="sc">+</span> </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> espece))</span></code></pre></div>
-<p>La fonction <code>aes</code> permet de spécifier ce qui est représenté. Ici <code>aes( x = espece)</code> indique que la variable <code>espece</code> sera représentée sur l’abcisse du graphique. L’ordonnée n’étant pas spécifiée, le comportement par défaut sera utilisé et l’ordonnée correspond ainsi à l’effectif de chaque classe.</p>
+<p>La fonction <code>aes</code> permet de spécifier ce qui est représenté. Ici <code>aes( x = espece)</code> indique que la variable <code>espece</code> sera représentée sur l’abscisse du graphique. L’ordonnée n’étant pas spécifiée, le comportement par défaut sera utilisé et l’ordonnée correspond ainsi à l’effectif de chaque classe.</p>
 </div>
 <div id="visualisation-dune-variable-quantitative-à-laide-dun-histogramme" class="section level4">
 <h4>Visualisation d’une variable quantitative à l’aide d’un histogramme</h4>
