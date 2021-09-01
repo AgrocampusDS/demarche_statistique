@@ -63,7 +63,7 @@ liste_complete %>%
 
 ```
 
-## Liste des scripts et jeux de données utilisés dans le module
+## Scripts et données
 
 
 ### Script
