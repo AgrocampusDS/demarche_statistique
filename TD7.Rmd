@@ -158,18 +158,18 @@ Anova(mod2)
 
 ##### Test Post-Hoc (=Comparaison entre les modalités des facteurs)
 
-```{r emmeans, echo = TRUE, results='markup'}
+```{r emmeans, echo = TRUE, results='markup', fig.show='asis'}
 library(emmeans)
 comparaison_compote <- emmeans(mod2,  ~ compote )
 pairs(comparaison_compote)
 plot(comparaison_compote)
 ```
 
-```{r multcomp, echo = TRUE, results='markup'}
-require(multcomp)
-test_AllPairs <- glht(mod2,linfct=mcp(compote="Tukey"))
-summary(test_AllPairs, test = adjusted("bonferroni"))
-```
+<!-- ```{r multcomp, echo = TRUE, results='markup'} -->
+<!-- require(multcomp) -->
+<!-- test_AllPairs <- glht(mod2,linfct=mcp(compote="Tukey")) -->
+<!-- summary(test_AllPairs, test = adjusted("bonferroni")) -->
+<!-- ``` -->
 
 
 <!-- On peut aussi tester si la saveur de pomme crue d'une compote particulière est égale ou différente de la moyenne de l'ensemble des compotes. La moyenne correspond à des coefficients de -1/6 pour chaque compote, et donc si on compare la note de chaque compote à la note moyenne moyenne, on écrira: -->
@@ -201,5 +201,5 @@ Il est indispensable de lister tous les facteurs qui peuvent influer sur la vari
 
 
 ### Statistique 
-- test d'analyse de la variance
-- test post-hoc (comparaison entre modalités d'un facteur)
+- Test d'analyse de la variance
+- Test post-hoc (comparaison entre modalités d'un facteur)
