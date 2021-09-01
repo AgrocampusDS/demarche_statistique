@@ -92,7 +92,7 @@ penguins <- rename(.data = penguins, longueur_bec = bill_length_mm,
                    epaisseur_bec = bill_depth_mm)
 ```
 
-* Renommer de la même manière `species` en espece, `island` en ile, `body_mass_g` en poids et `flipper_length_mm` en longueur_nageoire, `sex` en sexe et `year` en annee. (il faut éviter les caractères accenués et les espaces dans les noms de variables)
+* Renommer de la même manière `species` en espece, `island` en ile, `body_mass_g` en poids et `flipper_length_mm` en longueur_nageoire, `sex` en sexe et `year` en annee. (il faut éviter les caractères accentués et ne pas utiliser les espaces dans les noms de variables)
 
 ```{r rename_esp, echo = FALSE, eval = TRUE}
 penguins <- rename(.data = penguins, espece = species, 
@@ -115,14 +115,14 @@ De nombreuses fonction de visualisation sont disponibles dans le package `ggplot
 
 Une variable qualitative peut être visualisée à l'aide d'un diagramme en bâtons (barplot).
 
-* Ajouter la commande ci-dessous dans votre script`R` puis l'exécuter.
+* Ajouter la commande ci-dessous dans votre script `R` puis l'exécuter.
 
 ```{r barplot, eval = FALSE}
 ggplot(data = penguins) + 
   geom_bar(aes(x = espece))
 ```
 
-La fonction `aes` permet de spécifier ce qui est représenté. Ici `aes( x = espece)` indique que la variable `espece` sera représentée sur l'abcisse du graphique. L'ordonnée n'étant pas spécifiée, le comportement par défaut sera utilisé et l'ordonnée correspond ainsi à l'effectif de chaque classe. 
+La fonction `aes` permet de spécifier ce qui est représenté. Ici `aes( x = espece)` indique que la variable `espece` sera représentée sur l'abscisse du graphique. L'ordonnée n'étant pas spécifiée, le comportement par défaut sera utilisé et l'ordonnée correspond ainsi à l'effectif de chaque classe. 
 
 #### Visualisation d'une variable quantitative à l'aide d'un histogramme
 
