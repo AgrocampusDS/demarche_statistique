@@ -170,4 +170,36 @@ print_liste('Commandes R')
 ```
 
 
+## Informations diverses
 
+
+### Installation de logiciels 
+
+Les séances de travaux dirigés se feront sur vos ordinateurs personels, merci de venir à chaque séance avec au moins un ordinateur pour deux étudiants.
+
+Nous utiliserons le logiciel [R](https://www.r-project.org/)  et l'environnement [RStudio](https://www.rstudio.com/). Ces logiciels sont aujourd'hui les standards en statistique dans un grand nombre d'entreprises et sont disponibles pour Windows, Mac et Linux. (L'installation sur chromebook est en théorie [possible](https://blog.sellorm.com/2018/12/20/installing-r-and-rstudio-on-a-chromebook/)  mais la théorie pourrait être mise en défaut par les faits).
+
+**Processus d'installation :**
+
+* Il faut en premier lieu [installer R](https://cran.r-project.org/)
+* puis installer l'environnement [RStudio](https://www.rstudio.com/products/rstudio/download/)
+
+C'est prêt.
+
+### Des ressources 
+
+**Pour les graphiques**
+
+*  https://www.r-graph-gallery.com/
+
+Les travaux dirigés sont l'occasion d'explorer quelques fonctionalités de R, suffisantes pour mettre en oeuvre la démarche statistique enseignée dans ce cours. Néanmoins il est probable que lors des projets, lors de vos stages à venir ou lorsque vous serez en situation professionnelle, vous ayez besoin d'acquérir de nouvelles connaissances pour répondre à vos besoins. nous listons ici quelques ressources intéressantes
+
+
+* [Data wrangling with R](https://cengel.github.io/R-data-wrangling/)
+* ou le très complet [R for data science](https://www.tidyverse.org/learn/)
+
+
+
+**Des aides mémoires **
+
+* (Data Wrangling Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
