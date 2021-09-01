@@ -90,7 +90,7 @@ La fonction `select` du package `dplyr` permet de sélectionner des variables (d
 select(penguins, espece)
 ```
 
-* Sélectionner cette variable et la  stocker dans un objet nommé `dta`.
+* Sélectionner cette variable et la stocker dans un objet nommé `dta`.
 
 ```{r select_espece_dta}
 dta <-select(penguins, espece)
@@ -128,7 +128,7 @@ dta <- penguins %>% select( -poids)
 ```
 
 
-Il est possible de sauvegarder ce jeu de données simplifier dans  l'objet penguins lui-même, c'est ce qu'illustre la ligne de commande suivante :
+Il est possible de sauvegarder ce jeu de données simplifié dans l'objet penguins lui-même, c'est ce qu'illustre la ligne de commande suivante :
 
 
 ```{r penguins_sans_poids, echo = TRUE}
@@ -161,7 +161,7 @@ De façon formelle, vous venez d'utiliser l'opérateur logique `>`. Les opérate
 
 Remarque : pour transformer vos variables, vous utiliserez des opérateurs arithmétiques tels que `+`, pour additionner deux variables par exemple. 
 
-* Dans le jeu de données penguins, le sexe de certains individus n'est pas renseigné. On peut identifier ces individus grâce à la commande
+* Dans le jeu de données penguins, le sexe de certains individus n'est pas renseigné (on parle de données manquantes - Not Available en anglais). On peut identifier ces individus grâce à la commande
 
 ```{r isna, echo = TRUE}
 penguins %>% filter(is.na(sexe))
@@ -228,7 +228,7 @@ Il est difficile, à l'oeil, de comparer des histogrammes : les boîtes à moust
 
 * Rappeler la nature des varaibles `sexe` et `longueur_bec`.
 
- Les boîtes à moustaches sont une représentation adaptée à la visualisation de l'effet d'une variable qualitative sur une variable quantitative, elles sont obtenues dans `R` grâce à la fonction  graphique `geom_boxplot`. Il faut spécifier que l'abcisse est la variable qualitative et l'ordonnée la variable quantitative.
+ Les boîtes à moustaches sont une représentation adaptée à la visualisation de l'effet d'une variable qualitative sur une variable quantitative, elles sont obtenues dans `R` grâce à la fonction  graphique `geom_boxplot`. Il faut spécifier que l'abscisse est la variable qualitative et l'ordonnée la variable quantitative.
  
 * Représenter à l'aide de boîtes à moustaches les distributions des longueurs de bec en fonction du sexe. 
 
@@ -242,9 +242,9 @@ Ce graphique par défaut est largement personnalisable (cf fin du TD)
 
 #### Visualiser le lien entre taille du bec et longueur des nageoires
 
-* Rappeler la nature des variables longueur du bec et longueur des nageoires. Quelle sorte de graphique semple le plus adpatée ?
+* Rappeler la nature des variables longueur du bec et longueur des nageoires. Quelle sorte de graphique semble le plus adpatée ?
 
-* Utiliser la fonction graphique `geom_point` en précisant bien les abcisses et les ordonnées pour obtenir une visulaisation du lien entre  la longueur des nageaoires sur la longueur du bec.
+* Utiliser la fonction graphique `geom_point` en précisant bien les abscisses et les ordonnées pour obtenir une visulaisation du lien entre  la longueur des nageaoires sur la longueur du bec.
 
 
 ```{r point_nagoire_bec}
@@ -266,7 +266,7 @@ manchots %>% ggplot() +
 ```{r point_nagoire_bec_col_title}
 manchots %>% ggplot() + 
   geom_point(aes(x = longueur_nageoire, y = longueur_bec, col = sexe)) +
-  ggtitle('La longueur du bec en fonction de la longueur des nageoires selon le sexe')
+  ggtitle('Longueur du bec en fonction de la longueur des nageoires selon le sexe')
 ```
 
 #### Personalisation des graphiques 
@@ -279,7 +279,7 @@ manchots %>% ggplot() +
   labs(x ='Sexe', y = 'Longueur du bec (mm)' )
 ```
 
-Il est également possible de représenter les données elles-mêmes. On peut utiliser la commande `geom_point` qui va dessiner un point aux abcisses et ordonnées spécifiées.
+Il est également possible de représenter les données elles-mêmes. On peut utiliser la commande `geom_point` qui va dessiner un point aux abscisses et ordonnées spécifiées.
 
 ```{r boxplot_labs_points, echo = TRUE}
 manchots %>% ggplot() + 
@@ -288,7 +288,7 @@ manchots %>% ggplot() +
   geom_point(aes(x = sexe, y = longueur_bec))  
 ```
 
-Le résultat n'est pas très satisfaisant, car tous les points ayant la même abcisse, il est difficile de les différencier. Il est possible de perturber légèrement l'abcisse de manière à mieux distinguer les différentes mesures. 
+Le résultat n'est pas très satisfaisant, car tous les points ayant la même abscisse, il est difficile de les différencier. Il est possible de perturber légèrement l'abscisse de manière à mieux distinguer les différentes mesures. 
 
 
 ```{r boxplot_labs_points_jitter, echo = TRUE}
@@ -301,7 +301,7 @@ manchots %>% ggplot() +
 
 Finalement pour avoir un très joli graphique, il est possible de 
 
-- limiter la perturbation de l'abcisse,
+- limiter la perturbation de l'abscisse,
 - dessiner des points plus petits,
 - les rendre légèrement transparents.
 
