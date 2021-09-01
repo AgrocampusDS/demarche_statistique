@@ -689,34 +689,17 @@ st mamet
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## (Adjusted p values reported -- bonferroni method)</code></pre>
-<p>On peut aussi tester si la saveur de pomme crue d’une compote particulière est égale ou différente de la moyenne de l’ensemble des compotes. La moyenne correspond à des coefficients de -1/6 pour chaque compote, et donc si on compare la note de chaque compote à la note moyenne moyenne, on écrira:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>Tests <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="st">&quot;comp1 - moy&quot;</span><span class="ot">=</span><span class="fu">c</span>((<span class="dv">1</span> <span class="sc">-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>),<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>),</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;comp2 - moy&quot;</span><span class="ot">=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,(<span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>),<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>),</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;comp3 - moy&quot;</span><span class="ot">=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,(<span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>),<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>),</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;comp4 - moy&quot;</span><span class="ot">=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,(<span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>),<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>),</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;comp5 - moy&quot;</span><span class="ot">=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,(<span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>),<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>),</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;comp6 - moy&quot;</span><span class="ot">=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>,(<span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)))</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>test_1Pair <span class="ot">&lt;-</span> <span class="fu">glht</span>(mod2,<span class="at">linfct=</span><span class="fu">mcp</span>(<span class="at">compote=</span>Tests))</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(test_1Pair, <span class="at">test =</span> <span class="fu">adjusted</span>(<span class="st">&quot;bonferroni&quot;</span>))</span></code></pre></div>
-<pre><code>## 
-##   Simultaneous Tests for General Linear Hypotheses
-## 
-## Multiple Comparisons of Means: User-defined Contrasts
-## 
-## 
-## Fit: lm(formula = S.pom.crue ~ compote + juge, data = dta)
-## 
-## Linear Hypotheses:
-##                  Estimate Std. Error t value Pr(&gt;|t|)  
-## comp1 - moy == 0   0.1111     0.6211   0.179   1.0000  
-## comp2 - moy == 0   0.6111     0.6211   0.984   1.0000  
-## comp3 - moy == 0   2.1111     0.6211   3.399   0.0136 *
-## comp4 - moy == 0  -1.0556     0.6211  -1.699   0.6099  
-## comp5 - moy == 0  -0.8889     0.6211  -1.431   0.9887  
-## comp6 - moy == 0  -0.8889     0.6211  -1.431   0.9887  
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## (Adjusted p values reported -- bonferroni method)</code></pre>
+<!-- On peut aussi tester si la saveur de pomme crue d'une compote particulière est égale ou différente de la moyenne de l'ensemble des compotes. La moyenne correspond à des coefficients de -1/6 pour chaque compote, et donc si on compare la note de chaque compote à la note moyenne moyenne, on écrira: -->
+<!-- ```{r , echo = TRUE, results='markup'} -->
+<!-- Tests <- rbind("comp1 - moy"=c((1 - 1/6),-1/6,-1/6,-1/6,-1/6,-1/6), -->
+<!--               "comp2 - moy"=c(-1/6,(1 -1/6),-1/6,-1/6,-1/6,-1/6), -->
+<!--               "comp3 - moy"=c(-1/6,-1/6,(1 -1/6),-1/6,-1/6,-1/6), -->
+<!--               "comp4 - moy"=c(-1/6,-1/6,-1/6,(1 -1/6),-1/6,-1/6), -->
+<!--               "comp5 - moy"=c(-1/6,-1/6,-1/6,-1/6,(1 -1/6),-1/6), -->
+<!--               "comp6 - moy"=c(-1/6,-1/6,-1/6,-1/6,-1/6,(1 -1/6))) -->
+<!-- test_1Pair <- glht(mod2,linfct=mcp(compote=Tests)) -->
+<!-- summary(test_1Pair, test = adjusted("bonferroni")) -->
+<!-- ``` -->
 </div>
 </div>
 </div>
