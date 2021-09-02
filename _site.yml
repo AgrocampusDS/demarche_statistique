@@ -4,12 +4,12 @@ navbar:
  title: "Agrocampus Ouest : démarche statistique"
  left:
   - text: ""
-    icon: fa-github
-    href: https://github.com/AgrocampusDS/demarche_statistique
- right:
-  - text: ""
     icon: fa-home
     href: index.html
+ right:
+  - text: ""
+    icon: fa-github
+    href: https://github.com/AgrocampusDS/demarche_statistique
 
 
 output:
