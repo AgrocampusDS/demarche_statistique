@@ -50,7 +50,7 @@ print(is_pdf)
 
  Le problème qui suit est inspiré d'un stage de fin d'études réalisé par une étudiante de la spécialisation  *Science des données* du cursus d'ingénieur agro-alimentaire d'Agrocampus.
  
-Un groupe industriel commercialisant du café souhaite comparer les cafés provenant de différents lieux de production à partir de leur profil de composition physico-chimique, dont une des composantes importantes est le taux de matière sèche (`DM`). Pour cela, il s'appuie sur des données contenant le lieu de production, codé par un entier allant de `1` à `7`, de 240 mesures de café disponible sur la [page des données](ttps://agrocampusds.github.io/demarche_statistique/index.html#scripts-et-donn%C3%A9es).
+Un groupe industriel commercialisant du café souhaite comparer les cafés provenant de différents lieux de production à partir de leur profil de composition physico-chimique, dont une des composantes importantes est le taux de matière sèche (`DM`). Pour cela, il s'appuie sur des données contenant le lieu de production, codé par un entier allant de `1` à `7`, de 240 mesures de café disponible sur la [page des données](https://agrocampusds.github.io/demarche_statistique/index.html#scripts-et-donn%C3%A9es).
 
 ### Description du jeu de données sur la qualité du  café
 
