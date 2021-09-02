@@ -64,6 +64,15 @@ cafe <- read.table('https://agrocampusds.github.io/demarche_statistique/cafe_DM.
 
 * Utiliser la commande `summary` pour obtenir un descriptif des données
 
+`R` traite la variable `Localisation`, un entier compris entre 1 et 7, comme une variable quantitative. 
+Il faut indiquer à `R`  que cette variable  est en fait une variable qualitative, un facteur. 
+
+```{r as.factor, echo = TRUE}
+cafe %>% 
+  mutate(Localisation = as.factor(Localisation))
+```
+
+
 #### Visualisation des données
 
 * Construire maintenant une boîte à moustaches des taux de matière sèche selon l'origine des cafés.
@@ -73,17 +82,6 @@ cafe <- read.table('https://agrocampusds.github.io/demarche_statistique/cafe_DM.
 cafe %>% 
   ggplot() + geom_boxplot(aes(x=Localisation, y = DM))
 ```
-
-La commande `geom_boxplot`  n'a pas le comportement attendue car `R` traite la variable `Localisation`, un entier compris entre 1 et 7 comme une varaible quantitative. 
-
-Il faut indiquer à `R`  que cette variable  est en fait une variable qualitative, un facteur. 
-
-```{r as.factor, echo = TRUE}
-cafe %>% 
-  mutate(Localisation = as.factor(Localisation))
-```
-
-* Construire maintenant les boîtes à moustache.
 
 #### Calcul de statistiques descriptives
 
