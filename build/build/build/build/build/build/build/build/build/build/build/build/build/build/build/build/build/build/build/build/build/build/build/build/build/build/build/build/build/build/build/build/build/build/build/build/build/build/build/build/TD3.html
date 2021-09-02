@@ -395,18 +395,14 @@ $(document).ready(function () {
 <li><p>Importer le jeu de données <code>cafe_DM.csv</code> disponible sur la page des <a href="index.html">jeux de données</a> dans un objet nommé <code>cafe</code> en utilisant un script <code>TD3_script.R</code> que vous aurez créé dans votre répertoire de projet.</p></li>
 <li><p>Utiliser la commande <code>summary</code> pour obtenir un descriptif des données</p></li>
 </ul>
+<p><code>R</code> traite la variable <code>Localisation</code>, un entier compris entre 1 et 7, comme une variable quantitative. Il faut indiquer à <code>R</code> que cette variable est en fait une variable qualitative, un facteur.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cafe <span class="sc">%&gt;%</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Localisation =</span> <span class="fu">as.factor</span>(Localisation))</span></code></pre></div>
 </div>
 <div id="visualisation-des-données" class="section level4">
 <h4>Visualisation des données</h4>
 <ul>
 <li>Construire maintenant une boîte à moustaches des taux de matière sèche selon l’origine des cafés.</li>
-</ul>
-<p>La commande <code>geom_boxplot</code> n’a pas le comportement attendue car <code>R</code> traite la variable <code>Localisation</code>, un entier compris entre 1 et 7 comme une varaible quantitative.</p>
-<p>Il faut indiquer à <code>R</code> que cette variable est en fait une variable qualitative, un facteur.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cafe <span class="sc">%&gt;%</span> </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Localisation =</span> <span class="fu">as.factor</span>(Localisation))</span></code></pre></div>
-<ul>
-<li>Construire maintenant les boîtes à moustache.</li>
 </ul>
 </div>
 <div id="calcul-de-statistiques-descriptives" class="section level4">
