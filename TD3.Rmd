@@ -62,7 +62,7 @@ Un groupe industriel commercialisant du café souhaite comparer les cafés prove
 cafe <- read.table('https://agrocampusds.github.io/demarche_statistique/cafe_DM.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
 ```
 
-* Utilisez la commande `summary` pour obtenir un descriptif des données
+* Utiliser la commande `summary` pour obtenir un descriptif des données
 
 #### Visualisation des données
 
@@ -74,7 +74,7 @@ cafe %>%
   ggplot() + geom_boxplot(aes(x=Localisation, y = DM))
 ```
 
-La commande `geom_boxplot`  n'a pas le comportement attendue car `R` traite la variable `Localisation`, un entier compris entre 1 et 6 comme une varaible quantitative. 
+La commande `geom_boxplot`  n'a pas le comportement attendue car `R` traite la variable `Localisation`, un entier compris entre 1 et 7 comme une varaible quantitative. 
 
 Il faut indiquer à `R`  que cette variable  est en fait une variable qualitative, un facteur. 
 
@@ -88,7 +88,7 @@ cafe %>%
 #### Calcul de statistiques descriptives
 
 
-La commande suivante permet de calculer la moyenne de matière sèche pour origine de café.
+La commande suivante permet de calculer la moyenne de matière sèche pour chaque origine de café.
 
 ```{r mean, echo = TRUE, results='markup'}
 cafe %>% 
@@ -98,7 +98,7 @@ cafe %>%
 
 * Calculer l'écart-type et la variance pour chaque origine.
 
-Le table ci-dessous calcule la moyenne, la variance et certains quantiles pour chaque origine de café
+Les lignes ci-dessous calculent la moyenne, la variance et certains quantiles pour chaque origine de café
 
 ```{r stat_desc, echo = TRUE, results='markup'}
 stat_desc <- cafe %>% 
@@ -128,9 +128,9 @@ stat_desc %>%
 
 #### Mise en place de l'analyse statistique
 
-* Donnez l'expression du modèle statistique M$_1$ permettant de répondre à la question 'Les taux de matière sèche diffèrent ils d'une origine à l'autre ?  Quels sont les paramètres de ce modèle ?
+* Donner l'expression du modèle statistique M$_1$ permettant de répondre à la question 'Les taux de matière sèche diffèrent-ils d'une origine à l'autre ?  Quels sont les paramètres de ce modèle ?
 
-* Quelles sont les hypothèses H$_{0}$ et H$_{1}$ du test de l'existence de différences moyennes entre les lieux de production ? Exprimez ces hypothèses à partir des paramètres du modèle de la question précédente.
+* Quelles sont les hypothèses H$_{0}$ et H$_{1}$ du test de l'existence de différences moyennes entre les lieux de production ? Exprimer ces hypothèses à partir des paramètres du modèle de la question précédente.
 
 
 
@@ -157,7 +157,7 @@ On peut comparer les deux modèles grâce à la commande:
 anova(DM_lm0, DM_lm)
 ```
 
-Enfin, les paramètres estimé dans le modèle complet sont obtenus graàce à la fonction `summary`.
+Enfin, les paramètres estimé dans le modèle complet sont obtenus grâce à la fonction `summary`.
 
 ```{r sum, echo = TRUE, results='markup'}
 summary(DM_lm)
@@ -187,7 +187,7 @@ RSS <- cafe_residuals %>%
 ```
 *  En déduire la valeur estimée de l'écart-type résiduel du modèle.
 
-*   Donnez l'expression du modèle nul (associé à l'absence de différences moyennes entre les lieux de production comme dans l'hypothèse H$_{0}$ ) des taux de matière sèche. Quelle est la valeur estimée des paramètres de ce modèle ?
+*   Donner l'expression du modèle nul (associé à l'absence de différences moyennes entre les lieux de production comme dans l'hypothèse $H_{0}$ ) des taux de matière sèche. Quelle est la valeur estimée des paramètres de ce modèle ?
 
 
 ```{r M0}
@@ -222,7 +222,7 @@ stat_test <- numerateur/denominateur
 ```
 
 
-* Quelle est la distribution  sous l'hypothèse H$_{0}$, $\mathcal{F}_{0}$, de la statistique de test $F$ introduite à la question précédente~?
+* Quelle est la distribution  sous l'hypothèse H$_{0}$, $\mathcal{F}_{0}$, de la statistique de test $F$ introduite à la question précédente ?
 
 La fonction `pf(q = .., df1 = .. , df2= .. , lower.tail = FALSE) `  donne la probabilité qu'une variable aléatoire suivant une loi de Fisher de paramètre `df1`, `df2` dépasse la valeur `q`.  
 
@@ -243,7 +243,7 @@ ggplot(data.frame(x = c(0, 7)), aes(x)) +
 
 ### Conclusion de l'étude
 
-* Donnez la probabilité qu'une variable aléatoire de loi $\mathcal{F}_{0}$  dépasse la valeur observée sur les données de café et conclure sur les différences de matière sèche en fonction de l'origine du café
+* Donner la probabilité qu'une variable aléatoire de loi $\mathcal{F}_{0}$  dépasse la valeur observée sur les données de café et conclure sur les différences de matière sèche en fonction de l'origine du café
 
 
 
