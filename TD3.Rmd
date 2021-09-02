@@ -39,7 +39,7 @@ print(is_pdf)
 * Visualisation de données
   - Boîte à moustaches
 * Analyse de données
-  - Démmarche statistique 
+  - Démarche statistique 
   - Reconnaître le contexte d'une analyse de la variance
   - Ecrire le modèle correspondant
   - Mettre en oeuvre le test du modèle complet
