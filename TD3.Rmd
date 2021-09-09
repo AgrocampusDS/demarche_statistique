@@ -68,7 +68,7 @@ cafe <- read.table('https://agrocampusds.github.io/demarche_statistique/cafe_DM.
 Il faut indiquer à `R`  que cette variable  est en fait une variable qualitative, un facteur. 
 
 ```{r as.factor, echo = TRUE}
-cafe %>% 
+cafe <- cafe %>% 
   mutate(Localisation = as.factor(Localisation))
 ```
 

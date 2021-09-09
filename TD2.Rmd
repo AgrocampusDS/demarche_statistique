@@ -208,7 +208,8 @@ manchots %>% ggplot() + geom_histogram(aes(x=longueur_bec, fill = sexe))
 
 * Discuter du choix par défaut pour représenter la variable sexe 
 
-Pour obtenir un histogramme par sexe, il faut modifier le comportement par défaut et indiquer que l'on veut deux histogrammes différents et non pas représenter dans chaque classe la proportion de mâles et de femelles. Il faut modifier l'argument `position` par défaut.
+
+Pour obtenir un histogramme par sexe, il faut modifier le comportement par défaut et indiquer que l'on veut deux histogrammes différents et non pas superposer dans chaque classe le nombre de mâles et de femelles. Il faut modifier l'argument `position` par défaut.
 
 ```{r hist_fill_identity, echo = TRUE }
 manchots %>% ggplot() + geom_histogram(aes(x=longueur_bec, fill = sexe), position = 'identity')
@@ -221,12 +222,13 @@ Enfin pour bien visualiser les différents histogrammes, il est possible de joue
 manchots %>% ggplot() + geom_histogram(aes(x=longueur_bec, fill = sexe), position = 'identity', alpha = 0.6)
 ```
 
+* (En option) Refaire ce même graphique en représentant les densités par classes.  
 
 #### Comparer des distributions à l'aide de boîtes à moustaches
 
 Il est difficile, à l'oeil, de comparer des histogrammes : les boîtes à moustaches sont plus adaptées pour comparer l'effet du sexe sur la distribution des longueurs de bec.
 
-* Rappeler la nature des varaibles `sexe` et `longueur_bec`.
+* Rappeler la nature des variables `sexe` et `longueur_bec`.
 
  Les boîtes à moustaches sont une représentation adaptée à la visualisation de l'effet d'une variable qualitative sur une variable quantitative, elles sont obtenues dans `R` grâce à la fonction  graphique `geom_boxplot`. Il faut spécifier que l'abscisse est la variable qualitative et l'ordonnée la variable quantitative.
  
@@ -244,7 +246,7 @@ Ce graphique par défaut est largement personnalisable (cf fin du TD)
 
 * Rappeler la nature des variables longueur du bec et longueur des nageoires. Quelle sorte de graphique semble le plus adpatée ?
 
-* Utiliser la fonction graphique `geom_point` en précisant bien les abscisses et les ordonnées pour obtenir une visulaisation du lien entre  la longueur des nageaoires sur la longueur du bec.
+* Utiliser la fonction graphique `geom_point` en précisant bien les abscisses et les ordonnées pour obtenir une visulaisation du lien entre  la longueur des nageoires sur la longueur du bec.
 
 
 ```{r point_nagoire_bec}
