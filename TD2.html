@@ -482,16 +482,19 @@ $(document).ready(function () {
 <ul>
 <li>Discuter du choix par défaut pour représenter la variable sexe</li>
 </ul>
-<p>Pour obtenir un histogramme par sexe, il faut modifier le comportement par défaut et indiquer que l’on veut deux histogrammes différents et non pas représenter dans chaque classe la proportion de mâles et de femelles. Il faut modifier l’argument <code>position</code> par défaut.</p>
+<p>Pour obtenir un histogramme par sexe, il faut modifier le comportement par défaut et indiquer que l’on veut deux histogrammes différents et non pas superposer dans chaque classe le nombre de mâles et de femelles. Il faut modifier l’argument <code>position</code> par défaut.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>manchots <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>longueur_bec, <span class="at">fill =</span> sexe), <span class="at">position =</span> <span class="st">&#39;identity&#39;</span>)</span></code></pre></div>
 <p>Enfin pour bien visualiser les différents histogrammes, il est possible de jouer sur la transparence.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>manchots <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>longueur_bec, <span class="at">fill =</span> sexe), <span class="at">position =</span> <span class="st">&#39;identity&#39;</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>)</span></code></pre></div>
+<ul>
+<li>(En option) Refaire ce même graphique en représentant les densités par classes.</li>
+</ul>
 </div>
 <div id="comparer-des-distributions-à-laide-de-boîtes-à-moustaches" class="section level4">
 <h4>Comparer des distributions à l’aide de boîtes à moustaches</h4>
 <p>Il est difficile, à l’oeil, de comparer des histogrammes : les boîtes à moustaches sont plus adaptées pour comparer l’effet du sexe sur la distribution des longueurs de bec.</p>
 <ul>
-<li>Rappeler la nature des varaibles <code>sexe</code> et <code>longueur_bec</code>.</li>
+<li>Rappeler la nature des variables <code>sexe</code> et <code>longueur_bec</code>.</li>
 </ul>
 <p>Les boîtes à moustaches sont une représentation adaptée à la visualisation de l’effet d’une variable qualitative sur une variable quantitative, elles sont obtenues dans <code>R</code> grâce à la fonction graphique <code>geom_boxplot</code>. Il faut spécifier que l’abscisse est la variable qualitative et l’ordonnée la variable quantitative.</p>
 <ul>
@@ -503,7 +506,7 @@ $(document).ready(function () {
 <h4>Visualiser le lien entre taille du bec et longueur des nageoires</h4>
 <ul>
 <li><p>Rappeler la nature des variables longueur du bec et longueur des nageoires. Quelle sorte de graphique semble le plus adpatée ?</p></li>
-<li><p>Utiliser la fonction graphique <code>geom_point</code> en précisant bien les abscisses et les ordonnées pour obtenir une visulaisation du lien entre la longueur des nageaoires sur la longueur du bec.</p></li>
+<li><p>Utiliser la fonction graphique <code>geom_point</code> en précisant bien les abscisses et les ordonnées pour obtenir une visulaisation du lien entre la longueur des nageoires sur la longueur du bec.</p></li>
 <li><p>Utiliser la couleur pour différencier les mâles des femelles.</p></li>
 <li><p>Ajouter un titre au graphique précédent</p></li>
 </ul>

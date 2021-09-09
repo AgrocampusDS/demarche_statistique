@@ -396,7 +396,7 @@ $(document).ready(function () {
 <li><p>Utiliser la commande <code>summary</code> pour obtenir un descriptif des données</p></li>
 </ul>
 <p><code>R</code> traite la variable <code>Localisation</code>, un entier compris entre 1 et 7, comme une variable quantitative. Il faut indiquer à <code>R</code> que cette variable est en fait une variable qualitative, un facteur.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cafe <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cafe <span class="ot">&lt;-</span> cafe <span class="sc">%&gt;%</span> </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Localisation =</span> <span class="fu">as.factor</span>(Localisation))</span></code></pre></div>
 </div>
 <div id="visualisation-des-données" class="section level4">
@@ -413,14 +413,14 @@ $(document).ready(function () {
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">DM_mean =</span> <span class="fu">mean</span>(DM))</span></code></pre></div>
 <pre><code>## # A tibble: 7 × 2
 ##   Localisation DM_mean
-##          &lt;int&gt;   &lt;dbl&gt;
-## 1            1    90.4
-## 2            2    90.3
-## 3            3    89.7
-## 4            4    91.4
-## 5            5    90.1
-## 6            6    90.0
-## 7            7    90.5</code></pre>
+##   &lt;fct&gt;          &lt;dbl&gt;
+## 1 1               90.4
+## 2 2               90.3
+## 3 3               89.7
+## 4 4               91.4
+## 5 5               90.1
+## 6 6               90.0
+## 7 7               90.5</code></pre>
 <ul>
 <li>Calculer l’écart-type et la variance pour chaque origine.</li>
 </ul>
@@ -436,7 +436,7 @@ $(document).ready(function () {
 <table class=" lightable-classic" style="font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
-<th style="text-align:right;">
+<th style="text-align:left;">
 Localisation
 </th>
 <th style="text-align:right;">
@@ -458,7 +458,7 @@ q95
 </thead>
 <tbody>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:left;">
 1
 </td>
 <td style="text-align:right;">
@@ -478,7 +478,7 @@ q95
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:left;">
 2
 </td>
 <td style="text-align:right;">
@@ -498,7 +498,7 @@ q95
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:left;">
 3
 </td>
 <td style="text-align:right;">
@@ -518,7 +518,7 @@ q95
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:left;">
 4
 </td>
 <td style="text-align:right;">
@@ -538,7 +538,7 @@ q95
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:left;">
 5
 </td>
 <td style="text-align:right;">
@@ -558,7 +558,7 @@ q95
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:left;">
 6
 </td>
 <td style="text-align:right;">
@@ -578,7 +578,7 @@ q95
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:left;">
 7
 </td>
 <td style="text-align:right;">
@@ -625,9 +625,9 @@ q95
 ## 
 ## Model 1: DM ~ 1
 ## Model 2: DM ~ Localisation
-##   Res.Df    RSS Df Sum of Sq      F  Pr(&gt;F)  
-## 1    239 67.132                              
-## 2    238 65.738  1    1.3944 5.0485 0.02557 *
+##   Res.Df    RSS Df Sum of Sq     F    Pr(&gt;F)    
+## 1    239 67.132                                 
+## 2    233 35.029  6    32.104 35.59 &lt; 2.2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Enfin, les paramètres estimé dans le modèle complet sont obtenus grâce à la fonction <code>summary</code>.</p>
@@ -638,18 +638,23 @@ q95
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -1.52331 -0.30931 -0.01822  0.24457  1.73407 
+## -1.92961 -0.23612  0.03543  0.27781  1.10409 
 ## 
 ## Coefficients:
-##              Estimate Std. Error  t value Pr(&gt;|t|)    
-## (Intercept)  90.34393    0.07281 1240.876   &lt;2e-16 ***
-## Localisation -0.03548    0.01579   -2.247   0.0256 *  
+##               Estimate Std. Error  t value Pr(&gt;|t|)    
+## (Intercept)   90.39711    0.05483 1648.561  &lt; 2e-16 ***
+## Localisation2 -0.13620    0.09375   -1.453  0.14763    
+## Localisation3 -0.70775    0.09375   -7.549 9.83e-13 ***
+## Localisation4  0.96924    0.12071    8.029 4.83e-14 ***
+## Localisation5 -0.26318    0.09920   -2.653  0.00853 ** 
+## Localisation6 -0.40906    0.06926   -5.906 1.23e-08 ***
+## Localisation7  0.10472    0.10450    1.002  0.31731    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.5256 on 238 degrees of freedom
-## Multiple R-squared:  0.02077,    Adjusted R-squared:  0.01666 
-## F-statistic: 5.048 on 1 and 238 DF,  p-value: 0.02557</code></pre>
+## Residual standard error: 0.3877 on 233 degrees of freedom
+## Multiple R-squared:  0.4782, Adjusted R-squared:  0.4648 
+## F-statistic: 35.59 on 6 and 233 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>La suite de l’exercice vise à expliciter les diverses quantités qui apparaissent dans les sorties précédentes.</p>
 <p>Les résidus quantifient pour chaque individu statistique l’écart entre la matière sèche prédite par le modèle ajusté et la matière sèche effectivement mesurée. Ils se calculent manuellement à l’aide de la suite de commande suivante :</p>
 <ul>
