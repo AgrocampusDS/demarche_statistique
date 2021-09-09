@@ -87,7 +87,7 @@ On souhaite traduire certains libellés des variables de l’anglais vers le fra
 
 * Que fait le code suivant ? 
 
-```{r code, eval = TRUE, echo = FALSE}
+```{r code, eval = TRUE, echo = TRUE}
 penguins <- rename(.data = penguins, longueur_bec = bill_length_mm, 
                    epaisseur_bec = bill_depth_mm)
 ```
