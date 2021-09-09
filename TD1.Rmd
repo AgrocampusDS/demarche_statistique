@@ -162,7 +162,6 @@ ggplot(data = penguins) +
 ```
 
 
-Il est possible de modifier le nombre de classes pour l'histogramme grâce à l'argument ` bins` de la fonction `geom_histogram`. 
 
 * Proposer une représentation de la distribution des longueurs de bec qui ne contient que 10 classes de valeurs.
 
