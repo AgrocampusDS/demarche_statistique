@@ -174,7 +174,7 @@ mod0.Vf <- lm(Carrure~1,data=data.sport.Vf)
 anova(mod0.Vf,mod.Vf)
 ```
 
-##### Test Post-Hoc (=Comparaison entre les modalités des facteurs)
+##### Test Post-Hoc (= Comparaison entre les modalités des facteurs)
 
 ```{r testCoeff_Vf, echo = FALSE, results='markup', eval=FALSE}
 summary(mod.Vf)
@@ -194,27 +194,10 @@ Si le test est significatif, on cherche à déterminer quels sports permettent d
 ```{r testCoeff3_Vf, echo = FALSE, results='markup',eval=FALSE}
 library(emmeans)
 sport_comp_Vf <- emmeans(mod.Vf,  ~ Sport )
-pairs(sport_comp_Vf)
+pairs(sport_comp_Vf, adjust = "bonf")
 plot(sport_comp_Vf)
 ```
 
-
-##### Test Post-Hoc (Pour aller plus loin)
-
-Les scientifiques cherchent à présent à savoir si les sports collectifs donnent une carrure différente de celle pour les sportifs pratiquant un sport individuel.
-
-*  Exprimer cette question sous la forme d'un test d'hypothèse qui s'appuie sur le modèle global.
-
-* A l'aide de la fonction *glht* du package *multcomp*, effectuer ce test sous R.
-
-```{r testCoeff4_Vf, echo = FALSE, results='markup', eval=FALSE}
-require(multcomp)
-#test_AllPairs <- glht(mod.Vf,linfct=mcp(Sport="Tukey"))
-#summary(test_AllPairs, test = adjusted("bonferroni"))
-
-test_IndividualVsCollectif <- glht(mod.Vf,linfct=mcp(Sport=c(1,-1,-1,1,1,-1)))
-summary(test_IndividualVsCollectif, test = adjusted("bonferroni"))
-```
 
 
 ### Conclusion de l'étude
