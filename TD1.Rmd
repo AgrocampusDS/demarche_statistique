@@ -130,7 +130,7 @@ La distribution  des valeurs possibles d'une variable quantitative peut être re
 
 * En vous aidant de la commandant précédente, proposer une commande pour dessiner un histogramme des longueurs de bec (fonction `geom_histogram`). 
 
-Par défaut, sans autre indication dans la fonction `aes`, l'ordonnée de l'histogramme indique l'effectif de manchots par classe de valeurs. Il est possible de demander des fréquences de chaque classe au lieu des effectifs. Dans ce cas, il faut modifier le comportement par défaut de la fonction `aes` pour spécifier l'ordonnée explicitement avec un mot réservé `..density..`. 
+Par défaut, sans autre indication dans la fonction `aes`, l'ordonnée de l'histogramme indique l'effectif de manchots par classe de valeurs. Dans la définition mathématique de l'histogramme, il est indiqué que les aires sont proportionnelles aux fréquences, l'ordonnée représentant alors une densité. Pour obtenir ce graphique,  il faut modifier le comportement par défaut de la fonction `aes` pour spécifier l'ordonnée explicitement avec un mot réservé `..density..`. 
 
 ```{r histogram,  fig.show='hide'}
 ggplot(data = penguins) +
