@@ -201,14 +201,14 @@ RSS0 <- cafe %>%
   summarise(RSS_group=sum(Residuals^2))
 ```
 
-* En déduire la valeur du coefficient R$^{2}$ du modèle M_$_1$.
+* En déduire la valeur du coefficient R$^{2}$ du modèle M$_1$.
 
 ```{r R2}
 R2 <- (RSS0-RSS)/RSS0
 ```
 #### Test de l'effet origine sur la quantité de matière sèche
 
-*   Quelle est l'expression de la statistique de test permettant de tester l'existence de différences moyennes entre les lieux de production ? Quelle est la valeur prise par cette statistique de test~?
+*   Quelle est l'expression de la statistique de test permettant de tester l'existence de différences moyennes entre les lieux de production ? Quelle est la valeur prise par cette statistique de test ?
 
 ```{r stat_test}
 norigine <- nrow(stat_desc)
