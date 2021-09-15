@@ -69,7 +69,7 @@ liste_complete %>%
 ### Script
 
 - [TD1_script.R](TD1_script.R) : le script pour bien démarrer le TD1.
-
+- [TD2_script.R](TD2_script.R) : le script pour bien démarrer le TD2 si vous n'avez pas fait le TD1, sinon reprenez la suite du TD1.
 
 ### Données
 
