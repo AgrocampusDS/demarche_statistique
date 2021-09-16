@@ -117,4 +117,4 @@ La somme des carrés des écarts résiduels, RSS, est la somme des $(Y_{ij}-\bar
 ### Environnement R
 
 ### Statistique 
-- Table d'analyse de variance
+- Table d'analyse de la variance
