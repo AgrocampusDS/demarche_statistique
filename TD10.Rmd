@@ -35,9 +35,9 @@ out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
   
 ## Exercices 
 
-<p class= "care"> Prédiction du taux de glucose chez l'abricot par colorimétrie </p>
+<p class= "care"> Prédiction du taux de glucose d'un abricot par colorimétrie </p>
 
-   Une des difficultés que rencontrent les producteurs d'abricots est la détermination du stade de maturité du fruit, information utile pour choisir le moment opportun de la récolte. La colorimétrie est parfois identifiée comme un bon marqueur de la maturité. Il est en effet possible de mesurer précisément la couleur d'un fruit selon trois dimensions correspondant à trois composantes numériques :
+   Une des difficultés que rencontrent les producteurs d'abricots est la détermination du stade de maturité du fruit, information utile pour choisir le moment opportun de la récolte. Un abricot cueilli à maturité a un taux de glucose élevé. La colorimétrie est parfois identifiée comme un bon marqueur de la maturité. Il est en effet possible de mesurer précisément la couleur d'un fruit selon trois dimensions correspondant à trois composantes numériques :
 
 * L, la clarté, qui va de 0 (noir) à 100 (blanc),
 * a, sur un axe vert (-) - rouge (+),
@@ -48,7 +48,7 @@ out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 
 Dans un premier temps, on souhaite vérifier le lien entre colorimétrie et maturité d'un abricot à partir de données expérimentales sur 108 abricots d'une même variété, répartis selon 3 stades de maturité (1, 2 ou 3 du moins mûr au plus mûr). Les données sont disponibles dans le fichier [abricots](abricotsSG.txt)
 
-* Importer le jeu de données dans un objet nommé `abricots` et indiquer le nombre d'abricots dans chaque chaque stade.
+* Importer le jeu de données dans un objet nommé `abricots` et indiquer le nombre d'abricots dans  chaque stade.
 
 ```{r import_data}
 library(tidyverse)
@@ -60,7 +60,7 @@ abricots <- abricots %>% mutate(Maturite=as.factor(Maturite))
 summary(abricots)
 ```
 
-* Construire un graphique décrivant l'effet de la maturité d'un abricot sur son indice colorimétrique a.
+* Construire un graphique illsutrant le lien entre la maturité d'un abricot et son indice colorimétrique a.
 
 ```{r maturite_a_graph}
 abricots %>% ggplot() +
@@ -75,7 +75,7 @@ m0  <- lm(a~1, data = abricots)
 anova(m0,m1)
 ```
 
-* L'indice a est-il un bon candidat pour évaluer la maturité d'un abricot ?
+* L'indice `a` est-il un bon candidat pour évaluer la maturité d'un abricot ?
 
 ```{r mat_a_moy}
 maturite_comp <- emmeans(m1,  ~ Maturite )
@@ -88,7 +88,7 @@ plot(maturite_comp)
 
    Un des indicateurs de la qualité de l'abricot est son taux de glucose. On cherche maintenant à savoir comment le taux de glocose dépend du marqueur indirect de la maturité qu'est l'indice colorimétrique a.
 
-*  Construire un graphique décrivant la relation entre le taux de glucose et l'indice 'a'.
+*  Construire un graphique décrivant la relation entre le taux de glucose et l'indice `a`.
 
 ```{r glucose_a_graph}
 
@@ -98,14 +98,14 @@ abricots %>% ggplot() +
 ```
 
 
-* Proposez un modèle du lien entre le taux de glucose et l'indice 'a' d'un abricot.
+* Proposer un modèle du lien entre le taux de glucose et l'indice `a` d'un abricot.
 
 ```{r reg_modele}
 m_reg <- lm(Glucose ~ a , data = abricots)
 summary(m_reg)
 ```
 
-* A l'aide de ce modèle, donnez un intervalle de confiance de niveau 95\%  du taux de glucose moyen  d'un abricot dont l'indice colorimétrique 'a' est égal à 5.
+* A l'aide de ce modèle, donner un intervalle de confiance de niveau 95\%  du taux de glucose moyen  d'un abricot dont l'indice colorimétrique `a` est égal à 5.
 
 ```{r reg_modele_conf}
 predict(m_reg, newdata = data.frame(a=5), interval = 'confidence')
@@ -118,7 +118,7 @@ predict(m_reg, newdata = data.frame(a=5), interval = "prediction")
 ```
 
 
-La différence entre intervalle de confiance pour la valeur moyenn eet intervalle de prédiction peut-être représentée graphiquement sous la forme suivante :
+La différence entre intervalle de confiance pour la valeur moyenne et intervalle de prédiction peut-être représentée graphiquement sous la forme suivante :
 
 ```{r facultatif, fig.show='asis', fig.cap="La ligne bleue indique le taux de Glucose moyen prédit par le modèle en fonction de l'indice a, la zone grisée représente l'intervalle de confiance pour ce taux moyen tandis que les deux lignes pointillées rouges délimitent le taux de Glucose prédit pour un abricot selon son indice a"}
 abricots_pred <- predict(m_reg, interval = "prediction") %>% 
@@ -145,7 +145,7 @@ abricots %>%
    geom_smooth(method = "lm", aes(x = a , y = Glucose))
 ```
 
-* Proposer une extension du modèle ci-dessus visant à corriger le problème de 'biais de prédiction' mis en avant dans la question précédente.
+* Proposer une extension du modèle ci-dessus visant à corriger le problème de *biais de prédiction* mis en avant dans la question précédente.
   
   
 ```{r mod_ancova}
