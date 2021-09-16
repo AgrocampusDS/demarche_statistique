@@ -40,14 +40,20 @@ Les données sur lesquelles vous allez travailler sont extraites du livre *Stati
 #### Utiliser un tableur
 
 Les données du premier tableau sont issues de mesures de 3 échantillons de la production d'une même machine. Chaque échantillon de financiers est constitué de 5 gâteaux ; les échantillons sont issues des productions du matin, de l'après-midi et du soir.
-Pour l'échantillon 1, nous avons les mesures suivantes : 49, 55, 51, 52, 48.
-Pour l'échantillon 2, nous avons les mesures suivantes : 52, 51, 55, 58, 49.
-Pour l'échantillon 3, nous avons les mesures suivantes : 55, 51, 52, 52, 50.
+
+* Pour l'échantillon 1, nous avons les mesures suivantes : 49, 55, 51, 52, 48.
+
+* Pour l'échantillon 2, nous avons les mesures suivantes : 52, 51, 55, 58, 49.
+
+* Pour l'échantillon 3, nous avons les mesures suivantes : 55, 51, 52, 52, 50.
 
 Les données du second tableau sont issues de mesures de 3 échantillons de la production de 3 machines différentes.
-Pour la machine 1, nous avons les mesures suivantes : 47, 49, 53, 50, 46.
-Pour la machine 2, nous avons les mesures suivantes : 55, 58, 54, 61, 52.
-Pour la machine 3, nous avons les mesures suivantes : 54, 51, 50, 51, 49.
+
+* Pour la machine 1, nous avons les mesures suivantes : 47, 49, 53, 50, 46.
+
+* Pour la machine 2, nous avons les mesures suivantes : 55, 58, 54, 61, 52.
+
+* Pour la machine 3, nous avons les mesures suivantes : 54, 51, 50, 51, 49.
 
 Rentrer les données dans un tableur de votre choix (Calc de la suite LibreOffice ou OpenOffice, Excel de la suite Microsoft Office, par exemple) : pour cela, il faudra bien réfléchir à la notion d'individu statistique, et aux variables qui les mesurent.
 
@@ -59,11 +65,15 @@ De même que pour les séances précédentes, vous allez importer les tableaux d
 
 Stocker le premier tableau importé dans un objet appelé *tab1*, et le second tableau importé dans un objet appelé *tab2*. Par la suite, pour *tab1*, on appelle *periode* la variable qui désigne le moment où l'échantillon a été prélevé, et pour *tab2*, on appelle *machine* la variable qui désigne la machine qui a produit l'échantillon prélevé ; *longueur* est le nom de la variable qui désigne la longueur des financiers aux amandes pour les deux jeux de données *tab1* et *tab2*.
 
+Attention, les variables *periode* et *machine* sont des variables qualitatives et doivent être considérées comme telles par `R`.
+
 ####  Visualisation des données
 
 Visualiser les données des jeux *tabl* et *tab2* en vous inspirant du code des séances précédentes ; afficher une légende permettant de distinguer les deux types de données.
 
-Pour *tab1*, calculer les moyennes des mesures associées à chaque échantillon. Pour *tab2*, calculer les moyennes des mesures associées à chaque machine. Que pensez-vous des différences entre les moyennes calculées pour *tab1* d'une part, pour *tab2* d'autre part ? Sont-elles du même ordre de grandeur d'un jeu de données à l'autre ? Que suggèrent les différences entre les moyennes calculées pour *tab2* ?
+Pour *tab1*, calculer les moyennes des mesures associées à chaque échantillon. Pour *tab2*, calculer les moyennes des mesures associées à chaque machine. 
+
+Que pensez-vous des différences entre les moyennes calculées pour *tab1* d'une part, pour *tab2* d'autre part ? Sont-elles du même ordre de grandeur d'un jeu de données à l'autre ? Que suggèrent les différences entre les moyennes calculées pour *tab2* ?
 
 
 ### Comparaison des données issues des tableaux 2 et 3
@@ -71,13 +81,18 @@ Pour *tab1*, calculer les moyennes des mesures associées à chaque échantillon
 #### Les données du tableau 3
 
 De même que pour le tableau 2, les données du troisième tableau sont issues de mesures de 3 échantillons de la production de 3 machines différentes.
-Pour la machine 1, nous avons les mesures suivantes : 50, 42, 53, 45, 55.
-Pour la machine 2, nous avons les mesures suivantes : 48, 57, 65, 59, 51.
-Pour la machine 3, nous avons les mesures suivantes : 57, 59, 48, 46, 45.
+
+* Pour la machine 1, nous avons les mesures suivantes : 50, 42, 53, 45, 55.
+
+* Pour la machine 2, nous avons les mesures suivantes : 48, 57, 65, 59, 51.
+
+* Pour la machine 3, nous avons les mesures suivantes : 57, 59, 48, 46, 45.
 
 De même que pour la section précédente, il vous est demandé d'enregistrer les données dans un tableau et d'importer le tableau de données dans `R`, dans un objet que vous appellerez *tab3*. De même que pour *tab2*, on appelle *machine* la variable qui désigne la machine ; *longueur* est le nom de la variable qui désigne la longueur des financiers aux amandes.
 
-Pour *tab3*, calculer les moyennes des mesures associées à chaque échantillon. Que pensez-vous des différences entre les moyennes calculées pour *tab2* d'une part, pour *tab3* d'autre part ? Que pensez-vous de la régularité des machines du jeu de données *tab2* ? Les machines de ce jeu de données vous semblent-elles plus régulières que celles de *tab3* ?
+Pour *tab3*, calculer les moyennes des mesures associées à chaque échantillon. 
+
+Que pensez-vous des différences entre les moyennes calculées pour *tab2* d'une part, pour *tab3* d'autre part ? Que pensez-vous de la régularité des machines du jeu de données *tab2* ? Les machines de ce jeu de données vous semblent-elles plus régulières que celles de *tab3* ?
 
 #### Modèle statistique pour un effet groupe
 
@@ -86,6 +101,8 @@ Tester l'effet de la machine sur la longueur des financiers pour les données is
 #### La table d'analyse de variance
 
 Comme son nom ne l'indique pas forcément, la table d'analyse de variance n'est pas un résultat spécifique de l'analyse de la variance ; vous la retrouverez également quand vous chercherez à expliquer une variable quantitative par une autre variable quantitative.
+
+Après avoir testé l'effet de la machine sur la longueur des financiers pour les données issues de *tab2* d'une part, *tab3* d'autre part, commenter les tables issues de la fonction `anova` appliquée aux résultats produits par la fonction `lm`.
 
 La somme des carrés entre les machines, RSS$_{0}$-RSS, est la somme des carrés entre les modalités prises par votre facteur machine, c'est la somme des carrés *inter*.
 
