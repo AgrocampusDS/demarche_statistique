@@ -295,8 +295,18 @@ $(document).ready(function () {
 <h3>Construction des tableaux de données et importation des données dans <code>R</code></h3>
 <div id="utiliser-un-tableur" class="section level4">
 <h4>Utiliser un tableur</h4>
-<p>Les données du premier tableau sont issues de mesures de 3 échantillons de la production d’une même machine. Chaque échantillon de financiers est constitué de 5 gâteaux ; les échantillons sont issues des productions du matin, de l’après-midi et du soir. Pour l’échantillon 1, nous avons les mesures suivantes : 49, 55, 51, 52, 48. Pour l’échantillon 2, nous avons les mesures suivantes : 52, 51, 55, 58, 49. Pour l’échantillon 3, nous avons les mesures suivantes : 55, 51, 52, 52, 50.</p>
-<p>Les données du second tableau sont issues de mesures de 3 échantillons de la production de 3 machines différentes. Pour la machine 1, nous avons les mesures suivantes : 47, 49, 53, 50, 46. Pour la machine 2, nous avons les mesures suivantes : 55, 58, 54, 61, 52. Pour la machine 3, nous avons les mesures suivantes : 54, 51, 50, 51, 49.</p>
+<p>Les données du premier tableau sont issues de mesures de 3 échantillons de la production d’une même machine. Chaque échantillon de financiers est constitué de 5 gâteaux ; les échantillons sont issues des productions du matin, de l’après-midi et du soir.</p>
+<ul>
+<li><p>Pour l’échantillon 1, nous avons les mesures suivantes : 49, 55, 51, 52, 48.</p></li>
+<li><p>Pour l’échantillon 2, nous avons les mesures suivantes : 52, 51, 55, 58, 49.</p></li>
+<li><p>Pour l’échantillon 3, nous avons les mesures suivantes : 55, 51, 52, 52, 50.</p></li>
+</ul>
+<p>Les données du second tableau sont issues de mesures de 3 échantillons de la production de 3 machines différentes.</p>
+<ul>
+<li><p>Pour la machine 1, nous avons les mesures suivantes : 47, 49, 53, 50, 46.</p></li>
+<li><p>Pour la machine 2, nous avons les mesures suivantes : 55, 58, 54, 61, 52.</p></li>
+<li><p>Pour la machine 3, nous avons les mesures suivantes : 54, 51, 50, 51, 49.</p></li>
+</ul>
 <p>Rentrer les données dans un tableur de votre choix (Calc de la suite LibreOffice ou OpenOffice, Excel de la suite Microsoft Office, par exemple) : pour cela, il faudra bien réfléchir à la notion d’individu statistique, et aux variables qui les mesurent.</p>
 <p>Sauver les tableaux de données dans deux fichiers <em>csv</em>.</p>
 </div>
@@ -304,20 +314,28 @@ $(document).ready(function () {
 <h4>Importer les tableaux de données dans <code>R</code></h4>
 <p>De même que pour les séances précédentes, vous allez importer les tableaux de données en utilisant un script <code>TD4_script.R</code> que vous aurez créé dans votre répertoire de projet.</p>
 <p>Stocker le premier tableau importé dans un objet appelé <em>tab1</em>, et le second tableau importé dans un objet appelé <em>tab2</em>. Par la suite, pour <em>tab1</em>, on appelle <em>periode</em> la variable qui désigne le moment où l’échantillon a été prélevé, et pour <em>tab2</em>, on appelle <em>machine</em> la variable qui désigne la machine qui a produit l’échantillon prélevé ; <em>longueur</em> est le nom de la variable qui désigne la longueur des financiers aux amandes pour les deux jeux de données <em>tab1</em> et <em>tab2</em>.</p>
+<p>Attention, les variables <em>periode</em> et <em>machine</em> sont des variables qualitatives et doivent être considérées comme telles par <code>R</code>.</p>
 </div>
 <div id="visualisation-des-données" class="section level4">
 <h4>Visualisation des données</h4>
 <p>Visualiser les données des jeux <em>tabl</em> et <em>tab2</em> en vous inspirant du code des séances précédentes ; afficher une légende permettant de distinguer les deux types de données.</p>
-<p>Pour <em>tab1</em>, calculer les moyennes des mesures associées à chaque échantillon. Pour <em>tab2</em>, calculer les moyennes des mesures associées à chaque machine. Que pensez-vous des différences entre les moyennes calculées pour <em>tab1</em> d’une part, pour <em>tab2</em> d’autre part ? Sont-elles du même ordre de grandeur d’un jeu de données à l’autre ? Que suggèrent les différences entre les moyennes calculées pour <em>tab2</em> ?</p>
+<p>Pour <em>tab1</em>, calculer les moyennes des mesures associées à chaque échantillon. Pour <em>tab2</em>, calculer les moyennes des mesures associées à chaque machine.</p>
+<p>Que pensez-vous des différences entre les moyennes calculées pour <em>tab1</em> d’une part, pour <em>tab2</em> d’autre part ? Sont-elles du même ordre de grandeur d’un jeu de données à l’autre ? Que suggèrent les différences entre les moyennes calculées pour <em>tab2</em> ?</p>
 </div>
 </div>
 <div id="comparaison-des-données-issues-des-tableaux-2-et-3" class="section level3">
 <h3>Comparaison des données issues des tableaux 2 et 3</h3>
 <div id="les-données-du-tableau-3" class="section level4">
 <h4>Les données du tableau 3</h4>
-<p>De même que pour le tableau 2, les données du troisième tableau sont issues de mesures de 3 échantillons de la production de 3 machines différentes. Pour la machine 1, nous avons les mesures suivantes : 50, 42, 53, 45, 55. Pour la machine 2, nous avons les mesures suivantes : 48, 57, 65, 59, 51. Pour la machine 3, nous avons les mesures suivantes : 57, 59, 48, 46, 45.</p>
+<p>De même que pour le tableau 2, les données du troisième tableau sont issues de mesures de 3 échantillons de la production de 3 machines différentes.</p>
+<ul>
+<li><p>Pour la machine 1, nous avons les mesures suivantes : 50, 42, 53, 45, 55.</p></li>
+<li><p>Pour la machine 2, nous avons les mesures suivantes : 48, 57, 65, 59, 51.</p></li>
+<li><p>Pour la machine 3, nous avons les mesures suivantes : 57, 59, 48, 46, 45.</p></li>
+</ul>
 <p>De même que pour la section précédente, il vous est demandé d’enregistrer les données dans un tableau et d’importer le tableau de données dans <code>R</code>, dans un objet que vous appellerez <em>tab3</em>. De même que pour <em>tab2</em>, on appelle <em>machine</em> la variable qui désigne la machine ; <em>longueur</em> est le nom de la variable qui désigne la longueur des financiers aux amandes.</p>
-<p>Pour <em>tab3</em>, calculer les moyennes des mesures associées à chaque échantillon. Que pensez-vous des différences entre les moyennes calculées pour <em>tab2</em> d’une part, pour <em>tab3</em> d’autre part ? Que pensez-vous de la régularité des machines du jeu de données <em>tab2</em> ? Les machines de ce jeu de données vous semblent-elles plus régulières que celles de <em>tab3</em> ?</p>
+<p>Pour <em>tab3</em>, calculer les moyennes des mesures associées à chaque échantillon.</p>
+<p>Que pensez-vous des différences entre les moyennes calculées pour <em>tab2</em> d’une part, pour <em>tab3</em> d’autre part ? Que pensez-vous de la régularité des machines du jeu de données <em>tab2</em> ? Les machines de ce jeu de données vous semblent-elles plus régulières que celles de <em>tab3</em> ?</p>
 </div>
 <div id="modèle-statistique-pour-un-effet-groupe" class="section level4">
 <h4>Modèle statistique pour un effet groupe</h4>
@@ -326,6 +344,7 @@ $(document).ready(function () {
 <div id="la-table-danalyse-de-variance" class="section level4">
 <h4>La table d’analyse de variance</h4>
 <p>Comme son nom ne l’indique pas forcément, la table d’analyse de variance n’est pas un résultat spécifique de l’analyse de la variance ; vous la retrouverez également quand vous chercherez à expliquer une variable quantitative par une autre variable quantitative.</p>
+<p>Après avoir testé l’effet de la machine sur la longueur des financiers pour les données issues de <em>tab2</em> d’une part, <em>tab3</em> d’autre part, commenter les tables issues de la fonction <code>anova</code> appliquée aux résultats produits par la fonction <code>lm</code>.</p>
 <p>La somme des carrés entre les machines, RSS<span class="math inline">\(_{0}\)</span>-RSS, est la somme des carrés entre les modalités prises par votre facteur machine, c’est la somme des carrés <em>inter</em>.</p>
 <p>La somme des carrés des écarts résiduels, RSS, est la somme des <span class="math inline">\((Y_{ij}-\bar{Y_{i.}})^2\)</span> ; autrement dit, c’est la somme des carrés au sein de chaque modalité prise par votre facteur machine, c’est la somme des carrés <em>intra</em>.</p>
 </div>
