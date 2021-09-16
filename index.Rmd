@@ -32,6 +32,7 @@ ll <- lapply(liste_td, function(f){
       filter(str_detect(text, "title:")) %>%
       mutate(Nom = str_remove(text, pattern = "title: [\'\"]"))    %>% 
       mutate(Nom = str_sub(Nom, start = 1, end = -2)) %>% 
+      mutate(index = as.numeric(str_sub(TD, start =3))) %>% 
       select(-text)
     return(td_content)}
 })
@@ -39,7 +40,8 @@ ll <- lapply(liste_td, function(f){
 
 liste_complete <- do.call('rbind', ll) %>% 
   mutate(TD_url = paste0(TD, '.html')) %>% 
-  arrange(Nom)
+  arrange(index) %>% 
+  select(-index)
 
 
 ```
@@ -78,7 +80,7 @@ liste_complete %>%
 - [Cafe](cafe_DM.csv) : données sur la qualité des cafés en fonction de différentes provenances,
 - [Compote](compote.csv) : données sur les compotes,
 - [dataSportV1](dataSportV1.csv) et [dataSportV2](dataSportV2.csv),
-- [Manchots de Palmer](penguins.csv) : ce jeu de données est distribué dans le package [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/) d'Allison Horst <img src="https://allisonhorst.github.io/palmerpenguins/reference/figures/logo.png" alt="manchot" height="100"/>
+- [Manchots de Palmer](penguins.csv) : ce jeu de données est distribué dans le package [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/) d'Allison Horst <img src="https://allisonhorst.github.io/palmerpenguins/reference/figures/logo.png" alt="manchot" height="50"/>
 - [puissance1](puissance_1.csv) et [puissance2](puissance_2.csv)
 
 
