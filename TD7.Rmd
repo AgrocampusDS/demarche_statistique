@@ -195,7 +195,6 @@ Il est indispensable de lister tous les facteurs qui peuvent influer sur la vari
 - anova et lm
 - Anova (package car)
 - emmeans (package emmeans)
-- glht (package multcomp)
 
 ### Environnement R
 

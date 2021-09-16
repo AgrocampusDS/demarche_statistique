@@ -211,7 +211,6 @@ L'effet d'un facteur sur une variable réponse doit être testé en premier. Si 
 - anova et lm
 - pairwise.t.test
 - emmeans (package emmeans)
-- glht (package multcomp)
 
 ### Statistique 
 - Effet de la taille d'échantillon sur la puissance de détection
