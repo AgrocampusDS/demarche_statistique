@@ -107,7 +107,7 @@ predict(m_reg, newdata = data.frame(a=5), interval = 'confidence')
 * A l'aide de ce modèle, donnez un intervalle de prédiction  de niveau 95%  pour le taux de glucose   d'un abricot dont l'indice colorimétrique 'a' est égal à 5.
 
 
-```{r reg_modele_conf}
+```{r pred_reg_conf}
 predict(m_reg, newdata = data.frame(a=5), interval = "prediction")
 ```
 
@@ -159,7 +159,7 @@ anova(m_maturite_a)
  
 * Donner un intervalle de confiance de niveau 95 % de la valeur prédite du taux de glucose pour un abricot dont l'indice colorimétrique 'a' est égal à 5 et dont le stade de maturité est '2' et pour un abricot de stade de maturité '3'.
 
-```{r reg_modele_conf}
+```{r pred_ancova_conf}
 predict(m_maturite_a, newdata = data.frame(a=5, Maturite = "2"), interval = "confidence")
 predict(m_maturite_a, newdata = data.frame(a=5, Maturite = "3"), interval = "confidence")
 ```
