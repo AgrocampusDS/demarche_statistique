@@ -185,7 +185,7 @@ Nous utiliserons le logiciel [R](https://www.r-project.org/)  et l'environnement
 **Processus d'installation :**
 
 * Il faut en premier lieu [installer R](https://cran.r-project.org/)
-* puis installer l'environnement [RStudio](https://www.rstudio.com/products/rstudio/download/)
+* puis installer l'environnement [RStudio](https://www.rstudio.com/products/rstudio/download/) (version Rstudio Desktop).
 
 C'est prêt.
 
