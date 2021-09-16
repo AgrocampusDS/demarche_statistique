@@ -73,11 +73,12 @@ liste_complete %>%
 
 ### Données
 
+- [Abricots](abricotsSG.txt) : données sur la maturité des abricots,
 - [Angle](angle.csv) : données sur l'évaluation des angles, 
 - [Cafe](cafe_DM.csv) : données sur la qualité des cafés en fonction de différentes provenances,
 - [Compote](compote.csv) : données sur les compotes,
 - [dataSportV1](dataSportV1.csv) et [dataSportV2](dataSportV2.csv),
-- [Manchots de Palmer](penguins.csv) : ce jeu de données est distribué dans le package [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/) d'Allison Horst <img src="https://allisonhorst.github.io/palmerpenguins/reference/figures/logo.png" alt="manchot" width="200"/>
+- [Manchots de Palmer](penguins.csv) : ce jeu de données est distribué dans le package [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/) d'Allison Horst <img src="https://allisonhorst.github.io/palmerpenguins/reference/figures/logo.png" alt="manchot" height="100"/>
 - [puissance1](puissance_1.csv) et [puissance2](puissance_2.csv)
 
 
