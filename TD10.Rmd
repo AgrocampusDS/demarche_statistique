@@ -1,0 +1,182 @@
+---
+title: "TD8 : Comparaison de droites de régression"
+author: "UP Mathématique appliquée"
+date: ''
+output:
+  html_document:
+    theme: united
+    css: style.css
+    highlight: tango
+mainfont: SourceSansPro
+header-includes:
+- \usepackage[default]{sourcesanspro}
+- \usepackage[T1]{fontenc}
+---
+
+
+```{r setup-TD10, include=FALSE, }
+knitr::opts_chunk$set(echo = FALSE, cache= TRUE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'hide' )
+library(tidyverse)
+library(kableExtra)
+out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+```
+
+
+# {.tabset .tabset-fade .tabset-pills}
+
+##  Objectifs de la séance  
+
+
+## Exercices 
+
+<p class= "care"> Prédiction du taux de glucose chez l'abricot par colorimétrie </p>
+
+   Une des difficultés que rencontrent les producteurs d'abricots est la détermination du stade de maturité du fruit, information utile pour choisir le moment opportun de la récolte. La colorimétrie est parfois identifiée comme un bon marqueur de la maturité. Il est en effet possible de mesurer précisément la couleur d'un fruit selon trois dimensions correspondant à trois composantes numériques :
+
+* L, la clarté, qui va de 0 (noir) à 100 (blanc),
+* a, sur un axe vert (-) - rouge (+),
+* b, sur un axe bleu (-) - jaune (+).
+
+
+### Lien entre colorimétie et maturité de l'abricot 
+
+Dans un premier temps, on souhaite vérifier le lien entre colorimétrie et maturité d'un abricot à partir de données expérimentales sur 108 abricots d'une même variété, répartis selon 3 stades de maturité (1, 2 ou 3 du moins mûr au plus mûr). Les données sont disponibles dans le fichier [abricots](abricotsSG.txt)
+
+* Importer le jeu de données dans un objet nommé `abricots` et indiquer le nombre d'abricots dans chaque chaque stade.
+
+```{r import_data}
+library(tidyverse)
+library(emmeans)
+abricots <- read.table(file = "abricotsSG.txt", sep = " ",
+                       header = TRUE, 
+                       stringsAsFactors = TRUE)
+abricots <- abricots %>% mutate(Maturite=as.factor(Maturite))
+summary(abricots)
+```
+
+* Construire un graphique décrivant l'effet de la maturité d'un abricot sur son indice colorimétrique a.
+
+```{r maturite_a_graph}
+abricots %>% ggplot() +
+  geom_boxplot(aes(x = Maturite, y = a))
+```
+
+* Construire un test d'égalité des indices `a` moyens des abricots aux différents stades de maturité. 
+
+```{r mat_a_anova}
+m1 <- lm(a~Maturite, data = abricots)
+m0  <- lm(a~1, data = abricots)
+anova(m0,m1)
+```
+
+* L'indice a est-il un bon candidat pour évaluer la maturité d'un abricot ?
+
+```{r mat_a_moy}
+maturite_comp <- emmeans(m1,  ~ Maturite )
+pairs(maturite_comp, adjust = "bonf")
+plot(maturite_comp)
+```
+
+
+### Etude du lien entre l'indice colorimétrique a et le taux de glucose
+
+   Un des indicateurs de la qualité de l'abricot est son taux de glucose. On cherche maintenant à savoir comment le taux de glocose dépend du marqueur indirect de la maturité qu'est l'indice colorimétrique a.
+
+*  Construire un graphique décrivant la relation entre le taux de glucose et l'indice 'a'.
+
+```{r glucose_a_graph}
+
+abricots %>% ggplot() + 
+  geom_point(aes(x=a, y= Glucose))  +
+  ggtitle("Taux de glucose en fonction de l'indice a")
+```
+
+
+* Proposez un modèle du lien entre le taux de glucose et l'indice 'a' d'un abricot.
+
+```{r reg_modele}
+m_reg <- lm(Glucose ~ a , data = abricots)
+summary(m_reg)
+```
+
+* A l'aide de ce modèle, donnez un intervalle de confiance de niveau 95\%  du taux de glucose moyen  d'un abricot dont l'indice colorimétrique 'a' est égal à 5.
+
+```{r reg_modele_conf}
+predict(m_reg, newdata = data.frame(a=5), interval = 'confidence')
+```
+* A l'aide de ce modèle, donnez un intervalle de prédiction  de niveau 95%  pour le taux de glucose   d'un abricot dont l'indice colorimétrique 'a' est égal à 5.
+
+
+```{r reg_modele_conf}
+predict(m_reg, newdata = data.frame(a=5), interval = "prediction")
+```
+
+
+La différence entre intervalle de confiance pour la valeur moyenn eet intervalle de prédiction peut-être représentée graphiquement sous la forme suivante :
+
+```{r facultatif, fig.show='asis', fig.cap="La ligne bleue indique le taux de Glucose moyen prédit par le modèle en fonction de l'indice a, la zone grisée représente l'intervalle de confiance pour ce taux moyen tandis que les deux lignes pointillées rouges délimitent le taux de Glucose prédit pour un abricot selon son indice a"}
+abricots_pred <- predict(m_reg, interval = "prediction") %>% 
+   as_tibble()
+
+abricots %>% 
+   mutate(lwr_pred = abricots_pred$lwr,
+          upr_pred = abricots_pred$upr) %>% 
+   ggplot() + geom_point(aes(x=a, y = Glucose)) +
+   geom_smooth(aes(x=a, y = Glucose), method = 'lm', se = TRUE) +
+   geom_line(aes(x= a, y= lwr_pred), color = "red", linetype = "dashed") +
+   geom_line(aes(x= a, y= upr_pred), color = "red", linetype = "dashed")
+   
+   
+```
+
+
+* Montrer graphiquement qu'en moyenne la prédiction du taux de glucose d'un abricot par le modèle ci-dessus sur-estime le taux de glucose pour les abricots au stade de maturité 2 et au contraire, le sous-estime pour les abricots au stade de maturité 3.
+
+```{r a_glcose_mat_graph}
+abricots %>% 
+   ggplot() + 
+   geom_point(aes(x= a, y = Glucose, col = Maturite)) +
+   geom_smooth(method = "lm", aes(x = a , y = Glucose))
+```
+
+* Proposer une extension du modèle ci-dessus visant à corriger le problème de 'biais de prédiction' mis en avant dans la question précédente.
+  
+  
+```{r mod_ancova}
+m_maturite_a <- lm(Glucose ~ Maturite + a + Maturite:a, data = abricots)
+```
+  
+* La relation liant l'indice a et le taux de Glucose est-elle la même à tous les stades de Maturité ? 
+
+```{r meme_relation}
+abricots %>% 
+   ggplot() + 
+   geom_point(aes(x= a, y = Glucose, col = Maturite)) +
+   geom_smooth(method = "lm", aes(x = a , y = Glucose, col = Maturite))
+
+anova(m_maturite_a)
+```
+ 
+* Donner un intervalle de confiance de niveau 95 % de la valeur prédite du taux de glucose pour un abricot dont l'indice colorimétrique 'a' est égal à 5 et dont le stade de maturité est '2' et pour un abricot de stade de maturité '3'.
+
+```{r reg_modele_conf}
+predict(m_maturite_a, newdata = data.frame(a=5, Maturite = "2"), interval = "confidence")
+predict(m_maturite_a, newdata = data.frame(a=5, Maturite = "3"), interval = "confidence")
+```
+
+  
+## Le vocabulaire de la séance
+
+### Commandes R
+- anova
+- Anova (package car)
+- predict
+- geom_smooth
+
+### Environnement R
+
+
+### Statistique 
+- Analyse de la variance
+- Comparaison de droites de régression (Ancova)
+- Regression
