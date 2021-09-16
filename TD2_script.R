@@ -4,22 +4,20 @@
 ##
 #############################################################
 
-## Importer 'penguins.csv' pour l'afficher à l'écran
-read.table('penguins.csv', sep = ',', header = TRUE)
 
 ## Importer 'penguins.csv' pour le stocker dans l'objet penguins
-penguins <- read.table('penguins.csv', sep = ',', header = TRUE)
-
-
+penguins <- read.table('penguins.csv', sep = ';', header = TRUE)
 summary(penguins)
 
 library(tidyverse)
 
-penguins <- rename(.data = penguins, long_bec = bill_length_mm, 
-                   epais_bec = bill_depth_mm)
-
-
+penguins <- rename(.data = penguins, longueur_bec = bill_length_mm, 
+                   epaisseur_bec = bill_depth_mm)
 penguins <- rename(.data = penguins, espece = species, 
+                   poids = body_mass_g,
+                   longueur_nageoire = flipper_length_mm,
+                   sexe = sex, 
+                   annee = year,
                    ile = island)
 
 
