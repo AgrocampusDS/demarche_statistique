@@ -165,7 +165,7 @@ anova(mod)
 
 
 ### Statistique 
-- test d'égalité de 2 moyennes
-- test de conformité
-- test unilatéral
+- Test d'égalité de 2 moyennes
+- Test de conformité
+- Test unilatéral
 

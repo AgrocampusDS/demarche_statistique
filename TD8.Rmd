@@ -299,6 +299,6 @@ Si un 2ème facteur a un effet significatif, il faut (rayer les mentions inutile
 
 
 ### Statistique 
-- test de comparaison de moyenne
-- test d'analyse de la variance
-- puissance des tests
+- Test de comparaison de moyenne
+- Test d'analyse de la variance
+- Puissance des tests

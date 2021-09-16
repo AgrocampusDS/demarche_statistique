@@ -261,5 +261,5 @@ Cette probabilité est la p-value.
 
 
 ### Statistique 
-- analyse de variance
+- Analyse de variance
 

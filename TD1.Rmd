@@ -211,6 +211,6 @@ Il est essentiel de nettoyer (ne garder que les commandes pertinentes) et de sau
 - package
 
 ### Statistique 
-- variable quantitative
-- variable qualitative
-- distribution d'une variable
+- Variable quantitative
+- Variable qualitative
+- Distribution d'une variable

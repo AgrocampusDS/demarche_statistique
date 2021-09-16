@@ -26,7 +26,13 @@ out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 
 ##  Objectifs de la séance  
 
-
+* Visualisation de données
+  - Visualiser les relations entre deux variables (quantitative ou qualitative)
+* Analyse de données
+  - Ajuster un modèle d'analyse de la variance et exploiter les résultats qui en découlent
+  - Ajuster un modèle de régresssion et examiner les résultats qui en découlent
+  - Comparer des droites de régression (modèle d'analyse de la covariance)
+  
 ## Exercices 
 
 <p class= "care"> Prédiction du taux de glucose chez l'abricot par colorimétrie </p>
