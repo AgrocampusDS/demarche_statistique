@@ -1,5 +1,5 @@
 ---
-title: "TD8 : Comparaison de droites de régression"
+title: "TD10 : Comparaison de droites de régression"
 author: "UP Mathématique appliquée"
 date: ''
 output:
