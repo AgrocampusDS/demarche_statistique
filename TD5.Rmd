@@ -58,9 +58,9 @@ est évaluée par des filles.
 
 #### Importation du jeu de données
 
-* Saisir les données dans un fichier `angle.csv`.
+* Saisir les données et les sauvegarder dans un fichier `angle.csv`.
 
-* Importer le jeu de données `angle.csv` dans un  objet nommé `don_Angle`  en utilisant un script `TD5_script.R` que vous aurez créé dans votre répertoire de projet.
+* Importer le jeu de données `angle.csv` dans un  objet nommé `don_Angle` en utilisant un script `TD5_script.R` que vous aurez créé dans votre répertoire de projet.
 
 ```{r import_data}
 don_Angle <- read.table('angle.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
@@ -68,7 +68,7 @@ don_Angle <- read.table('angle.csv', sep = ';' , stringsAsFactors = TRUE, header
 
 #### Visualisation des données
 
-* Visualiser les données pour avoir une idée de la distribution des angles pour les garçons, et pour les filles et calculez quelques statistiques par sexe.
+* Visualiser les données pour avoir une idée de la distribution des angles pour les garçons, et pour les filles et calculer quelques statistiques par sexe.
 
 ```{r boxplot}
 don_Angle %>% 
@@ -111,7 +111,7 @@ On cherche dans un premier temps à savoir si en moyenne les filles ont une éva
 
 * Dans cette problématique de test, quel est l'échantillon et quelle est la population ?
 
-* A l'aide des données recueillies, mettez en oeuvre le test avec un niveau de confiance de 95 % (i.e. un seuil de 5 % pour l'erreur de type I). Vous utiliserez la fonction `t.test` et adapterez la ligne de code suivante en ne sélectionnant que les filles (n'hésitez pas à voir l'aide de la fonction en faisant `help('t.test')`). La fonction `t.test` permet à la fois de construire le test d'égalité de la moyenne à une valeur, et de construire un intervalle de confiance.
+* A l'aide des données recueillies, mettre en oeuvre le test avec un niveau de confiance de 95 % (i.e. un seuil de 5 % pour l'erreur de type I). Vous utiliserez la fonction `t.test` et adapterez la ligne de code suivante en ne sélectionnant que les filles (n'hésitez pas à voir l'aide de la fonction en faisant `help('t.test')`). La fonction `t.test` permet à la fois de construire le test d'égalité de la moyenne à une valeur, et de construire un intervalle de confiance.
 
 ```{r, echo=FALSE}
 angle_ref <- 37

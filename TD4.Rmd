@@ -41,11 +41,11 @@ Les données sur lesquelles vous allez travailler sont extraites du livre *Stati
 
 Les données du premier tableau sont issues de mesures de 3 échantillons de la production d'une même machine. Chaque échantillon de financiers est constitué de 5 gâteaux ; les échantillons sont issues des productions du matin, de l'après-midi et du soir.
 
-* Pour l'échantillon 1, nous avons les mesures suivantes : 49, 55, 51, 52, 48.
+* Pour le matin, nous avons les mesures suivantes : 49, 55, 51, 52, 48.
 
-* Pour l'échantillon 2, nous avons les mesures suivantes : 52, 51, 55, 58, 49.
+* Pour l'après-midi, nous avons les mesures suivantes : 52, 51, 55, 58, 49.
 
-* Pour l'échantillon 3, nous avons les mesures suivantes : 55, 51, 52, 52, 50.
+* Pour le soir, nous avons les mesures suivantes : 55, 51, 52, 52, 50.
 
 Les données du second tableau sont issues de mesures de 3 échantillons de la production de 3 machines différentes.
 
