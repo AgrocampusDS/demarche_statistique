@@ -388,14 +388,14 @@ $(document).ready(function () {
 <div id="importation-du-jeu-de-données" class="section level4">
 <h4>Importation du jeu de données</h4>
 <ul>
-<li><p>Saisir les données dans un fichier <code>angle.csv</code>.</p></li>
+<li><p>Saisir les données et les sauvegarder dans un fichier <code>angle.csv</code>.</p></li>
 <li><p>Importer le jeu de données <code>angle.csv</code> dans un objet nommé <code>don_Angle</code> en utilisant un script <code>TD5_script.R</code> que vous aurez créé dans votre répertoire de projet.</p></li>
 </ul>
 </div>
 <div id="visualisation-des-données" class="section level4">
 <h4>Visualisation des données</h4>
 <ul>
-<li>Visualiser les données pour avoir une idée de la distribution des angles pour les garçons, et pour les filles et calculez quelques statistiques par sexe.</li>
+<li>Visualiser les données pour avoir une idée de la distribution des angles pour les garçons, et pour les filles et calculer quelques statistiques par sexe.</li>
 </ul>
 </div>
 </div>
@@ -407,7 +407,7 @@ $(document).ready(function () {
 <ul>
 <li><p>Exprimer la problématique ci-dessus sous la forme d’un test d’hypothèses.</p></li>
 <li><p>Dans cette problématique de test, quel est l’échantillon et quelle est la population ?</p></li>
-<li><p>A l’aide des données recueillies, mettez en oeuvre le test avec un niveau de confiance de 95 % (i.e. un seuil de 5 % pour l’erreur de type I). Vous utiliserez la fonction <code>t.test</code> et adapterez la ligne de code suivante en ne sélectionnant que les filles (n’hésitez pas à voir l’aide de la fonction en faisant <code>help('t.test')</code>). La fonction <code>t.test</code> permet à la fois de construire le test d’égalité de la moyenne à une valeur, et de construire un intervalle de confiance.</p></li>
+<li><p>A l’aide des données recueillies, mettre en oeuvre le test avec un niveau de confiance de 95 % (i.e. un seuil de 5 % pour l’erreur de type I). Vous utiliserez la fonction <code>t.test</code> et adapterez la ligne de code suivante en ne sélectionnant que les filles (n’hésitez pas à voir l’aide de la fonction en faisant <code>help('t.test')</code>). La fonction <code>t.test</code> permet à la fois de construire le test d’égalité de la moyenne à une valeur, et de construire un intervalle de confiance.</p></li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>don_Angle  <span class="sc">%&gt;%</span> <span class="fu">select</span>(Angle) <span class="sc">%&gt;%</span> <span class="fu">t.test</span>(<span class="at">mu=</span>angle_ref)</span></code></pre></div>
 <ul>
