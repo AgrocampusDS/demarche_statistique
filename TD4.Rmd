@@ -103,9 +103,9 @@ Comme son nom ne l'indique pas forcément, la table d'analyse de variance n'est 
 
 Après avoir testé l'effet de la machine sur la longueur des financiers pour les données issues de *tab2* d'une part, *tab3* d'autre part, commenter les tables issues de la fonction `anova` appliquée aux résultats produits par la fonction `lm`.
 
-La somme des carrés entre les machines, RSS$_{0}$-RSS, est la somme des carrés entre les modalités prises par votre facteur machine, c'est la somme des carrés *inter*.
+RSS$_{0}$-RSS mesure le gain apporté par le modèle proposé par rapport au modèle nul, c'est la somme des carrés du modèle **SCM**.
 
-La somme des carrés des écarts résiduels, RSS, est la somme des $(Y_{ij}-\bar{Y_{i.}})^2$ ; autrement dit, c'est la somme des carrés au sein de chaque modalité prise par votre facteur machine, c'est la somme des carrés *intra*.
+La somme des carrés des écarts résiduels, RSS, est la somme des $(Y_{ij}-\bar{Y_{i.}})^2$ ; autrement dit, c'est la somme des écarts au carré entre la valeur observée et la valeur moyenne propre à chaque modalité.
 
 
 ## Le vocabulaire de la séance
