@@ -1,0 +1,153 @@
+---
+title: "TD9 : La régression simple et au-delà"
+author: "UP Mathématique appliquée"
+date: ''
+output:
+  html_document:
+    theme: united
+    css: style.css
+    highlight: tango
+mainfont: SourceSansPro
+header-includes:
+- \usepackage[default]{sourcesanspro}
+- \usepackage[T1]{fontenc}
+---
+
+
+```{r setup-TD10, include=FALSE, }
+knitr::opts_chunk$set(echo = FALSE, cache= TRUE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'hide' )
+library(tidyverse)
+library(kableExtra)
+out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+```
+
+
+# {.tabset .tabset-fade .tabset-pills}
+
+##  Objectifs de la séance  
+
+* Visualisation de données
+  - Visualiser les relations entre deux variables quantitatives
+* Analyse de données
+   - Comprendre le modèle de régression
+  - Ajuster un modèle de régression et exploiter les résultats qui en découlent
+  
+  
+## Exercices 
+
+###  Prédiction du volume de bois exploitable 
+
+   Pour évaluer le volume de bois exploitable d'un arbre, il est fréquent d'assimiler le tronc à un cylindre. Dans ce cas, on mesure le diamètre à hauteur de poitrine, noté DBH (Diameter at Breast Height) et en notant *H* la hauteur du tron,  on évalue le volume *V* par la formule :
+   $$V = D^2 H \frac{\pi}{4}. $$
+   
+* En passant au logarithme, écrire une relation liant le logarithme du diamètre diamètre au logarithme de de *V/H*.
+
+Des données recueillies sur des pins Douglas sont diponibles dan sle jeu de données [douglas](douglas.csv)
+
+* Importer ce jeu de données et ajouter les colonnes suivantes :
+   - `ratioVH` : le ratio `Volume` sur `Hauteur`,
+   - `log_ratioVH` : le logarithme de `ratioVH`
+   - `log_diametre` : le logarithme de `Diametre`
+
+```{r import_data}
+douglas <- read.table("douglas.csv", sep = ";", header = TRUE, stringsAsFactors = TRUE) 
+
+douglas <- douglas %>% 
+   mutate(ratioVH = Volume /Hauteur,
+          log_ratioVH = log(ratioVH),
+          log_diametre= log(Diametre)
+          )
+```
+
+* Proposer un graphique permettant de visualiser la relation potentielle entre `log_diametre` et `log_ratioVH`.
+* Mettre en place un test statistique permettant de conclure qu'il existe un lien entre le logarithme  du diamètre et le logarithme du ration Volume sur Hauteur.
+
+* Si le tronc d'arbre est véritablement un cylindre, qu'elle serait la valeur du paramètre mesurant l'effet du log du diamètre sur le ratioVH ?
+
+* Ecrire les hypothèses de test permettant de tester l'égalité du paramètre mesurant l'effet de `log_diametre` sur  `log_ratioVH` à cette valeur théorique.
+
+* Mettre ce test en place et conclure.
+
+### Influence du déboisement sur la relation entre température de l'eau et température de l'air
+
+ On cherche à étudier l'influence du déboisement d'une rivière sur la relation entre la température de l'eau et la température de l'air. On dispose pour cela de mesures conjointes de la température d'eau dans la Flume et de la
+température de l'air effectuées avant le déboisement et après le déboisement. L'unité expérimentale est une décade et les mesures de températures sont en fait des maxima sur une décade.
+
+Le jeu  de données [deboisement.csv](deboisement.csv) contient 56 lignes disponibles correspondant aux 28 décades d'observation avant le déboisement et aux 28 décades d'observation après le déboisement.
+
+```{r import_data_deboisement}
+temp_eau_air <- read.table("deboisement.csv", sep = ";" , header = TRUE, stringsAsFactors = TRUE)
+```
+
+* La température de l'air est-elle la même avant et après déboisement ? (proposer une visualisation graphique puis un test de compraison entre ces deux périodes)
+
+```{r comp_temp_air}
+temp_eau_air %>% ggplot() +
+   geom_boxplot(aes(x= DEBOIST, y = AIR))
+reg_air <- lm(AIR ~ DEBOIST, data = temp_eau_air)
+anova(reg_air)
+summary(reg_air)
+```
+
+
+* Même question pour la température de l'eau 
+
+```{r comp_temp_eau}
+temp_eau_air %>% ggplot() +
+   geom_boxplot(aes(x= DEBOIST, y = EAU))
+reg_eau <- lm(EAU ~ DEBOIST, data = temp_eau_air)
+anova(reg_eau)
+summary(reg_eau)
+```
+
+* Proposer un graphique illustrant la relation entre température de l'eau et température de l'air et qui permet 
+également de faire apparaître l'information sur la période concernée.
+
+
+```{r graphique_eau_air_periode}
+temp_eau_air %>% ggplot() +
+   geom_point(aes(x= AIR, y = EAU, col = DEBOIST)) +
+   geom_smooth(method = "lm", aes(x= AIR, y = EAU, col = DEBOIST)) # cette ligne n'est pas essentielle
+   
+```
+
+
+La forme de ce nuage de points suggère que les variations de la température de l'eau sont proportionnelles aux variations de la température de l'air. Dans la suite, le coefficient de proportionnalité est appelé coefficient de *transfert* de chaleur entre l'air et l'eau.
+
+* En  vous appuyant sur le graphiqué précédent, proposer un modèle du lien entre la température de l'eau et la température de l'air permettant de tester un effet du déboisement sur le coefficient de transfert. Vous donnerez explicitement :
+    - la variable à expliquer,
+    - les variables explicatives,
+    - les paramètres capturant les différents  effets.
+
+* Montrer que le test de l'égalité des coefficients de transfert avant et apprès le déboisement peut être vu comme un test de comparaison de deux modèles emboîtés.
+
+
+
+Les lignes de code ci-dessous permettent d'ajuster un modèle dans lequel on impose l'égalité du coefficient de transfert
+
+```{r ancova_M12, echo = TRUE}
+M12 <- lm(EAU ~AIR + DEBOIST , data = temp_eau_air)
+```
+
+* Ajuster le modèle complet et comparer ces deux modèles à l'aide de la fonction `anova`, puis conclure sur l'égalité des coefficients de transfert.
+
+```{r comp_Mcomp_M12}
+MComp <- lm(EAU~ AIR + DEBOIST + AIR:DEBOIST, data = temp_eau_air)
+anova(M12, MComp)
+```
+
+
+## Le vocabulaire de la séance
+
+### Commandes R
+- anova
+- geom_smooth
+
+### Environnement R
+
+
+### Statistique 
+- Analyse de la variance
+- Comparaison de droites de régression (Ancova)
+- Regression
+- Test d'égalité d'un coefficient à une valeur
