@@ -75,6 +75,7 @@ ratio_M0 <-  lm(log_ratioVH ~ 1, data = douglas)
 anova(ratio_M0, ratio_reg)
 ## version test sur les paramètres
 summary(ratio_reg)
+res <- summary(ratio_reg)
 ## Faire remarquer que summary que la valeur de t^2 vaut f
 res$coefficients[2,3]^2
 ```
