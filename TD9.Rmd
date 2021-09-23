@@ -30,19 +30,19 @@ out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
   - Visualiser les relations entre deux variables quantitatives
 * Analyse de données
    - Comprendre le modèle de régression
-  - Ajuster un modèle de régression et exploiter les résultats qui en découlent
+   - Ajuster un modèle de régression et exploiter les résultats qui en découlent
   
   
 ## Exercices 
 
 ###  Prédiction du volume de bois exploitable 
 
-   Pour évaluer le volume de bois exploitable d'un arbre, il est fréquent d'assimiler le tronc à un cylindre. Dans ce cas, on mesure le diamètre à hauteur de poitrine, noté DBH (Diameter at Breast Height) et en notant *H* la hauteur du tron,  on évalue le volume *V* par la formule :
+   Pour évaluer le volume de bois exploitable d'un arbre, il est fréquent d'assimiler le tronc à un cylindre. Dans ce cas, on mesure le diamètre à hauteur de poitrine, noté DBH (Diameter at Breast Height) et en notant *H* la hauteur du tronc,  on évalue le volume *V* par la formule :
    $$V = D^2 H \frac{\pi}{4}. $$
    
-* En passant au logarithme, écrire une relation liant le logarithme du diamètre diamètre au logarithme de de *V/H*.
+* En passant au logarithme, écrire une relation liant le logarithme du diamètre au logarithme de de *V/H*.
 
-Des données recueillies sur des pins Douglas sont diponibles dan sle jeu de données [douglas](douglas.csv)
+Des données recueillies sur des pins Douglas sont diponibles dans le jeu de données [douglas](douglas.csv)
 
 * Importer ce jeu de données et ajouter les colonnes suivantes :
    - `ratioVH` : le ratio `Volume` sur `Hauteur`,
@@ -60,13 +60,37 @@ douglas <- douglas %>%
 ```
 
 * Proposer un graphique permettant de visualiser la relation potentielle entre `log_diametre` et `log_ratioVH`.
+
+```{r graph_log_diametre_log_ratio}
+douglas %>% ggplot() +
+   geom_point(aes(x=log_diametre, y = log_ratioVH))
+```
+
 * Mettre en place un test statistique permettant de conclure qu'il existe un lien entre le logarithme  du diamètre et le logarithme du ration Volume sur Hauteur.
 
-* Si le tronc d'arbre est véritablement un cylindre, qu'elle serait la valeur du paramètre mesurant l'effet du log du diamètre sur le ratioVH ?
+```{r reg1}
+## pour faire le lien avec l'analyse de la variance
+ratio_reg <- lm(log_ratioVH ~ log_diametre, data = douglas)
+ratio_M0 <-  lm(log_ratioVH ~ 1, data = douglas)
+anova(ratio_M0, ratio_reg)
+## version test sur les paramètres
+summary(ratio_reg)
+## Faire remarquer que summary que la valeur de t^2 vaut f
+res$coefficients[2,3]^2
+```
+
+* Si le tronc d'arbre est véritablement un cylindre, quelle serait la valeur du paramètre mesurant l'effet du log du diamètre sur le ratioVH ?
 
 * Ecrire les hypothèses de test permettant de tester l'égalité du paramètre mesurant l'effet de `log_diametre` sur  `log_ratioVH` à cette valeur théorique.
 
+
 * Mettre ce test en place et conclure.
+
+```{r beta_2}
+tobs <- (res$coefficients[2,1] -2)/(res$coefficients[2,2])
+pt(abs(tobs), df = res$df[2], lower.tail = FALSE)
+```
+
 
 ### Influence du déboisement sur la relation entre température de l'eau et température de l'air
 
