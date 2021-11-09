@@ -191,7 +191,7 @@ Si le test est significatif, on cherche à déterminer quels sports permettent d
 
 * A l'aide de la fonction *emmeans* du package *emmeans*, tester quelles sont les sports qui, deux à deux, donnent des carrures différentes.
 
-```{r testCoeff3_Vf, echo = FALSE, results='markup',eval=FALSE}
+```{r testCoeff3_Vf, echo = TRUE, results='markup',eval=FALSE}
 library(emmeans)
 sport_comp_Vf <- emmeans(mod.Vf,  ~ Sport )
 pairs(sport_comp_Vf, adjust = "bonf")
