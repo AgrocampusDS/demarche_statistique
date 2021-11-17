@@ -216,7 +216,7 @@ n <- nrow(cafe)
 
 numerateur <- (RSS0 - RSS)/(norigine-1) 
 denominateur <- RSS/(n-norigine)
-stat_test <- numerateur/denominateur
+stat_test <- numerateur/denominateur 
 ```
 
 
@@ -224,6 +224,9 @@ stat_test <- numerateur/denominateur
 
 La fonction `pf(q = .., df1 = .. , df2= .. , lower.tail = FALSE) `  donne la probabilité qu'une variable aléatoire suivant une loi de Fisher de paramètre `df1`, `df2` dépasse la valeur `q`.  
 
+```{r calcul_p_value}
+pf(q = stat_test$RSS_group, df1 = norigine-1, df2 = n - norigine, lower.tail = FALSE)
+```
 
 ```{r graph_p_value, fig.show='asis'}
 q_value <- 1.8

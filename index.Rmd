@@ -75,7 +75,7 @@ liste_complete %>%
 
 ### Données
 
-- [Abricots](abricotsSG.txt) : données sur la maturité des abricots,
+- [Abricots](abricotsSG.csv) : données sur la maturité des abricots,
 - [Angle](angle.csv) : données sur l'évaluation des angles, 
 - [Cafe](cafe_DM.csv) : données sur la qualité des cafés en fonction de différentes provenances,
 - [Compote](compote.csv) : données sur les compotes,
