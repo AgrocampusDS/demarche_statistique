@@ -43,12 +43,14 @@ fromager. Pour ce faire, il a mesuré sur un échantillon de n = 85 laits, la de
 protéine , le taux de caséine , l'extrait sec et le rendement fromager de chacun de ces laits.
 
 #### Importation du jeu de données  et matrice des corrélations
-* Charger les données provenant du fichier `lait.csv`.`
+* Charger les données provenant du fichier `lait.csv`.
 * Calculer les corrélations entre les variables  à l'aide de la fonction 
 `cor`.
 
-```{r, echo=FALSE, results='markup', eval = FALSE}
+```{r, echo=FALSE, results='markup', eval = TRUE}
 fromages <- read.table("lait.txt", sep = "\t", dec = ",", header = T)
+```
+```{r, echo=FALSE, results='markup', eval = FALSE}
 fromages <- fromages %>% select(-c(1,7))
 fromages %>% 
   cor() %>% 
