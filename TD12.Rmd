@@ -1,0 +1,87 @@
+---
+title: "TD12 : Régression linéaire multiple bis"
+author: "UP Mathématique appliquée"
+date: ''
+output:
+  html_document:
+  theme: united
+css: style.css
+highlight: tango
+mainfont: SourceSansPro
+header-includes:
+- \usepackage[default]{sourcesanspro}
+- \usepackage[T1]{fontenc}
+---
+  
+```{r setup-TD12, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, cache= TRUE, eval = TRUE,  message = FALSE, warning = FALSE, results = 'hide' )
+library(tidyverse)
+library(kableExtra)
+library(devtools) 
+out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+```
+# {.tabset .tabset-fade .tabset-pills}
+
+##  Objectifs de la séance  
+
+* Régression linéaire multiple
+  + Réinvestir le TD précédent pour traiter une nouvelle problématique.
+  + Etablir la démarche à suivre à partir des éléments déjà abordés.
+
+## Exercice
+
+Un organisme d'analyse sensorielle souhaite savoir s'il est possible de prévoir l'appréciation globale d'un jambon à partir de sa description sensorielle. Un jury entraîné a utilisé les variables suivantes pour décrire 21
+jambons : Jutosité, Caractère croquant, Tendreté, Caractère pâteux, Fibreux, Saveur salée, Saveur sucrée, Flaveur de viande, Assaisonnement, Flaveur métallique, Flaveur fèces/urine, Flaveur de gras, Flaveur braisé/fumé,
+Flaveur lactique . Puis une note d' Appréciation globale a été attribué à chacun des jambons. 
+
+* Charger le fichier de données `jambon.txt`, il est conseillé d'utiliser le paramètre `row.names =`.
+```{r, echo=FALSE, results='markup', eval = TRUE}
+jambons <- read.table('jambon.txt', sep = "\t", header =T, row.names = 1)
+```
+* A l'aide de la fonction `ggpairs` du paquet `GGally` lancez une première analyse descriptive du  lien entre variables deux à deux. 
+```{r, echo=FALSE, results='markup', warning=FALSE, fig.align='center', out.width = '1000px', out.height= '800px',eval = FALSE}
+library(ggcorrplot) #paquet pour colorier la matrice de correlation
+jambons %>% 
+  cor() %>% 
+  round(1) %>% 
+  ggcorrplot(type = "lower",
+             lab = TRUE)
+
+library(GGally)
+jambons %>% ggpairs(
+  columns = c(1, 7:9),
+  lower = list(continuous = wrap("points", color = "dodgerblue4")),
+  diag = list(continuous = wrap("densityDiag", color = "dodgerblue4"))
+  )
+```
+
+* Proposer une problématique liée au contexte.
+
+* Reprendre des éléments du TD précédent afin d'apporter des éléments de réponse à la problématique posée.
+
+* Quel modèle retenir ? pourquoi ?
+```{r, echo=FALSE, results='markup', eval = FALSE}
+mod_cplet <- lm(data = jambons, globale ~ .)
+mod0 <- lm(data = jambons, globale ~ 1)
+modBestBwd <- step(mod_cplet)
+modBestFwd <- step(mod0, direction = "forward", scope = formula(mod_cplet))
+modBestStp <- step(mod0, direction = "both", scope = formula(mod_cplet))
+summary(modBestBwd)
+summary(modBestFwd)
+summary(modBestStp)
+```
+## Le vocabulaire de la séance
+
+### Commandes R
+- ggpairs
+- anova et lm
+- step
+- predict
+
+### Environnement R
+
+
+### Statistique 
+- Régression linéaire multiple
+- Sélection de sous-modèle par calcul de l'AIC
+- Prédiction
