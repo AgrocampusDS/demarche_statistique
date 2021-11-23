@@ -1,0 +1,146 @@
+---
+title: "TD13 : Prendre en compte un effet bloc"
+author: "UP Mathématique appliquée"
+date: ''
+output:
+  html_document:
+    theme: united
+    css: style.css
+    highlight: tango
+mainfont: SourceSansPro
+header-includes:
+- \usepackage[default]{sourcesanspro}
+- \usepackage[T1]{fontenc}
+---
+
+
+```{r setup-TD10, include=FALSE, }
+knitr::opts_chunk$set(echo = FALSE, cache= TRUE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'hide' )
+library(tidyverse)
+library(kableExtra)
+out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+```
+
+
+# {.tabset .tabset-fade .tabset-pills}
+
+##  Objectifs de la séance  
+
+* Visualisation de données
+  - Visualiser les relations entre une variable quantitative et deux variables qualitatives
+  - Visualiser de potentielless interactions entre facteurs
+  
+* Analyse de données
+   - Comprendre la notion d'interaction entre deux facteurs
+   - Comprendre le modèle d''analyse de la variance à deux facteurs
+   - Ajuster un modèle d'analyse de la variance  à deux facteurs et exploiter les résultats qui en découlent
+  
+  
+## Exercices 
+
+###  Comparaison de trois types de sondes
+
+EN préparation d'une future expérimentation en champs,  on a comparé, dans deux types de sols, trois types de sondes destinées à prélever des échantillons de terre, en effectuant plusieurs prélèvement et en mesurant la teneur en anhydride phosphorique ($P_20_5$) en mg pour 100 grammes de terre sèche.  On s'intéresse principalement aux différences qui pourraient exister d'un type de sondes à l'autre, et aux interférences éventuelles des typpes de sondes avec les types de sols. Les données sont disponibles dans le fichier [sonde_sol.csv](sonde_sol.csv).
+
+
+* Importer les données et les repséenter sous fomre d'un boxplot dans lequel l'abcisse est le sol, ce boxplot étant rempli par une couleur qui représente la sonde.
+
+```{r importe_data, eval = TRUE, echo = FALSE, fig.show='hide'}
+library(tidyverse)
+dta <- read.table('sonde_sol.csv', sep = ";", header = TRUE) %>% 
+   mutate(Sol = as.factor(Sol), Sonde = as.factor(Sonde))
+
+dta %>% ggplot() + aes(x=Sol,y = P205, fill = Sonde) + geom_boxplot() 
+
+```
+
+
+* Décrire le rôle de la commande ci-dessous et discuter d'une possible interaction entre le facteur Sol et le facteur Sonde.
+
+```{r interaction_plot, echo=TRUE, eval = TRUE}
+dta %>% 
+   group_by(Sonde, Sol) %>% 
+   summarize(P205_m = mean(P205)) %>%
+   ggplot() + aes(x=Sol, col = Sonde, y=P205_m) + geom_line(aes(group = Sonde)) + geom_point()
+```
+
+
+* Identifier la variable à expliquer, les variables potentiellement explicatives, ainsi que leurs natures et écrire sous forme mathématique le modèle correspondant. 
+
+* Mettre en place un test staistique permettant de répondre à la question "Le taux d'ahnydrire phosphaté est-il le même dans tous les types de sol, pour tous les sortes de sonde ?" (Donner les hypothèses H$_0$ et H$_1$)
+
+```{r M0_Mcomp, echo=FALSE, results='hide'}
+M0 <- lm(P205 ~ 1, data = dta)
+Mcomp <- lm(P205 ~ Sol + Sonde + Sol:Sonde, data = dta)
+anova(M0, Mcomp)
+```
+
+Mettre en place ce test statistique dans R
+
+* Donner la loi de la statistique de test sous H$_0$ en justifiant le sdegrés de liberté.
+
+Puisque les teneurs en anhydirdes phosphatés ne sont pas identique pour toutes les sondes sur tou les sols, on souhaite identifier si la variabilité provient du sol, des sondes ou des deux.
+
+* Quel test pouvez vous proposer pour répondre à la question, les différences entre les sondes sont elles les mêmes quelque soit le type de sol ?
+
+```{r M12_Mcomp, echo=FALSE, results='hide'}
+M12 <- lm(P205 ~ Sol + Sonde , data = dta)
+anova(M12, Mcomp)
+```
+
+On considère maintenant le modèle d'analyse de la variance à deux facteurs sans interaction 
+
+* La différence de teneur en anhydride phosphatée entre les sols ayant été prise en compte, peut on envore voir une différence de mesure entre les sondes ?
+
+```{r M1_M12, echo=FALSE, results='hide'}
+M1 <- lm(P205 ~ Sol  , data = dta)
+anova(M1, M12)
+```
+
+* Quelle est la teneur en anhydride phosphaté prédite par le modèle sans interaction lorsqu'il mesuré avec la sonde 2 sur le sol 2. Même question pour la sonde 2 et le sol 1, puis la sonde 1 et le sol 1.
+
+
+
+```{r comparaison, echo=TRUE, eval = TRUE, results='hide'}
+library(emmeans)
+compare_mean <- emmeans::emmeans(M12, ~ Sonde)
+pairs(compare_mean, adjust="bonf")
+plot(compare_mean)
+```
+
+* Compte tenu de la différence entre les sondes, le taux d'anhydride est il le même pour les deux sols ? Ecrire l'hypothèse H$_0$ du test statistique à mettre en place pour répondre à cette question et l'effectuer dans R.
+
+```{r comp_sol}
+#install.packages('car')
+M2 <- lm(P205 ~ Sonde, data = dta)
+anova(M2, M12)
+```
+
+
+* Comparer aux résultats obtenus avec la commande `Anova` du package `car` (prétez attention au A et non a)
+
+```{r car}
+#install.packages('car')
+library(car)
+Anova(M12)
+```
+
+
+
+
+
+
+## Le vocabulaire de la séance
+
+### Commandes R
+- Anova
+- emmeans
+
+### Environnement R
+
+
+### Statistique 
+- Analyse de la variance à 2 facteurs
+- Comparaison des niveaux d'un facteur
+
+- Test d'égalité d'un coefficient à une valeur
