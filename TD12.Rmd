@@ -19,6 +19,7 @@ knitr::opts_chunk$set(echo = FALSE, cache= TRUE, eval = TRUE, fig.show='hide', m
 library(tidyverse)
 library(kableExtra)
 library(devtools) 
+library(ggcorrplot)
 library(GGally)
 out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 ```
@@ -43,7 +44,10 @@ jambons <- read.table('jambon.txt', sep = "\t", header =T, row.names = 1)
 * A l'aide de la fonction `ggpairs` du paquet `GGally` lancez une première analyse descriptive du  lien entre variables deux à deux. 
 ```{r, echo=FALSE, results='markup', fig.align='center', out.width = '1000px', out.height= '800px',eval = FALSE}
 jambons %>% 
-  cor() 
+  cor() %>% 
+  round(1) %>% 
+  ggcorrplot(type = "lower",
+             lab = TRUE)
 
 jambons %>% ggpairs(
   columns = c(1, 7:9),
