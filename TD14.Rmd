@@ -1,0 +1,80 @@
+---
+title: "TD14 : Prendre en compte un effet bloc"
+author: "UP Mathématique appliquée"
+date: ''
+output:
+  html_document:
+    theme: united
+    css: style.css
+    highlight: tango
+mainfont: SourceSansPro
+header-includes:
+- \usepackage[default]{sourcesanspro}
+- \usepackage[T1]{fontenc}
+---
+
+
+```{r setup-TD14, include=FALSE, }
+knitr::opts_chunk$set(echo = FALSE, cache= TRUE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'hide' )
+library(tidyverse)
+library(kableExtra)
+out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+```
+
+
+# {.tabset .tabset-fade .tabset-pills}
+
+##  Objectifs de la séance  
+
+* Visualisation de données
+  - Visualiser des différences de lien entre deux variables quantitatives
+  
+* Analyse de données
+   - Comprendre la notion d'interaction entre deux facteurs
+   - Comprendre le modèle d'analyse de la variance à deux facteurs
+   - Ajuster un modèle d'analyse de la variance  à deux facteurs et exploiter les résultats qui en découlent
+  
+  
+## Exercices 
+
+### Étude de la croissance en poids de poussins en fonction du sexe et de trois traitements
+
+Lors de leur mise en incubateur, 45 oeufs de poules ont été répartis de façon aléatoire en trois lots de 15. Trois traitements (températures d'incubation différentes) ont ensuite été appliqués aux différents lots. Nous supposons qu'après éclosion, les poussins ont tous été élevés dans des conditions identiques, puis pesés à un même âge de référence. À ce moment, le sexe des poussins, dont on sait a priori qu'il induit de fortes dfférences de poids, pouvait aussi être observé. 
+Les poids considérés, exprimés en décagrammes, ainsi que les moyennes par sexe et par traitement, gurent dans le tableau 1. 
+On souhaite 
+
+* vérifier  l'existence présumée d'un effet sexe,
+* tester l'existence d'un effet traitement, potentiellement différent selon les sexes.
+
+### Importation des données 
+
+Les données sont disponibles dans le fichier  `poussin.txt`. 
+
+* Importer les données. La colonne `Rdt ` indique le gain de poids entre la naissance et le jour de pesée.
+
+```{r import_dta}
+
+```
+
+* Proposer une visualisation permettant de visualiser un potentiel effet Sexe d'une part, puis un potentiel effet Traitement.
+
+```{r }
+
+```
+
+
+
+## Le vocabulaire de la séance
+
+### Commandes R
+- Anova
+- emmeans
+
+### Environnement R
+
+
+### Statistique 
+- Analyse de la variance à 2 facteurs
+- Comparaison des niveaux d'un facteur
+
+- Test d'égalité d'un coefficient à une valeur
