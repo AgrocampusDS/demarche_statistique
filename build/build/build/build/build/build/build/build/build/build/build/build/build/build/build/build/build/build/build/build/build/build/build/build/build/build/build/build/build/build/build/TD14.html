@@ -366,7 +366,7 @@ $(document).ready(function () {
 <li>Visualisation de données
 <ul>
 <li>Visualiser l’effet potentiel de deux facteurs sur un variable réponse</li>
-<li>Visualiser un effet potenteil d’interaction entre deux facteurs sur une variable réponse</li>
+<li>Visualiser un effet potentiel d’interaction entre deux facteurs sur une variable réponse</li>
 <li>Visualiser l’effet potentiel d’une variable qualitative et d’une variable quantitative sur une variable réponse</li>
 </ul></li>
 <li>Analyse de données
@@ -382,7 +382,7 @@ $(document).ready(function () {
 <h2>Exercices</h2>
 <div id="étude-de-la-croissance-en-poids-de-poussins-en-fonction-du-sexe-et-de-trois-traitements" class="section level3">
 <h3>Étude de la croissance en poids de poussins en fonction du sexe et de trois traitements</h3>
-<p>Lors de leur mise en incubateur, 45 oeufs de poules ont été répartis de façon aléatoire en trois lots de 15. Trois traitements (températures d’incubation différentes) ont ensuite été appliqués aux différents lots. Nous supposons qu’après éclosion, les poussins ont tous été élevés dans des conditions identiques, puis pesés à un même âge de référence. À ce moment, le sexe des poussins, dont on sait a priori qu’il induit de fortes dfférences de poids, pouvait aussi être observé. Les poids considérés, exprimés en décagrammes, ainsi que les moyennes par sexe et par traitement, gurent dans le tableau 1. On souhaite</p>
+<p>Lors de leur mise en incubateur, 45 oeufs de poules ont été répartis de façon aléatoire en trois lots de 15. Trois traitements (températures d’incubation différentes) ont ensuite été appliqués aux différents lots. Nous supposons qu’après éclosion, les poussins ont tous été élevés dans des conditions identiques, puis pesés à un même âge de référence. À ce moment, le sexe des poussins, dont on sait a priori qu’il induit de fortes différences de poids, pouvait aussi être observé. Les poids considérés, exprimés en décagrammes, ainsi que les moyennes par sexe et par traitement, figurent dans le tableau 1. On souhaite</p>
 <ul>
 <li>vérifier l’existence présumée d’un effet sexe,</li>
 <li>tester l’existence d’un effet traitement, potentiellement différent selon les sexes.</li>
@@ -424,11 +424,11 @@ $(document).ready(function () {
 <li><p>Ecrire les hypothèses <span class="math inline">\(H_0\)</span> et <span class="math inline">\(H_1\)</span> du test que vous proposez</p></li>
 <li><p>Mettre ce test en place dans <code>R</code> et conclure sur l’existence d’un effet potentiel.</p></li>
 </ul>
-<p>On souhaite maintenant tester un potentiel effet traitement. Pour ce faire, on commence pare tester l’existence d’une potentielle interaction.</p>
+<p>On souhaite maintenant tester un potentiel effet traitement. Pour ce faire, on commence par tester l’existence d’une potentielle interaction.</p>
 <ul>
 <li>Mettre ce test en oeuvre dans <code>R</code> et conclure sur une éventuelle interaction. Que peut on dire de l’effet du traitement sur les mâles et sur les femelles ?</li>
 </ul>
-<p>On ajuste maintenant le modèle d’analyse de la variance à 2 facteurs sans inteactions.</p>
+<p>On ajuste maintenant le modèle d’analyse de la variance à 2 facteurs sans interaction.</p>
 <ul>
 <li>Ajuster le modèle dans R et conclure sur l’effet du traitement. Rappeler quels sont les modèles comparés dans ce test.</li>
 </ul>
@@ -442,7 +442,7 @@ $(document).ready(function () {
 </div>
 <div id="effet-du-sexe-sur-la-taille-des-bébés-à-la-naissance" class="section level3">
 <h3>Effet du sexe sur la taille des bébés à la naissance</h3>
-<p>On souhaite étudier la taille des bébés à la naissance en fonction du sexe du bébé et du nombre de semaines de grossesse. On dispose pour cela d’un échantillon constitué de 477 nouveaux nés (242 lles et 255 garçons) et du nombre de semaines d’aménorrhée (plus exactement du nombre de semaines par rapport au terme normal qui est de 40 semaines en France: −3 signifie donc 37 semaines d’aménorrhée, et 1, 41 semaines d’aménorrhée).</p>
+<p>On souhaite étudier la taille des bébés à la naissance en fonction du sexe du bébé et du nombre de semaines de grossesse. On dispose pour cela d’un échantillon constitué de 477 nouveaux nés (242 filles et 255 garçons) et du nombre de semaines d’aménorrhée (plus exactement du nombre de semaines par rapport au terme normal qui est de 40 semaines en France: −3 signifie donc 37 semaines d’aménorrhée, et 1, 41 semaines d’aménorrhée).</p>
 <div id="importation-des-données-1" class="section level4">
 <h4>Importation des données</h4>
 <p>Les données sont disponibles dans le fichier <code>bebe.csv</code>.</p>
@@ -454,7 +454,7 @@ $(document).ready(function () {
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>bebe_dta <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>Nbsem, <span class="at">y =</span> PoidsBB, <span class="at">col =</span> Sexe)) <span class="sc">+</span> </span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&#39;lm&#39;</span>, <span class="fu">aes</span>(<span class="at">x=</span>Nbsem, <span class="at">y =</span> PoidsBB, <span class="at">col =</span> Sexe), <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p>Nous cherchons à comprendre si l’effet d’une naissance précoce ets le même pour les garçons et les filles.</p>
+<p>Nous cherchons à comprendre si l’effet d’une naissance précoce est le même pour les garçons et les filles.</p>
 </div>
 </div>
 <div id="modélisation-1" class="section level3">
@@ -478,11 +478,11 @@ $(document).ready(function () {
 <li><p>Ecrire les hypothèses <span class="math inline">\(H_0\)</span> et <span class="math inline">\(H_1\)</span> du test que vous proposez</p></li>
 <li><p>Mettre ce test en place dans <code>R</code> et conclure sur l’existence d’un effet potentiel.</p></li>
 </ul>
-<p>On souhaite maintenant préciser l’analyse, et répondre à la question “L’effet du nombre de semaines de grossesse sur le poids à la naissance est il le même pour les garçons et les filles ?”</p>
+<p>On souhaite maintenant préciser l’analyse, et répondre à la question “L’effet du nombre de semaines de grossesse sur le poids à la naissance est-il le même pour les garçons et les filles ?”</p>
 <ul>
 <li><p>Mettre ce test oeuvre dans <code>R</code> et répondre à la question posée.</p></li>
 <li><p>Après avoir éventuellement modifier le modèle, on veut répondre à la question “le poids moyen à la naissance des filles et des garçons est-il différent ?”. Indiquer le test pertinent pour répondre à cette question.</p></li>
-<li><p>Pour répondre à cette question, on propose d’utiliser le code suivant utilisant le package emmeans. Un poids moyen pour les garçcons et un poids pour les filles est calculé. A quel nombre de semaines correspond-il ?</p></li>
+<li><p>Pour répondre à cette question, on propose d’utiliser le code suivant utilisant le package <code>emmeans</code>. Un poids moyen pour les garçons et un poids pour les filles est calculé. A quel nombre de semaines correspond-il ?</p></li>
 </ul>
 <div id="conclusion-1" class="section level4">
 <h4>Conclusion</h4>
