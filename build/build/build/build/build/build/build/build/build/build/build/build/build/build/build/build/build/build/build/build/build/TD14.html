@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="UP Mathématique appliquée" />
+
+
+<title>TD14 : Prendre en compte un effet bloc</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Agrocampus Ouest : démarche statistique</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/AgrocampusDS/demarche_statistique">
+    <span class="fa fa-github"></span>
+     
+    
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">TD14 : Prendre en compte un effet bloc</h1>
+<h4 class="author">UP Mathématique appliquée</h4>
+
+</div>
+
+
+<div id="section" class="section level1 tabset tabset-fade tabset-pills">
+<h1 class="tabset tabset-fade tabset-pills"></h1>
+<div id="objectifs-de-la-séance" class="section level2">
+<h2>Objectifs de la séance</h2>
+<ul>
+<li>Visualisation de données
+<ul>
+<li>Visualiser l’effet potentiel de deux facteurs sur un variable réponse</li>
+<li>Visualiser un effet potenteil d’interaction entre deux facteurs sur une variable réponse</li>
+<li>Visualiser l’effet potentiel d’une variable qualitative et d’une variable quantitative sur une variable réponse</li>
+</ul></li>
+<li>Analyse de données
+<ul>
+<li>Comprendre la notion d’interaction entre deux facteurs</li>
+<li>Comprendre le modèle d’analyse de la variance à deux facteurs</li>
+<li>Ajuster un modèle d’analyse de la variance à deux facteurs et exploiter les résultats qui en découlent.</li>
+<li>Comprendre le modèle d’analyse de la covariance (droite de régression avec effet groupe) à deux facteurs</li>
+</ul></li>
+</ul>
+</div>
+<div id="exercices" class="section level2">
+<h2>Exercices</h2>
+<div id="étude-de-la-croissance-en-poids-de-poussins-en-fonction-du-sexe-et-de-trois-traitements" class="section level3">
+<h3>Étude de la croissance en poids de poussins en fonction du sexe et de trois traitements</h3>
+<p>Lors de leur mise en incubateur, 45 oeufs de poules ont été répartis de façon aléatoire en trois lots de 15. Trois traitements (températures d’incubation différentes) ont ensuite été appliqués aux différents lots. Nous supposons qu’après éclosion, les poussins ont tous été élevés dans des conditions identiques, puis pesés à un même âge de référence. À ce moment, le sexe des poussins, dont on sait a priori qu’il induit de fortes dfférences de poids, pouvait aussi être observé. Les poids considérés, exprimés en décagrammes, ainsi que les moyennes par sexe et par traitement, gurent dans le tableau 1. On souhaite</p>
+<ul>
+<li>vérifier l’existence présumée d’un effet sexe,</li>
+<li>tester l’existence d’un effet traitement, potentiellement différent selon les sexes.</li>
+</ul>
+<div id="importation-des-données" class="section level4">
+<h4>Importation des données</h4>
+<p>Les données sont disponibles dans le fichier <code>poussin.txt</code>.</p>
+<ul>
+<li><p>Importer les données. La colonne <code>Rdt</code> indique le gain de poids entre la naissance et le jour de pesée.</p></li>
+<li><p>Proposer une visualisation permettant de visualiser un potentiel effet Sexe d’une part, puis un potentiel effet Traitement.</p></li>
+<li><p>Qu’est ce que le code ci-dessous permet de visualiser ?</p></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>poussins_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Sexe, Trait) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Rdt_groupe =</span> <span class="fu">mean</span>(Rdt)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Trait, <span class="at">y =</span> Rdt_groupe, <span class="at">color =</span> Sexe) <span class="sc">+</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Sexe)) <span class="sc">+</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+</div>
+<div id="modélisation" class="section level4">
+<h4>Modélisation</h4>
+<ul>
+<li><p>Ecrire sous forme mathématique le modèle permettant d’explorer les effets potentiels des différents facteurs.</p></li>
+<li><p>Combien y-t-il de paramètres qui capturent une potentielle interaction. Que représente cette interaction entre les facteurs ?</p></li>
+</ul>
+</div>
+<div id="ajustement-du-modèle" class="section level4">
+<h4>Ajustement du modèle</h4>
+<ul>
+<li><p>Estimer les paramètres du modèle.</p></li>
+<li><p>Quel est le rendement moyen prédit par le modèle pour un poussin femelle ayant reçu le traitement 1 ?</p></li>
+</ul>
+</div>
+<div id="tests-des-effets" class="section level4">
+<h4>Tests des effets</h4>
+<p>On souhaite répondre à la question y a-t-il un effet du sexe ou du traitement sur la prise de poids.</p>
+<ul>
+<li><p>Ecrire les hypothèses <span class="math inline">\(H_0\)</span> et <span class="math inline">\(H_1\)</span> du test que vous proposez</p></li>
+<li><p>Mettre ce test en place dans <code>R</code> et conclure sur l’existence d’un effet potentiel.</p></li>
+</ul>
+<p>On souhaite maintenant tester un potentiel effet traitement. Pour ce faire, on commence pare tester l’existence d’une potentielle interaction.</p>
+<ul>
+<li>Mettre ce test en oeuvre dans <code>R</code> et conclure sur une éventuelle interaction. Que peut on dire de l’effet du traitement sur les mâles et sur les femelles ?</li>
+</ul>
+<p>On ajuste maintenant le modèle d’analyse de la variance à 2 facteurs sans inteactions.</p>
+<ul>
+<li>Ajuster le modèle dans R et conclure sur l’effet du traitement. Rappeler quels sont les modèles comparés dans ce test.</li>
+</ul>
+</div>
+<div id="conclusion" class="section level4">
+<h4>Conclusion</h4>
+<ul>
+<li>Quelle est votre conclusion à l’issue de cette étude ?</li>
+</ul>
+</div>
+</div>
+<div id="effet-du-sexe-sur-la-taille-des-bébés-à-la-naissance" class="section level3">
+<h3>Effet du sexe sur la taille des bébés à la naissance</h3>
+<p>On souhaite étudier la taille des bébés à la naissance en fonction du sexe du bébé et du nombre de semaines de grossesse. On dispose pour cela d’un échantillon constitué de 477 nouveaux nés (242 lles et 255 garçons) et du nombre de semaines d’aménorrhée (plus exactement du nombre de semaines par rapport au terme normal qui est de 40 semaines en France: −3 signifie donc 37 semaines d’aménorrhée, et 1, 41 semaines d’aménorrhée).</p>
+<div id="importation-des-données-1" class="section level4">
+<h4>Importation des données</h4>
+<p>Les données sont disponibles dans le fichier <code>bebe.csv</code>.</p>
+<ul>
+<li><p>Importer les données. Pour chaque bébé , on note son sexe, le nombre de semaines d’aménorrhée <code>Nbsem</code>, et le poids du bébé à la naissance <code>PoidsBB</code></p></li>
+<li><p>Proposer une visualisation permettant de visualiser l’effet du nombre de semaines de grossesse sur le poids du bébé à la naissance. Cet effet peut être différent pour les garçons et les filles.</p></li>
+<li><p>Qu’est ce que le code ci-dessous permet de visualiser ?</p></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>bebe_dta <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>Nbsem, <span class="at">y =</span> PoidsBB, <span class="at">col =</span> Sexe)) <span class="sc">+</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&#39;lm&#39;</span>, <span class="fu">aes</span>(<span class="at">x=</span>Nbsem, <span class="at">y =</span> PoidsBB, <span class="at">col =</span> Sexe), <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p>Nous cherchons à comprendre si l’effet d’une naissance précoce ets le même pour les garçons et les filles.</p>
+</div>
+</div>
+<div id="modélisation-1" class="section level3">
+<h3>Modélisation</h3>
+<ul>
+<li><p>Ecrire sous forme mathématique le modèle permettant d’explorer les effets potentiels du nombre de semaines de grossesse et du sexe.</p></li>
+<li><p>Que représente l’interaction entre le facteur Sexe et la variable nombre de semaines ?</p></li>
+</ul>
+</div>
+<div id="ajustement-du-modèle-1" class="section level3">
+<h3>Ajustement du modèle</h3>
+<ul>
+<li><p>Estimer les paramètres du modèle.</p></li>
+<li><p>Quel est le poids moyen prédit par le modèle pour un garcon né 2 semaines en avance ?</p></li>
+</ul>
+</div>
+<div id="tests-des-effets-1" class="section level3">
+<h3>Tests des effets</h3>
+<p>On souhaite répondre à la question y a-t-il un effet du sexe ou du nombre de semaines de grossesse sur le poids à la naissance.</p>
+<ul>
+<li><p>Ecrire les hypothèses <span class="math inline">\(H_0\)</span> et <span class="math inline">\(H_1\)</span> du test que vous proposez</p></li>
+<li><p>Mettre ce test en place dans <code>R</code> et conclure sur l’existence d’un effet potentiel.</p></li>
+</ul>
+<p>On souhaite maintenant préciser l’analyse, et répondre à la question “L’effet du nombre de semaines de grossesse sur le poids à la naissance est il le même pour les garçons et les filles ?”</p>
+<ul>
+<li><p>Mettre ce test oeuvre dans <code>R</code> et répondre à la question posée.</p></li>
+<li><p>Après avoir éventuellement modifier le modèle, on veut répondre à la question “le poids moyen à la naissance des filles et des garçons est-il différent ?”. Indiquer le test pertinent pour répondre à cette question.</p></li>
+<li><p>Pour répondre à cette question, on propose d’utiliser le code suivant utilisant le package emmeans. Un poids moyen pour les garçcons et un poids pour les filles est calculé. A quel nombre de semaines correspond-il ?</p></li>
+</ul>
+<div id="conclusion-1" class="section level4">
+<h4>Conclusion</h4>
+<ul>
+<li>Conclure sur la différence de poids à la naissance en fonction du sexe et du nombre de semaines de grossesse.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="le-vocabulaire-de-la-séance" class="section level2">
+<h2>Le vocabulaire de la séance</h2>
+<div id="commandes-r" class="section level3">
+<h3>Commandes R</h3>
+<ul>
+<li>Anova</li>
+<li>emmeans</li>
+</ul>
+</div>
+<div id="environnement-r" class="section level3">
+<h3>Environnement R</h3>
+</div>
+<div id="statistique" class="section level3">
+<h3>Statistique</h3>
+<ul>
+<li>Analyse de la variance à 2 facteurs</li>
+<li>Analyse de la covariance</li>
+<li>Droites de régression avec effet groupe</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
