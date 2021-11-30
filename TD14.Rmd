@@ -178,13 +178,13 @@ bebe_dta %>% ggplot() +
 
 Nous cherchons à comprendre si l'effet d'une naissance précoce ets le même pour les garçons et les filles.
 
-### Modélisation
+#### Modélisation
 
 * Ecrire sous forme mathématique le modèle permettant d'explorer les effets potentiels du nombre de semaines de grossesse et du sexe.
 
 * Que  représente l'interaction entre le facteur Sexe et la variable nombre de semaines ?
 
-### Ajustement du modèle
+#### Ajustement du modèle
 
 * Estimer les paramètres  du modèle.
 
@@ -196,7 +196,7 @@ summary(Mcomp)
 predict(Mcomp, newdata = data.frame(Sexe = 'M', Nbsem = -2))
 ```
 
-### Tests des effets
+#### Tests des effets
 On souhaite répondre à la question y a-t-il un effet du sexe ou du nombre de semaines de grossesse sur le poids à la naissance.
 
 
