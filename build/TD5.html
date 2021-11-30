@@ -379,12 +379,12 @@ $(document).ready(function () {
 <h2>Exercices</h2>
 <div id="recueil-des-données" class="section level3">
 <h3>Recueil des données</h3>
-<p>A l’oeil, <strong>sans l’aide d’outil (rapporteur, règle ou compas)</strong> et <strong>indépendamment de vos voisins</strong>, évaluer l’angle (en degré) entre AB et AC (selon votre groupe, celui de la figure 1 ou de la figure 2).</p>
+<p>A l’oeil, <strong>sans l’aide d’outil (rapporteur, règle ou compas)</strong> et <strong>indépendamment de vos voisins</strong>, évaluer l’angle (en degrés) entre AB et AC (selon votre groupe, celui de la figure 1 ou de la figure 2).</p>
 <div class="figure">
 <img src="angle37_et_54.png" style="width:50.0%" alt="" />
 <p class="caption">Evaluation de l’angle entre AB et AC</p>
 </div>
-<p>Une fois toutes les données recueillies, considérons deux groupes : les données évaluées par les garçons et les données évaluées par les filles. On suppose que la mesure d’un angle suit une loi normale d’espérance <span class="math inline">\(\mu_{1}\)</span> et de variance <span class="math inline">\(\sigma^2\)</span> lorsqu’elle est évaluée par des garçons et une loi normale d’espérance <span class="math inline">\(\mu_{2}\)</span> et de variance <span class="math inline">\(\sigma^2\)</span> lorsqu’elle est évaluée par des filles.</p>
+<p>Une fois toutes les données recueillies, considérons deux groupes : les évaluations faites par les garçons et les évaluations faites par les filles. On suppose que la mesure d’un angle suit une loi normale d’espérance <span class="math inline">\(\mu_{1}\)</span> et de variance <span class="math inline">\(\sigma^2\)</span> lorsqu’elle est évaluée par des garçons et une loi normale d’espérance <span class="math inline">\(\mu_{2}\)</span> et de variance <span class="math inline">\(\sigma^2\)</span> lorsqu’elle est évaluée par des filles.</p>
 <div id="importation-du-jeu-de-données" class="section level4">
 <h4>Importation du jeu de données</h4>
 <ul>
@@ -395,7 +395,7 @@ $(document).ready(function () {
 <div id="visualisation-des-données" class="section level4">
 <h4>Visualisation des données</h4>
 <ul>
-<li>Visualiser les données pour avoir une idée de la distribution des angles pour les garçons, et pour les filles et calculer quelques statistiques par sexe.</li>
+<li>Visualiser les données pour avoir une idée de la distribution des angles pour les garçons, et pour les filles. Calculer quelques statistiques par sexe.</li>
 </ul>
 </div>
 </div>
@@ -403,21 +403,24 @@ $(document).ready(function () {
 <h3>Test statistique</h3>
 <div id="mise-en-place-de-lanalyse-statistique" class="section level4">
 <h4>Mise en place de l’analyse statistique</h4>
-<p>On cherche dans un premier temps à savoir si en moyenne les filles ont une évaluation non biaisée de l’angle.</p>
+<p>On cherche dans un premier temps à savoir si, en moyenne, les filles ont une évaluation non biaisée de l’angle.</p>
 <ul>
 <li><p>Exprimer la problématique ci-dessus sous la forme d’un test d’hypothèses.</p></li>
 <li><p>Dans cette problématique de test, quel est l’échantillon et quelle est la population ?</p></li>
-<li><p>A l’aide des données recueillies, mettre en oeuvre le test avec un niveau de confiance de 95 % (i.e. un seuil de 5 % pour l’erreur de type I). Vous utiliserez la fonction <code>t.test</code> et adapterez la ligne de code suivante en ne sélectionnant que les filles (n’hésitez pas à voir l’aide de la fonction en faisant <code>help('t.test')</code>). La fonction <code>t.test</code> permet à la fois de construire le test d’égalité de la moyenne à une valeur, et de construire un intervalle de confiance.</p></li>
+<li><p>A l’aide des données recueillies, mettre en oeuvre le test avec un niveau de confiance de 95 % (i.e. un seuil de 5 % pour l’erreur de type I). Vous utiliserez la fonction <code>t.test</code> et adapterez la ligne de code suivante en ne sélectionnant que les filles (n’hésitez pas à voir l’aide de la fonction en faisant <code>help('t.test')</code>). La fonction <code>t.test</code> permet à la fois de construire le test d’égalité de la moyenne à une valeur et de construire un intervalle de confiance.</p></li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>don_Angle  <span class="sc">%&gt;%</span> <span class="fu">select</span>(Angle) <span class="sc">%&gt;%</span> <span class="fu">t.test</span>(<span class="at">mu=</span>angle_ref)</span></code></pre></div>
 <ul>
-<li><p>Pour les garçons, tester si, en moyenne, ils évaluent justement ou s’ils sous-estiment l’angle (péciser <span class="math inline">\(H_0\)</span> et <span class="math inline">\(H_1\)</span> avant de construire le test sous R).</p></li>
+<li><p>Pour les garçons, tester si, en moyenne, ils évaluent justement ou s’ils sous-estiment l’angle (préciser <span class="math inline">\(H_0\)</span> et <span class="math inline">\(H_1\)</span> avant de construire le test sous R).</p></li>
 <li><p>On souhaite maintenant tester l’égalité des moyennes entre garçons et filles. Préciser l’hypothèse <span class="math inline">\(H_0\)</span> et l’hypothèse <span class="math inline">\(H_1\)</span>. La fonction <code>t.test</code> permet également de construire un test d’égalité de 2 moyennes.</p></li>
 </ul>
 </div>
 <div id="et-en-utilisant-un-modèle-danalyse-de-variance" class="section level4">
 <h4>Et en utilisant un modèle d’analyse de variance</h4>
 <p>On propose d’utiliser les fonctions <code>lm</code> et <code>anova</code> de la façon suivante. Expliciter ce que font chaque ligne de code et à quoi correspondent les résultats obtenus par rapport aux résultats précédents.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Angle<span class="sc">~</span>Sexe, <span class="at">data =</span> don_Angle)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod)</span></code></pre></div>
 </div>
 </div>
 <div id="conclusion-de-létude" class="section level3">
