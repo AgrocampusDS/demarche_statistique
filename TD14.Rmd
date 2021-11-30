@@ -28,7 +28,7 @@ out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 
 * Visualisation de données
   - Visualiser l'effet potentiel de deux facteurs sur un variable réponse
-  - Visualiser un effet potenteil d'interaction entre deux facteurs sur une variable réponse
+  - Visualiser un effet potentiel d'interaction entre deux facteurs sur une variable réponse 
   - Visualiser l'effet potentiel d'une variable qualitative et d'une variable quantitative sur une variable réponse
   
   
@@ -43,8 +43,8 @@ out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 
 ### Étude de la croissance en poids de poussins en fonction du sexe et de trois traitements
 
-Lors de leur mise en incubateur, 45 oeufs de poules ont été répartis de façon aléatoire en trois lots de 15. Trois traitements (températures d'incubation différentes) ont ensuite été appliqués aux différents lots. Nous supposons qu'après éclosion, les poussins ont tous été élevés dans des conditions identiques, puis pesés à un même âge de référence. À ce moment, le sexe des poussins, dont on sait a priori qu'il induit de fortes dfférences de poids, pouvait aussi être observé. 
-Les poids considérés, exprimés en décagrammes, ainsi que les moyennes par sexe et par traitement, gurent dans le tableau 1. 
+Lors de leur mise en incubateur, 45 oeufs de poules ont été répartis de façon aléatoire en trois lots de 15. Trois traitements (températures d'incubation différentes) ont ensuite été appliqués aux différents lots. Nous supposons qu'après éclosion, les poussins ont tous été élevés dans des conditions identiques, puis pesés à un même âge de référence. À ce moment, le sexe des poussins, dont on sait a priori qu'il induit de fortes différences de poids, pouvait aussi être observé. 
+Les poids considérés, exprimés en décagrammes, ainsi que les moyennes par sexe et par traitement, figurent dans le tableau 1. 
 On souhaite 
 
 * vérifier  l'existence présumée d'un effet sexe,
@@ -119,7 +119,7 @@ M0 <- lm(Rdt ~ 1, data = poussins_dta)
 anova(M0, Mcomp)
 ```
 
-On souhaite maintenant tester un potentiel effet traitement. Pour ce faire, on commence pare tester l'existence d'une potentielle interaction.
+On souhaite maintenant tester un potentiel effet traitement. Pour ce faire, on commence par tester l'existence d'une potentielle interaction.
 
 * Mettre ce test en oeuvre dans `R` et conclure sur une éventuelle interaction. Que peut on dire de l'effet du traitement sur les mâles et sur les femelles ?
 
@@ -132,7 +132,7 @@ library(car)
 Anova(Mcomp, type = 2)
 ```
 
-On ajuste maintenant le modèle d'analyse de la variance à 2 facteurs sans inteactions.
+On ajuste maintenant le modèle d'analyse de la variance à 2 facteurs sans interaction.
 
 * Ajuster le modèle dans R et conclure sur l'effet du traitement. Rappeler quels sont les modèles comparés dans ce test.
 
@@ -146,7 +146,7 @@ Anova(M12, type = 2)
 
 
 ### Effet du sexe sur la taille des bébés à la naissance
-On souhaite étudier la taille des bébés à la naissance en fonction du sexe du bébé et du nombre de semaines de grossesse. On dispose pour cela d'un échantillon constitué de 477 nouveaux nés (242 lles et 255 garçons) et du nombre de semaines d'aménorrhée (plus exactement du nombre de semaines par rapport au terme normal qui est de 40 semaines en France: −3 signifie donc 37 semaines d'aménorrhée, et 1,  41 semaines d'aménorrhée).
+On souhaite étudier la taille des bébés à la naissance en fonction du sexe du bébé et du nombre de semaines de grossesse. On dispose pour cela d'un échantillon constitué de 477 nouveaux nés (242 filles et 255 garçons) et du nombre de semaines d'aménorrhée (plus exactement du nombre de semaines par rapport au terme normal qui est de 40 semaines en France: −3 signifie donc 37 semaines d'aménorrhée, et 1,  41 semaines d'aménorrhée).
 
 
 
@@ -176,7 +176,7 @@ bebe_dta %>% ggplot() +
   geom_smooth(method = 'lm', aes(x=Nbsem, y = PoidsBB, col = Sexe), se = FALSE)
 ```
 
-Nous cherchons à comprendre si l'effet d'une naissance précoce ets le même pour les garçons et les filles.
+Nous cherchons à comprendre si l'effet d'une naissance précoce est le même pour les garçons et les filles.
 
 #### Modélisation
 
@@ -193,7 +193,7 @@ Nous cherchons à comprendre si l'effet d'une naissance précoce ets le même po
 ```{r ajust_lm_bb}
 Mcomp <- lm(PoidsBB~ Sexe + Nbsem + Sexe : Nbsem, data = bebe_dta)
 summary(Mcomp)
-predict(Mcomp, newdata = data.frame(Sexe = 'M', Nbsem = -2))
+predict(Mcomp, newdata = data.frame(Sexe = 'M', Nbsem = -2), interval  = "prediction")
 ```
 
 #### Tests des effets
@@ -209,7 +209,7 @@ M0 <- lm(PoidsBB ~ 1, data = bebe_dta)
 anova(M0, Mcomp)
 ```
 
-On souhaite maintenant préciser l'analyse, et répondre à la question "L'effet du nombre de semaines de grossesse sur le poids à la naissance est il le même pour les garçons et les filles ?"
+On souhaite maintenant préciser l'analyse, et répondre à la question "L'effet du nombre de semaines de grossesse sur le poids à la naissance est-il le même pour les garçons et les filles ?"
 
 * Mettre ce test  oeuvre dans `R` et répondre à la question posée.
 
@@ -223,7 +223,7 @@ Anova(Mcomp, type = 2)
 *  Après avoir éventuellement modifier le modèle, on veut répondre à la question "le poids moyen à la naissance des filles et des garçons est-il différent  ?".  Indiquer le test pertinent pour répondre à cette question.
 
 
-* Pour répondre à cette question, on propose d'utiliser le code suivant utilisant le package emmeans. Un poids moyen pour les garçcons et un poids pour les filles est calculé. A quel nombre de semaines correspond-il ? 
+* Pour répondre à cette question, on propose d'utiliser le code suivant utilisant le package `emmeans`. Un poids moyen pour les garçons et un poids pour les filles est calculé. A quel nombre de semaines correspond-il ? 
 
 ```{r emmeans_bb}
 M12 <- lm(PoidsBB~ Sexe + Nbsem , data = bebe_dta)
