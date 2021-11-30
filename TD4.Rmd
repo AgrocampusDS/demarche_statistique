@@ -33,13 +33,13 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
   
 ## Exercices 
 
-Les données sur lesquelles vous allez travailler sont extraites du livre *Statistique* de Wonnacott et Wonnacott. Pour cet exercice vous allez construire 3 tableaux de données dans un tableur, que vous allez importer. Le premier sera constitué de données de 3 échantillons de la production d'une seule machine, le second et le troisième seront constitués d'échantillons issus de la production de 3 machines. Toutes les machines produisent des financiers aux amandes de forme rectangulaire. On mesure la longueur en *mm* de ces financiers.
+Les données sur lesquelles vous allez travailler sont extraites du livre *Statistique* de Wonnacott et Wonnacott. Pour cet exercice vous allez construire 3 tableaux de données dans un tableur, que vous allez importer. Le premier sera constitué de données de 3 échantillons de la production d'une seule machine, le second et le troisième seront constitués d'échantillons issus de la production de 3 machines. Toutes les machines produisent des financiers aux amandes de forme rectangulaire. On mesure la longueur en *cm* de ces financiers.
 
 ### Construction des tableaux de données et importation des données dans `R`
 
 #### Utiliser un tableur
 
-Les données du premier tableau sont des  mesures de conformation de la production de financier sur une même machine à trois périodes différentes. Pour chacune des trois périodes (matin, après-midi et soir), on prélève 5 gâteaux (de forme rectangulaire) dont on mesure la longueur en *cm*.
+Les données du premier tableau sont des mesures de conformation de la production de financiers sur une même machine à trois périodes différentes. Pour chacune des trois périodes (matin, après-midi et soir), on prélève 5 gâteaux (de forme rectangulaire) dont on mesure la longueur en *cm*.
 
 * Pour le matin, les cinq financiers sont de longueur : 4.9, 5.5, 5.1, 5.2, 4.8.
 
@@ -55,7 +55,7 @@ Une autre expérience, consiste à mesurer des financiers en sortie de 3 machine
 
 * Pour la machine 3, nous avons les mesures suivantes : 5.4, 5.1, 5.0, 5.1, 4.9.
 
-Rentrer les données dans un tableur de votre choix (Calc de la suite LibreOffice ou OpenOffice, Excel de la suite Microsoft Office, par exemple) : pour cela, il faudra bien réfléchir à la notion d'individu statistique, et aux variables qui les caractérisent.
+Rentrer les données dans un tableur de votre choix (Calc de la suite LibreOffice ou OpenOffice, Excel de la suite Microsoft Office, par exemple). Pour cela, il faudra bien réfléchir à la notion d'individu statistique, et aux variables qui les caractérisent.
 
 Sauver les tableaux de données dans deux fichiers *csv*.
 
@@ -69,9 +69,10 @@ Attention, les variables *periode* et *machine* sont des variables qualitatives 
 
 ####  Visualisation des données
 
-Visualiser les données des jeux *tabl* et *tab2* en vous inspirant du code des séances précédentes ; afficher pour chaque graphique un titre permettant d'identifier le jeu de données représenté. données.
+Visualiser les données des jeux *tab1* et *tab2* en vous inspirant du code des séances précédentes ; afficher pour chaque graphique un titre permettant d'identifier le jeu de données représenté.
 
-Pour *tab1*, calculer les longueurs moyennes par période ainsi que la longueur moyenne d'un financier de la machine 1. Pour *tab2*, calculer les longueurs moyennes moyennes par machine. 
+Pour *tab1*, calculer les longueurs moyennes par période ainsi que la longueur moyenne d'un financier de la machine 1. 
+Pour *tab2*, calculer les longueurs moyennes moyennes par machine. 
 
 Que pensez-vous des différences entre les moyennes calculées pour *tab1* d'une part, pour *tab2* d'autre part ? Sont-elles du même ordre de grandeur d'un jeu de données à l'autre ? Que suggèrent les différences entre les moyennes calculées pour *tab2* ?
 
@@ -92,8 +93,8 @@ Pour *tab3*, calculer les longueurs moyennes des financiers produits pour chaque
 
 #### Modèle statistique pour un effet groupe
 
-* Tester l'effet de la machine sur la longueur des financiers pour les données issues de *tab2* d'une part, *tab3* d'autre part, il s'agit ici 
-  - d'écrire le modèle statistique
+* Tester l'effet de la machine sur la longueur des financiers pour les données issues de *tab2* d'une part, *tab3* d'autre part. Il s'agit ici :
+  * d'écrire le modèle statistique
   * de préciser les hypothèses de test
   * de mettre ce test en oeuvre sur `R` et de conclure sur l'homogénéité de la production.
 
@@ -101,7 +102,7 @@ Pour *tab3*, calculer les longueurs moyennes des financiers produits pour chaque
 
 Comme son nom ne l'indique pas forcément, la table d'analyse de variance n'est pas un résultat spécifique du modèle d'analyse de la variance ; vous la retrouverez également quand vous chercherez à expliquer une variable quantitative par une autre variable quantitative.
 
-Après avoir testé l'effet de la machine sur la longueur des financiers pour les données issues de *tab2* d'une part, *tab3* d'autre part, commenter les tables issues de la fonction `anova` appliquée aux résultats produits par la fonction `lm`.
+Après avoir testé l'effet de la machine sur la longueur des financiers pour les données issues de *tab2* d'une part et de *tab3* d'autre part, commenter les tables issues de la fonction `anova` appliquée aux résultats produits par la fonction `lm`.
 
 RSS$_{0}$-RSS mesure le gain apporté par le modèle proposé par rapport au modèle nul, c'est la somme des carrés du modèle **SCM**.
 
