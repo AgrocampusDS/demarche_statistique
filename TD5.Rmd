@@ -45,12 +45,12 @@ print(is_pdf)
 
 ### Recueil des données
 
-A l'oeil, **sans l'aide d'outil (rapporteur, règle ou compas)** et **indépendamment de vos voisins**, évaluer l'angle (en degré) entre AB et AC (selon votre groupe, celui de la figure 1 ou de la figure 2). 
+A l'oeil, **sans l'aide d'outil (rapporteur, règle ou compas)** et **indépendamment de vos voisins**, évaluer l'angle (en degrés) entre AB et AC (selon votre groupe, celui de la figure 1 ou de la figure 2). 
 
 ![Evaluation de l'angle entre AB et AC](angle37_et_54.png){width=50%}
 
-Une fois toutes les données recueillies, considérons deux groupes : les données évaluées par les garçons et
-les données évaluées par les filles.
+Une fois toutes les données recueillies, considérons deux groupes : les évaluations faites par les garçons et
+les évaluations faites par les filles.
 On suppose que la mesure d'un angle suit une loi normale d'espérance $\mu_{1}$
 et de variance $\sigma^2$ lorsqu'elle est évaluée par des garçons et une
 loi normale d'espérance $\mu_{2}$ et de variance $\sigma^2$ lorsqu'elle
@@ -68,7 +68,7 @@ don_Angle <- read.table('angle.csv', sep = ';' , stringsAsFactors = TRUE, header
 
 #### Visualisation des données
 
-* Visualiser les données pour avoir une idée de la distribution des angles pour les garçons, et pour les filles et calculer quelques statistiques par sexe.
+* Visualiser les données pour avoir une idée de la distribution des angles pour les garçons, et pour les filles. Calculer quelques statistiques par sexe.
 
 ```{r boxplot}
 don_Angle %>% 
@@ -105,13 +105,13 @@ stat_desc %>%
 
 #### Mise en place de l'analyse statistique
 
-On cherche dans un premier temps à savoir si en moyenne les filles ont une évaluation non biaisée de l'angle. 
+On cherche dans un premier temps à savoir si, en moyenne, les filles ont une évaluation non biaisée de l'angle. 
 
 * Exprimer la problématique ci-dessus sous la forme d'un test d'hypothèses.
 
 * Dans cette problématique de test, quel est l'échantillon et quelle est la population ?
 
-* A l'aide des données recueillies, mettre en oeuvre le test avec un niveau de confiance de 95 % (i.e. un seuil de 5 % pour l'erreur de type I). Vous utiliserez la fonction `t.test` et adapterez la ligne de code suivante en ne sélectionnant que les filles (n'hésitez pas à voir l'aide de la fonction en faisant `help('t.test')`). La fonction `t.test` permet à la fois de construire le test d'égalité de la moyenne à une valeur, et de construire un intervalle de confiance.
+* A l'aide des données recueillies, mettre en oeuvre le test avec un niveau de confiance de 95 % (i.e. un seuil de 5 % pour l'erreur de type I). Vous utiliserez la fonction `t.test` et adapterez la ligne de code suivante en ne sélectionnant que les filles (n'hésitez pas à voir l'aide de la fonction en faisant `help('t.test')`). La fonction `t.test` permet à la fois de construire le test d'égalité de la moyenne à une valeur et de construire un intervalle de confiance.
 
 ```{r, echo=FALSE}
 angle_ref <- 37
@@ -125,7 +125,7 @@ don_Angle  %>% select(Angle) %>% t.test(mu=angle_ref)
 don_Angle  %>% filter(Sexe=="F") %>% select(Angle) %>% t.test(mu=angle_ref)
 ```
 
-* Pour les garçons, tester si, en moyenne, ils évaluent justement ou s'ils sous-estiment l'angle (péciser $H_0$ et $H_1$ avant de construire le test sous R).
+* Pour les garçons, tester si, en moyenne, ils évaluent justement ou s'ils sous-estiment l'angle (préciser $H_0$ et $H_1$ avant de construire le test sous R).
 
 ```{r testMoyH}
 don_Angle  %>% filter(Sexe=="H") %>% select(Angle) %>% t.test(mu=angle_ref, alternative = "less")
@@ -141,7 +141,7 @@ don_Angle  %>% t.test(Angle ~ Sexe, data=.)  # Avec dplyr = tordu non ?
 
 On propose d'utiliser les fonctions `lm` et  `anova` de la façon suivante. Expliciter ce que font chaque ligne de code et à quoi correspondent les résultats obtenus par rapport aux résultats précédents.
 
-```{r anova}
+```{r anova, echo=TRUE}
 mod <- lm(Angle~Sexe, data = don_Angle)
 summary(mod)
 anova(mod)
