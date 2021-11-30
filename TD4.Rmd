@@ -72,7 +72,7 @@ Attention, les variables *periode* et *machine* sont des variables qualitatives 
 Visualiser les données des jeux *tab1* et *tab2* en vous inspirant du code des séances précédentes ; afficher pour chaque graphique un titre permettant d'identifier le jeu de données représenté.
 
 Pour *tab1*, calculer les longueurs moyennes par période ainsi que la longueur moyenne d'un financier de la machine 1. 
-Pour *tab2*, calculer les longueurs moyennes moyennes par machine. 
+Pour *tab2*, calculer les longueurs moyennes par machine. 
 
 Que pensez-vous des différences entre les moyennes calculées pour *tab1* d'une part, pour *tab2* d'autre part ? Sont-elles du même ordre de grandeur d'un jeu de données à l'autre ? Que suggèrent les différences entre les moyennes calculées pour *tab2* ?
 
