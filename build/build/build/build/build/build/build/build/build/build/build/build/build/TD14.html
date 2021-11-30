@@ -456,23 +456,22 @@ $(document).ready(function () {
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&#39;lm&#39;</span>, <span class="fu">aes</span>(<span class="at">x=</span>Nbsem, <span class="at">y =</span> PoidsBB, <span class="at">col =</span> Sexe), <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p>Nous cherchons à comprendre si l’effet d’une naissance précoce est le même pour les garçons et les filles.</p>
 </div>
-</div>
-<div id="modélisation-1" class="section level3">
-<h3>Modélisation</h3>
+<div id="modélisation-1" class="section level4">
+<h4>Modélisation</h4>
 <ul>
 <li><p>Ecrire sous forme mathématique le modèle permettant d’explorer les effets potentiels du nombre de semaines de grossesse et du sexe.</p></li>
 <li><p>Que représente l’interaction entre le facteur Sexe et la variable nombre de semaines ?</p></li>
 </ul>
 </div>
-<div id="ajustement-du-modèle-1" class="section level3">
-<h3>Ajustement du modèle</h3>
+<div id="ajustement-du-modèle-1" class="section level4">
+<h4>Ajustement du modèle</h4>
 <ul>
 <li><p>Estimer les paramètres du modèle.</p></li>
 <li><p>Quel est le poids moyen prédit par le modèle pour un garcon né 2 semaines en avance ?</p></li>
 </ul>
 </div>
-<div id="tests-des-effets-1" class="section level3">
-<h3>Tests des effets</h3>
+<div id="tests-des-effets-1" class="section level4">
+<h4>Tests des effets</h4>
 <p>On souhaite répondre à la question y a-t-il un effet du sexe ou du nombre de semaines de grossesse sur le poids à la naissance.</p>
 <ul>
 <li><p>Ecrire les hypothèses <span class="math inline">\(H_0\)</span> et <span class="math inline">\(H_1\)</span> du test que vous proposez</p></li>
@@ -484,6 +483,7 @@ $(document).ready(function () {
 <li><p>Après avoir éventuellement modifier le modèle, on veut répondre à la question “le poids moyen à la naissance des filles et des garçons est-il différent ?”. Indiquer le test pertinent pour répondre à cette question.</p></li>
 <li><p>Pour répondre à cette question, on propose d’utiliser le code suivant utilisant le package <code>emmeans</code>. Un poids moyen pour les garçons et un poids pour les filles est calculé. A quel nombre de semaines correspond-il ?</p></li>
 </ul>
+</div>
 <div id="conclusion-1" class="section level4">
 <h4>Conclusion</h4>
 <ul>
