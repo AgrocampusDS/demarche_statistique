@@ -128,7 +128,9 @@ don_Angle  %>% filter(Sexe=="F") %>% select(Angle) %>% t.test(mu=angle_ref)
 * Pour les garçons, tester si, en moyenne, ils évaluent justement ou s'ils sous-estiment l'angle (préciser $H_0$ et $H_1$ avant de construire le test sous R).
 
 ```{r testMoyH}
-don_Angle  %>% filter(Sexe=="H") %>% select(Angle) %>% t.test(mu=angle_ref, alternative = "less")
+don_Angle  %>% filter(Sexe=="H") %>% 
+select(Angle) %>% 
+t.test(mu=angle_ref, alternative = "less")
 ```
 
 * On souhaite maintenant tester l'égalité des moyennes entre garçons et filles. Préciser l'hypothèse $H_0$ et l'hypothèse $H_1$. La fonction `t.test` permet également de construire un test d'égalité de 2 moyennes.
@@ -143,8 +145,10 @@ On propose d'utiliser les fonctions `lm` et  `anova` de la façon suivante. Expl
 
 ```{r anova, echo=TRUE}
 mod <- lm(Angle~Sexe, data = don_Angle)
+m0 <- lm(Angle~1, data = don_Angle)
+
 summary(mod)
-anova(mod)
+anova(m0, mod)
 ```
 
 ### Conclusion de l'étude
