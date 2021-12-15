@@ -121,6 +121,15 @@ Surpris du résultat, on décide de prendre en compte la variable juge.
 dta %>% 
   ggplot() + aes(x=compote, y = S.pom.crue, col=juge) + 
   geom_point()
+  
+ dta %>% 
+  ggplot() + aes(x=compote, y = S.pom.crue, col=juge) + 
+  geom_jitter(width = 0.1, size = 3)
+ 
+ dta %>% 
+  ggplot(aes(x=compote, y = S.pom.crue)) +
+  geom_boxplot() + 
+  geom_jitter(aes(col=juge), size =2, width = 0.1)
 ```
 
 #### Test statistique
