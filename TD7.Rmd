@@ -115,7 +115,7 @@ Surpris du résultat, on décide de prendre en compte la variable juge.
 
 #### Visualisation
 
-* Visualisez les notes en fonction de la compote mais en coloriant les points de couleur différente selon les juges.
+* Visualisez les notes en fonction de la compote mais en coloriant les points de couleurs différentes selon les juges.
 
 ```{r ggplot}
 dta %>% 
@@ -155,7 +155,7 @@ anova(mod2,mod1.juge)
 anova(mod2,mod1.compote)
 ```
 
-* Dans le modele mod1.compote, où se trouve la variabilité associé aux juges ? Pourquoi cela est-il gênant losqu'on s'intéresse à tester un effet compote ?
+* Dans le modele mod1.compote, où se trouve la variabilité associée aux juges ? Pourquoi cela est-il gênant lorsqu'on s'intéresse à tester un effet compote ?
 
 * La fonction `Anova` (avec un A majuscule) du package `car` (qu'il vous faudra sûrement installer) permet de retrouver en une seule commande les probabilités critiques de tests associés à chacun des effets. Retrouver ces probabilités critiques.
 Remarque : dans le cas de données déséquilibrées, les probabilités critiques obtenus avec `anova` et `Anova` peuvent être légèrement différentes. On préférera généralement utiliser les résultats fournis par la fonction `Anova'. 
