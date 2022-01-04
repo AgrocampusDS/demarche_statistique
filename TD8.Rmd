@@ -88,9 +88,9 @@ dta <- read.table('https://agrocampusds.github.io/demarche_statistique/puissance
 
 #### Visualisation des données
 
-* Visualisez les variables $Y_1$ pour voir s'il y a un éventuel effet de la variable qualitative `fac1`.
+* Visualisez la variable $Y_1$ pour voir s'il y a un éventuel effet de la variable qualitative `fac1`.
 * Calculez les statistiques descriptives par modalité
-* D'après vous, et à partir des graphes seulement, est-ce que le test de comparaison de moyenne sera significatif ?
+* D'après vous, et seulement à partir du graphe, est-ce que le test de comparaison de moyenne sera significatif ?
 * Faire de même pour $Y_2$ et $Y_3$
 
 ```{r boxplot, echo = FALSE}
@@ -152,7 +152,7 @@ stat_desc3 %>%
 
 #### Test statistique
 
-##### Test de comparaison de moyenne et anayse de variance à 1 facteur
+##### Test de comparaison de moyenne et analyse de variance à 1 facteur
 
 * Tester la significativité de la différence de moyennes de $Y_1$ quand le facteur `fac1` prend les modalités `A` et `B` (2 tests sont possibles). Faire de même avec $Y_2$ et $Y_3$.
 
