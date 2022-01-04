@@ -1,5 +1,5 @@
 ---
-title: "TD14 : Prendre en compte un effet bloc"
+title: "TD14 : Expliquer la variabilité d'une grandeur d'intérêt"
 author: "UP Mathématique appliquée"
 date: ''
 output:
