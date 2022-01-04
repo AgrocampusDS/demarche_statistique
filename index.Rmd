@@ -81,7 +81,8 @@ liste_complete %>%
 - [Cafe](cafe_DM.csv) : données sur la qualité des cafés en fonction de différentes provenances,
 - [Compote](compote.csv) : données sur les compotes,
 - [dataSportV1](dataSportV1.csv) et [dataSportV2](dataSportV2.csv)
-- [Deboisement](deboisement.csv) : effet du déboisement sur e coefficient de transfert entre température de  l'air et température de l'eau,
+- [Deboisement](deboisement.csv) : effet du déboisement sur e coefficient de transfert entre température de  l'air et température de l'eau
+- [Decathlon](decathlon.csv) : résultats des 20 meilleurs athlètes aux décathlons  des  Jeux Olympiques d'Athènes en 2004, de ceux de Rio en 2016, des championnats d'Europe 2018 et du decastar de Talence en 2018.
 - [Douglas](douglas.csv) : relation entre volume et diamètre pour les pins Douglas,
 - [Financiers 3](financiers3.csv) : données sur la longueur des financiers produits,
 - [Jambon](jambon.txt) : données sur les dégustations de jambon,
