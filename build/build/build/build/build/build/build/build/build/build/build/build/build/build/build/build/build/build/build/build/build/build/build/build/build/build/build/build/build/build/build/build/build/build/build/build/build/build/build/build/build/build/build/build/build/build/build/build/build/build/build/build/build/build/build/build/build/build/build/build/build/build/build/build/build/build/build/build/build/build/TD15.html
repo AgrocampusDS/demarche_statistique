@@ -269,17 +269,16 @@ $(document).ready(function () {
 <div id="objectifs-de-la-séance" class="section level2">
 <h2>Objectifs de la séance</h2>
 <ul>
-<li>utiliser Factoshiny pour effectuer une ACP</li>
-<li>interpréter un cercle des corrélations</li>
-<li>interpréter les premiers axes à l’aide du cercle des corrélations</li>
-<li>interpréter les premiers axes à l’aide du nuage de points projetés</li>
+<li>Comprendre la notion de projection des variables sur un plan.</li>
+<li>Utiliser Factoshiny pour effectuer une ACP.</li>
+<li>Interpréter un cercle des corrélations.</li>
+<li>Interpréter les premiers plans de l’ACP à l’aide du cercle des corrélations et nuage des individus projetés.</li>
 </ul>
 </div>
 <div id="exercices" class="section level2">
 <h2>Exercices</h2>
-<p>L’objectif du premier exercice est de comprendre la notion de projection des variables sur un plan. L’objectif du deuxième exercice est de mettre en oeuvre l’ACP et de comprendre les règles d’interprétation.</p>
-<div id="description-des-graphes-de-lacp" class="section level3">
-<h3>Description des graphes de l’ACP</h3>
+<div id="description-du-cercle-des-corrélations" class="section level3">
+<h3>Description du cercle des corrélations</h3>
 <p>La figure ci-dessous représente la projection de 5 variables sur le plan principal d’une ACP.</p>
 <ul>
 <li>Que peut-on dire des corrélations entre les variables A-B, B-C, B-D et C-E ?</li>
@@ -291,8 +290,11 @@ $(document).ready(function () {
 </div>
 <div id="analyse-de-performances-en-décathlon" class="section level3">
 <h3>Analyse de performances en décathlon</h3>
-<p>Les épreuves du décathlon couronnent des athlètes complets. Toutefois, chaque athlète possède ses points forts et ses points faibles. C’est à cette variabilité que nous nous intéressons ici. Pour cela, on a regroupé les résultats de 4 décathlons : les Jeux Olympiques d’Athènes en 2004, ceux de Rio en 2016, les championnats d’Europe 2018 et le decastar de Talence en 2018. On dispose, pour chaque athlète, de ses performances à chacune des 10 épreuves, de son nombre de points (à chaque épreuve, un athlète gagne des points en fonction de sa performance) et de son classement final. Les épreuves se déroulent dans l’ordre suivant : 100m, longueur, poids, hauteur, 400m le premier jour et 110m haies, disque, perche, javelot, 1500m le deuxième jour. Nous avons conservé les 20 meilleurs athlètes pour chacun des décathlons dans le fichier suivant <code>decathlon.csv</code>.</p>
-<p>Pour importer les données, utiliser les arguments <code>row.names=1</code> et <code>check.names=FALSE</code> . Vous utiliserez ensuite la fonction <code>Factoshiny</code> du package <code>Factoshiny</code>.</p>
+<p>Les épreuves du décathlon couronnent des athlètes complets. Toutefois, chaque athlète possède ses points forts et ses points faibles. C’est à cette variabilité que nous nous intéressons ici. Pour cela, on a regroupé les résultats de 4 décathlons : les Jeux Olympiques d’Athènes en 2004, ceux de Rio en 2016, les championnats d’Europe 2018 et le decastar de Talence en 2018.</p>
+<p>On dispose, pour chaque athlète, de ses performances à chacune des 10 épreuves, de son nombre de points (à chaque épreuve, un athlète gagne des points en fonction de sa performance) et de son classement final.</p>
+<p>Les épreuves se déroulent dans l’ordre suivant : 100m, longueur,poids, hauteur, 400m le premier jour et 110m haies, disque, perche, javelot, 1500m le deuxième jour.</p>
+<p>Nous avons conservé les 20 meilleurs athlètes pour chacun des décathlons dans le fichier suivant <code>decathlon.csv</code>.</p>
+<p>Pour importer les données, utiliser les arguments <code>row.names=1</code> et <code>check.names=FALSE</code> .</p>
 <pre><code>## Rows: 40
 ## Columns: 13
 ## $ X100m       &lt;dbl&gt; 10.85, 10.44, 10.50, 10.89, 10.62, 10.91, 10.97, 10.80, 10…
@@ -308,9 +310,11 @@ $(document).ready(function () {
 ## $ Rang        &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, …
 ## $ Points      &lt;int&gt; 8893, 8820, 8725, 8414, 8343, 8287, 8237, 8235, 8225, 8102…
 ## $ Competition &lt;fct&gt; JO04, JO04, JO04, JO04, JO04, JO04, JO04, JO04, JO04, JO04…</code></pre>
+<div id="une-première-impression-sur-les-données" class="section level4">
+<h4>Une première impression sur les données</h4>
 <ul>
 <li><p>Décrire les données (variables ? individus ?) et préciser les objectifs d’une ACP effectuée sur ces données.</p></li>
-<li><p>Que pouvez-vous dire à partir des données centrées-réduites (utiliser la fonction <code>scale</code> ) ?</p></li>
+<li><p>Que pouvez-vous dire à partir des données centrées-réduites (utiliser la fonction <code>scale</code> ) ? Pourquoi est-ce important dans cet exemple de centrer et réduire les données</p></li>
 <li><p>Calculer la matrice des corrélations (avec la fonction <code>cor</code> et <code>round</code> pour arrondir les résultats).</p></li>
 </ul>
 <pre><code>##             X100m Longueur Poids Hauteur X400m X110m.haies Disque Perche
@@ -335,8 +339,47 @@ $(document).ready(function () {
 ## Perche         0.19   0.11
 ## Javelot        1.00  -0.38
 ## X1500m        -0.38   1.00</code></pre>
-<p>Effectuer l’Analyse en Composantes Principales de ce tableau de données après avoir choisi les variables actives.</p>
-<p>Mettre les autres variables en illustratif. - Commenter les pourcentages d’inertie expliquée par le premier axe de l’ACP, par le plan principal. Selon quel point de vue est-il préférable que les 2 premiers axes n’expliquent pas trop l’inertie totale ? - Quels sont les athlètes qui contribuent le plus à la construction de la 1ère dimension de l’ACP ? Et à la 2ème ? Que signifie une contribution importante ? - À partir du cercle des corrélations, que pouvez-vous dire concernant les corrélations suivantes : + 100 m haies - 400 m + 100 m - Longueur + Disque - Poids + Disque - Longueur + Perche - 1500 m - Comparer les profils de MAYER et LELIEVRE. Puis ceux de Kaul et Duckworth. Que pouvez-vous dire sur la proximité entre Karpov et Clay ? Et celle entre Ziemek et Bernard ? - Interpréter les facteurs principaux de l’ACP (à l’aide du graphe des individus et du graphe des variables actives et illustratives). A partir des 4 variables les mieux projetées sur l’axe 3, comparer les profils des athlètes qui sont opposés sur cet axe. - Dans quelles épreuves les vainqueurs des décathlons excellent-ils ? Certaines épreuves influent-elles peu la performance (le nombre de points) au décathlon ? - Comparer les performances réalisées aux quatre compétitions. Que pouvez-vous dire sur la performance moyenne lors de cette compétition ?</p>
+</div>
+<div id="mettre-en-oeuvre-une-acp" class="section level4">
+<h4>Mettre en oeuvre une ACP</h4>
+<p>Utiliser le package ensuite la fonction <code>PCAshiny</code> du package <code>Factoshiny</code> pour mettre en oeuvre une Analyse en Composantes Principales de ce tableau de données.</p>
+<ul>
+<li>Quelles variables doit-on utiliser pour construire l’ACP ? Ces variables sont appelées variables actives. Mettre les autres variables en illustratif.</li>
+</ul>
+</div>
+<div id="interprétation-à-laide-du-premier-plan-de-lacp" class="section level4">
+<h4>Interprétation à l’aide du premier plan de l’ACP</h4>
+<ul>
+<li><p>Quelle est l’inertie totale du nuage de points ?</p></li>
+<li><p>Quelle est l’inertie portée par le premier axe principal ? par le premier plan ?</p></li>
+<li><p>Commenter les pourcentages d’inertie expliquée par le premier axe de l’ACP, par le plan principal. Selon quel point de vue est-il préférable que les 2 premiers axes n’expliquent pas trop l’inertie totale ?</p></li>
+<li><p>Quels sont les 5 athlètes les mieux représenter sur le premier plan principal ?</p></li>
+<li><p>Quels sont les athlètes qui contribuent le plus à la construction de la 1ère dimension de l’ACP ? Et à la 2ème ? Que signifie une contribution importante ?</p></li>
+<li><p>À partir du cercle des corrélations, que pouvez-vous dire concernant les corrélations suivantes :</p>
+<ul>
+<li>100 m haies - 400 m</li>
+<li>100 m - Longueur</li>
+<li>Disque - Poids</li>
+<li>Disque - Longueur</li>
+<li>Perche - 1500 m</li>
+</ul></li>
+<li><p>Comparer les profils de MAYER et LELIEVRE. Puis ceux de Kaul et Duckworth. Que pouvez-vous dire sur la proximité entre Karpov et Clay ? Et celle entre Ziemek et Bernard ?</p></li>
+<li><p>Interpréter les facteurs principaux de l’ACP (à l’aide du graphe des individus et du graphe des variables actives et illustratives).</p></li>
+</ul>
+</div>
+<div id="au-delà-des-deux-premières-dimensions" class="section level4">
+<h4>Au delà des deux premières dimensions</h4>
+<ul>
+<li>A partir des 4 variables les mieux projetées sur l’axe 3, comparer les profils des athlètes qui sont opposés sur cet axe.</li>
+</ul>
+</div>
+<div id="pour-finir" class="section level4">
+<h4>Pour finir</h4>
+<ul>
+<li><p>Dans quelles épreuves les vainqueurs des décathlons excellent-ils ? Certaines épreuves influent-elles peu la performance (le nombre de points) au décathlon ?</p></li>
+<li><p>Comparer les performances réalisées aux quatre compétitions. Que pouvez-vous dire sur la performance moyenne lors de cette compétition ?</p></li>
+</ul>
+</div>
 </div>
 </div>
 <div id="le-vocabulaire-de-la-séance" class="section level2">
@@ -346,9 +389,22 @@ $(document).ready(function () {
 <ul>
 <li>cor</li>
 <li>round</li>
-<li>Factoshiny ### Environnement R</li>
-<li>Factoshiny ### Statistique</li>
+<li>Factoshiny</li>
+<li>PCAshiny</li>
+</ul>
+</div>
+<div id="environnement-r" class="section level3">
+<h3>Environnement R</h3>
+<ul>
+<li>Factoshiny</li>
+</ul>
+</div>
+<div id="statistique" class="section level3">
+<h3>Statistique</h3>
+<ul>
 <li>ACP</li>
+<li>Inertie</li>
+<li>Axe et plan principal</li>
 </ul>
 </div>
 </div>
