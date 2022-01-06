@@ -1,15 +1,13 @@
-library(osmdata)
-library(tidyverse)
-buech.bb <- getbb('buech')
-zone_map <- ggmap::get_stamenmap(bbox = buech.bb,
-                                 zoom = 14)
-sisteron <- data.frame(lat= 44.1947, lon = -5.9432,
-                    text = 'Sisteron')
-zone_map %>%
-  ggmap::ggmap() +
-  geom_point(data = sisteron, aes(x= lon, y = lat), col = 'red')
 
+library(tidyverse)
 library(sf)
+
+point_rem <- data.frame(lat=   c(44.17,44.20, 44.23, 44.32, 44.34, 44.41, 44.44, 44.53, 44.6, 44.7, 44.63, 44.68, 44.66, 44.64, 44.58, 44.53, 44.50, 44.49, 44.46, 44.44,44.425, 44.418, 44.39, 44.37, 44.34, 44.32, 44.31, 44.30, 44.28, 44.26), 
+                        lon =  c(5.94623,5.87, 5.78, 5.74, 5.72, 5.69, 5.70, 5.67, 5.68, 5.7, 5.71, 5.79, 5.75, 5.76, 5.78, 5.75, 5.74, 5.75, 5.73, 5.73, 5.73, 5.76, 5.78, 5.75, 5.78, 5.82, 5.79, 5.85, 5.84, 5.85), 
+                        text = c('Sisteron','15', '14.1', '9.3', '9.2', '8.1', '7.1', '5.1', '3.1', "1.2", "3", "1", "2", "1.1", "3.2", "4", "5", "6.1", "6", "7", "8", "8.1", "9.1", "9", "10", "11.1", "B11", "B12", "B13", "B14")) %>% st_as_sf(coords=c(2,1),
+                                                    crs = 'epsg:4326') %>% 
+  st_transform(crs = 'epsg:2154')
+
 
 
 
@@ -35,16 +33,11 @@ buech.list <- lapply(dir, function(d){
                  layer = "COURS_D_EAU")   
   dep %>% 
     filter(str_detect(TOPONYME, "Buëch")) 
-  buech
 })
 
-buech  <-  do.call("bind_rows", buech.list) %>% st_union()
+buech  <-  do.call("bind_rows", buech.list) %>% st_union() %>% st_as_sf(type= "Buech") %>% mutate(geometry=x) 
 
-
-p1 + geom_sf(data=buech) 
-
-top <- st_read(dsn=d, layer = "TOPONYMIE_HYDROGRAPHIE") 
-top %>% filter(str_detect(GRAPHIE, "Buëch"))
+ 
 
 
 top.list <- lapply(dir, function(d){
@@ -90,26 +83,12 @@ affluent.list <- lapply(dir, function(d){
 affluent <- do.call("bind_rows", affluent.list)
 
 
-buech <- buech %>% mutate(type="Buëch")
-affluent <- affluent %>% mutate(type="affluent") %>% bind_rows(buech)
+affluent <- affluent %>% mutate(type="Affluent") %>% bind_rows(buech) %>% arrange(type )
 
-p2 <- p1 + geom_sf(data=affluent, aes(col= type)) 
+library(plotly)
+p2 <- p1 + geom_sf(data=affluent, aes(col= type))  + 
+  geom_sf(data=point_rem[1,], col = "red") + geom_sf_text(data=point_rem, aes(label = text),size=3,family="sans") + scale_color_manual(values = c(  "#0fa4ac", "#0f3773"))
 
+plotly::ggplotly(p2)
 
-
-## Lieux nommés
-
-
-dir.hab <- tibble(filename= f) %>%   filter(str_detect(filename, pattern = "ZONE_D_HABITATION.shp") ) %>%mutate(filename = str_remove(filename, "/COURS_D_EAU[:print:]+")) %>% pull()
-
-hab.list <- lapply(dir.hab, function(d){
-  hab <- st_read(dsn = d,
-                   layer = "ZONE_D_HABITATION") %>% st_intersection(buech.bv)
-  hab
-})  
-
-
-hab <- do.call("bind_rows", hab.list) 
-hab <- hab %>% filter(IMPORTANCE %in% c("1"))
-
-p2 + geom_sf(data=hab, col="green")
+ggsave(plot = p2, filename = "buech_map.png")
