@@ -33,23 +33,21 @@ out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 Il n'y a pas une seule façon d'analyser ce jeu de données. A vous de trouver des analyses intéressantes.
 
 
-### la pollution de l'eau du Buëch
+### la pollution de l'eau du Buëch 
 Le Buëch est une rivière des Alpes du Sud dont le bassin versant couvre 1480 $km^2$. 31 stations d'échantillonnage
 ont été étudiées par F. Vespini (1985), P. Légier et A. Champeau (1987) qui ont publié la carte ci-dessous et le tableau qui forment la trame du problème.
 
 
-
-```{r buech_map, echo=FALSE, fig.cap="Les sites mesurés sur le Buëch", out.width = '100%', eval = TRUE}
+```{r buech_map, echo=FALSE, fig.cap="Les sites mesurés sur le Buëch", out.width = '100%', eval = TRUE, fig.show='asis', results='asis'}
 knitr::include_graphics("buech_map.png")
 ```
-
-
 
 
 En septembre, 10 variables physico-chimiques ont été mesurées sur l'eau de la rivière Buëch dans 31 stations (avec un entier lorsqu'il s'agit d'une mesure sur le Buëch et une notation x.y pour les affluents qui rejoignent le Buëch sous la station x, l par exemple la station 4-1 est
 entre la station 4 et la station 5). 
 
 Les variables et leurs abréviations sont : 
+
 -  pH, 
 - conductivité (cond, en μS/cm), 
 - dureté calcique (mg/l CaCO3), 
@@ -65,6 +63,10 @@ Les données sont disponibles [ici](buech.csv)
 
 
 Analyser ces données pour essayer de comprendre l'évolution de la qualité de l'eau.
+
+
+
+
 
 
 
