@@ -220,11 +220,19 @@ Les travaux dirigés sont l'occasion d'explorer quelques fonctionalités de R, s
 ### Des données
 
 Le projet de statistique demande d'identifier une problématique et de l'analyser à partir d'un jeu de données de votre choix. Voici quelques pistes pour trouver un jeu de données, à choisir selon vos intérêts personnels.
+
 * [zenodo](https://zenodo.org/) un site de dépots de données ouvertes
+
 * Les sites de municipalités, des états avec les mots clés open data, par exemple à [Rennes](https://data.rennesmetropole.fr/explore/?sort=modified&q=)
+
 * Aller chercher dans des revues scientifiques qui publient des **Data paper** par exemple
+
   - [Scientific Data (Nature Pubishing Group) ](http://www.nature.com/scientificdata/) 
+
   - [PLoS One (Public Library of Science)](http://www.plosone.org/static/information.action) 
+
   - [Genomics Data (Elsevier)](http://www.journals.elsevier.com/genomics-data/)
+
   - [International Journal of Food Contamination (SpringerOpen)](http://foodcontaminationjournal.springeropen.com/about)
+
   - [Ecology - Ecological Archives (Ecological Society of America / Wiley)](http://www.esajournals.org/loi/ecol)
