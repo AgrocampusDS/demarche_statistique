@@ -78,6 +78,7 @@ liste_complete %>%
 - [Abricots](abricotsSG.csv) : données sur la maturité des abricots,
 - [Angle](angle.csv) : données sur l'évaluation des angles, 
 - [Bébé](bebe.csv) : données sur le poids des bébés à la naiussance en fonction du sexe et du nombre de semaines de grossesse,
+- [Buëch](buech.csv) : La pollution des eaux du Buëch
 - [Cafe](cafe_DM.csv) : données sur la qualité des cafés en fonction de différentes provenances,
 - [Compote](compote.csv) : données sur les compotes,
 - [dataSportV1](dataSportV1.csv) et [dataSportV2](dataSportV2.csv)
@@ -215,3 +216,15 @@ Les travaux dirigés sont l'occasion d'explorer quelques fonctionalités de R, s
 **Des aides mémoires **
 
 * [Data Wrangling Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
+
+### Des données
+
+Le projet de statistique demande d'identifier une problématique et de l'analyser à partir d'un jeu de données de votre choix. Voici quelques pistes pour trouver un jeu de données, à choisir selon vos intérêts personnels.
+* [zenodo](https://zenodo.org/) un site de dépots de données ouvertes
+* Les sites de municipalités, des états avec les mots clés open data, par exemple à [Rennes](https://data.rennesmetropole.fr/explore/?sort=modified&q=)
+* Aller chercher dans des revues scientifiques qui publient des **Data paper** par exemple
+  - [Scientific Data (Nature Pubishing Group) ](http://www.nature.com/scientificdata/) 
+  - [PLoS One (Public Library of Science)](http://www.plosone.org/static/information.action) 
+  - [Genomics Data (Elsevier)](http://www.journals.elsevier.com/genomics-data/)
+  - [International Journal of Food Contamination (SpringerOpen)](http://foodcontaminationjournal.springeropen.com/about)
+  - [Ecology - Ecological Archives (Ecological Society of America / Wiley)](http://www.esajournals.org/loi/ecol)
