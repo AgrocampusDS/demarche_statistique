@@ -1,0 +1,113 @@
+---
+title: "TD18 : Planification expérimentale (2)"
+author: "UP Mathématique appliquée"
+date: ''
+output:
+  html_document:
+    theme: united
+    css: style.css
+    highlight: tango
+mainfont: SourceSansPro
+header-includes:
+- \usepackage[default]{sourcesanspro}
+- \usepackage[T1]{fontenc}
+---
+
+
+```{r setup-TD17, include=FALSE, }
+knitr::opts_chunk$set(echo = FALSE, cache= TRUE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'hide' )
+library(tidyverse)
+library(kableExtra)
+out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+
+```
+
+```{r}
+print(out_type)
+
+is_pdf <-  (out_type=='latex')
+print(is_pdf)
+```
+
+# {.tabset .tabset-fade .tabset-pills}
+
+##  Objectifs de la séance  
+
+* Construire des plans fractionnaires avec "beaucoup" de facteurs
+* Proposer des plans permettant de tester des interactions
+
+## Exercices 
+
+
+###  Plan 2<sup>6-2</sup>
+
+L'objectif de cet exercice est de construire un plan de résolution IV permettant d'étudier 6 facteurs à 2 niveaux en 16 essais.
+
+1. Combien d'essais sont nécessaires pour construire un plan complet à 6 facteurs ?
+2. Quel plan de base choisissez-vous pour étudier les 6 facteurs en 16 essais ?
+
+On se propose d'étudier le modèle saturé associé à ce plan. La matrice des effets contient les colonnes suivantes :
+
+```{r, echo = FALSE, results='markup', eval = TRUE}
+data <- data.frame(AA="I",A=1,B=2,C=3,D=4,E=12,F=13,G=14,H=23,I=24,J=34,K=123,L=124,M=134,N=234,O=1234)
+data %>% kable(digits=2, format = "html",col.names = NULL) %>%
+    collapse_rows(columns = 1, valign = 'top') %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+
+```
+
+3. Avec quels effets choisissez-vous de confondre les facteurs 5 et 6 ? Déduire toutes les autres confusions du plan. Quelle est la résolution de ce plan ?
+4. Peut-on estimer sans ambiguïté tous les effets principaux et toutes les interactions d'ordre 2 ?
+5. Combien doit-on réaliser d'essais (au minimum) pour pouvoir estimer sans ambiguïté tous les facteurs principaux et toutes les interactions d'ordre 2 ? Et quelles hypothèses doit-on faire ?
+
+### Construction d'un plan 2<sup>8-4</sup>
+
+On veut construire un plan à 8 facteurs à 2 niveaux tels que les effets principaux soient confondus avec des interactions d'ordre 3 ou plus.
+
+1. Donner les générateurs d'alias d'un tel plan.
+2. Les effets principaux sont-ils estimables sans ambiguïté ?
+3. Est-il possible d'estimer quelques interactions d'ordre 2 avec le plan que vous avez construit ? Si oui, combien ? Si toutes les interactions d'ordre 2 ne peuvent pas être estimées, comment faire pour pouvoir toutes les tester ?
+
+### Comment peser avec précision?
+
+On s'intéresse à la précision des mesures de pesées effectuées par une balance de Roberval. On désire peser 4 objets A, B, C et D avec le maximum de précision. On sait que pour une pesée, la précision avec cette balance est de l'ordre de 1 gramme (i.e. l'écart-type est de 1 gramme, indication fournie par le constructeur). 
+
+On va utiliser la méthodologie des plans d'expériences en considérant qu'un objet correspond à 1 facteur. On
+utilisera la convention suivante : si l'objet est déposé dans le plateau de gauche, le poids est compté positivement; s'il est déposé dans le plateau de droite, le poids est compté négativement ; et si l'objet n'est sur aucun plateau, son poids n'est pas compté.
+
+La matrice des essais correspondant à la pesée classique dans lequel on pèse les objets séparément est donnée dans le tableau 1.
+
+```{r, echo = FALSE, results='markup', eval = TRUE}
+data <- data.frame(Essai=c("pesée 1","pesée 2","pesée 3","pesée 4"),A=c(1,0,0,0),B=c(0,1,0,0),C=c(0,0,1,0),D=c(0,0,0,1))
+data %>% kable(digits=2, format = "html", escape = FALSE, caption="Tableau 1") %>%
+    collapse_rows(columns = 1, valign = 'top') %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+
+```
+
+
+On décide de faire les pesées selon le plan du tableau 2 :
+
+```{r, echo = FALSE, results='markup', eval = TRUE}
+data <- data.frame(Essai=c("pesée 1","pesée 2","pesée 3","pesée 4"),G=c("A,B,C,D","A,B","A,C","A,D"),D=c("aucun","C,D","B,D","B,C"),P=c(150,50,10,30))
+names(data) <- c("Essai","Objects à gauche","Objects à droite","Poids ajoutés à droite")
+data %>% kable(digits=2, format = "html", escape = FALSE, caption="Tableau 2") %>%
+    collapse_rows(columns = 1, valign = 'top') %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+
+```
+
+Les résultats des pesées (en gramme) sont les suivantes : Y<sub>1</sub> = 150, Y<sub>2</sub> = 50, Y<sub>3</sub> = 10, Y<sub>4</sub> = 30.
+
+1. Donner le plan d'expériences qui a été utilisé lors de ces 4 pesées sous forme de matrice.
+2. Après avoir précisé à quel paramètre correspondait le poids de chaque objet, donner une estimation du poids
+de chaque objet.
+3. Comment peut-on calculer la précision des estimations de poids ? Quelle est la précision de chacune des
+estimations de poids (sachant que la précision de la balance est  = 1 gramme) ?
+
+## Le vocabulaire de la séance
+
+### Statistique 
+- Résolution d'un plan fractionnaire
+- Alias
+

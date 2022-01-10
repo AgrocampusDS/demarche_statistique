@@ -58,7 +58,7 @@ data %>% kable(digits=2, format = "html", escape = FALSE) %>%
 2. Écrire la matrice des effets associée au modèle contenant tous les effets principaux et toutes les interactions (d'ordre 2 et 3). En déduire la liste des confusions de ce plan puis la résolution du plan.
 3. Quel modèle peut-on étudier avec ce plan ? Quelles hypothèses doit-on poser ?
 
-### Construction d'un plan2<sup>7-3</sup>
+### Construction d'un plan 2<sup>7-3</sup>
 
 L'objectif de cet exercice est de construire un plan permettant d'étudier l'influence de 7 facteurs à deux modalités en 16 essais.
 
