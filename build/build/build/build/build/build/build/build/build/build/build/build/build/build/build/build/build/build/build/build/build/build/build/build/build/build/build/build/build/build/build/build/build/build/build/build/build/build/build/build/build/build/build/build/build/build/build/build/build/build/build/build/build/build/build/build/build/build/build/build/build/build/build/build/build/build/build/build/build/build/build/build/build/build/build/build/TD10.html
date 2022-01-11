@@ -312,7 +312,7 @@ Prédiction du taux de glucose d’un abricot par colorimétrie
 <li><p>A l’aide de ce modèle, donnez un <strong>intervalle de prédiction</strong> de niveau 95% pour <strong>le taux de glucose</strong> d’un abricot dont l’indice colorimétrique ‘a’ est égal à 5.</p></li>
 </ul>
 <p>La différence entre intervalle de confiance pour la valeur moyenne et intervalle de prédiction peut-être représentée graphiquement sous la forme suivante :</p>
-<p>```{r facultatif, fig.show=‘asis’, fig.cap=" * La ligne bleue indique le taux de Glucose moyen prédit par le modèle en fonction de l’indice a * La zone grisée représente l’intervalle de confiance pour ce taux moyen * Les deux lignes pointillées rouges délimitent le taux de Glucose prédit pour un abricot selon son indice a“} abricots_pred &lt;- predict(m_reg, interval =”prediction") %&gt;% as_tibble()</p>
+<p>```{r facultatif, fig.show=‘asis’, fig.cap=" La ligne bleue indique le taux de Glucose moyen prédit par le modèle en fonction de l’indice a; La zone grisée représente l’intervalle de confiance pour ce taux moyen; Les deux lignes pointillées rouges délimitent le taux de Glucose prédit pour un abricot selon son indice a “} abricots_pred &lt;- predict(m_reg, interval =”prediction") %&gt;% as_tibble()</p>
 <p>abricots %&gt;% mutate(lwr_pred = abricots_pred<span class="math inline">\(lwr,  upr_pred = abricots_pred\)</span>upr) %&gt;% ggplot() + geom_point(aes(x=a, y = Glucose)) + geom_smooth(aes(x=a, y = Glucose), method = ‘lm’, se = TRUE) + geom_line(aes(x= a, y= lwr_pred), color = “red”, linetype = “dashed”) + geom_line(aes(x= a, y= upr_pred), color = “red”, linetype = “dashed”)</p>
 <p>```</p>
 <ul>
