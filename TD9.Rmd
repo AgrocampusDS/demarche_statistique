@@ -66,7 +66,7 @@ douglas %>% ggplot() +
    geom_point(aes(x=log_diametre, y = log_ratioVH))
 ```
 
-* Mettre en place un test statistique permettant de conclure qu'il existe un lien entre le logarithme  du diamètre et le logarithme du ration Volume sur Hauteur.
+* Mettre en place un test statistique permettant de conclure qu'il existe un lien entre le logarithme  du diamètre et le logarithme du ratio Volume sur Hauteur.
 
 ```{r reg1}
 ## pour faire le lien avec l'analyse de la variance
