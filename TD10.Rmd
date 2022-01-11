@@ -48,7 +48,7 @@ out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 
 Dans un premier temps, on souhaite vérifier le lien entre colorimétrie et maturité d'un abricot à partir de données expérimentales sur 108 abricots d'une même variété, répartis selon 3 stades de maturité (1, 2 ou 3 du moins mûr au plus mûr). Les données sont disponibles dans le fichier [abricots](abricotsSG.txt)
 
-* Importer le jeu de données dans un objet nommé `abricots` et indiquer le nombre d'abricots dans  chaque stade.
+* Importer le jeu de données dans un objet nommé `abricots` et indiquer le nombre d'abricots dans chaque stade.
 
 ```{r import_data}
 library(tidyverse)
@@ -93,7 +93,7 @@ plot(maturite_comp)
 ```{r glucose_a_graph}
 
 abricots %>% ggplot() + 
-  geom_point(aes(x=a, y= Glucose))  +
+  geom_point(aes(x=a, y=Glucose))  +
   ggtitle("Taux de glucose en fonction de l'indice a")
 ```
 
@@ -105,7 +105,7 @@ m_reg <- lm(Glucose ~ a , data = abricots)
 summary(m_reg)
 ```
 
-* A l'aide de ce modèle, donner un **intervalle de confiance** de niveau 95\%  du **taux de glucose moyen**  d'un abricot dont l'indice colorimétrique `a` est égal à 5, 
+* A l'aide de ce modèle, donner un **intervalle de confiance** de niveau 95\%  du **taux de glucose moyen**  d'un abricot dont l'indice colorimétrique `a` est égal à 5. 
 
 ```{r reg_modele_conf}
 predict(m_reg, newdata = data.frame(a=5), interval = 'confidence')
@@ -120,7 +120,10 @@ predict(m_reg, newdata = data.frame(a=5), interval = "prediction")
 
 La différence entre intervalle de confiance pour la valeur moyenne et intervalle de prédiction peut-être représentée graphiquement sous la forme suivante :
 
-```{r facultatif, fig.show='asis', fig.cap="La ligne bleue indique le taux de Glucose moyen prédit par le modèle en fonction de l'indice a, la zone grisée représente l'intervalle de confiance pour ce taux moyen tandis que les deux lignes pointillées rouges délimitent le taux de Glucose prédit pour un abricot selon son indice a"}
+```{r facultatif, fig.show='asis', fig.cap="
+* La ligne bleue indique le taux de Glucose moyen prédit par le modèle en fonction de l'indice a
+* La zone grisée représente l'intervalle de confiance pour ce taux moyen
+* Les deux lignes pointillées rouges délimitent le taux de Glucose prédit pour un abricot selon son indice a"}
 abricots_pred <- predict(m_reg, interval = "prediction") %>% 
    as_tibble()
 
