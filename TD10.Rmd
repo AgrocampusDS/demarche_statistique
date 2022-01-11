@@ -121,9 +121,10 @@ predict(m_reg, newdata = data.frame(a=5), interval = "prediction")
 La différence entre intervalle de confiance pour la valeur moyenne et intervalle de prédiction peut-être représentée graphiquement sous la forme suivante :
 
 ```{r facultatif, fig.show='asis', fig.cap="
-* La ligne bleue indique le taux de Glucose moyen prédit par le modèle en fonction de l'indice a
-* La zone grisée représente l'intervalle de confiance pour ce taux moyen
-* Les deux lignes pointillées rouges délimitent le taux de Glucose prédit pour un abricot selon son indice a"}
+La ligne bleue indique le taux de Glucose moyen prédit par le modèle en fonction de l'indice a; 
+La zone grisée représente l'intervalle de confiance pour ce taux moyen;
+Les deux lignes pointillées rouges délimitent le taux de Glucose prédit pour un abricot selon son indice a
+"}
 abricots_pred <- predict(m_reg, interval = "prediction") %>% 
    as_tibble()
 
