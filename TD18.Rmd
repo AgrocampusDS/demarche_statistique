@@ -58,11 +58,11 @@ data %>% kable(digits=2, format = "html",col.names = NULL) %>%
 
 3. Avec quels effets choisissez-vous de confondre les facteurs 5 et 6 ? Déduire toutes les autres confusions du plan. Quelle est la résolution de ce plan ?
 4. Peut-on estimer sans ambiguïté tous les effets principaux et toutes les interactions d'ordre 2 ?
-5. Combien doit-on réaliser d'essais (au minimum) pour pouvoir estimer sans ambiguïté tous les facteurs principaux et toutes les interactions d'ordre 2 ? Et quelles hypothèses doit-on faire ?
+5. Comment faire pour estimer sans ambiguïté tous les facteurs principaux et toutes les interactions d'ordre 2 ? 
 
 ### Construction d'un plan 2<sup>8-4</sup>
 
-On veut construire un plan à 8 facteurs à 2 niveaux tels que les effets principaux soient confondus avec des interactions d'ordre 3 ou plus.
+A partir de 16 essais, on veut construire un plan à 8 facteurs à 2 niveaux tels que les effets principaux soient confondus avec des interactions d'ordre 3 ou plus.
 
 1. Donner les générateurs d'alias d'un tel plan.
 2. Les effets principaux sont-ils estimables sans ambiguïté ?
@@ -103,7 +103,7 @@ Les résultats des pesées (en gramme) sont les suivantes : Y<sub>1</sub> = 150,
 2. Après avoir précisé à quel paramètre correspondait le poids de chaque objet, donner une estimation du poids
 de chaque objet.
 3. Comment peut-on calculer la précision des estimations de poids ? Quelle est la précision de chacune des
-estimations de poids (sachant que la précision de la balance est  = 1 gramme) ?
+estimations de poids (sachant que la précision de la balance est  = 1 gramme) ?
 
 ## Le vocabulaire de la séance
 
