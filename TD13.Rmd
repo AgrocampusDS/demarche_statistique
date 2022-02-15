@@ -42,6 +42,7 @@ out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 
 En préparation d'une future expérimentation en champs,  on a comparé, dans deux types de sols, trois types de sondes destinées à prélever des échantillons de terre, en effectuant plusieurs prélèvements et en mesurant la teneur en anhydride phosphorique ($P_20_5$) en mg pour 100 g de terre sèche.  On s'intéresse principalement aux différences qui pourraient exister d'un type de sonde à l'autre, et aux interférences éventuelles des types de sonde avec les types de sol. Les données sont disponibles dans le fichier [sonde_sol.csv](sonde_sol.csv).
 
+#### Importation et visualisation
 
 * Importer les données et les représenter sous forme d'un boxplot dans lequel l'abscisse est le sol, ce boxplot étant rempli par une couleur qui représente la sonde.
 
@@ -64,6 +65,7 @@ dta %>%
    ggplot() + aes(x=Sol, col = Sonde, y=P205_m) + geom_line(aes(group = Sonde)) + geom_point()
 ```
 
+#### Ajustement et évaluation du modèle complet
 
 * Identifier la variable à expliquer, les variables potentiellement explicatives, ainsi que leurs natures et écrire sous forme mathématique le modèle correspondant. 
 
@@ -78,6 +80,8 @@ anova(M0, Mcomp)
 Mettre en place ce test statistique dans R
 
 * Donner la loi de la statistique de test sous H$_0$ en justifiant les degrés de liberté.
+
+#### Tests des effets pour la sélection du modèle final
 
 Puisque les teneurs en anhydrides phosphatés ne sont pas identiques pour toutes les sondes sur tous les sols, on souhaite identifier si la variabilité provient du sol, des sondes ou des deux.
 
@@ -97,17 +101,6 @@ M1 <- lm(P205 ~ Sol  , data = dta)
 anova(M1, M12)
 ```
 
-* Quelle est la teneur en anhydride phosphaté prédite par le modèle sans interaction lorsqu'il est mesuré avec la sonde 2 sur le sol 2 ? Même question pour la sonde 2 et le sol 1, puis la sonde 1 et le sol 1.
-
-
-
-```{r comparaison, echo=TRUE, eval = TRUE, results='hide'}
-library(emmeans)
-compare_mean <- emmeans::emmeans(M12, ~ Sonde)
-pairs(compare_mean, adjust="bonf")
-plot(compare_mean)
-```
-
 * Compte tenu de la différence entre les sondes, le taux d'anhydride est-il le même pour les deux sols ? Ecrire l'hypothèse H$_0$ du test statistique à mettre en place pour répondre à cette question et l'effectuer dans R.
 
 ```{r comp_sol}
@@ -116,13 +109,21 @@ M2 <- lm(P205 ~ Sonde, data = dta)
 anova(M2, M12)
 ```
 
+#### Prédiction
 
-* Comparer aux résultats obtenus avec la commande `Anova` du package `car` (prêtez attention au A et non a)
 
-```{r car}
-#install.packages('car')
-library(car)
-Anova(M12)
+* Quelle est la teneur en anhydride phosphaté prédite par le modèle sélectionné lorsqu'il est mesuré avec la sonde 2 sur le sol 2 ? Même question pour la sonde 2 et le sol 1, puis la sonde 1 et le sol 1.
+
+
+#### Choix de sondes par un test sur les modalités d'un facteur
+
+* Quelles sondes sont équivalentes?
+
+```{r comparaison, echo=TRUE, eval = TRUE, results='hide'}
+library(emmeans)
+compare_mean <- emmeans::emmeans(M12, ~ Sonde)
+pairs(compare_mean, adjust="bonf")
+plot(compare_mean)
 ```
 
 
