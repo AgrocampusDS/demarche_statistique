@@ -43,14 +43,11 @@ out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 
 ### Étude de la croissance en poids de poussins en fonction du sexe et de trois traitements
 
-Lors de leur mise en incubateur, 45 oeufs de poules ont été répartis de façon aléatoire en trois lots de 15. Trois traitements (températures d'incubation différentes) ont ensuite été appliqués aux différents lots. Nous supposons qu'après éclosion, les poussins ont tous été élevés dans des conditions identiques, puis pesés à un même âge de référence. À ce moment, le sexe des poussins, dont on sait a priori qu'il induit de fortes différences de poids, pouvait aussi être observé. 
-Les poids considérés, exprimés en décagrammes, ainsi que les moyennes par sexe et par traitement, figurent dans le tableau 1. 
-On souhaite 
+Lors de leur mise en incubateur, 45 oeufs de poules ont été répartis de façon aléatoire en trois lots de 15. Trois traitements (températures d'incubation différentes) ont ensuite été appliqués aux différents lots. Nous supposons qu'après éclosion, les poussins ont tous été élevés dans des conditions identiques, puis pesés à un même âge de référence. À ce moment, le sexe des poussins, dont on sait a priori qu'il induit de fortes différences de poids, pouvait aussi être observé. La modalité 1 (respectif 2) de la variable Sexe correspond à Male (respetivement Femelle).
 
-* vérifier  l'existence présumée d'un effet sexe,
-* tester l'existence d'un effet traitement, potentiellement différent selon les sexes.
+L'objectif est de choisir le traitement qui maximise le poids des poussins.
 
-#### Importation des données 
+#### Importation des données et visualisation
 
 Les données sont disponibles dans le fichier  `poussin.txt`. 
 
@@ -90,24 +87,35 @@ poussins_dta %>%
   geom_point()
 ```
 
-#### Modélisation
+#### Description du modèle complet
 
 * Ecrire sous forme mathématique le modèle permettant d'explorer les effets potentiels des différents facteurs.
 
 * Combien y-t-il de paramètres qui capturent une potentielle interaction. Que représente cette interaction entre les facteurs ?
 
-#### Ajustement du modèle
+#### Ajustement du modèle complet
 
 * Estimer les paramètres  du modèle.
 
-* Quel est le rendement moyen prédit par le modèle pour un poussin femelle ayant reçu le traitement 1  ?
+* Quel est le rendement moyen prédit par le modèle pour un poussin femelle ayant reçu le traitement 1 (vous pouvez utiliser la fonction `summary`) ?
 
 ```{r ajust_lm}
 Mcomp <- lm(Rdt~ Sexe + Trait + Sexe : Trait, data = poussins_dta)
 summary(Mcomp)
 ```
 
-#### Tests des effets
+* A l'aide de la fonction `predict` donner l'intervalle de confiance de la prédiction.
+
+```{r predict1}
+ndata <- data.frame(Trait=as.factor(1), Sexe=as.factor("Femelle"))
+predict(Mcomp,newdata=ndata,interval="prediction")
+```
+
+* A ce stade de la démarche, critiquer l'utilisation du modèle complet pour la prédiction.
+
+#### Test global
+
+
 On souhaite répondre à la question y a-t-il un effet du sexe ou du traitement sur la prise de poids. 
 
 * Ecrire les hypothèses $H_0$ et $H_1$ du test que vous proposez
@@ -118,6 +126,8 @@ On souhaite répondre à la question y a-t-il un effet du sexe ou du traitement 
 M0 <- lm(Rdt ~ 1, data = poussins_dta)
 anova(M0, Mcomp)
 ```
+
+#### Tests des effets pour la sélection du modèle final
 
 On souhaite maintenant tester un potentiel effet traitement. Pour ce faire, on commence par tester l'existence d'une potentielle interaction.
 
@@ -140,24 +150,45 @@ On ajuste maintenant le modèle d'analyse de la variance à 2 facteurs sans inte
 Anova(M12, type = 2)
 ```
 
+* Reprendre la prédiction pour un poussin femelle ayant reçu le traitement 1. Cette prédiction est-elle plus précise que celle obtenue avec le modèle complet?
+
+```{r predict}
+predict(M12,newdata=ndata,interval="prediction")
+```
+
+
 #### Conclusion
 
 * Quelle est votre conclusion à l'issue de cette étude ?
 
+```{r comparaison, echo=TRUE, eval = TRUE, results='hide'}
+library(emmeans)
+compare_mean <- emmeans::emmeans(M12, ~ Trait)
+pairs(compare_mean, adjust="bonf")
+plot(compare_mean)
+```
 
-### Effet du sexe sur la taille des bébés à la naissance
-On souhaite étudier la taille des bébés à la naissance en fonction du sexe du bébé et du nombre de semaines de grossesse. On dispose pour cela d'un échantillon constitué de 477 nouveaux nés (242 filles et 255 garçons) et du nombre de semaines d'aménorrhée (plus exactement du nombre de semaines par rapport au terme normal qui est de 40 semaines en France: −3 signifie donc 37 semaines d'aménorrhée, et 1,  41 semaines d'aménorrhée).
+* Cette conclusion aurait-elle été la même sans l'information du Sexe?
 
+```{r Marginal}
+M.marg <- lm(Rdt ~ Trait, data = poussins_dta)
+anova(M.marg,M0)
+summary(M.marg)
+```
 
+### Effet du sexe sur le poids des bébés à la naissance
+On souhaite étudier le poids des bébés à la naissance en fonction du sexe du bébé et du nombre de semaines de grossesse. On dispose pour cela d'un échantillon constitué de 477 nouveaux nés (242 filles et 255 garçons) et du nombre de semaines d'aménorrhée (plus exactement du nombre de semaines par rapport au terme normal qui est de 40 semaines en France: −3 signifie donc 37 semaines d'aménorrhée, et 1,  41 semaines d'aménorrhée).
 
-#### Importation des données 
+Nous cherchons à déterminer si le poids à la naissance est différent chez les garçons et les filles.
+
+#### Importation des données et visualisation
 
 Les données sont disponibles dans le fichier `bebe.csv`.
 
 * Importer les données. Pour chaque bébé , on note son sexe, le nombre de semaines d'aménorrhée `Nbsem`, et le poids du bébé à la naissance `PoidsBB`
 
 ```{r import_dta_bb}
-bebe_dta <- read.table(file = "bebe.csv", header = TRUE, sep = ";", stringsAsFactors = TRUE) 
+bebe_dta <- read.table(file = "https://agrocampusds.github.io/demarche_statistique/bebe.csv", header = TRUE, sep = ";", stringsAsFactors = TRUE) 
   
 ```
 
@@ -176,15 +207,16 @@ bebe_dta %>% ggplot() +
   geom_smooth(method = 'lm', aes(x=Nbsem, y = PoidsBB, col = Sexe), se = FALSE)
 ```
 
-Nous cherchons à comprendre si l'effet d'une naissance précoce est le même pour les garçons et les filles.
 
-#### Modélisation
+#### Description du modèle complet
 
 * Ecrire sous forme mathématique le modèle permettant d'explorer les effets potentiels du nombre de semaines de grossesse et du sexe.
 
 * Que  représente l'interaction entre le facteur Sexe et la variable nombre de semaines ?
 
-#### Ajustement du modèle
+* Comment interpreter l'effet Sexe?
+
+#### Ajustement du modèle complet et prédiction
 
 * Estimer les paramètres  du modèle.
 
@@ -196,9 +228,11 @@ summary(Mcomp)
 predict(Mcomp, newdata = data.frame(Sexe = 'M', Nbsem = -2), interval  = "prediction")
 ```
 
-#### Tests des effets
-On souhaite répondre à la question y a-t-il un effet du sexe ou du nombre de semaines de grossesse sur le poids à la naissance.
+* Comment peut-on améliorer la précision de la prédiction?
 
+
+#### Test global
+On souhaite répondre à la question y a-t-il un effet du sexe ou du nombre de semaines de grossesse sur le poids à la naissance.
 
 * Ecrire les hypothèses $H_0$ et $H_1$ du test que vous proposez
 
@@ -209,9 +243,11 @@ M0 <- lm(PoidsBB ~ 1, data = bebe_dta)
 anova(M0, Mcomp)
 ```
 
+#### Tests des effets pour la sélection de modèle
+
 On souhaite maintenant préciser l'analyse, et répondre à la question "L'effet du nombre de semaines de grossesse sur le poids à la naissance est-il le même pour les garçons et les filles ?"
 
-* Mettre ce test  oeuvre dans `R` et répondre à la question posée.
+* Mettre ce test en oeuvre dans `R` et répondre à la question posée.
 
 ```{r test_interaction_bb}
 ##au choix 
@@ -234,11 +270,20 @@ pairs(sexe_comp, adjust = "bonf")
 plot(sexe_comp)
 ```
 
-
+```{r pred2}
+predict(M12, newdata = data.frame(Sexe = 'M', Nbsem = -2), interval  = "prediction")
+```
 #### Conclusion
 
 * Conclure sur la différence de poids à la naissance en fonction du sexe et du nombre de semaines de grossesse.
+* La prise en compte du nombre de semaines influence-t-elle l'estimation de l'effet du sexe? la précision de la prédiction?
 
+```{r marg}
+Mmarg <- lm(PoidsBB~ Sexe , data = bebe_dta)
+sexe_comp <- emmeans(Mmarg, ~Sexe)
+pairs(sexe_comp, adjust = "bonf")
+predict(Mmarg, newdata = data.frame(Sexe = 'M', Nbsem = -2), interval  = "prediction")
+```
 
 ## Le vocabulaire de la séance
 
