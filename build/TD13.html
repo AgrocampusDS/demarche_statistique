@@ -381,6 +381,8 @@ $(document).ready(function () {
 <div id="comparaison-de-trois-types-de-sondes" class="section level3">
 <h3>Comparaison de trois types de sondes</h3>
 <p>En préparation d’une future expérimentation en champs, on a comparé, dans deux types de sols, trois types de sondes destinées à prélever des échantillons de terre, en effectuant plusieurs prélèvements et en mesurant la teneur en anhydride phosphorique (<span class="math inline">\(P_20_5\)</span>) en mg pour 100 g de terre sèche. On s’intéresse principalement aux différences qui pourraient exister d’un type de sonde à l’autre, et aux interférences éventuelles des types de sonde avec les types de sol. Les données sont disponibles dans le fichier <a href="sonde_sol.csv">sonde_sol.csv</a>.</p>
+<div id="importation-et-visualisation" class="section level4">
+<h4>Importation et visualisation</h4>
 <ul>
 <li><p>Importer les données et les représenter sous forme d’un boxplot dans lequel l’abscisse est le sol, ce boxplot étant rempli par une couleur qui représente la sonde.</p></li>
 <li><p>Décrire le rôle de la commande ci-dessous et discuter d’une possible interaction entre le facteur Sol et le facteur Sonde.</p></li>
@@ -389,6 +391,9 @@ $(document).ready(function () {
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(Sonde, Sol) <span class="sc">%&gt;%</span> </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarize</span>(<span class="at">P205_m =</span> <span class="fu">mean</span>(P205)) <span class="sc">%&gt;%</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x=</span>Sol, <span class="at">col =</span> Sonde, <span class="at">y=</span>P205_m) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Sonde)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+</div>
+<div id="ajustement-et-évaluation-du-modèle-complet" class="section level4">
+<h4>Ajustement et évaluation du modèle complet</h4>
 <ul>
 <li><p>Identifier la variable à expliquer, les variables potentiellement explicatives, ainsi que leurs natures et écrire sous forme mathématique le modèle correspondant.</p></li>
 <li><p>Mettre en place un test statistique permettant de répondre à la question “Le taux d’anhydride phosphaté est-il le même dans tous les types de sol, pour tous les sortes de sonde ?” (Donner les hypothèses H<span class="math inline">\(_0\)</span> et H<span class="math inline">\(_1\)</span>)</p></li>
@@ -397,6 +402,9 @@ $(document).ready(function () {
 <ul>
 <li>Donner la loi de la statistique de test sous H<span class="math inline">\(_0\)</span> en justifiant les degrés de liberté.</li>
 </ul>
+</div>
+<div id="tests-des-effets-pour-la-sélection-du-modèle-final" class="section level4">
+<h4>Tests des effets pour la sélection du modèle final</h4>
 <p>Puisque les teneurs en anhydrides phosphatés ne sont pas identiques pour toutes les sondes sur tous les sols, on souhaite identifier si la variabilité provient du sol, des sondes ou des deux.</p>
 <ul>
 <li>Quel test pouvez-vous proposer pour répondre à la question ? Les différences entre les sondes sont elles les mêmes quel que soit le type de sol ?</li>
@@ -404,16 +412,25 @@ $(document).ready(function () {
 <p>On considère maintenant le modèle d’analyse de la variance à deux facteurs sans interaction</p>
 <ul>
 <li><p>La différence de teneur en anhydride phosphatée entre les sols ayant été prise en compte, peut on encore voir une différence de mesure entre les sondes ?</p></li>
-<li><p>Quelle est la teneur en anhydride phosphaté prédite par le modèle sans interaction lorsqu’il est mesuré avec la sonde 2 sur le sol 2 ? Même question pour la sonde 2 et le sol 1, puis la sonde 1 et le sol 1.</p></li>
+<li><p>Compte tenu de la différence entre les sondes, le taux d’anhydride est-il le même pour les deux sols ? Ecrire l’hypothèse H<span class="math inline">\(_0\)</span> du test statistique à mettre en place pour répondre à cette question et l’effectuer dans R.</p></li>
+</ul>
+</div>
+<div id="prédiction" class="section level4">
+<h4>Prédiction</h4>
+<ul>
+<li>Quelle est la teneur en anhydride phosphaté prédite par le modèle sélectionné lorsqu’il est mesuré avec la sonde 2 sur le sol 2 ? Même question pour la sonde 2 et le sol 1, puis la sonde 1 et le sol 1.</li>
+</ul>
+</div>
+<div id="choix-de-sondes-par-un-test-sur-les-modalités-dun-facteur" class="section level4">
+<h4>Choix de sondes par un test sur les modalités d’un facteur</h4>
+<ul>
+<li>Quelles sondes sont équivalentes?</li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>compare_mean <span class="ot">&lt;-</span> emmeans<span class="sc">::</span><span class="fu">emmeans</span>(M12, <span class="sc">~</span> Sonde)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(compare_mean, <span class="at">adjust=</span><span class="st">&quot;bonf&quot;</span>)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(compare_mean)</span></code></pre></div>
-<ul>
-<li><p>Compte tenu de la différence entre les sondes, le taux d’anhydride est-il le même pour les deux sols ? Ecrire l’hypothèse H<span class="math inline">\(_0\)</span> du test statistique à mettre en place pour répondre à cette question et l’effectuer dans R.</p></li>
-<li><p>Comparer aux résultats obtenus avec la commande <code>Anova</code> du package <code>car</code> (prêtez attention au A et non a)</p></li>
-</ul>
+</div>
 </div>
 </div>
 <div id="le-vocabulaire-de-la-séance" class="section level2">
