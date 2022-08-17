@@ -40,14 +40,15 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 
 Télécharger les données de manchots de Palmers `penguins.csv` disponibles sur l'onglet Scripts et données de la [page d'accueil du module](https://agrocampusds.github.io/demarche_statistique/index.html) ainsi que le fichier `TD1_script.R` dans le répertoire Téléchargement par défaut.
 
-Créer un projet dans RStudio (à partir d'un nouveau répertoire) intitulé `ds_TD`.
+Créer un nouveau répertoire intitulé `ds_TD` contenant les fichiers `penguins.csv` et `TD1_script.R` : ce répertoire est appelé *répertoire de travail (working directory)*
 
-Déplacer le fichier de données ainsi que le fichier `TD1_script.R` vers ce nouveau répertoire `ds_TD`.
+Créer un projet dans RStudio à partir du répertoire `ds_TD`.
 
 Ouvrir le fichier `TD1_script.R` dans RStudio.
 
+**Remarque :** le fichier `TD1_script.R` est appelé **script**. C'est un fichier au format texte contenant des lignes de commandes organisées, dont l'interprétation réalise une analyse de données (production de graphiques ou de résultats numériques pour éclairer une problématique).
 
-Les lignes qui commencent par `#` ne sont pas interprétées par R, elles permettent de faire des commentaires et donc de contextualiser le script.
+Les lignes qui commencent par `#` ne sont pas interprétées par R. Elles permettent de faire des commentaires et donc de contextualiser le script.
 
 
 ####  Utiliser un script ` R` pour importer des données
@@ -60,24 +61,22 @@ Exécuter la ligne suivante.
 
 ```{r import, eval = TRUE, echo = FALSE}
 penguins <- read.table('https://agrocampusds.github.io/demarche_statistique/penguins.csv', sep = ';', header = TRUE)
-
 ```
-
 
 * Un objet apparaît dans l'environnement, quel est son nom ?
 * Que fait la fonction `read.table` ?
 * Quels arguments est-il important de spécifier pour une importation réussie ? 
 
-Il est essentiel de vérifier l'importation. La commande `summary` permet d'obtenir un résumé du jeu de données importé.
+La commande `summary` appliquée à l'objet contenant les données importées, ici `penguins`, permet d'obtenir une synthèse des données, variable par variable. Il est important de s'assurer que toutes les variables ont bien été importées et qu'elles l'ont été au bon format, soit quantitatif, soit catégoriel.
 
-* Exécuter la fonction `summary` en spécifiant l'argument adéquat pour vérifier l'importation. Discuter de la nature des variables.
+* Utiliser la fonction `summary` pour vérifier que la nature des variables telle que vous l'appréciez est conforme à la nature des variables telle que déclarée dans R.
 
 ####  Utiliser une fonction d'un package pour renommer les variables
 
-`R` est un logiciel collaboratif, chacun peut contribuer à enrichir les fonctions de base en proposant un ensemble de fonctions appelé package. Pour utiliser un package, il faut l'installer une fois et le charger avant  chaque première utilisation.
+`R` est un logiciel collaboratif. Chacun peut contribuer à enrichir les fonctions de base en proposant un ensemble de fonctions appelé *package*. Pour utiliser un package, il faut l'installer (une seule fois avant une première utilisation) et le charger (dans toutes les sessions de travail prévoyant son utilisation).
 
 * Installer le package `tidyverse` à partir du menu.
-* Ajouter le chargement du package dans le script `TD1_script.R` grâce à la fonction `library( )` appliquée au package désiré.
+* Ajouter le chargement du package dans le script `TD1_script.R` grâce à la fonction `library( )` appliquée au package désiré :
 
 ```{r tidyverse, eval = TRUE, echo = FALSE, message=FALSE}
 library(tidyverse)
@@ -92,7 +91,7 @@ penguins <- rename(.data = penguins, longueur_bec = bill_length_mm,
                    epaisseur_bec = bill_depth_mm)
 ```
 
-* Renommer de la même manière `species` en espece, `island` en ile, `body_mass_g` en poids et `flipper_length_mm` en longueur_nageoire, `sex` en sexe et `year` en annee. (il faut éviter les caractères accentués et ne pas utiliser les espaces dans les noms de variables)
+* Renommer de la même manière `species` en espece, `island` en ile, `body_mass_g` en poids, `flipper_length_mm` en longueur_nageoire, `sex` en sexe et `year` en annee (il faut éviter les caractères accentués et ne pas utiliser les espaces dans les noms de variables).
 
 ```{r rename_esp, echo = FALSE, eval = TRUE}
 penguins <- rename(.data = penguins, espece = species, 
@@ -104,16 +103,15 @@ penguins <- rename(.data = penguins, espece = species,
 
 ### Visualisation de données
 
-
 #### Utiliser un package pour produire des graphiques 
 
-De nombreuses fonction de visualisation sont disponibles dans le package `ggplot2`. 
+De nombreuses fonctions de visualisation sont disponibles dans le package `ggplot2`. 
 
 * Installer puis charger le package `ggplot2`.
 
-#### Visualisation d'une variable qualitative à l'aide d'un diagramme en bâtons
+#### Répartition des valeurs d'une variable qualitative : diagramme en bâtons
 
-Une variable qualitative peut être visualisée à l'aide d'un diagramme en bâtons (barplot).
+La répartition des valeurs d'une variable qualitative peut être visualisée à l'aide d'un diagramme en bâtons (barplot).
 
 * Ajouter la commande ci-dessous dans votre script `R` puis l'exécuter.
 
@@ -122,15 +120,15 @@ ggplot(data = penguins) +
   geom_bar(aes(x = espece))
 ```
 
-La fonction `aes` permet de spécifier ce qui est représenté. Ici `aes( x = espece)` indique que la variable `espece` sera représentée sur l'abscisse du graphique. L'ordonnée n'étant pas spécifiée, le comportement par défaut sera utilisé et l'ordonnée correspond ainsi à l'effectif de chaque classe. 
+La fonction `aes` permet de spécifier ce qui est représenté. Ici `aes( x = espece)` indique que la variable `espece` sera représentée sur l'abscisse du graphique. L'ordonnée n'étant pas spécifiée, le comportement par défaut de la fonction `geom_bar` sera utilisé et l'ordonnée correspond ainsi à l'effectif (le nombre d'individus) de chaque classe. 
 
-#### Visualisation d'une variable quantitative à l'aide d'un histogramme
+#### Répartition des valeurs d'une variable quantitative : histogramme
 
-La distribution  des valeurs possibles d'une variable quantitative peut être représentée à l'aide d'un histogramme.
+La distribution  des valeurs d'une variable quantitative peut être représentée à l'aide d'un histogramme.
 
 * En vous aidant de la commandant précédente, proposer une commande pour dessiner un histogramme des longueurs de bec (fonction `geom_histogram`). 
 
-Par défaut, sans autre indication dans la fonction `aes`, l'ordonnée de l'histogramme indique l'effectif de manchots par classe de valeurs. Dans la définition mathématique de l'histogramme, il est indiqué que les aires sont proportionnelles aux fréquences, l'ordonnée représentant alors une densité. Pour obtenir ce graphique,  il faut modifier le comportement par défaut de la fonction `aes` pour spécifier l'ordonnée explicitement avec un mot réservé `..density..`. 
+Par défaut, sans autre indication dans la fonction `aes`, l'ordonnée de l'histogramme indique l'effectif de manchots par classe de valeurs. Dans la définition mathématique de l'histogramme, les aires de chaque barre sont proportionnelles aux fréquences (proportions d'individus dans chaque classe), l'ordonnée représentant alors une densité. Pour obtenir ce graphique,  il faut modifier le comportement par défaut de la fonction `aes` pour spécifier l'ordonnée explicitement avec un mot réservé `..density..`. 
 
 ```{r histogram,  fig.show='hide'}
 ggplot(data = penguins) +
@@ -138,22 +136,24 @@ ggplot(data = penguins) +
 ```
 
 
-Il est possible de modifier le nombre de classes pour l'histogramme grâce à l'argument ` bins` de la fonction `geom_histogram`. 
+Il est possible de modifier le nombre de classes de l'histogramme grâce à l'argument ` bins` de la fonction `geom_histogram`. 
 
 * Proposer une représentation de la distribution des longueurs de bec qui ne contient que 10 classes de valeurs.
 
-La couleur de fond de l'histogramme peut être modifiée grâce à l'argument `fill` .
+La couleur de fond de l'histogramme peut être modifiée grâce à l'argument `fill`.
 
 ```{r histogram_fill, fig.show='hide'}
 ggplot(data = penguins) +
   geom_histogram(aes(x = longueur_bec, y = ..density..), fill = 'green')
 ```
-La couleur peut être choisie plus harmonieusement et spécifiée sous [format html](https://htmlcolorcodes.com/color-picker/), par exemple
+
+La couleur peut être choisie plus harmonieusement et spécifiée sous [format html](https://htmlcolorcodes.com/color-picker/). Par exemple :
 
 ```{r histogram_fill_nice, fig.show='hide'}
 ggplot(data = penguins) +
   geom_histogram(aes(x = longueur_bec, y = ..density..), fill = '#59C9A5')
 ```
+
 Enfin, il est possible de modifier la couleur des traits
 
 ```{r histogram_fill_nice_col, fig.show='hide'}
@@ -161,13 +161,9 @@ ggplot(data = penguins) +
   geom_histogram(aes(x = longueur_bec, y = ..density..), fill = '#59C9A5', col = '#5C6D70')
 ```
 
-
-
 * Proposer une représentation de la distribution des longueurs de bec qui ne contient que 10 classes de valeurs.
 
-
-Il est possible d'enregistrer l'objet graphique produit par `R`.
-
+Il est possible d'enregistrer l'objet graphique produit par `R` :
 
 ```{r histogram_save, fig.show='hide'}
 p1 <- ggplot(data = penguins) +
