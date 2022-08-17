@@ -68,42 +68,31 @@ A partir de 16 essais, on veut construire un plan à 8 facteurs à 2 niveaux tel
 2. Les effets principaux sont-ils estimables sans ambiguïté ?
 3. Est-il possible d'estimer quelques interactions d'ordre 2 avec le plan que vous avez construit ? Si oui, combien ? Si toutes les interactions d'ordre 2 ne peuvent pas être estimées, comment faire pour pouvoir toutes les tester ?
 
-### Comment peser avec précision?
 
-On s'intéresse à la précision des mesures de pesées effectuées par une balance de Roberval. On désire peser 4 objets A, B, C et D avec le maximum de précision. On sait que pour une pesée, la précision avec cette balance est de l'ordre de 1 gramme (i.e. l'écart-type est de 1 gramme, indication fournie par le constructeur). 
+### Analyse conjointe (ou Trade off) en marketing
 
-On va utiliser la méthodologie des plans d'expériences en considérant qu'un objet correspond à 1 facteur. On
-utilisera la convention suivante : si l'objet est déposé dans le plateau de gauche, le poids est compté positivement; s'il est déposé dans le plateau de droite, le poids est compté négativement ; et si l'objet n'est sur aucun plateau, son poids n'est pas compté.
+L'analyse conjointe (ou Trade off) est souvent utilisée en marketing pour analyser le marché avant de lancer un nouveau produit. L'idée est de choisir parmi plusieurs produits celui qui sera le mieux perçu par les consommateurs. Le principe de l'analyse conjointe est le suivant: on demande à des consommateurs de classer plusieurs produits concurrents ou d'accorder une note à ces produits.
 
-La matrice des essais correspondant à la pesée classique dans lequel on pèse les objets séparément est donnée dans le tableau 1.
-
-```{r, echo = FALSE, results='markup', eval = TRUE}
-data <- data.frame(Essai=c("pesée 1","pesée 2","pesée 3","pesée 4"),A=c(1,0,0,0),B=c(0,1,0,0),C=c(0,0,1,0),D=c(0,0,0,1))
-data %>% kable(digits=2, format = "html", escape = FALSE, caption="Tableau 1") %>%
-    collapse_rows(columns = 1, valign = 'top') %>%
-  kable_classic(full_width = F, html_font = "Cambria")
-
-```
+On veut choisir un emballage pour une nouvelle recette de crème caramel. Plusieurs critères (7) sont plus particulièrement étudiés:
+ + Le parfum: le parfum (caramel) est écrit en gros ou la marque est écrite en gros
+ + la DLC: la date limite de consommation est indiquée sur le couvercle ou sur le côté
+ + mention magnésium : la mention "le magnésium est bon pour la santé" est indiquée ou non
+ + Produit français: la mention "fabriqué en France" est indiquée ou non
+ + la couleur: une seule couleur (couleur caramel) ou plusieurs couleurs
+ + la taille des caractères: petite ou grande taille
+ + le fond: une photo en fond ou rien
 
 
-On décide de faire les pesées selon le plan du tableau 2 :
+Afin de réaliser l'analyse conjointe, l'entreprise peut faire des emballages correspondant à n'importe quelle combinaison des 7 critères. Cependant, la construction d'un emballage coûte cher et il n'est pas raisonnable de faire classer plus de 8 produits par un consommateur.
 
-```{r, echo = FALSE, results='markup', eval = TRUE}
-data <- data.frame(Essai=c("pesée 1","pesée 2","pesée 3","pesée 4"),G=c("A,B,C,D","A,B","A,C","A,D"),D=c("aucun","C,D","B,D","B,C"),P=c(150,50,10,30))
-names(data) <- c("Essai","Objects à gauche","Objects à droite","Poids ajoutés à droite")
-data %>% kable(digits=2, format = "html", escape = FALSE, caption="Tableau 2") %>%
-    collapse_rows(columns = 1, valign = 'top') %>%
-  kable_classic(full_width = F, html_font = "Cambria")
+1. On décide de réaliser un plan en 8 essais. Quel est le nom du plan à construire?
+2. Construire le plan à la main ou sous R (fonction `FrF2` du package `FrF2`). Donner les générateurs d'aliases et la résolution du plan.
+3. On suspecte une interaction possible entre les critères "mention magnésium" et "produit français" (si les deux mentions sont présentes, l'emballage est trop surchargé de mentions). Avec le plan que vous avez construit, pouvez-vous analyser cette interaction? Si oui, comment faites-vous? Si non, comment feriez-vous?
 
-```
+Une fois ces emballages fabriqués, 100 consommateurs sont interrogés et doivent mettre une note comprise entre 0 (l'emballage ne me plaît pas) et 10 (l'emballage me plaît beaucoup) pour chacun des emballages (il y a alors 800 données).
 
-Les résultats des pesées (en gramme) sont les suivantes : Y<sub>1</sub> = 150, Y<sub>2</sub> = 50, Y<sub>3</sub> = 10, Y<sub>4</sub> = 30.
+4. Comment analysez-vous ces résultats (préciser le modèle utilisé)?
 
-1. Donner le plan d'expériences qui a été utilisé lors de ces 4 pesées sous forme de matrice.
-2. Après avoir précisé à quel paramètre correspondait le poids de chaque objet, donner une estimation du poids
-de chaque objet.
-3. Comment peut-on calculer la précision des estimations de poids ? Quelle est la précision de chacune des
-estimations de poids (sachant que la précision de la balance est  = 1 gramme) ?
 
 ## Le vocabulaire de la séance
 

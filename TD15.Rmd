@@ -78,11 +78,11 @@ afondlaforme %>%
 ```
 
 #### Mettre en oeuvre une ACP
-Utiliser le package  ensuite la fonction `PCAshiny` du package `Factoshiny` pour mettre en oeuvre une Analyse en Composantes Principales de ce tableau de données.
+Utiliser le package  ensuite la fonction `Factoshiny` du package `Factoshiny` pour mettre en oeuvre une Analyse en Composantes Principales de ce tableau de données.
 
 ```{r, eval=FALSE, echo=FALSE, results='show'}
 library(Factoshiny)
-PCAshiny(afondlaforme)
+Factoshiny(afondlaforme)
 ```
 
 
@@ -90,14 +90,10 @@ PCAshiny(afondlaforme)
 
 #### Interprétation à l'aide du premier plan de l'ACP 
 
-- Quelle est l'inertie totale du nuage de points ?
-
-- Quelle est l'inertie portée par le premier axe principal ? par le premier plan ?
-
 - Commenter les pourcentages d'inertie expliquée par le premier axe de l'ACP, par le plan principal. Selon quel
 point de vue est-il préférable que les 2 premiers axes n'expliquent pas trop l'inertie totale ?
 
-- Quels sont les 5 athlètes les mieux représenter sur le premier plan principal ?
+- Quels sont les 5 athlètes les mieux représentés sur le plan principal ?
 
 - Quels sont les athlètes qui contribuent le plus à la construction de la 1ère dimension de l'ACP ? Et à la
 2ème ? Que signifie une contribution importante ?
@@ -134,7 +130,6 @@ performance (le nombre de points) au décathlon ?
 - cor
 - round
 - Factoshiny
-- PCAshiny
 
 ### Environnement R
 - Factoshiny

@@ -43,7 +43,7 @@ knitr::include_graphics("buech_map.png")
 ```
 
 
-En septembre, 10 variables physico-chimiques ont été mesurées sur l'eau de la rivière Buëch dans 31 stations (avec un entier lorsqu'il s'agit d'une mesure sur le Buëch et une notation x.y pour les affluents qui rejoignent le Buëch sous la station x, l par exemple la station 4-1 est
+En septembre, 10 variables physico-chimiques ont été mesurées sur l'eau de la rivière Buëch dans 31 stations (avec un entier lorsqu'il s'agit d'une mesure sur le Buëch et une notation x.y pour les affluents qui rejoignent le Buëch sous la station x, par exemple la station 4-1 est
 entre la station 4 et la station 5). 
 
 Les variables et leurs abréviations sont : 
