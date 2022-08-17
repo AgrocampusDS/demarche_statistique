@@ -391,10 +391,11 @@ $(document).ready(function () {
 <div id="créer-lenvironnement-de-travail" class="section level4">
 <h4>Créer l’environnement de travail</h4>
 <p>Télécharger les données de manchots de Palmers <code>penguins.csv</code> disponibles sur l’onglet Scripts et données de la <a href="https://agrocampusds.github.io/demarche_statistique/index.html">page d’accueil du module</a> ainsi que le fichier <code>TD1_script.R</code> dans le répertoire Téléchargement par défaut.</p>
-<p>Créer un projet dans RStudio (à partir d’un nouveau répertoire) intitulé <code>ds_TD</code>.</p>
-<p>Déplacer le fichier de données ainsi que le fichier <code>TD1_script.R</code> vers ce nouveau répertoire <code>ds_TD</code>.</p>
+<p>Créer un nouveau répertoire intitulé <code>ds_TD</code> contenant les fichiers <code>penguins.csv</code> et <code>TD1_script.R</code> : ce répertoire est appelé <em>répertoire de travail (working directory)</em></p>
+<p>Créer un projet dans RStudio à partir du répertoire <code>ds_TD</code>.</p>
 <p>Ouvrir le fichier <code>TD1_script.R</code> dans RStudio.</p>
-<p>Les lignes qui commencent par <code>#</code> ne sont pas interprétées par R, elles permettent de faire des commentaires et donc de contextualiser le script.</p>
+<p><strong>Remarque :</strong> le fichier <code>TD1_script.R</code> est appelé <strong>script</strong>. C’est un fichier au format texte contenant des lignes de commandes organisées, dont l’interprétation réalise une analyse de données (production de graphiques ou de résultats numériques pour éclairer une problématique).</p>
+<p>Les lignes qui commencent par <code>#</code> ne sont pas interprétées par R. Elles permettent de faire des commentaires et donc de contextualiser le script.</p>
 </div>
 <div id="utiliser-un-script-r-pour-importer-des-données" class="section level4">
 <h4>Utiliser un script <code>R</code> pour importer des données</h4>
@@ -408,17 +409,17 @@ $(document).ready(function () {
 <li>Que fait la fonction <code>read.table</code> ?</li>
 <li>Quels arguments est-il important de spécifier pour une importation réussie ?</li>
 </ul>
-<p>Il est essentiel de vérifier l’importation. La commande <code>summary</code> permet d’obtenir un résumé du jeu de données importé.</p>
+<p>La commande <code>summary</code> appliquée à l’objet contenant les données importées, ici <code>penguins</code>, permet d’obtenir une synthèse des données, variable par variable. Il est important de s’assurer que toutes les variables ont bien été importées et qu’elles l’ont été au bon format, soit quantitatif, soit catégoriel.</p>
 <ul>
-<li>Exécuter la fonction <code>summary</code> en spécifiant l’argument adéquat pour vérifier l’importation. Discuter de la nature des variables.</li>
+<li>Utiliser la fonction <code>summary</code> pour vérifier que la nature des variables telle que vous l’appréciez est conforme à la nature des variables telle que déclarée dans R.</li>
 </ul>
 </div>
 <div id="utiliser-une-fonction-dun-package-pour-renommer-les-variables" class="section level4">
 <h4>Utiliser une fonction d’un package pour renommer les variables</h4>
-<p><code>R</code> est un logiciel collaboratif, chacun peut contribuer à enrichir les fonctions de base en proposant un ensemble de fonctions appelé package. Pour utiliser un package, il faut l’installer une fois et le charger avant chaque première utilisation.</p>
+<p><code>R</code> est un logiciel collaboratif. Chacun peut contribuer à enrichir les fonctions de base en proposant un ensemble de fonctions appelé <em>package</em>. Pour utiliser un package, il faut l’installer (une seule fois avant une première utilisation) et le charger (dans toutes les sessions de travail prévoyant son utilisation).</p>
 <ul>
 <li>Installer le package <code>tidyverse</code> à partir du menu.</li>
-<li>Ajouter le chargement du package dans le script <code>TD1_script.R</code> grâce à la fonction <code>library( )</code> appliquée au package désiré.</li>
+<li>Ajouter le chargement du package dans le script <code>TD1_script.R</code> grâce à la fonction <code>library( )</code> appliquée au package désiré :</li>
 </ul>
 <p>On souhaite traduire certains libellés des variables de l’anglais vers le français. C’est possible avec la fonction <code>rename</code> (issue du package <code>tidyverse</code>).</p>
 <ul>
@@ -427,7 +428,7 @@ $(document).ready(function () {
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">rename</span>(<span class="at">.data =</span> penguins, <span class="at">longueur_bec =</span> bill_length_mm, </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">epaisseur_bec =</span> bill_depth_mm)</span></code></pre></div>
 <ul>
-<li>Renommer de la même manière <code>species</code> en espece, <code>island</code> en ile, <code>body_mass_g</code> en poids et <code>flipper_length_mm</code> en longueur_nageoire, <code>sex</code> en sexe et <code>year</code> en annee. (il faut éviter les caractères accentués et ne pas utiliser les espaces dans les noms de variables)</li>
+<li>Renommer de la même manière <code>species</code> en espece, <code>island</code> en ile, <code>body_mass_g</code> en poids, <code>flipper_length_mm</code> en longueur_nageoire, <code>sex</code> en sexe et <code>year</code> en annee (il faut éviter les caractères accentués et ne pas utiliser les espaces dans les noms de variables).</li>
 </ul>
 </div>
 </div>
@@ -435,38 +436,38 @@ $(document).ready(function () {
 <h3>Visualisation de données</h3>
 <div id="utiliser-un-package-pour-produire-des-graphiques" class="section level4">
 <h4>Utiliser un package pour produire des graphiques</h4>
-<p>De nombreuses fonction de visualisation sont disponibles dans le package <code>ggplot2</code>.</p>
+<p>De nombreuses fonctions de visualisation sont disponibles dans le package <code>ggplot2</code>.</p>
 <ul>
 <li>Installer puis charger le package <code>ggplot2</code>.</li>
 </ul>
 </div>
-<div id="visualisation-dune-variable-qualitative-à-laide-dun-diagramme-en-bâtons" class="section level4">
-<h4>Visualisation d’une variable qualitative à l’aide d’un diagramme en bâtons</h4>
-<p>Une variable qualitative peut être visualisée à l’aide d’un diagramme en bâtons (barplot).</p>
+<div id="répartition-des-valeurs-dune-variable-qualitative-diagramme-en-bâtons" class="section level4">
+<h4>Répartition des valeurs d’une variable qualitative : diagramme en bâtons</h4>
+<p>La répartition des valeurs d’une variable qualitative peut être visualisée à l’aide d’un diagramme en bâtons (barplot).</p>
 <ul>
 <li>Ajouter la commande ci-dessous dans votre script <code>R</code> puis l’exécuter.</li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins) <span class="sc">+</span> </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> espece))</span></code></pre></div>
-<p>La fonction <code>aes</code> permet de spécifier ce qui est représenté. Ici <code>aes( x = espece)</code> indique que la variable <code>espece</code> sera représentée sur l’abscisse du graphique. L’ordonnée n’étant pas spécifiée, le comportement par défaut sera utilisé et l’ordonnée correspond ainsi à l’effectif de chaque classe.</p>
+<p>La fonction <code>aes</code> permet de spécifier ce qui est représenté. Ici <code>aes( x = espece)</code> indique que la variable <code>espece</code> sera représentée sur l’abscisse du graphique. L’ordonnée n’étant pas spécifiée, le comportement par défaut de la fonction <code>geom_bar</code> sera utilisé et l’ordonnée correspond ainsi à l’effectif (le nombre d’individus) de chaque classe.</p>
 </div>
-<div id="visualisation-dune-variable-quantitative-à-laide-dun-histogramme" class="section level4">
-<h4>Visualisation d’une variable quantitative à l’aide d’un histogramme</h4>
-<p>La distribution des valeurs possibles d’une variable quantitative peut être représentée à l’aide d’un histogramme.</p>
+<div id="répartition-des-valeurs-dune-variable-quantitative-histogramme" class="section level4">
+<h4>Répartition des valeurs d’une variable quantitative : histogramme</h4>
+<p>La distribution des valeurs d’une variable quantitative peut être représentée à l’aide d’un histogramme.</p>
 <ul>
 <li>En vous aidant de la commandant précédente, proposer une commande pour dessiner un histogramme des longueurs de bec (fonction <code>geom_histogram</code>).</li>
 </ul>
-<p>Par défaut, sans autre indication dans la fonction <code>aes</code>, l’ordonnée de l’histogramme indique l’effectif de manchots par classe de valeurs. Dans la définition mathématique de l’histogramme, il est indiqué que les aires sont proportionnelles aux fréquences, l’ordonnée représentant alors une densité. Pour obtenir ce graphique, il faut modifier le comportement par défaut de la fonction <code>aes</code> pour spécifier l’ordonnée explicitement avec un mot réservé <code>..density..</code>.</p>
+<p>Par défaut, sans autre indication dans la fonction <code>aes</code>, l’ordonnée de l’histogramme indique l’effectif de manchots par classe de valeurs. Dans la définition mathématique de l’histogramme, les aires de chaque barre sont proportionnelles aux fréquences (proportions d’individus dans chaque classe), l’ordonnée représentant alors une densité. Pour obtenir ce graphique, il faut modifier le comportement par défaut de la fonction <code>aes</code> pour spécifier l’ordonnée explicitement avec un mot réservé <code>..density..</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins) <span class="sc">+</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> longueur_bec, <span class="at">y =</span> ..density..))</span></code></pre></div>
-<p>Il est possible de modifier le nombre de classes pour l’histogramme grâce à l’argument <code>bins</code> de la fonction <code>geom_histogram</code>.</p>
+<p>Il est possible de modifier le nombre de classes de l’histogramme grâce à l’argument <code>bins</code> de la fonction <code>geom_histogram</code>.</p>
 <ul>
 <li>Proposer une représentation de la distribution des longueurs de bec qui ne contient que 10 classes de valeurs.</li>
 </ul>
-<p>La couleur de fond de l’histogramme peut être modifiée grâce à l’argument <code>fill</code> .</p>
+<p>La couleur de fond de l’histogramme peut être modifiée grâce à l’argument <code>fill</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins) <span class="sc">+</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> longueur_bec, <span class="at">y =</span> ..density..), <span class="at">fill =</span> <span class="st">&#39;green&#39;</span>)</span></code></pre></div>
-<p>La couleur peut être choisie plus harmonieusement et spécifiée sous <a href="https://htmlcolorcodes.com/color-picker/">format html</a>, par exemple</p>
+<p>La couleur peut être choisie plus harmonieusement et spécifiée sous <a href="https://htmlcolorcodes.com/color-picker/">format html</a>. Par exemple :</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins) <span class="sc">+</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> longueur_bec, <span class="at">y =</span> ..density..), <span class="at">fill =</span> <span class="st">&#39;#59C9A5&#39;</span>)</span></code></pre></div>
 <p>Enfin, il est possible de modifier la couleur des traits</p>
@@ -475,7 +476,7 @@ $(document).ready(function () {
 <ul>
 <li>Proposer une représentation de la distribution des longueurs de bec qui ne contient que 10 classes de valeurs.</li>
 </ul>
-<p>Il est possible d’enregistrer l’objet graphique produit par <code>R</code>.</p>
+<p>Il est possible d’enregistrer l’objet graphique produit par <code>R</code> :</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> penguins) <span class="sc">+</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> longueur_bec, <span class="at">y =</span> ..density..))</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>p1</span></code></pre></div>
