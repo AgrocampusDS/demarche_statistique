@@ -271,7 +271,7 @@ manchots %>% ggplot() +
   ggtitle('Longueur du bec en fonction de la longueur des nageoires selon le sexe')
 ```
 
-#### Personalisation des graphiques 
+#### Personnalisation des graphiques 
 
 Il est possible de modifier l'intitulé par défaut des axes grâce à la fonction `labs`.
 
