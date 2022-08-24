@@ -1,6 +1,6 @@
 ---
-title: "TD11 : Régression linéaire multiple"
-author: "UP Mathématique appliquée"
+title: "TD11 : Construction et choix de modèle"
+author: "UP Mathématiques appliquées"
 date: ''
 output:
   html_document:
@@ -24,159 +24,94 @@ out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 
 ##  Objectifs de la séance  
 
-* Régression linéaire multiple
-  + Ajuster un modèle de régression linéaire multiple 
-  + Analyser les différents tests inhérents
-* Sélection de modèle
-  + Comparer des modèles de régression
-  + Sélectionner un sous-modèle
-* Prédiction
-  + Déterminer l'intervalle de confiance 
-  + Déterminer l'intervalle de prédiction
+* Construire un modèle
+  + choisir les effets et interactions potentiels 
+  + écrire le modèle
+* Sélectionner un sous-modèle
+* Interpréter la présence ou l'absence d'effet
+* Comprendre l'intérêt d'un effet bloc
  
 ## Exercices 
 
-### Etude du rendement fromager : régression linéaire simple 
+### Construction d'un modèle, choix des effets et interactions 
 
-Un laboratoire d'analyse souhaite mettre en évidence l'influence de la composition du lait sur le rendement
-fromager. Pour ce faire, il a mesuré sur un échantillon de n = 85 laits, la densité , le taux butyreux , le taux de
-protéine , le taux de caséine , l'extrait sec et le rendement fromager de chacun de ces laits.
+1. Quelles variables explicatives, quelles interactions utiliseriez-vous pour construire un modèle permettant de prédire (répondre à 2 questions au choix parmi les 4)
+* la taille d'un individu adulte ? <! -- sexe, taille père, taille mère, maladie pendant l'enfance, nutrition équilibrée ou non. Interaction possible : sexe et tailles des parents, nutrition et taille, nutrition et sexe -->
+* la taille d'un enfant entre 2 et 15 ans. <! -- même variables mais en plus l'âge. -->
+* le nombre de lombrics dans un cube de terre de 10 cm de côté ? <! -- la composition du sol (%argile, % sable, % MO), si le sol est nu ou s'il y a différents types de paillage -->
+* le poids des poubelles à la cantine de l'IA ? <! -- si tri des déchets, type de repas, si on peut se servir, etc, si mise en place de préconisations. -->
 
-#### Importation du jeu de données  et matrice des corrélations
-* Charger les données provenant du fichier `lait.txt`.
-* Calculer les corrélations entre les variables  à l'aide de la fonction 
-`cor`.
+2. Préciser quelles variables sont quantitatives (resp. qualitatives) 
+3. Ecrire le modèle 
 
+### Choix de modèle pour la préférence d'un jambon
+
+Un organisme d'analyse sensorielle souhaite savoir s'il est possible de prévoir l'appréciation globale d'un jambon à partir de sa description sensorielle. Un jury entraîné a utilisé les variables suivantes pour décrire 21
+jambons : Jutosité, Caractère croquant, Tendreté, Caractère pâteux, Fibreux, Saveur salée, Saveur sucrée, Flaveur de viande, Assaisonnement, Flaveur métallique, Flaveur fèces/urine, Flaveur de gras, Flaveur braisé/fumé,
+Flaveur lactique . Puis une note d' Appréciation globale a été attribué à chacun des jambons. 
+
+* Charger le fichier de données `jambon.txt`, il est conseillé d'utiliser le paramètre `row.names =`.
 ```{r, echo=FALSE, results='markup', eval = TRUE}
-fromages <- read.table("lait.txt", sep = "\t", dec = ",", header = T)
+jambons <- read.table('jambon.txt', sep = "\t", header =TRUE, row.names = 1)
 ```
-
-```{r, echo=FALSE, results='markup', eval = FALSE}
-fromages %>% 
+* A l'aide de la fonction `ggpairs` du paquet `GGally` lancez une première analyse descriptive du  lien entre variables deux à deux. 
+```{r, echo=TRUE, results='markup', fig.align='center', out.width = '1000px', out.height= '800px',eval = TRUE}
+library(ggcorrplot)
+jambons %>% 
   cor() %>% 
-  kable(digits=2, format = "html", escape = FALSE) %>%
-  collapse_rows(columns = 1, valign = 'top') %>%
-  kable_classic(full_width = F, html_font = "Cambria")
+  round(1) %>% 
+  ggcorrplot(type = "lower",
+             lab = TRUE)
+library(GGally)
+jambons %>% ggpairs(
+  columns = c(1, 7:9),
+  lower = list(continuous = wrap("points", color = "dodgerblue4")),
+  diag = list(continuous = wrap("densityDiag", color = "dodgerblue4"))
+  )
 ```
 
-* Décrire le tableau de données étudié ainsi que les variables du problème (nombre d'individus statistiques,
-nombre de variables, nature des variables, . . . )
+* Proposer une problématique liée au contexte.
+* Sélectionner le modèle.
 
-* Identifier les deux variables les plus corrélées et représenter le nuage de points associé. Même exercice pour les deux variables les moins corrélées.
+### Prise en compte d'un effet bloc 
 
+On étudie le rendement de pois fourragers pour trois variétés et trois écartements entre les rangs des lignées. Pour disposer de répétitions,
+des expériences ont été menées sur 4 parcelles. Toutes les combinaisons variété-écartement ont été testé sur chacune des 4 parcelles.
+Les données sont regroupées dans le tableau [suivant](https://agrocampusds.github.io/demarche_statistique/pois.csv).
 
-```{r, echo = FALSE, eval = FALSE}
-fromages %>% ggplot(aes(x = CASEINE, y = PROTEINE)) + 
-  geom_point()
-fromages %>% ggplot(aes(x = BUTYREUX, y = DENSITE)) + 
-  geom_point()
-```
+|Variété|Ecartement|Parcelle|
+|:---------------:|:---------------:|:-----:|
+|   |  | 1  2  3  4|
+|I  |4 |51 47 47 50|
+|   |8 |60 50 45 48|
+|   |12|64 55 48 48|
+|II |4 |64 58 57 61|
+|   |8 |60 58 56 60|
+|   |12|58 58 53 60|
+|III|4 |64 65 54 57|
+|   |8 |62 68 67 60|
+|   |12|71 75 75 63|
 
-#### Régression linéaire simple
+On considérera ici que l'écartement est une variable qualitative avec 3 modalités (4= petit, 8=moyen, 12=grand).
 
-* Effectuer les différentes régressions simples possibles pour expliquer le rendement.
++ Seuls les effets suivants intéressent l'agronome: variété, écartement, interaction variété-écartement. Pourtant, on choisit de rajouter l'effet parcelle dans le modèle. Quelle peut en être l'utilité?
++ Construire et sélectionner le "bon" sous-modèle.
++ Quels sont les effets significatifs (et les effets non significatifs) du sous-modèle sélectionné ?
++ Interpréter les effets signifcatifs (et l'absence des effets non significatifs) dans le modèle sélectionné.
++ Quelles conclusions auriez-vous eues si vous aviez (mal) travaillé en oubliant l'effet parcelle dans le modèle ?
 
-* Comparer les résultats. Quelle variable semble le mieux expliquer le rendement ?
-
-
-
-
-### Régression linéaire multiple avec toutes les variables explicatives disponibles
-
-* Écrire le modèle (sous forme indicée puis sous sa forme matricielle) permettant d'étudier l'influence de la
-densité, du taux butyreux, du taux de protéine, du taux de caséine et de l'extrait sec sur le rendement fromager.
-
-* Rappeler les hypothèses associées au test ci-dessous. Quelle est sa conclusion au seuil $5\%$ ? 
-
-```{r, echo=FALSE, results='markup', eval = TRUE}
-mod1 <- lm(data = fromages, RENDEMENT ~ .)
-mod0 <- lm(data = fromages, RENDEMENT ~ 1)
-anova(mod0, mod1)
-```
-#### Etude des coefficients
- Le  tableau suivant donne les estimations des coefficients du modèle avec la méthode des moindres carrés.
-```{r, echo=FALSE, results='markup', eval = TRUE}
-mod1.coef <- mod1 %>%  summary() 
-mod1.coef$coefficients  %>% 
-  kable(digits=2, format = "html", escape = FALSE) %>%
-  collapse_rows(columns = 1, valign = 'top') %>%
-  kable_classic(full_width = F, html_font = "Cambria")
-
-```
-
-* Rappeler le test effectué sur une ligne en rappelant les hypothèses, la statistique de test et sa conclusion.
-* Quels sont les coefficients jugés significatifs au seuil de $10 \%$, $5 \%$ dans ce modèle ?
-
-### Sélection d'un sous-modèle
-
-Le modèle comportant toutes les variables explicatives disponibles n'est pas nécessairement le meilleur. La lecture des tests de Student dans la section précédente nous l'a confirmé. Cela provient des fortes corrélations existant sur les variables explicatives. Nous allons ainsi chercher à supprimer des variables pour notamment éviter la redondance d'information.
-
-A partir de  $p$  variables explicatives, on peut composer $2^p$ sous-modèles, c'est pourquoi il n'est pas raisonnable en général d'étudier tous les sous-modèles pour savoir lequel garder. 
-
-La fonction `step` permet de rechercher le modèle possédant la plus faible valeur d'AIC parmi certains modèles choisis par une politique donnée. 
-
-* Méthode descendante :
-
-A chaque étape, au plus une variable explicative est retirée du  modèle obtenu à l'étape précédente dont l'AIC est connu. L'AIC est calculé pour tous les sous-modèles obtenus en ne retirant qu'une des variables explicatives. Ces AICs sont alors comparés pour décider si une variable est à retirer et le cas échéant laquelle.
-
-```{r, echo=TRUE, results='markup', eval = TRUE}
-modBestBwd <- step(mod1)
-```
-* Méthode ascendante :
-
-A partir du modèle à une variable explicative possédant l'AIC la plus faible, une variable est ajoutée à chaque étape tant que l'AIC diminue le plus possible.
-
-```{r, echo=TRUE, results='markup', eval = TRUE}
-modBestFwd <- step(mod0, direction = "forward", scope = formula(mod1))
-```
-
-
-
-* Méthode "stepwise"
-
-Enfin il est possible à chaque étape de comparer les AIC des modèles avec une variable en plus et ceux avec une en moins et de retenir le meilleur. 
-```{r, echo=TRUE, results='markup', eval = TRUE}
-modBestStp <- step(mod0, direction = "both", scope = formula(mod1))
-```
-* Quel modèle retenir finalement ?
-
-### Prédiction 
-
-Les mesures sur un nouvel échantillon de lait sont les suivantes :
-```{r, echo=FALSE, results='markup', eval = TRUE}
-fromagesNEW <- data.frame(1.032,37.7,35.7,28.5,127.1) 
-  names(fromagesNEW) <- names(fromages)[-6]
-fromagesNEW %>% 
-  kable(digits=2, format = "html", escape = FALSE) %>%
-  collapse_rows(columns = 1, valign = 'top') %>%
-  kable_classic(full_width = F, html_font = "Cambria")
-```
-
-* A l'aide de la fonction `predict`, déterminer l'intervalle de confiance associé à ce rendement moyen.
-
-```{r, echo=FALSE, eval=FALSE, results='markup' }
-predict(modBestStp, newdata = fromagesNEW, interval = "confidence")
-
-```
-
-
-* Déterminer l'intervalle de prédiction associé à l'estimation du rendement d'un tel lait.
-
-```{r, echo=FALSE, eval=FALSE, results='markup' }
-predict(modBestStp, newdata = fromagesNEW, interval = "prediction")
-
-```
 ## Le vocabulaire de la séance
 
 ### Commandes R
-- anova et lm
-- step
-- predict
+- LinearModel
+- ggcorrplot
+- ggpairs
 
 ### Environnement R
 
 
 ### Statistique 
+- Construction de modèle
+- Sélection de sous-modèle
 - Régression linéaire multiple
-- Sélection de sous-modèle par calcul de l'AIC
-- Prédiction
+- Analyse de variance

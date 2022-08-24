@@ -1,6 +1,6 @@
 ---
 title: "TD14 : Expliquer la variabilité d'une grandeur d'intérêt"
-author: "UP Mathématique appliquée"
+author: "UP Mathématiques appliquées"
 date: ''
 output:
   html_document:
@@ -41,140 +41,6 @@ out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
   
 ## Exercices 
 
-### Étude de la croissance en poids de poussins en fonction du sexe et de trois traitements
-
-Lors de leur mise en incubateur, 45 oeufs de poules ont été répartis de façon aléatoire en trois lots de 15. Trois traitements (températures d'incubation différentes) ont ensuite été appliqués aux différents lots. Nous supposons qu'après éclosion, les poussins ont tous été élevés dans des conditions identiques, puis pesés à un même âge de référence. À ce moment, le sexe des poussins, dont on sait a priori qu'il induit de fortes différences de poids, pouvait aussi être observé. La modalité 1 (respectif 2) de la variable Sexe correspond à Male (respetivement Femelle).
-
-L'objectif est de choisir le traitement qui maximise le poids des poussins.
-
-#### Importation des données et visualisation
-
-Les données sont disponibles dans le fichier  `poussin.txt`. 
-
-* Importer les données. La colonne `Rdt ` indique le gain de poids entre la naissance et le jour de pesée.
-
-```{r import_dta}
-
-poussins_dta <- read.table(file = "https://agrocampusds.github.io/demarche_statistique/poussin.txt", header = TRUE) %>%   
-  mutate(Sexe = case_when(
-    Sexe ==1 ~ "Male",
-    Sexe ==2 ~ "Femelle")) %>%  ## pour éviter de se demander qui est 1 et qui est 2
-  mutate(Sexe = as.factor(Sexe), Trait = as.factor(Trait))
-  
-
-```
-
-* Proposer une visualisation permettant de visualiser un potentiel effet Sexe d'une part, puis un potentiel effet Traitement.
-
-```{r visu1}
-poussins_dta %>% ggplot() +
-  geom_boxplot(aes(x=Sexe, y = Rdt))
-poussins_dta %>% ggplot() +
-  geom_boxplot(aes(x=Trait, y = Rdt))
-poussins_dta %>% ggplot() +
-  geom_boxplot(aes(x=Trait, y = Rdt, fill = Sexe))
-```
-
-* Qu'est ce que le code ci-dessous permet de visualiser ?
-
-```{r interaction, echo=TRUE}
-poussins_dta %>% 
-  group_by(Sexe, Trait) %>% 
-  summarise(Rdt_groupe = mean(Rdt)) %>% 
-  ggplot() +
-  aes(x = Trait, y = Rdt_groupe, color = Sexe) +
-  geom_line(aes(group = Sexe)) +
-  geom_point()
-```
-
-#### Description du modèle complet
-
-* Ecrire sous forme mathématique le modèle permettant d'explorer les effets potentiels des différents facteurs.
-
-* Combien y-t-il de paramètres qui capturent une potentielle interaction. Que représente cette interaction entre les facteurs ?
-
-#### Ajustement du modèle complet
-
-* Estimer les paramètres  du modèle.
-
-* Quel est le rendement moyen prédit par le modèle pour un poussin femelle ayant reçu le traitement 1 (vous pouvez utiliser la fonction `summary`) ?
-
-```{r ajust_lm}
-Mcomp <- lm(Rdt~ Sexe + Trait + Sexe : Trait, data = poussins_dta)
-summary(Mcomp)
-```
-
-* A l'aide de la fonction `predict` donner l'intervalle de confiance de la prédiction.
-
-```{r predict1}
-ndata <- data.frame(Trait=as.factor(1), Sexe=as.factor("Femelle"))
-predict(Mcomp,newdata=ndata,interval="prediction")
-```
-
-* A ce stade de la démarche, critiquer l'utilisation du modèle complet pour la prédiction.
-
-#### Test global
-
-
-On souhaite répondre à la question y a-t-il un effet du sexe ou du traitement sur la prise de poids. 
-
-* Ecrire les hypothèses $H_0$ et $H_1$ du test que vous proposez
-
-* Mettre ce test en place dans `R` et conclure sur l'existence d'un effet potentiel.
-
-```{r test_mod_complet}
-M0 <- lm(Rdt ~ 1, data = poussins_dta)
-anova(M0, Mcomp)
-```
-
-#### Tests des effets pour la sélection du modèle final
-
-On souhaite maintenant tester un potentiel effet traitement. Pour ce faire, on commence par tester l'existence d'une potentielle interaction.
-
-* Mettre ce test en oeuvre dans `R` et conclure sur une éventuelle interaction. Que peut on dire de l'effet du traitement sur les mâles et sur les femelles ?
-
-```{r test_interaction}
-##au choix 
-M12 <- lm(Rdt~ Sexe + Trait , data = poussins_dta)
-anova(M12, Mcomp)
-## ou 
-library(car)
-Anova(Mcomp, type = 2)
-```
-
-On ajuste maintenant le modèle d'analyse de la variance à 2 facteurs sans interaction.
-
-* Ajuster le modèle dans R et conclure sur l'effet du traitement. Rappeler quels sont les modèles comparés dans ce test.
-
-```{r}
-Anova(M12, type = 2)
-```
-
-* Reprendre la prédiction pour un poussin femelle ayant reçu le traitement 1. Cette prédiction est-elle plus précise que celle obtenue avec le modèle complet?
-
-```{r predict}
-predict(M12,newdata=ndata,interval="prediction")
-```
-
-
-#### Conclusion
-
-* Quelle est votre conclusion à l'issue de cette étude ?
-
-```{r comparaison, echo=TRUE, eval = TRUE, results='hide'}
-library(emmeans)
-compare_mean <- emmeans::emmeans(M12, ~ Trait)
-pairs(compare_mean, adjust="bonf")
-plot(compare_mean)
-```
-
-* Cette conclusion aurait-elle été la même sans l'information du Sexe?
-
-```{r Marginal}
-M.marg <- lm(Rdt ~ Trait, data = poussins_dta)
-anova(M.marg,M0)
-summary(M.marg)
-```
 
 ### Effet du sexe sur le poids des bébés à la naissance
 On souhaite étudier le poids des bébés à la naissance en fonction du sexe du bébé et du nombre de semaines de grossesse. On dispose pour cela d'un échantillon constitué de 477 nouveaux nés (242 filles et 255 garçons) et du nombre de semaines d'aménorrhée (plus exactement du nombre de semaines par rapport au terme normal qui est de 40 semaines en France: −3 signifie donc 37 semaines d'aménorrhée, et 1,  41 semaines d'aménorrhée).
@@ -208,88 +74,90 @@ bebe_dta %>% ggplot() +
 ```
 
 
-#### Description du modèle complet
+#### Construction du modèle
 
-* Ecrire sous forme mathématique le modèle permettant d'explorer les effets potentiels du nombre de semaines de grossesse et du sexe.
+* Choisir les effets qui entrent en jeu dans le modèle
+* Construire le modèle et sélectionner le sous-modèle.
+* L'effet du nombre de semaines de grossesse sur le poids à la naissance est-il le même pour les garçons et les filles ?
+* Le poids moyen à la naissance des filles et des garçons est-il différent ?
 
-* Que  représente l'interaction entre le facteur Sexe et la variable nombre de semaines ?
-
-* Comment interpreter l'effet Sexe?
-
-#### Ajustement du modèle complet et prédiction
-
-* Estimer les paramètres  du modèle.
-
-* Quel est le poids moyen prédit par le modèle pour un garcon né 2 semaines en avance ? 
-
-```{r ajust_lm_bb}
-Mcomp <- lm(PoidsBB~ Sexe + Nbsem + Sexe : Nbsem, data = bebe_dta)
-summary(Mcomp)
-predict(Mcomp, newdata = data.frame(Sexe = 'M', Nbsem = -2), interval  = "prediction")
-```
-
-* Comment peut-on améliorer la précision de la prédiction?
-
-
-#### Test global
-On souhaite répondre à la question y a-t-il un effet du sexe ou du nombre de semaines de grossesse sur le poids à la naissance.
-
-* Ecrire les hypothèses $H_0$ et $H_1$ du test que vous proposez
-
-* Mettre ce test en place dans `R` et conclure sur l'existence d'un effet potentiel.
-
-```{r test_mod_complet_bb}
-M0 <- lm(PoidsBB ~ 1, data = bebe_dta)
-anova(M0, Mcomp)
-```
-
-#### Tests des effets pour la sélection de modèle
-
-On souhaite maintenant préciser l'analyse, et répondre à la question "L'effet du nombre de semaines de grossesse sur le poids à la naissance est-il le même pour les garçons et les filles ?"
-
-* Mettre ce test en oeuvre dans `R` et répondre à la question posée.
-
-```{r test_interaction_bb}
-##au choix 
-library(car)
-Anova(Mcomp, type = 2)
-```
-
-
-*  Après avoir éventuellement modifier le modèle, on veut répondre à la question "le poids moyen à la naissance des filles et des garçons est-il différent  ?".  Indiquer le test pertinent pour répondre à cette question.
-
-
-* Pour répondre à cette question, on propose d'utiliser le code suivant utilisant le package `emmeans`. Un poids moyen pour les garçons et un poids pour les filles est calculé. A quel nombre de semaines correspond-il ? 
-
-```{r emmeans_bb}
-M12 <- lm(PoidsBB~ Sexe + Nbsem , data = bebe_dta)
-library(emmeans)
-
-sexe_comp <- emmeans(M12, ~Sexe)
-pairs(sexe_comp, adjust = "bonf")
-plot(sexe_comp)
-```
-
-```{r pred2}
-predict(M12, newdata = data.frame(Sexe = 'M', Nbsem = -2), interval  = "prediction")
-```
 #### Conclusion
 
 * Conclure sur la différence de poids à la naissance en fonction du sexe et du nombre de semaines de grossesse.
-* La prise en compte du nombre de semaines influence-t-elle l'estimation de l'effet du sexe? la précision de la prédiction?
+* La prise en compte du nombre de semaines influence-t-elle l'estimation de l'effet du sexe? 
 
-```{r marg}
-Mmarg <- lm(PoidsBB~ Sexe , data = bebe_dta)
-sexe_comp <- emmeans(Mmarg, ~Sexe)
-pairs(sexe_comp, adjust = "bonf")
-predict(Mmarg, newdata = data.frame(Sexe = 'M', Nbsem = -2), interval  = "prediction")
+
+###  Une petite dégustation de chocolats
+
+Lors d'un test de dégustation sensorielle, on veut comparer plusieurs caractéristiques sensorielles de 10 chocolats noirs.
+Pour cela, un jury d'analyse sensoriel, constitué de 12 juges a évalué chacun des chocolats 2 fois, lors de 2 séances de dégustation.
+On va s'intéresser ici à la variable A.cacao qui correspond à l'arôme de cacao perçue par le juge (0 = par d'arôme cacoo, 10=très fort arôme de cacao).
+Les données sont diponibles dans le [fichier](https://r-stat-sc-donnees.github.io/chocolat_2022.csv). 
+
+On veut répondre aux questions suivantes :
++ y a-t-il des différences d'arôme de cacao d'un produit à l'autre ?
++ les juges perçoivent-ils les différences entre chocolats de la même façon au niveau de l'arôme de cacao ?
++ d'une séance à l'autre, la perception des chocolats est-elle la même ?
+
+#### Importation et visualisation
+
+* Importer les données et les représenter pour avoir quelques idées sur les questions précédentes.
+
+* Construire un modèle et faire la sélection avec le critère "bic", le critère "aic" et en faisant une sélection "à la main" (i.e. en supprimant pas à pas d'abord les interactions non significatives, puis les effets non significatifs)
+
+* Commenter les résultats des effets et interactions (significatifs et non significatifs).
+
+* Commenter les coefficient.
+
+* Quels chocolats ont des arômes de cacao perçus équivalents ?
+
+
+###  Comparaison de trois types de sondes
+
+En préparation d'une future expérimentation en champs,  on a comparé, dans deux types de sols, trois types de sondes destinées à prélever des échantillons de terre, en effectuant plusieurs prélèvements et en mesurant la teneur en anhydride phosphorique ($P_20_5$) en mg pour 100 g de terre sèche.  On s'intéresse principalement aux différences qui pourraient exister d'un type de sonde à l'autre, et aux interférences éventuelles des types de sonde avec les types de sol. Les données sont disponibles dans le fichier [sonde_sol.csv](sonde_sol.csv).
+
+#### Importation et visualisation
+
+* Importer les données et les représenter sous forme d'un boxplot dans lequel l'abscisse est le sol, ce boxplot étant rempli par une couleur qui représente la sonde.
+
+```{r importe_data, eval = TRUE, echo = FALSE, fig.show='hide'}
+library(tidyverse)
+dta <- read.table('sonde_sol.csv', sep = ";", header = TRUE) %>% 
+   mutate(Sol = as.factor(Sol), Sonde = as.factor(Sonde))
+
+dta %>% ggplot() + aes(x=Sol,y = P205, fill = Sonde) + geom_boxplot() 
+
+```
+* Visualiser l'effet de l'interaction Sol - Sonde sur la variable réponse.
+
+```{r interaction_plot, echo=TRUE, eval = TRUE}
+dta %>% 
+   group_by(Sonde, Sol) %>% 
+   summarize(P205_m = mean(P205)) %>%
+   ggplot() + aes(x=Sol, col = Sonde, y=P205_m) + geom_line(aes(group = Sonde)) + geom_point()
+```
+
+#### Construction du modèle
+
+* Construire un modèle permettant de répondre à la question "Le taux d'anhydride phosphaté est-il le même dans tous les types de sol, pour tous les sortes de sonde ?"
+
+* Les différences entre les sondes sont elles les mêmes quel que soit le type de sol ?
+
+* Y a-t-il des différences de résultats entre les sondes ?
+
+* Quelles sondes donnent des résultats équivalents ?
+
+```{r comparaison, echo=TRUE, eval = TRUE, results='hide'}
+library(FactoMineR)
+mod <- LinearModel(P205 ~ Sol*Sonde, data=dta)
+compMeans(mod, ~sonde)
 ```
 
 ## Le vocabulaire de la séance
 
 ### Commandes R
-- Anova
-- emmeans
+- LinearModel
+- compMeans
 
 ### Environnement R
 
