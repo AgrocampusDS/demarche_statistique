@@ -147,7 +147,7 @@ dta %>%
 
 * Quelles sondes donnent des résultats équivalents ?
 
-```{r comparaison, echo=TRUE, eval = TRUE, results='hide'}
+```{r comparaison, echo=TRUE, eval = FALSE, results='hide'}
 library(FactoMineR)
 mod <- LinearModel(P205 ~ Sol*Sonde, data=dta)
 compMeans(mod, ~sonde)

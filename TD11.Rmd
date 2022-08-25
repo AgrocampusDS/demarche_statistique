@@ -97,7 +97,7 @@ On considérera ici que l'écartement est une variable qualitative avec 3 modali
 + Seuls les effets suivants intéressent l'agronome: variété, écartement, interaction variété-écartement. Pourtant, on choisit de rajouter l'effet parcelle dans le modèle. Quelle peut en être l'utilité?
 + Construire et sélectionner le "bon" sous-modèle.
 + Quels sont les effets significatifs (et les effets non significatifs) du sous-modèle sélectionné ?
-+ Interpréter les effets signifcatifs (et l'absence des effets non significatifs) dans le modèle sélectionné.
++ Interpréter les effets significatifs (et l'absence des effets non significatifs) dans le modèle sélectionné.
 + Quelles conclusions auriez-vous eues si vous aviez (mal) travaillé en oubliant l'effet parcelle dans le modèle ?
 
 ## Le vocabulaire de la séance
