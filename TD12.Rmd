@@ -40,7 +40,7 @@ L'étude suivante porte sur la réponse à un stress salin de différents bromes
 espèces de bromes et pour chaque espèce la moitié des plantes ont été soumises à un stress salin et l'autre moitié des plantes "témoin" n'ont pas subi de stress. 
 On a alors mesuré les concentrations de différentes amines sur chaque plante. Certaines données sont manquantes et donc le plan d'expériences n'est pas toujours équilibré.
 
-<img src="brome.jpg" alt="https://r-stat-sc-donnees.github.io/brome.jpg" width="100"/><img src="https://r-stat-sc-donnees.github.io/Le-brome.jpg" alt="brome" width="100"/>
+<img src="brome.jpg" alt="brome.jpg" width="250"/><img src="Le-brome.jpg" alt="brome" width="200"/>
 
 Toutes les données sont disponibles dans le [fichier](https://r-stat-sc-donnees.github.io/brome.csv).
 
