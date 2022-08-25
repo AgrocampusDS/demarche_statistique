@@ -9,10 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="UP Mathématique appliquée" />
+<meta name="author" content="UP Mathématiques appliquées" />
 
 
-<title>TD11 : Régression linéaire multiple</title>
+<title>TD11 : Construction et choix de modèle</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -31,8 +31,6 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -354,8 +352,8 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">TD11 : Régression linéaire multiple</h1>
-<h4 class="author">UP Mathématique appliquée</h4>
+<h1 class="title toc-ignore">TD11 : Construction et choix de modèle</h1>
+<h4 class="author">UP Mathématiques appliquées</h4>
 
 </div>
 
@@ -365,381 +363,129 @@ $(document).ready(function () {
 <div id="objectifs-de-la-séance" class="section level2">
 <h2>Objectifs de la séance</h2>
 <ul>
-<li>Régression linéaire multiple
+<li>Construire un modèle
 <ul>
-<li>Ajuster un modèle de régression linéaire multiple</li>
-<li>Analyser les différents tests inhérents</li>
+<li>choisir les effets et interactions potentiels</li>
+<li>écrire le modèle</li>
 </ul></li>
-<li>Sélection de modèle
-<ul>
-<li>Comparer des modèles de régression</li>
 <li>Sélectionner un sous-modèle</li>
-</ul></li>
-<li>Prédiction
-<ul>
-<li>Déterminer l’intervalle de confiance</li>
-<li>Déterminer l’intervalle de prédiction</li>
-</ul></li>
+<li>Interpréter la présence ou l’absence d’effet</li>
+<li>Comprendre l’intérêt d’un effet bloc</li>
 </ul>
 </div>
 <div id="exercices" class="section level2">
 <h2>Exercices</h2>
-<div id="etude-du-rendement-fromager-régression-linéaire-simple" class="section level3">
-<h3>Etude du rendement fromager : régression linéaire simple</h3>
-<p>Un laboratoire d’analyse souhaite mettre en évidence l’influence de la composition du lait sur le rendement fromager. Pour ce faire, il a mesuré sur un échantillon de n = 85 laits, la densité , le taux butyreux , le taux de protéine , le taux de caséine , l’extrait sec et le rendement fromager de chacun de ces laits.</p>
-<div id="importation-du-jeu-de-données-et-matrice-des-corrélations" class="section level4">
-<h4>Importation du jeu de données et matrice des corrélations</h4>
+<div id="construction-dun-modèle-choix-des-effets-et-interactions" class="section level3">
+<h3>Construction d’un modèle, choix des effets et interactions</h3>
+<ol style="list-style-type: decimal">
+<li>Quelles variables explicatives, quelles interactions utiliseriez-vous pour construire un modèle permettant de prédire (répondre à 2 questions au choix parmi les 4)</li>
+</ol>
 <ul>
-<li><p>Charger les données provenant du fichier <code>lait.txt</code>.</p></li>
-<li><p>Calculer les corrélations entre les variables à l’aide de la fonction <code>cor</code>.</p></li>
-<li><p>Décrire le tableau de données étudié ainsi que les variables du problème (nombre d’individus statistiques, nombre de variables, nature des variables, . . . )</p></li>
-<li><p>Identifier les deux variables les plus corrélées et représenter le nuage de points associé. Même exercice pour les deux variables les moins corrélées.</p></li>
+<li>la taille d’un individu adulte ? &lt;! – sexe, taille père, taille mère, maladie pendant l’enfance, nutrition équilibrée ou non. Interaction possible : sexe et tailles des parents, nutrition et taille, nutrition et sexe –&gt;</li>
+<li>la taille d’un enfant entre 2 et 15 ans. &lt;! – même variables mais en plus l’âge. –&gt;</li>
+<li>le nombre de lombrics dans un cube de terre de 10 cm de côté ? &lt;! – la composition du sol (%argile, % sable, % MO), si le sol est nu ou s’il y a différents types de paillage –&gt;</li>
+<li>le poids des poubelles à la cantine de l’IA ? &lt;! – si tri des déchets, type de repas, si on peut se servir, etc, si mise en place de préconisations. –&gt;</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Préciser quelles variables sont quantitatives (resp. qualitatives)</li>
+<li>Ecrire le modèle</li>
+</ol>
+</div>
+<div id="choix-de-modèle-pour-la-préférence-dun-jambon" class="section level3">
+<h3>Choix de modèle pour la préférence d’un jambon</h3>
+<p>Un organisme d’analyse sensorielle souhaite savoir s’il est possible de prévoir l’appréciation globale d’un jambon à partir de sa description sensorielle. Un jury entraîné a utilisé les variables suivantes pour décrire 21 jambons : Jutosité, Caractère croquant, Tendreté, Caractère pâteux, Fibreux, Saveur salée, Saveur sucrée, Flaveur de viande, Assaisonnement, Flaveur métallique, Flaveur fèces/urine, Flaveur de gras, Flaveur braisé/fumé, Flaveur lactique . Puis une note d’ Appréciation globale a été attribué à chacun des jambons.</p>
+<ul>
+<li><p>Charger le fichier de données <code>jambon.txt</code>, il est conseillé d’utiliser le paramètre <code>row.names =</code>.</p></li>
+<li><p>A l’aide de la fonction <code>ggpairs</code> du paquet <code>GGally</code> lancez une première analyse descriptive du lien entre variables deux à deux.</p></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>jambons <span class="sc">%&gt;%</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggcorrplot</span>(<span class="at">type =</span> <span class="st">&quot;lower&quot;</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">lab =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>jambons <span class="sc">%&gt;%</span> <span class="fu">ggpairs</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">columns =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">7</span><span class="sc">:</span><span class="dv">9</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">&quot;points&quot;</span>, <span class="at">color =</span> <span class="st">&quot;dodgerblue4&quot;</span>)),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">diag =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">&quot;densityDiag&quot;</span>, <span class="at">color =</span> <span class="st">&quot;dodgerblue4&quot;</span>))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<ul>
+<li>Proposer une problématique liée au contexte.</li>
+<li>Sélectionner le modèle.</li>
 </ul>
 </div>
-<div id="régression-linéaire-simple" class="section level4">
-<h4>Régression linéaire simple</h4>
-<ul>
-<li><p>Effectuer les différentes régressions simples possibles pour expliquer le rendement.</p></li>
-<li><p>Comparer les résultats. Quelle variable semble le mieux expliquer le rendement ?</p></li>
-</ul>
-</div>
-</div>
-<div id="régression-linéaire-multiple-avec-toutes-les-variables-explicatives-disponibles" class="section level3">
-<h3>Régression linéaire multiple avec toutes les variables explicatives disponibles</h3>
-<ul>
-<li><p>Écrire le modèle (sous forme indicée puis sous sa forme matricielle) permettant d’étudier l’influence de la densité, du taux butyreux, du taux de protéine, du taux de caséine et de l’extrait sec sur le rendement fromager.</p></li>
-<li><p>Rappeler les hypothèses associées au test ci-dessous. Quelle est sa conclusion au seuil <span class="math inline">\(5\%\)</span> ?</p></li>
-</ul>
-<pre><code>## Analysis of Variance Table
-## 
-## Model 1: RENDEMENT ~ 1
-## Model 2: RENDEMENT ~ DENSITE + BUTYREUX + PROTEINE + CASEINE + EXTRAITSEC
-##   Res.Df     RSS Df Sum of Sq     F    Pr(&gt;F)    
-## 1     84 20.4686                                 
-## 2     79  7.8668  5    12.602 25.31 3.815e-15 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div id="etude-des-coefficients" class="section level4">
-<h4>Etude des coefficients</h4>
-Le tableau suivant donne les estimations des coefficients du modèle avec la méthode des moindres carrés.
-<table class=" lightable-classic" style="font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;">
+<div id="prise-en-compte-dun-effet-bloc" class="section level3">
+<h3>Prise en compte d’un effet bloc</h3>
+<p>On étudie le rendement de pois fourragers pour trois variétés et trois écartements entre les rangs des lignées. Pour disposer de répétitions, des expériences ont été menées sur 4 parcelles. Toutes les combinaisons variété-écartement ont été testé sur chacune des 4 parcelles. Les données sont regroupées dans le tableau <a href="https://agrocampusds.github.io/demarche_statistique/pois.csv">suivant</a>.</p>
+<table>
 <thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:right;">
-Estimate
-</th>
-<th style="text-align:right;">
-Std. Error
-</th>
-<th style="text-align:right;">
-t value
-</th>
-<th style="text-align:right;">
-Pr(&gt;|t|)
-</th>
+<tr class="header">
+<th align="center">Variété</th>
+<th align="center">Ecartement</th>
+<th align="center">Parcelle</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-(Intercept)
-</td>
-<td style="text-align:right;">
-74.03
-</td>
-<td style="text-align:right;">
-48.23
-</td>
-<td style="text-align:right;">
-1.53
-</td>
-<td style="text-align:right;">
-0.13
-</td>
+<tr class="odd">
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">1 2 3 4</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-DENSITE
-</td>
-<td style="text-align:right;">
--72.52
-</td>
-<td style="text-align:right;">
-48.35
-</td>
-<td style="text-align:right;">
--1.50
-</td>
-<td style="text-align:right;">
-0.14
-</td>
+<tr class="even">
+<td align="center">I</td>
+<td align="center">4</td>
+<td align="center">51 47 47 50</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-BUTYREUX
-</td>
-<td style="text-align:right;">
-0.09
-</td>
-<td style="text-align:right;">
-0.03
-</td>
-<td style="text-align:right;">
-2.91
-</td>
-<td style="text-align:right;">
-0.00
-</td>
+<tr class="odd">
+<td align="center"></td>
+<td align="center">8</td>
+<td align="center">60 50 45 48</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-PROTEINE
-</td>
-<td style="text-align:right;">
-0.15
-</td>
-<td style="text-align:right;">
-0.09
-</td>
-<td style="text-align:right;">
-1.69
-</td>
-<td style="text-align:right;">
-0.10
-</td>
+<tr class="even">
+<td align="center"></td>
+<td align="center">12</td>
+<td align="center">64 55 48 48</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-CASEINE
-</td>
-<td style="text-align:right;">
--0.05
-</td>
-<td style="text-align:right;">
-0.12
-</td>
-<td style="text-align:right;">
--0.39
-</td>
-<td style="text-align:right;">
-0.70
-</td>
+<tr class="odd">
+<td align="center">II</td>
+<td align="center">4</td>
+<td align="center">64 58 57 61</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-EXTRAITSEC
-</td>
-<td style="text-align:right;">
-0.06
-</td>
-<td style="text-align:right;">
-0.02
-</td>
-<td style="text-align:right;">
-2.78
-</td>
-<td style="text-align:right;">
-0.01
-</td>
+<tr class="even">
+<td align="center"></td>
+<td align="center">8</td>
+<td align="center">60 58 56 60</td>
+</tr>
+<tr class="odd">
+<td align="center"></td>
+<td align="center">12</td>
+<td align="center">58 58 53 60</td>
+</tr>
+<tr class="even">
+<td align="center">III</td>
+<td align="center">4</td>
+<td align="center">64 65 54 57</td>
+</tr>
+<tr class="odd">
+<td align="center"></td>
+<td align="center">8</td>
+<td align="center">62 68 67 60</td>
+</tr>
+<tr class="even">
+<td align="center"></td>
+<td align="center">12</td>
+<td align="center">71 75 75 63</td>
 </tr>
 </tbody>
 </table>
+<p>On considérera ici que l’écartement est une variable qualitative avec 3 modalités (4= petit, 8=moyen, 12=grand).</p>
 <ul>
-<li>Rappeler le test effectué sur une ligne en rappelant les hypothèses, la statistique de test et sa conclusion.</li>
-<li>Quels sont les coefficients jugés significatifs au seuil de <span class="math inline">\(10 \%\)</span>, <span class="math inline">\(5 \%\)</span> dans ce modèle ?</li>
-</ul>
-</div>
-</div>
-<div id="sélection-dun-sous-modèle" class="section level3">
-<h3>Sélection d’un sous-modèle</h3>
-<p>Le modèle comportant toutes les variables explicatives disponibles n’est pas nécessairement le meilleur. La lecture des tests de Student dans la section précédente nous l’a confirmé. Cela provient des fortes corrélations existant sur les variables explicatives. Nous allons ainsi chercher à supprimer des variables pour notamment éviter la redondance d’information.</p>
-<p>A partir de <span class="math inline">\(p\)</span> variables explicatives, on peut composer <span class="math inline">\(2^p\)</span> sous-modèles, c’est pourquoi il n’est pas raisonnable en général d’étudier tous les sous-modèles pour savoir lequel garder.</p>
-<p>La fonction <code>step</code> permet de rechercher le modèle possédant la plus faible valeur d’AIC parmi certains modèles choisis par une politique donnée.</p>
-<ul>
-<li>Méthode descendante :</li>
-</ul>
-<p>A chaque étape, au plus une variable explicative est retirée du modèle obtenu à l’étape précédente dont l’AIC est connu. L’AIC est calculé pour tous les sous-modèles obtenus en ne retirant qu’une des variables explicatives. Ces AICs sont alors comparés pour décider si une variable est à retirer et le cas échéant laquelle.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>modBestBwd <span class="ot">&lt;-</span> <span class="fu">step</span>(mod1)</span></code></pre></div>
-<pre><code>## Start:  AIC=-190.3
-## RENDEMENT ~ DENSITE + BUTYREUX + PROTEINE + CASEINE + EXTRAITSEC
-## 
-##              Df Sum of Sq    RSS     AIC
-## - CASEINE     1   0.01479 7.8816 -192.14
-## &lt;none&gt;                    7.8668 -190.30
-## - DENSITE     1   0.22407 8.0908 -189.91
-## - PROTEINE    1   0.28286 8.1496 -189.30
-## - EXTRAITSEC  1   0.77216 8.6389 -184.34
-## - BUTYREUX    1   0.84604 8.7128 -183.62
-## 
-## Step:  AIC=-192.14
-## RENDEMENT ~ DENSITE + BUTYREUX + PROTEINE + EXTRAITSEC
-## 
-##              Df Sum of Sq    RSS     AIC
-## &lt;none&gt;                    7.8816 -192.14
-## - DENSITE     1   0.25067 8.1322 -191.48
-## - EXTRAITSEC  1   0.75752 8.6391 -186.34
-## - BUTYREUX    1   0.89529 8.7768 -185.00
-## - PROTEINE    1   1.23912 9.1207 -181.73</code></pre>
-<ul>
-<li>Méthode ascendante :</li>
-</ul>
-<p>A partir du modèle à une variable explicative possédant l’AIC la plus faible, une variable est ajoutée à chaque étape tant que l’AIC diminue le plus possible.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>modBestFwd <span class="ot">&lt;-</span> <span class="fu">step</span>(mod0, <span class="at">direction =</span> <span class="st">&quot;forward&quot;</span>, <span class="at">scope =</span> <span class="fu">formula</span>(mod1))</span></code></pre></div>
-<pre><code>## Start:  AIC=-119.02
-## RENDEMENT ~ 1
-## 
-##              Df Sum of Sq    RSS     AIC
-## + EXTRAITSEC  1   10.0249 10.444 -174.22
-## + BUTYREUX    1    8.6880 11.781 -163.98
-## + PROTEINE    1    8.4120 12.057 -162.01
-## + CASEINE     1    7.8034 12.665 -157.82
-## + DENSITE     1    3.8272 16.641 -134.61
-## &lt;none&gt;                    20.469 -119.02
-## 
-## Step:  AIC=-174.22
-## RENDEMENT ~ EXTRAITSEC
-## 
-##            Df Sum of Sq     RSS     AIC
-## + BUTYREUX  1   1.15244  9.2913 -182.15
-## + PROTEINE  1   1.11595  9.3277 -181.82
-## + CASEINE   1   0.67791  9.7658 -177.92
-## + DENSITE   1   0.42646 10.0172 -175.76
-## &lt;none&gt;                  10.4437 -174.22
-## 
-## Step:  AIC=-182.15
-## RENDEMENT ~ EXTRAITSEC + BUTYREUX
-## 
-##            Df Sum of Sq    RSS     AIC
-## + PROTEINE  1   1.15904 8.1322 -191.48
-## + CASEINE   1   0.84564 8.4456 -188.26
-## &lt;none&gt;                  9.2913 -182.15
-## + DENSITE   1   0.17059 9.1207 -181.73
-## 
-## Step:  AIC=-191.48
-## RENDEMENT ~ EXTRAITSEC + BUTYREUX + PROTEINE
-## 
-##           Df Sum of Sq    RSS     AIC
-## + DENSITE  1  0.250671 7.8816 -192.14
-## &lt;none&gt;                 8.1322 -191.48
-## + CASEINE  1  0.041385 8.0908 -189.91
-## 
-## Step:  AIC=-192.14
-## RENDEMENT ~ EXTRAITSEC + BUTYREUX + PROTEINE + DENSITE
-## 
-##           Df Sum of Sq    RSS     AIC
-## &lt;none&gt;                 7.8816 -192.14
-## + CASEINE  1  0.014786 7.8668 -190.30</code></pre>
-<ul>
-<li>Méthode “stepwise”</li>
-</ul>
-<p>Enfin il est possible à chaque étape de comparer les AIC des modèles avec une variable en plus et ceux avec une en moins et de retenir le meilleur.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>modBestStp <span class="ot">&lt;-</span> <span class="fu">step</span>(mod0, <span class="at">direction =</span> <span class="st">&quot;both&quot;</span>, <span class="at">scope =</span> <span class="fu">formula</span>(mod1))</span></code></pre></div>
-<pre><code>## Start:  AIC=-119.02
-## RENDEMENT ~ 1
-## 
-##              Df Sum of Sq    RSS     AIC
-## + EXTRAITSEC  1   10.0249 10.444 -174.22
-## + BUTYREUX    1    8.6880 11.781 -163.98
-## + PROTEINE    1    8.4120 12.057 -162.01
-## + CASEINE     1    7.8034 12.665 -157.82
-## + DENSITE     1    3.8272 16.641 -134.61
-## &lt;none&gt;                    20.469 -119.02
-## 
-## Step:  AIC=-174.22
-## RENDEMENT ~ EXTRAITSEC
-## 
-##              Df Sum of Sq     RSS     AIC
-## + BUTYREUX    1    1.1524  9.2913 -182.15
-## + PROTEINE    1    1.1160  9.3277 -181.82
-## + CASEINE     1    0.6779  9.7658 -177.92
-## + DENSITE     1    0.4265 10.0172 -175.76
-## &lt;none&gt;                    10.4437 -174.22
-## - EXTRAITSEC  1   10.0249 20.4686 -119.02
-## 
-## Step:  AIC=-182.15
-## RENDEMENT ~ EXTRAITSEC + BUTYREUX
-## 
-##              Df Sum of Sq     RSS     AIC
-## + PROTEINE    1   1.15904  8.1322 -191.48
-## + CASEINE     1   0.84564  8.4456 -188.26
-## &lt;none&gt;                     9.2913 -182.15
-## + DENSITE     1   0.17059  9.1207 -181.73
-## - BUTYREUX    1   1.15244 10.4437 -174.22
-## - EXTRAITSEC  1   2.48938 11.7806 -163.98
-## 
-## Step:  AIC=-191.48
-## RENDEMENT ~ EXTRAITSEC + BUTYREUX + PROTEINE
-## 
-##              Df Sum of Sq    RSS     AIC
-## + DENSITE     1   0.25067 7.8816 -192.14
-## &lt;none&gt;                    8.1322 -191.48
-## + CASEINE     1   0.04139 8.0908 -189.91
-## - EXTRAITSEC  1   0.51060 8.6428 -188.30
-## - PROTEINE    1   1.15904 9.2913 -182.15
-## - BUTYREUX    1   1.19552 9.3277 -181.82
-## 
-## Step:  AIC=-192.14
-## RENDEMENT ~ EXTRAITSEC + BUTYREUX + PROTEINE + DENSITE
-## 
-##              Df Sum of Sq    RSS     AIC
-## &lt;none&gt;                    7.8816 -192.14
-## - DENSITE     1   0.25067 8.1322 -191.48
-## + CASEINE     1   0.01479 7.8668 -190.30
-## - EXTRAITSEC  1   0.75752 8.6391 -186.34
-## - BUTYREUX    1   0.89529 8.7768 -185.00
-## - PROTEINE    1   1.23912 9.1207 -181.73</code></pre>
-<ul>
-<li>Quel modèle retenir finalement ?</li>
-</ul>
-</div>
-<div id="prédiction" class="section level3">
-<h3>Prédiction</h3>
-Les mesures sur un nouvel échantillon de lait sont les suivantes :
-<table class=" lightable-classic" style="font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:right;">
-DENSITE
-</th>
-<th style="text-align:right;">
-BUTYREUX
-</th>
-<th style="text-align:right;">
-PROTEINE
-</th>
-<th style="text-align:right;">
-CASEINE
-</th>
-<th style="text-align:right;">
-EXTRAITSEC
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:right;">
-1.03
-</td>
-<td style="text-align:right;">
-37.7
-</td>
-<td style="text-align:right;">
-35.7
-</td>
-<td style="text-align:right;">
-28.5
-</td>
-<td style="text-align:right;">
-127.1
-</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><p>A l’aide de la fonction <code>predict</code>, déterminer l’intervalle de confiance associé à ce rendement moyen.</p></li>
-<li><p>Déterminer l’intervalle de prédiction associé à l’estimation du rendement d’un tel lait.</p></li>
+<li>Seuls les effets suivants intéressent l’agronome: variété, écartement, interaction variété-écartement. Pourtant, on choisit de rajouter l’effet parcelle dans le modèle. Quelle peut en être l’utilité?</li>
+<li>Construire et sélectionner le “bon” sous-modèle.</li>
+<li>Quels sont les effets significatifs (et les effets non significatifs) du sous-modèle sélectionné ?</li>
+<li>Interpréter les effets significatifs (et l’absence des effets non significatifs) dans le modèle sélectionné.</li>
+<li>Quelles conclusions auriez-vous eues si vous aviez (mal) travaillé en oubliant l’effet parcelle dans le modèle ?</li>
 </ul>
 </div>
 </div>
@@ -748,9 +494,9 @@ EXTRAITSEC
 <div id="commandes-r" class="section level3">
 <h3>Commandes R</h3>
 <ul>
-<li>anova et lm</li>
-<li>step</li>
-<li>predict</li>
+<li>LinearModel</li>
+<li>ggcorrplot</li>
+<li>ggpairs</li>
 </ul>
 </div>
 <div id="environnement-r" class="section level3">
@@ -759,9 +505,10 @@ EXTRAITSEC
 <div id="statistique" class="section level3">
 <h3>Statistique</h3>
 <ul>
+<li>Construction de modèle</li>
+<li>Sélection de sous-modèle</li>
 <li>Régression linéaire multiple</li>
-<li>Sélection de sous-modèle par calcul de l’AIC</li>
-<li>Prédiction</li>
+<li>Analyse de variance</li>
 </ul>
 </div>
 </div>

@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="UP Mathématique appliquée" />
+<meta name="author" content="UP Mathématiques appliquées" />
 
 
 <title>TD14 : Expliquer la variabilité d’une grandeur d’intérêt</title>
@@ -353,7 +353,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">TD14 : Expliquer la variabilité d’une grandeur d’intérêt</h1>
-<h4 class="author">UP Mathématique appliquée</h4>
+<h4 class="author">UP Mathématiques appliquées</h4>
 
 </div>
 
@@ -380,81 +380,11 @@ $(document).ready(function () {
 </div>
 <div id="exercices" class="section level2">
 <h2>Exercices</h2>
-<div id="étude-de-la-croissance-en-poids-de-poussins-en-fonction-du-sexe-et-de-trois-traitements" class="section level3">
-<h3>Étude de la croissance en poids de poussins en fonction du sexe et de trois traitements</h3>
-<p>Lors de leur mise en incubateur, 45 oeufs de poules ont été répartis de façon aléatoire en trois lots de 15. Trois traitements (températures d’incubation différentes) ont ensuite été appliqués aux différents lots. Nous supposons qu’après éclosion, les poussins ont tous été élevés dans des conditions identiques, puis pesés à un même âge de référence. À ce moment, le sexe des poussins, dont on sait a priori qu’il induit de fortes différences de poids, pouvait aussi être observé. La modalité 1 (respectif 2) de la variable Sexe correspond à Male (respetivement Femelle).</p>
-<p>L’objectif est de choisir le traitement qui maximise le poids des poussins.</p>
-<div id="importation-des-données-et-visualisation" class="section level4">
-<h4>Importation des données et visualisation</h4>
-<p>Les données sont disponibles dans le fichier <code>poussin.txt</code>.</p>
-<ul>
-<li><p>Importer les données. La colonne <code>Rdt</code> indique le gain de poids entre la naissance et le jour de pesée.</p></li>
-<li><p>Proposer une visualisation permettant de visualiser un potentiel effet Sexe d’une part, puis un potentiel effet Traitement.</p></li>
-<li><p>Qu’est ce que le code ci-dessous permet de visualiser ?</p></li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>poussins_dta <span class="sc">%&gt;%</span> </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Sexe, Trait) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Rdt_groupe =</span> <span class="fu">mean</span>(Rdt)) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Trait, <span class="at">y =</span> Rdt_groupe, <span class="at">color =</span> Sexe) <span class="sc">+</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Sexe)) <span class="sc">+</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
-</div>
-<div id="description-du-modèle-complet" class="section level4">
-<h4>Description du modèle complet</h4>
-<ul>
-<li><p>Ecrire sous forme mathématique le modèle permettant d’explorer les effets potentiels des différents facteurs.</p></li>
-<li><p>Combien y-t-il de paramètres qui capturent une potentielle interaction. Que représente cette interaction entre les facteurs ?</p></li>
-</ul>
-</div>
-<div id="ajustement-du-modèle-complet" class="section level4">
-<h4>Ajustement du modèle complet</h4>
-<ul>
-<li><p>Estimer les paramètres du modèle.</p></li>
-<li><p>Quel est le rendement moyen prédit par le modèle pour un poussin femelle ayant reçu le traitement 1 (vous pouvez utiliser la fonction <code>summary</code>) ?</p></li>
-<li><p>A l’aide de la fonction <code>predict</code> donner l’intervalle de confiance de la prédiction.</p></li>
-<li><p>A ce stade de la démarche, critiquer l’utilisation du modèle complet pour la prédiction.</p></li>
-</ul>
-</div>
-<div id="test-global" class="section level4">
-<h4>Test global</h4>
-<p>On souhaite répondre à la question y a-t-il un effet du sexe ou du traitement sur la prise de poids.</p>
-<ul>
-<li><p>Ecrire les hypothèses <span class="math inline">\(H_0\)</span> et <span class="math inline">\(H_1\)</span> du test que vous proposez</p></li>
-<li><p>Mettre ce test en place dans <code>R</code> et conclure sur l’existence d’un effet potentiel.</p></li>
-</ul>
-</div>
-<div id="tests-des-effets-pour-la-sélection-du-modèle-final" class="section level4">
-<h4>Tests des effets pour la sélection du modèle final</h4>
-<p>On souhaite maintenant tester un potentiel effet traitement. Pour ce faire, on commence par tester l’existence d’une potentielle interaction.</p>
-<ul>
-<li>Mettre ce test en oeuvre dans <code>R</code> et conclure sur une éventuelle interaction. Que peut on dire de l’effet du traitement sur les mâles et sur les femelles ?</li>
-</ul>
-<p>On ajuste maintenant le modèle d’analyse de la variance à 2 facteurs sans interaction.</p>
-<ul>
-<li><p>Ajuster le modèle dans R et conclure sur l’effet du traitement. Rappeler quels sont les modèles comparés dans ce test.</p></li>
-<li><p>Reprendre la prédiction pour un poussin femelle ayant reçu le traitement 1. Cette prédiction est-elle plus précise que celle obtenue avec le modèle complet?</p></li>
-</ul>
-</div>
-<div id="conclusion" class="section level4">
-<h4>Conclusion</h4>
-<ul>
-<li>Quelle est votre conclusion à l’issue de cette étude ?</li>
-</ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>compare_mean <span class="ot">&lt;-</span> emmeans<span class="sc">::</span><span class="fu">emmeans</span>(M12, <span class="sc">~</span> Trait)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(compare_mean, <span class="at">adjust=</span><span class="st">&quot;bonf&quot;</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(compare_mean)</span></code></pre></div>
-<ul>
-<li>Cette conclusion aurait-elle été la même sans l’information du Sexe?</li>
-</ul>
-</div>
-</div>
 <div id="effet-du-sexe-sur-le-poids-des-bébés-à-la-naissance" class="section level3">
 <h3>Effet du sexe sur le poids des bébés à la naissance</h3>
 <p>On souhaite étudier le poids des bébés à la naissance en fonction du sexe du bébé et du nombre de semaines de grossesse. On dispose pour cela d’un échantillon constitué de 477 nouveaux nés (242 filles et 255 garçons) et du nombre de semaines d’aménorrhée (plus exactement du nombre de semaines par rapport au terme normal qui est de 40 semaines en France: −3 signifie donc 37 semaines d’aménorrhée, et 1, 41 semaines d’aménorrhée).</p>
 <p>Nous cherchons à déterminer si le poids à la naissance est différent chez les garçons et les filles.</p>
-<div id="importation-des-données-et-visualisation-1" class="section level4">
+<div id="importation-des-données-et-visualisation" class="section level4">
 <h4>Importation des données et visualisation</h4>
 <p>Les données sont disponibles dans le fichier <code>bebe.csv</code>.</p>
 <ul>
@@ -462,49 +392,67 @@ $(document).ready(function () {
 <li><p>Proposer une visualisation permettant de visualiser l’effet du nombre de semaines de grossesse sur le poids du bébé à la naissance. Cet effet peut être différent pour les garçons et les filles.</p></li>
 <li><p>Qu’est ce que le code ci-dessous permet de visualiser ?</p></li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>bebe_dta <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>Nbsem, <span class="at">y =</span> PoidsBB, <span class="at">col =</span> Sexe)) <span class="sc">+</span> </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&#39;lm&#39;</span>, <span class="fu">aes</span>(<span class="at">x=</span>Nbsem, <span class="at">y =</span> PoidsBB, <span class="at">col =</span> Sexe), <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>bebe_dta <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>Nbsem, <span class="at">y =</span> PoidsBB, <span class="at">col =</span> Sexe)) <span class="sc">+</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&#39;lm&#39;</span>, <span class="fu">aes</span>(<span class="at">x=</span>Nbsem, <span class="at">y =</span> PoidsBB, <span class="at">col =</span> Sexe), <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 </div>
-<div id="description-du-modèle-complet-1" class="section level4">
-<h4>Description du modèle complet</h4>
+<div id="construction-du-modèle" class="section level4">
+<h4>Construction du modèle</h4>
 <ul>
-<li><p>Ecrire sous forme mathématique le modèle permettant d’explorer les effets potentiels du nombre de semaines de grossesse et du sexe.</p></li>
-<li><p>Que représente l’interaction entre le facteur Sexe et la variable nombre de semaines ?</p></li>
-<li><p>Comment interpreter l’effet Sexe?</p></li>
+<li>Choisir les effets qui entrent en jeu dans le modèle</li>
+<li>Construire le modèle et sélectionner le sous-modèle.</li>
+<li>L’effet du nombre de semaines de grossesse sur le poids à la naissance est-il le même pour les garçons et les filles ?</li>
+<li>Le poids moyen à la naissance des filles et des garçons est-il différent ?</li>
 </ul>
 </div>
-<div id="ajustement-du-modèle-complet-et-prédiction" class="section level4">
-<h4>Ajustement du modèle complet et prédiction</h4>
-<ul>
-<li><p>Estimer les paramètres du modèle.</p></li>
-<li><p>Quel est le poids moyen prédit par le modèle pour un garcon né 2 semaines en avance ?</p></li>
-<li><p>Comment peut-on améliorer la précision de la prédiction?</p></li>
-</ul>
-</div>
-<div id="test-global-1" class="section level4">
-<h4>Test global</h4>
-<p>On souhaite répondre à la question y a-t-il un effet du sexe ou du nombre de semaines de grossesse sur le poids à la naissance.</p>
-<ul>
-<li><p>Ecrire les hypothèses <span class="math inline">\(H_0\)</span> et <span class="math inline">\(H_1\)</span> du test que vous proposez</p></li>
-<li><p>Mettre ce test en place dans <code>R</code> et conclure sur l’existence d’un effet potentiel.</p></li>
-</ul>
-</div>
-<div id="tests-des-effets-pour-la-sélection-de-modèle" class="section level4">
-<h4>Tests des effets pour la sélection de modèle</h4>
-<p>On souhaite maintenant préciser l’analyse, et répondre à la question “L’effet du nombre de semaines de grossesse sur le poids à la naissance est-il le même pour les garçons et les filles ?”</p>
-<ul>
-<li><p>Mettre ce test en oeuvre dans <code>R</code> et répondre à la question posée.</p></li>
-<li><p>Après avoir éventuellement modifier le modèle, on veut répondre à la question “le poids moyen à la naissance des filles et des garçons est-il différent ?”. Indiquer le test pertinent pour répondre à cette question.</p></li>
-<li><p>Pour répondre à cette question, on propose d’utiliser le code suivant utilisant le package <code>emmeans</code>. Un poids moyen pour les garçons et un poids pour les filles est calculé. A quel nombre de semaines correspond-il ?</p></li>
-</ul>
-</div>
-<div id="conclusion-1" class="section level4">
+<div id="conclusion" class="section level4">
 <h4>Conclusion</h4>
 <ul>
 <li>Conclure sur la différence de poids à la naissance en fonction du sexe et du nombre de semaines de grossesse.</li>
-<li>La prise en compte du nombre de semaines influence-t-elle l’estimation de l’effet du sexe? la précision de la prédiction?</li>
+<li>La prise en compte du nombre de semaines influence-t-elle l’estimation de l’effet du sexe?</li>
 </ul>
+</div>
+</div>
+<div id="une-petite-dégustation-de-chocolats" class="section level3">
+<h3>Une petite dégustation de chocolats</h3>
+<p>Lors d’un test de dégustation sensorielle, on veut comparer plusieurs caractéristiques sensorielles de 10 chocolats noirs. Pour cela, un jury d’analyse sensoriel, constitué de 12 juges a évalué chacun des chocolats 2 fois, lors de 2 séances de dégustation. On va s’intéresser ici à la variable A.cacao qui correspond à l’arôme de cacao perçue par le juge (0 = par d’arôme cacoo, 10=très fort arôme de cacao). Les données sont diponibles dans le <a href="https://r-stat-sc-donnees.github.io/chocolat_2022.csv">fichier</a>.</p>
+<p>On veut répondre aux questions suivantes : + y a-t-il des différences d’arôme de cacao d’un produit à l’autre ? + les juges perçoivent-ils les différences entre chocolats de la même façon au niveau de l’arôme de cacao ? + d’une séance à l’autre, la perception des chocolats est-elle la même ?</p>
+<div id="importation-et-visualisation" class="section level4">
+<h4>Importation et visualisation</h4>
+<ul>
+<li><p>Importer les données et les représenter pour avoir quelques idées sur les questions précédentes.</p></li>
+<li><p>Construire un modèle et faire la sélection avec le critère “bic”, le critère “aic” et en faisant une sélection “à la main” (i.e. en supprimant pas à pas d’abord les interactions non significatives, puis les effets non significatifs)</p></li>
+<li><p>Commenter les résultats des effets et interactions (significatifs et non significatifs).</p></li>
+<li><p>Commenter les coefficient.</p></li>
+<li><p>Quels chocolats ont des arômes de cacao perçus équivalents ?</p></li>
+</ul>
+</div>
+</div>
+<div id="comparaison-de-trois-types-de-sondes" class="section level3">
+<h3>Comparaison de trois types de sondes</h3>
+<p>En préparation d’une future expérimentation en champs, on a comparé, dans deux types de sols, trois types de sondes destinées à prélever des échantillons de terre, en effectuant plusieurs prélèvements et en mesurant la teneur en anhydride phosphorique (<span class="math inline">\(P_20_5\)</span>) en mg pour 100 g de terre sèche. On s’intéresse principalement aux différences qui pourraient exister d’un type de sonde à l’autre, et aux interférences éventuelles des types de sonde avec les types de sol. Les données sont disponibles dans le fichier <a href="sonde_sol.csv">sonde_sol.csv</a>.</p>
+<div id="importation-et-visualisation-1" class="section level4">
+<h4>Importation et visualisation</h4>
+<ul>
+<li><p>Importer les données et les représenter sous forme d’un boxplot dans lequel l’abscisse est le sol, ce boxplot étant rempli par une couleur qui représente la sonde.</p></li>
+<li><p>Visualiser l’effet de l’interaction Sol - Sonde sur la variable réponse.</p></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dta <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(Sonde, Sol) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarize</span>(<span class="at">P205_m =</span> <span class="fu">mean</span>(P205)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x=</span>Sol, <span class="at">col =</span> Sonde, <span class="at">y=</span>P205_m) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Sonde)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+</div>
+<div id="construction-du-modèle-1" class="section level4">
+<h4>Construction du modèle</h4>
+<ul>
+<li><p>Construire un modèle permettant de répondre à la question “Le taux d’anhydride phosphaté est-il le même dans tous les types de sol, pour tous les sortes de sonde ?”</p></li>
+<li><p>Les différences entre les sondes sont elles les mêmes quel que soit le type de sol ?</p></li>
+<li><p>Y a-t-il des différences de résultats entre les sondes ?</p></li>
+<li><p>Quelles sondes donnent des résultats équivalents ?</p></li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FactoMineR)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">LinearModel</span>(P205 <span class="sc">~</span> Sol<span class="sc">*</span>Sonde, <span class="at">data=</span>dta)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">compMeans</span>(mod, <span class="sc">~</span>sonde)</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -513,8 +461,8 @@ $(document).ready(function () {
 <div id="commandes-r" class="section level3">
 <h3>Commandes R</h3>
 <ul>
-<li>Anova</li>
-<li>emmeans</li>
+<li>LinearModel</li>
+<li>compMeans</li>
 </ul>
 </div>
 <div id="environnement-r" class="section level3">

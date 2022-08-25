@@ -9,10 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="UP Mathématique appliquée" />
+<meta name="author" content="UP Mathématiques appliquées" />
 
 
-<title>TD12 : Régression linéaire multiple bis</title>
+<title>TD12 : Construction et choix de modèle bis</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -44,100 +44,6 @@
     </style>
 
 
-<style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
-</style>
-<style type="text/css" data-origin="pandoc">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  background-color: #f8f8f8; }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ef2929; } /* Alert */
-code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #c4a000; } /* Attribute */
-code span.bn { color: #0000cf; } /* BaseN */
-code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4e9a06; } /* Char */
-code span.cn { color: #000000; } /* Constant */
-code span.co { color: #8f5902; font-style: italic; } /* Comment */
-code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-code span.dt { color: #204a87; } /* DataType */
-code span.dv { color: #0000cf; } /* DecVal */
-code span.er { color: #a40000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #0000cf; } /* Float */
-code span.fu { color: #000000; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-code span.ot { color: #8f5902; } /* Other */
-code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code span.sc { color: #000000; } /* SpecialChar */
-code span.ss { color: #4e9a06; } /* SpecialString */
-code span.st { color: #4e9a06; } /* String */
-code span.va { color: #000000; } /* Variable */
-code span.vs { color: #4e9a06; } /* VerbatimString */
-code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
-
-</style>
-<script>
-// apply pandoc div.sourceCode style to pre.sourceCode instead
-(function() {
-  var sheets = document.styleSheets;
-  for (var i = 0; i < sheets.length; i++) {
-    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
-    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
-      var rule = rules[j];
-      // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
-      var style = rule.style.cssText;
-      // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
-      // replace div.sourceCode by a pre.sourceCode rule
-      sheets[i].deleteRule(j);
-      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
-    }
-  }
-})();
-</script>
 
 
 
@@ -352,8 +258,8 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">TD12 : Régression linéaire multiple bis</h1>
-<h4 class="author">UP Mathématique appliquée</h4>
+<h1 class="title toc-ignore">TD12 : Construction et choix de modèle bis</h1>
+<h4 class="author">UP Mathématiques appliquées</h4>
 
 </div>
 
@@ -363,37 +269,50 @@ $(document).ready(function () {
 <div id="objectifs-de-la-séance" class="section level2">
 <h2>Objectifs de la séance</h2>
 <ul>
-<li>Régression linéaire multiple
+<li>Construire un modèle
 <ul>
-<li>Réinvestir le TD précédent pour traiter une nouvelle problématique.</li>
-<li>Etablir la démarche à suivre à partir des éléments déjà abordés.</li>
+<li>choisir les effets et interactions potentiels</li>
+<li>écrire le modèle</li>
 </ul></li>
+<li>Sélectionner un sous-modèle</li>
+<li>Interpréter la présence ou l’absence d’effet</li>
 </ul>
+<div id="relation-entre-la-teneur-en-amines-et-le-stress-salin" class="section level3">
+<h3>Relation entre la teneur en amines et le stress salin</h3>
+<p>L’étude suivante porte sur la réponse à un stress salin de différents bromes (graminées, voir photos). Nous disposions de trois espèces de bromes et pour chaque espèce la moitié des plantes ont été soumises à un stress salin et l’autre moitié des plantes “témoin” n’ont pas subi de stress. On a alors mesuré les concentrations de différentes amines sur chaque plante. Certaines données sont manquantes et donc le plan d’expériences n’est pas toujours équilibré.</p>
+<p><img src="brome.jpg" alt="https://r-stat-sc-donnees.github.io/brome.jpg" width="100"/><img src="https://r-stat-sc-donnees.github.io/Le-brome.jpg" alt="brome" width="100"/></p>
+<p>Toutes les données sont disponibles dans le <a href="https://r-stat-sc-donnees.github.io/brome.csv">fichier</a>.</p>
+<p>On voudra répondre aux questions suivantes :</p>
+<ul>
+<li>Le traitement a-t-il un effet significatif sur la concentration en amines ?</li>
+<li>La concentration en amines diffèrent-elles d’une espèce à l’autre ?</li>
+<li>Y a-t-il des différences significatives dans la réponse au stress d’une espèce à l’autre ?</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>Quel modèle utiliser ? Et à quoi correspond chaque effet que vous mettez dans votre modèle ?</li>
+<li>Visualiser les données (les effets des facteurs et de l’interaction sur la concentration en amines).</li>
+<li>Construire le modèle et donner le R² du modèle complet et du modèle sélectionné. Commenter.</li>
+<li>Calcul la variabilité de la variable réponse puis calculer la somme des carrés expliqués par le modèle.</li>
+<li>Comparer la somme des carrés expliqués par le modèle avec la somme des carrés de tous les effets présents dans le modèle.</li>
+</ol>
+<p>Répondre aux 3 questions.</p>
 </div>
-<div id="exercice" class="section level2">
-<h2>Exercice</h2>
-<p>Un organisme d’analyse sensorielle souhaite savoir s’il est possible de prévoir l’appréciation globale d’un jambon à partir de sa description sensorielle. Un jury entraîné a utilisé les variables suivantes pour décrire 21 jambons : Jutosité, Caractère croquant, Tendreté, Caractère pâteux, Fibreux, Saveur salée, Saveur sucrée, Flaveur de viande, Assaisonnement, Flaveur métallique, Flaveur fèces/urine, Flaveur de gras, Flaveur braisé/fumé, Flaveur lactique . Puis une note d’ Appréciation globale a été attribué à chacun des jambons.</p>
-<ul>
-<li><p>Charger le fichier de données <code>jambon.txt</code>, il est conseillé d’utiliser le paramètre <code>row.names =</code>.</p></li>
-<li><p>A l’aide de la fonction <code>ggpairs</code> du paquet <code>GGally</code> lancez une première analyse descriptive du lien entre variables deux à deux.</p></li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>jambons <span class="sc">%&gt;%</span> </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggcorrplot</span>(<span class="at">type =</span> <span class="st">&quot;lower&quot;</span>,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">lab =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>jambons <span class="sc">%&gt;%</span> <span class="fu">ggpairs</span>(</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">columns =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">7</span><span class="sc">:</span><span class="dv">9</span>),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">&quot;points&quot;</span>, <span class="at">color =</span> <span class="st">&quot;dodgerblue4&quot;</span>)),</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">diag =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">&quot;densityDiag&quot;</span>, <span class="at">color =</span> <span class="st">&quot;dodgerblue4&quot;</span>))</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<ul>
-<li><p>Proposer une problématique liée au contexte.</p></li>
-<li><p>Reprendre des éléments du TD précédent afin d’apporter des éléments de réponse à la problématique posée.</p></li>
-<li><p>Quel modèle retenir ? pourquoi ?</p></li>
-</ul>
+<div id="la-paléoclimatologie-utiliser-les-pollens-comme-témoins-de-lévolution-du-climat" class="section level3">
+<h3>La paléoclimatologie : utiliser les pollens comme témoins de l’évolution du climat</h3>
+<p>On s’intéresse ici à des données de paléoclimatologie, i.e. la science qui étudie les climats passés et leurs variations. Cela permet de mieux comprendre les évolutions du climat actuelles et à quel point elles sont liées à l’homme. Le jeu de données (fourni par Joël Guiot) correspond à 700 relevés (dans 700 endroits différents du globe) qui mesurent le pourcentage de pollens de 31 espèces d’arbres. Ces relevés ont été effectués récemment (lors de ce siècle) et nous disposons donc aussi des relevés de variables climatiques, et notamment la température moyenne annuelle.</p>
+<p>On donne également pour chaque relevé le macrosystème (on parle aussi de biomes) du prélèvement. 9 macrosystèmes différents sont possibles : COCO (cool conifer forest), COMX (cool mixed forest), COST (cool steppes), HODE (hot desert), TEDE (temperate deciduous forest), TUND (tundra), WAMX (warm mixed broad-leaved forest), WAST (warm steppes), XERO (xerophytic scrubs).</p>
+<p>Les données sont diponibles dans le <a href="https://r-stat-sc-donnees.github.io/paleo_present.csv">fichier</a>.</p>
+<ol style="list-style-type: decimal">
+<li>On cherche à voir s’il est possible de modéliser la température annuelle en fonction des données disponibles. Proposer un modèle.</li>
+<li>Construire ce modèle et commenter la qualité du modèle (R²).</li>
+</ol>
+<p>On souhaite maintenant utiliser ce modèle pour prévoir la température moyenne annuelle dans les siècles précédents. On dispose pour cela des relevés d’une carotte glaciaire. Sur cette carotte, on peut, siècle par siècle, obtenir le pourcentage de chacun des 31 pollens. Ces échantillons remontent à 128 siècles et sont notés BPxx pour Before Present xx siècles : BP15 il y a 15 siècles (ceci est approximatif, la datation avant le présent est donnée dans la colonne age). Pour ces données, on ne dispose pas du macroécosystème, ni bien entendu du climat. L’objectif est justement d’essayer de prédire le climat au cours des siècles passés à partir de la composition en les différents pollens.</p>
+<p>Les données du passé, pour lesquelles on veut faire des prévisions, sont diponibles dans le <a href="https://r-stat-sc-donnees.github.io/paleo_passe.csv">fichier</a>. Pour importer ce jeu de données, on utilisera row.names=1 pour que la date correspond au nom de l’échantillon.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Le modèle que vous avez construit précédemment est-il utile pour prédire la température moyenne annuelle des siècles passé ? Si non, comment feriez-vous ?</li>
+<li>Prédire la température moyenne annuelle pour le siècle BP15 et BP100 (il faudra certainement attendre le prochain cours pour savoir faire cette prévision !)</li>
+</ol>
+</div>
 </div>
 <div id="le-vocabulaire-de-la-séance" class="section level2">
 <h2>Le vocabulaire de la séance</h2>
@@ -401,9 +320,7 @@ $(document).ready(function () {
 <h3>Commandes R</h3>
 <ul>
 <li>ggpairs</li>
-<li>anova et lm</li>
-<li>step</li>
-<li>predict</li>
+<li>LinearModel</li>
 </ul>
 </div>
 <div id="environnement-r" class="section level3">
@@ -413,8 +330,7 @@ $(document).ready(function () {
 <h3>Statistique</h3>
 <ul>
 <li>Régression linéaire multiple</li>
-<li>Sélection de sous-modèle par calcul de l’AIC</li>
-<li>Prédiction</li>
+<li>Sélection de sous-modèle</li>
 </ul>
 </div>
 </div>

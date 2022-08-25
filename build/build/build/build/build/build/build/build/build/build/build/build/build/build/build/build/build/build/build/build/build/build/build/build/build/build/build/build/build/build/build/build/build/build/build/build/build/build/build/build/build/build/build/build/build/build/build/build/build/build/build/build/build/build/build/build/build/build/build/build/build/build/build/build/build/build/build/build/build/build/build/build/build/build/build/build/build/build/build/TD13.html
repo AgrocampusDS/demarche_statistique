@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="UP Mathématique appliquée" />
+<meta name="author" content="UP Mathématiques appliquées" />
 
 
 <title>TD13 : Prendre en compte un effet bloc</title>
@@ -31,6 +31,8 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -353,7 +355,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">TD13 : Prendre en compte un effet bloc</h1>
-<h4 class="author">UP Mathématique appliquée</h4>
+<h4 class="author">UP Mathématiques appliquées</h4>
 
 </div>
 
@@ -378,58 +380,91 @@ $(document).ready(function () {
 </div>
 <div id="exercices" class="section level2">
 <h2>Exercices</h2>
-<div id="comparaison-de-trois-types-de-sondes" class="section level3">
-<h3>Comparaison de trois types de sondes</h3>
-<p>En préparation d’une future expérimentation en champs, on a comparé, dans deux types de sols, trois types de sondes destinées à prélever des échantillons de terre, en effectuant plusieurs prélèvements et en mesurant la teneur en anhydride phosphorique (<span class="math inline">\(P_20_5\)</span>) en mg pour 100 g de terre sèche. On s’intéresse principalement aux différences qui pourraient exister d’un type de sonde à l’autre, et aux interférences éventuelles des types de sonde avec les types de sol. Les données sont disponibles dans le fichier <a href="sonde_sol.csv">sonde_sol.csv</a>.</p>
-<div id="importation-et-visualisation" class="section level4">
-<h4>Importation et visualisation</h4>
+<div id="étude-de-la-croissance-en-poids-de-poussins-en-fonction-du-sexe-et-de-trois-traitements" class="section level3">
+<h3>Étude de la croissance en poids de poussins en fonction du sexe et de trois traitements</h3>
+<p>Lors de leur mise en incubateur, 45 oeufs de poules ont été répartis de façon aléatoire en trois lots de 15. Trois traitements (températures d’incubation différentes) ont ensuite été appliqués aux différents lots. Nous supposons qu’après éclosion, les poussins ont tous été élevés dans des conditions identiques, puis pesés à un même âge de référence. À ce moment, le sexe des poussins, dont on sait a priori qu’il induit de fortes différences de poids, pouvait aussi être observé. La modalité 1 (respectif 2) de la variable Sexe correspond à Male (respetivement Femelle).</p>
+<p>L’objectif est de choisir le traitement qui maximise le poids des poussins.</p>
+<div id="importation-des-données-et-visualisation" class="section level4">
+<h4>Importation des données et visualisation</h4>
+<p>Les données sont disponibles dans le fichier <code>poussin.txt</code>.</p>
 <ul>
-<li><p>Importer les données et les représenter sous forme d’un boxplot dans lequel l’abscisse est le sol, ce boxplot étant rempli par une couleur qui représente la sonde.</p></li>
-<li><p>Décrire le rôle de la commande ci-dessous et discuter d’une possible interaction entre le facteur Sol et le facteur Sonde.</p></li>
+<li><p>Importer les données. La colonne <code>Rdt</code> indique le gain de poids entre la naissance et le jour de pesée.</p></li>
+<li><p>Proposer un graphique permettant de visualiser un potentiel effet Sexe d’une part, puis un potentiel effet Traitement.</p></li>
+<li><p>Qu’est ce que le code ci-dessous permet de visualiser ?</p></li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dta <span class="sc">%&gt;%</span> </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(Sonde, Sol) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarize</span>(<span class="at">P205_m =</span> <span class="fu">mean</span>(P205)) <span class="sc">%&gt;%</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x=</span>Sol, <span class="at">col =</span> Sonde, <span class="at">y=</span>P205_m) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Sonde)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>poussins_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Sexe, Trait) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Rdt_groupe =</span> <span class="fu">mean</span>(Rdt)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Trait, <span class="at">y =</span> Rdt_groupe, <span class="at">color =</span> Sexe) <span class="sc">+</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Sexe)) <span class="sc">+</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 </div>
-<div id="ajustement-et-évaluation-du-modèle-complet" class="section level4">
-<h4>Ajustement et évaluation du modèle complet</h4>
+<div id="modélisation" class="section level4">
+<h4>Modélisation</h4>
 <ul>
-<li><p>Identifier la variable à expliquer, les variables potentiellement explicatives, ainsi que leurs natures et écrire sous forme mathématique le modèle correspondant.</p></li>
-<li><p>Mettre en place un test statistique permettant de répondre à la question “Le taux d’anhydride phosphaté est-il le même dans tous les types de sol, pour tous les sortes de sonde ?” (Donner les hypothèses H<span class="math inline">\(_0\)</span> et H<span class="math inline">\(_1\)</span>)</p></li>
-</ul>
-<p>Mettre en place ce test statistique dans R</p>
-<ul>
-<li>Donner la loi de la statistique de test sous H<span class="math inline">\(_0\)</span> en justifiant les degrés de liberté.</li>
-</ul>
-</div>
-<div id="tests-des-effets-pour-la-sélection-du-modèle-final" class="section level4">
-<h4>Tests des effets pour la sélection du modèle final</h4>
-<p>Puisque les teneurs en anhydrides phosphatés ne sont pas identiques pour toutes les sondes sur tous les sols, on souhaite identifier si la variabilité provient du sol, des sondes ou des deux.</p>
-<ul>
-<li>Quel test pouvez-vous proposer pour répondre à la question ? Les différences entre les sondes sont elles les mêmes quel que soit le type de sol ?</li>
-</ul>
-<p>On considère maintenant le modèle d’analyse de la variance à deux facteurs sans interaction</p>
-<ul>
-<li><p>La différence de teneur en anhydride phosphatée entre les sols ayant été prise en compte, peut on encore voir une différence de mesure entre les sondes ?</p></li>
-<li><p>Compte tenu de la différence entre les sondes, le taux d’anhydride est-il le même pour les deux sols ? Ecrire l’hypothèse H<span class="math inline">\(_0\)</span> du test statistique à mettre en place pour répondre à cette question et l’effectuer dans R.</p></li>
+<li><p>Préciser les différents effets qui peuvent être pris en compte dans un modèle.</p></li>
+<li><p>Construire le modèle et sélectionner le “bon” sous-modèle.</p></li>
+<li><p>Que pouvez-vous conseiller comme traitement pour les éleveurs ? Est-ce en adéquation avec les moyennes des rendements par traitement ? Si ce n’est pas le cas, expliquer le paradoxe.</p></li>
 </ul>
 </div>
-<div id="prédiction" class="section level4">
-<h4>Prédiction</h4>
-<ul>
-<li>Quelle est la teneur en anhydride phosphaté prédite par le modèle sélectionné lorsqu’il est mesuré avec la sonde 2 sur le sol 2 ? Même question pour la sonde 2 et le sol 1, puis la sonde 1 et le sol 1.</li>
-</ul>
 </div>
-<div id="choix-de-sondes-par-un-test-sur-les-modalités-dun-facteur" class="section level4">
-<h4>Choix de sondes par un test sur les modalités d’un facteur</h4>
+<div id="etude-du-rendement-fromager-régression-linéaire-simple" class="section level3">
+<h3>Etude du rendement fromager : régression linéaire simple</h3>
+<p>Un laboratoire d’analyse souhaite mettre en évidence l’influence de la composition du lait sur le rendement fromager. Pour ce faire, il a mesuré sur un échantillon de n = 85 laits, la densité, le taux butyreux, le taux de protéine, le taux de caséine, l’extrait sec et le rendement fromager de chacun de ces laits.</p>
+<div id="importation-du-jeu-de-données-et-matrice-des-corrélations" class="section level4">
+<h4>Importation du jeu de données et matrice des corrélations</h4>
 <ul>
-<li>Quelles sondes sont équivalentes?</li>
+<li><p>Charger les données provenant du fichier <code>lait.txt</code>.</p></li>
+<li><p>Calculer les corrélations entre les variables à l’aide de la fonction <code>cor</code>.</p></li>
+<li><p>Construire le modèle permettant de prédire le rendement et sélectionner le sous-modèle adapté.</p></li>
+<li><p>Commenter les estimations des coefficients (rappeler le test effectué pour un coefficient en rappelant les hypothèses, la statistique de test et sa conclusion).</p></li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>compare_mean <span class="ot">&lt;-</span> emmeans<span class="sc">::</span><span class="fu">emmeans</span>(M12, <span class="sc">~</span> Sonde)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(compare_mean, <span class="at">adjust=</span><span class="st">&quot;bonf&quot;</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(compare_mean)</span></code></pre></div>
+Les mesures sur un nouvel échantillon de lait sont les suivantes :
+<table class=" lightable-classic" style="font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+DENSITE
+</th>
+<th style="text-align:right;">
+BUTYREUX
+</th>
+<th style="text-align:right;">
+PROTEINE
+</th>
+<th style="text-align:right;">
+CASEINE
+</th>
+<th style="text-align:right;">
+EXTRAITSEC
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1.03
+</td>
+<td style="text-align:right;">
+37.7
+</td>
+<td style="text-align:right;">
+35.7
+</td>
+<td style="text-align:right;">
+28.5
+</td>
+<td style="text-align:right;">
+127.1
+</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>A l’aide de la fonction <code>predict</code>, déterminer l’intervalle de confiance associé à ce rendement moyen.</p></li>
+<li><p>Déterminer l’intervalle de prédiction associé à l’estimation du rendement d’un tel lait.</p></li>
+</ul>
 </div>
 </div>
 </div>
@@ -438,8 +473,8 @@ $(document).ready(function () {
 <div id="commandes-r" class="section level3">
 <h3>Commandes R</h3>
 <ul>
-<li>Anova</li>
-<li>emmeans</li>
+<li>LinearModel</li>
+<li>compMeans</li>
 </ul>
 </div>
 <div id="environnement-r" class="section level3">
