@@ -94,11 +94,27 @@ Les données sont regroupées dans le tableau [suivant](https://agrocampusds.git
 
 On considérera ici que l'écartement est une variable qualitative avec 3 modalités (4= petit, 8=moyen, 12=grand).
 
+```{r, echo=FALSE, results='markup', eval = TRUE}
+pois <- read.table('pois.csv', sep = ";", header =TRUE,stringsAsFactors = TRUE)
+for (i in 2:3) pois[,i] <- as.factor(pois[,i])
+summary(pois)
+```
 + Seuls les effets suivants intéressent l'agronome: variété, écartement, interaction variété-écartement. Pourtant, on choisit de rajouter l'effet parcelle dans le modèle. Quelle peut en être l'utilité?
 + Construire et sélectionner le "bon" sous-modèle.
+```{r, echo=FALSE, results='markup', eval = TRUE}
+library(FactoMineR)
+mod1 <- LinearModel(Rendement~Variete+Ecartement+Parcelle+Variete :Ecartement,data=pois,selection="none")
+mod1
+```
 + Quels sont les effets significatifs (et les effets non significatifs) du sous-modèle sélectionné ?
 + Interpréter les effets significatifs (et l'absence des effets non significatifs) dans le modèle sélectionné.
 + Quelles conclusions auriez-vous eues si vous aviez (mal) travaillé en oubliant l'effet parcelle dans le modèle ?
+
+```{r, echo=FALSE, results='markup', eval = TRUE}
+library(FactoMineR)
+mod2 <- LinearModel(Rendement~Variete+Ecartement+Variete :Ecartement,data=pois,selection="none")
+mod2
+```
 
 ## Le vocabulaire de la séance
 
