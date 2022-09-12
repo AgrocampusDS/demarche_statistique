@@ -34,8 +34,8 @@ print(is_pdf)
 ##  Objectifs de la séance  
 
 * Manipulation de données
-  - Grouper les données par niveau d'un facteur
-  - Effectuer des calculs par niveau du facteur
+  - Grouper les données par modalité d'un facteur
+  - Effectuer des calculs par modalité du facteur
 * Visualisation de données
   - Boîte à moustaches
 * Analyse de données
@@ -44,39 +44,38 @@ print(is_pdf)
   - Ecrire le modèle correspondant
   - Mettre en oeuvre le test du modèle complet
 
-
 ## Exercices 
-
 
  Le problème qui suit est inspiré d'un stage de fin d'études réalisé par une étudiante de la spécialisation  *Science des données* du cursus d'ingénieur agro-alimentaire d'Agrocampus.
  
 Un groupe industriel commercialisant du café souhaite comparer les cafés provenant de différents lieux de production à partir de leur profil de composition physico-chimique, dont une des composantes importantes est le taux de matière sèche (`DM`). Pour cela, il s'appuie sur des données contenant le lieu de production, codé par un entier allant de `1` à `7`, de 240 mesures de café disponible sur l'onglet Scripts et données de la [page d'accueil du module](https://agrocampusds.github.io/demarche_statistique/index.html).
 
-### Description du jeu de données sur la qualité du  café
+### Description des données sur la qualité du  café
 
-#### Importation du jeu de données
+#### Importation des données
 
-* Importer le jeu de données `cafe_DM.csv` disponible sur la page des [jeux de données ](index.html) dans un  objet nommé `cafe`  en utilisant un script `TD3_script.R` que vous aurez créé dans votre répertoire de projet.
+* Importer le fichier de données `cafe_DM.csv` disponible sur la page des [jeux de données ](index.html) dans un  objet nommé `cafe`  en utilisant un script `TD3_script.R` que vous aurez créé dans votre répertoire de projet.
 
 ```{r import_data}
 cafe <- read.table('https://agrocampusds.github.io/demarche_statistique/cafe_DM.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
 ```
 
-* Utiliser la commande `summary` pour obtenir un descriptif des données
+* Quels sont les noms des variables de ce tableau de données ?
+* La nature de chacune de ces variables, telle que déclarée dans `R`, correspond-elle à votre appréciation personnelle ? 
 
 `R` traite la variable `Localisation`, un entier compris entre 1 et 7, comme une variable quantitative. 
-Il faut indiquer à `R`  que cette variable  est en fait une variable qualitative, un facteur. 
+Il faut indiquer à `R`  que cette variable  est en fait une variable qualitative, un facteur : 
 
 ```{r as.factor, echo = TRUE}
 cafe <- cafe %>% 
   mutate(Localisation = as.factor(Localisation))
 ```
 
+* Après cette transformation, la nature de chacune de ces variables correspond-elle finalement à votre appréciation personnelle ? 
 
 #### Visualisation des données
 
-* Construire maintenant une boîte à moustaches des taux de matière sèche selon l'origine des cafés.
-
+* Construire maintenant une boîte à moustaches des taux de matière sèche pour chaque site de production des cafés.
 
 ```{r boxplot, echo = FALSE, warning=FALSE}
 cafe %>% 
@@ -85,8 +84,7 @@ cafe %>%
 
 #### Calcul de statistiques descriptives
 
-
-La commande suivante permet de calculer la moyenne de matière sèche pour chaque origine de café.
+La commande suivante permet de calculer la moyenne de matière sèche pour chaque site de production de café :
 
 ```{r mean, echo = TRUE, results='markup'}
 cafe %>% 
@@ -94,19 +92,14 @@ cafe %>%
   summarise(DM_mean = mean(DM))
 ```
 
-* Calculer l'écart-type et la variance pour chaque origine.
+* Calculer la médiane et l'écart-type pour chaque site de production.
 
-Les lignes ci-dessous calculent la moyenne, la variance et certains quantiles pour chaque origine de café
-
-```{r stat_desc, echo = TRUE, results='markup'}
+```{r stat_desc, echo = FALSE, results='markup'}
 stat_desc <- cafe %>% 
   group_by(Localisation) %>% 
-  summarise(DM_mean = mean(DM), 
-            DM_sd = sd(DM), 
-            q05 = quantile(DM, probs = 0.05 ),
-            q50 = quantile(DM, probs = 0.5 ),
-            q95 = quantile(DM, probs = 0.95 )
-            )
+  summarise(DM_mean = mean(DM),
+            DM_q50 = quantile(DM,probs=0.5),
+            DM_sd = sd(DM))
 ```
 
 ```{r stat_desc_html, echo = FALSE, results='markup', eval = !is_pdf}
@@ -116,7 +109,7 @@ stat_desc %>%
   kable_classic(full_width = F, html_font = "Cambria")
 ```
 
-```{r stat_desc_pdf, echo = FALSE, results='markup', eval = is_pdf}
+```{r stat_desc_pdf, echo = FALSE, results='markup', eval = FALSE}
 stat_desc %>% 
   kable(digits=2, booktabs = T)%>%
   kable_styling(latex_options = "striped")
@@ -124,111 +117,54 @@ stat_desc %>%
 
 ### Modélisation statistique
 
+On cherche à répondre à la question suivante : Les taux de matière sèche moyens à l'échelle de toute la production diffèrent-ils d'un site à l'autre ?
+
 #### Mise en place de l'analyse statistique
 
-* Donner l'expression du modèle statistique M$_1$ permettant de répondre à la question 'Les taux de matière sèche diffèrent-ils d'une origine à l'autre ?  Quels sont les paramètres de ce modèle ?
+* Donner l'expression du modèle statistique M$_1$ permettant de répondre à cette question ? Quels sont les paramètres de ce modèle ?
 
-* Quelles sont les hypothèses H$_{0}$ et H$_{1}$ du test de l'existence de différences moyennes entre les lieux de production ? Exprimer ces hypothèses à partir des paramètres du modèle de la question précédente.
-
-
+* Quelles sont les hypothèses H$_{0}$ et H$_{1}$ du test de l'existence de différences moyennes de taux de matière sèche entre les sites de production ? Exprimer ces hypothèses à partir des paramètres du modèle de la question précédente.
 
 #### Ajustement du modèle 
 
- La fonction `lm` permet d'ajuster le modèle d'analyse de la variance. 
+* A l'aide des fonctions `lm` et `coef`, donner la valeur estimée des paramètres du modèle d'analyse de la variance M$_1$ introduit ci-dessus. 
  
-```{r anova_M1, echo = TRUE, results='markup'}
-DM_lm <- lm(DM~Localisation, data = cafe)
-```
- 
-* Donner l'expresion mathématique du modèle nul.
+* Donner l'expression mathématique du modèle nul M$_0$.
 
-Il peut être ajusté grâce à la commande suivante :
+* Le paramètre désigné par le nom `Intercept` est-il estimé à la même valeur dans les modèles M$_0$ et M$_1$ ? Pourquoi ?
 
-```{r anova_M0, echo = TRUE, results='markup'}
-DM_lm0 <- lm(DM~1, data = cafe)
-```
+La qualité d'ajustement d'un modèle est mesurée par la somme des carrés des écarts entre les valeurs observées de la variable réponse et les valeurs ajustées par le modèle, que l'on nomme RSS (residual sum of squares).
 
-On peut comparer les deux modèles grâce à la commande:
+* Selon ce critère de qualité d'ajustement, peut-on dire que le modèle M$_1$ est beaucoup mieux ajusté aux données que le modèle M$_0$ ? Proposer une évaluation quantitative de ce gain d'ajustement.
 
+* Quelle est la valeur estimée de l'écart-type résiduel du modèle M$_{1}$ ?
 
-```{r comp_modele,  echo = TRUE, results='markup'}
-anova(DM_lm0, DM_lm)
-```
+#### Test de l'effet site de production sur la quantité de matière sèche
 
-Enfin, les paramètres estimé dans le modèle complet sont obtenus grâce à la fonction `summary`.
+*  Quelle est l'expression de la statistique de test permettant de tester l'existence de différences moyennes entre les lieux de production ? Quelle est la valeur prise par cette statistique de test ?
 
-```{r sum, echo = TRUE, results='markup'}
-summary(DM_lm)
-```
-
-La suite de l'exercice vise à expliciter les diverses quantités qui apparaissent dans les sorties précédentes.
+* Quelle est la distribution $\mathcal{F}_{0}$ sous l'hypothèse H$_{0}$ de la statistique de test $F$ introduite à la question précédente ?
 
 
-Les résidus quantifient pour chaque individu statistique l'écart entre la matière sèche prédite par le modèle ajusté et la matière sèche effectivement mesurée. Ils se calculent manuellement à l'aide de la suite de commande suivante :
+### Conclusion de l'étude
 
-* Expliquer l'enchainement de ces commandes 
-
-```{r residuals, echo = TRUE}
+La fonction `pf(q = .., df1 = .. , df2= .. , lower.tail = FALSE) `  donne la probabilité qu'une variable aléatoire suivant une loi de Fisher de paramètre `df1`, `df2` dépasse la valeur `q`.  
+```{r graph_p_value, fig.show='asis'}
 cafe_residuals <- cafe %>% 
   group_by(Localisation) %>% 
   mutate(DM_mean = mean(DM), Residuals = DM -DM_mean)
-```
-
-La somme des carrés des écarts résiduels, notée RSS, est un indicateur de la qualité d'ajustement du modèle. 
-
-* Comment calcule-t-on RSS ?
-
-```{r RSS_group}
 RSS <- cafe_residuals %>% 
   ungroup() %>% 
   summarise(RSS_group=sum(Residuals^2))
-```
-*  En déduire la valeur estimée de l'écart-type résiduel du modèle.
-
-*   Donner l'expression du modèle nul (associé à l'absence de différences moyennes entre les lieux de production comme dans l'hypothèse $H_{0}$ ) des taux de matière sèche. Quelle est la valeur estimée des paramètres de ce modèle ?
-
-
-```{r M0}
-cafe_residuals_M0 <- cafe %>% 
-  mutate(DM_mean = mean(DM), Residuals = DM -DM_mean)
-```
-
-*   Que vaut la somme des carrés des écarts résiduels RSS$_{0}$ mesurant la qualité d'ajustement du modèle nul ?
-
-```{r RSS0}
 RSS0 <- cafe %>% 
   mutate(DM_mean = mean(DM), Residuals = DM -DM_mean) %>% 
   summarise(RSS_group=sum(Residuals^2))
-```
-
-* En déduire la valeur du coefficient R$^{2}$ du modèle M$_1$.
-
-```{r R2}
-R2 <- (RSS0-RSS)/RSS0
-```
-#### Test de l'effet origine sur la quantité de matière sèche
-
-*   Quelle est l'expression de la statistique de test permettant de tester l'existence de différences moyennes entre les lieux de production ? Quelle est la valeur prise par cette statistique de test ?
-
-```{r stat_test}
 norigine <- nrow(stat_desc)
 n <- nrow(cafe)
 
 numerateur <- (RSS0 - RSS)/(norigine-1) 
 denominateur <- RSS/(n-norigine)
 stat_test <- numerateur/denominateur 
-```
-
-
-* Quelle est la distribution  sous l'hypothèse H$_{0}$, $\mathcal{F}_{0}$, de la statistique de test $F$ introduite à la question précédente ?
-
-La fonction `pf(q = .., df1 = .. , df2= .. , lower.tail = FALSE) `  donne la probabilité qu'une variable aléatoire suivant une loi de Fisher de paramètre `df1`, `df2` dépasse la valeur `q`.  
-
-```{r calcul_p_value}
-pf(q = stat_test$RSS_group, df1 = norigine-1, df2 = n - norigine, lower.tail = FALSE)
-```
-
-```{r graph_p_value, fig.show='asis'}
 q_value <- 1.8
 ggplot(data.frame(x = c(0, 7)), aes(x)) +
   stat_function(fun = df, args = list(df1=norigine-1, df2 =n -norigine)) + 
@@ -241,16 +177,11 @@ ggplot(data.frame(x = c(0, 7)), aes(x)) +
   theme(legend.position = 'none')
 ```
 
+* En déduire la p-value du test de comparaison des teneurs moyennes en matières sèches entre les sites de production. 
 
-### Conclusion de l'étude
+* En déduire une réponse à la question initialement posée.
 
-* Donner la probabilité qu'une variable aléatoire de loi $\mathcal{F}_{0}$  dépasse la valeur observée sur les données de café et conclure sur les différences de matière sèche en fonction de l'origine du café
-
-
-
-
-Cette probabilité est la p-value. 
-
+* Utiliser la fonction 'anova' pour repérer dans son résultat toutes les quantités que nous avons calculées dans ce TD.
 ## Le vocabulaire de la séance
 
 ### Commandes R
