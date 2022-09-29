@@ -55,17 +55,21 @@ Plus précisément, cette étude s'est intéressée à six sports : l'athlétism
 
 #### Importation du premier jeu de données
 
-* Importer le jeu de données intial `dataSportV1.csv`. Vérifier que le jeu de données contient bien 18 individus statistiques : 3 individus par sport.
-
+* Importer le jeu de données `dataSportV1.csv`
 
 ```{r import_data_V1}
 data.sport.V1 <- read.table('https://agrocampusds.github.io/demarche_statistique/dataSportV1.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
 ```
 
+* Quelles sont les variables de ce tableau de données ? Quelle est la nature (quantitative/qualitative) de chacune de ces variables ?
+
+* Sur combien d'individus statistiques ce tableau de données contient-il des informations ?
+
+* Vérifier que chaque sport est bien représenté dans ces données par trois individus statistiques.
+
 #### Visualisation des données
 
 * Visualiser les données pour avoir une idée de la distribution des carrures par sport et calculer quelques statistiques descriptives par sport.
-
 
 ```{r boxplot_V1, echo = FALSE}
 data.sport.V1 %>% 
@@ -91,15 +95,10 @@ stat_desc.V1 %>%
   kable_classic(full_width = F, html_font = "Cambria")
 ```
 
-
 #### Test statistique
 
-
 * Traduire la problématique ci-dessus sous la forme d'un test d'hypothèses.
-* Réaliser le test avec R et conclure
-
-##### Test global (=Effet des facteurs)
-
+* Réaliser le test et conclure.
 
 ```{r testGlobal_V1, echo = FALSE, results='markup'}
 mod.V1 <- lm(Carrure ~ Sport,data=data.sport.V1)
@@ -107,19 +106,31 @@ mod0.V1 <- lm(Carrure~1,data=data.sport.V1)
 anova(mod0.V1,mod.V1)
 ```
 
+* En utilisant la fonction `power.t.test`, donner la différence de carrure détectable par un test de comparaisons des carrures moyennes entre des sportifs pratiquant la natation et l'athlétisme avec une probabilité de 0.90.
+
+```{r puissance_V1, echo = FALSE, results='markup'}
+power.t.test(n=3,sd=3,power=0.90,sig.level=0.05)
+```
+* Quelle taille d'échantillon est nécessaire pour détecter une différence de carrures moyennes de 5 cm entre les sportifs pratiquant l'athlétisme et la natation ?
+
+```{r puissance_V1, echo = FALSE, results='markup'}
+power.t.test(delta=5,sd=3,power=0.90,sig.level=0.05)
+```
 ### Analyse avec $n_i=13$
 
-Surpris du résultat, les chercheurs organisent une seconde collecte de données qui permet d'augmenter la taille de l'échantillon avec 10 observations supplémentaires par sport pour arriver à $n_i=13$.
+Les chercheurs organisent une seconde collecte de données qui permet d'augmenter la taille de l'échantillon avec 10 observations supplémentaires par sport pour arriver à $n_i=13$.
 
 #### Importation du jeu de données final
 
-* Importer les 10 nouveaux individus statistiques à partir de la table `dataSportV2.csv`. Vérifier que ce nouveau jeu de données contient bien 60 individus : 10 individus par sport.
+* Importer les 10 nouveaux individus statistiques à partir de la table `dataSportV2.csv`
 
 ```{r import_data_V2}
 data.sport.V2 <- read.table('https://agrocampusds.github.io/demarche_statistique/dataSportV2.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
 ```
 
-A l'aide de la fonction *bind_rows*, créer le jeu de données complet, que vous nommerez *data.sport.Vf*, contenant les 13 individus statistiques.
+* Vérifier que chaque sport est bien représenté dans ces données par dix individus statistiques.
+
+* A l'aide de la fonction *bind_rows*, créer le jeu de données complet, que vous nommerez *data.sport.Vf*, contenant les 13 individus statistiques.
 
 ```{r import_data_Vf}
 data.sport.Vf <- bind_rows(data.sport.V1,data.sport.V2)
@@ -127,7 +138,9 @@ data.sport.Vf <- bind_rows(data.sport.V1,data.sport.V2)
 
 #### Visualisation des données
 
-* Comme pour le jeu de données initial, visualiser et calculer quelques statistiques descriptives par sport. Comparer avec la visualisation et le résumé obtenu pour $n_i=3$, en particulier comparer la moyenne et la variance de la carrure par sport.
+* Comme pour le jeu de données initial, visualiser et calculer quelques statistiques descriptives par sport. 
+
+* Comparer avec la visualisation et le résumé obtenu pour $n_i=3$. En particulier comparer la moyenne et la variance de la carrure par sport.
 
 ```{r boxplot_Vf, echo = FALSE}
 data.sport.Vf %>% 
@@ -163,10 +176,6 @@ stat_desc.V1 %>%
 
 * Ecrire le modèle et les hypothèses permettant de tester l'effet du sport sur la carrure.
 * Réaliser le test avec R.
-
-
-##### Test global (=Effet des facteurs)
-
 
 ```{r testGlobal_Vf, echo = FALSE, results='markup', eval=FALSE}
 mod.Vf <- lm(Carrure ~ Sport,data=data.sport.Vf)
