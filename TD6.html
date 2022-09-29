@@ -389,7 +389,10 @@ $(document).ready(function () {
 <div id="importation-du-premier-jeu-de-données" class="section level4">
 <h4>Importation du premier jeu de données</h4>
 <ul>
-<li>Importer le jeu de données intial <code>dataSportV1.csv</code>. Vérifier que le jeu de données contient bien 18 individus statistiques : 3 individus par sport.</li>
+<li><p>Importer le jeu de données <code>dataSportV1.csv</code></p></li>
+<li><p>Quelles sont les variables de ce tableau de données ? Quelle est la nature (quantitative/qualitative) de chacune de ces variables ?</p></li>
+<li><p>Sur combien d’individus statistiques ce tableau de données contient-il des informations ?</p></li>
+<li><p>Vérifier que chaque sport est bien représenté dans ces données par trois individus statistiques.</p></li>
 </ul>
 </div>
 <div id="visualisation-des-données" class="section level4">
@@ -485,10 +488,8 @@ Volley
 <h4>Test statistique</h4>
 <ul>
 <li>Traduire la problématique ci-dessus sous la forme d’un test d’hypothèses.</li>
-<li>Réaliser le test avec R et conclure</li>
+<li>Réaliser le test et conclure.</li>
 </ul>
-<div id="test-global-effet-des-facteurs" class="section level5">
-<h5>Test global (=Effet des facteurs)</h5>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Model 1: Carrure ~ 1
@@ -496,23 +497,52 @@ Volley
 ##   Res.Df    RSS Df Sum of Sq      F Pr(&gt;F)
 ## 1     17 131.26                           
 ## 2     12 101.45  5    29.816 0.7054 0.6304</code></pre>
-</div>
+<ul>
+<li>En utilisant la fonction <code>power.t.test</code>, donner la différence de carrure détectable par un test de comparaisons des carrures moyennes entre des sportifs pratiquant la natation et l’athlétisme avec une probabilité de 0.90.</li>
+</ul>
+<pre><code>## 
+##      Two-sample t test power calculation 
+## 
+##               n = 3
+##           delta = 10.76763
+##              sd = 3
+##       sig.level = 0.05
+##           power = 0.9
+##     alternative = two.sided
+## 
+## NOTE: n is number in *each* group</code></pre>
+<ul>
+<li>Quelle taille d’échantillon est nécessaire pour détecter une différence de carrures moyennes de 5 cm entre les sportifs pratiquant l’athlétisme et la natation ?</li>
+</ul>
+<pre><code>## 
+##      Two-sample t test power calculation 
+## 
+##               n = 8.649245
+##           delta = 5
+##              sd = 3
+##       sig.level = 0.05
+##           power = 0.9
+##     alternative = two.sided
+## 
+## NOTE: n is number in *each* group</code></pre>
 </div>
 </div>
 <div id="analyse-avec-n_i13" class="section level3">
 <h3>Analyse avec <span class="math inline">\(n_i=13\)</span></h3>
-<p>Surpris du résultat, les chercheurs organisent une seconde collecte de données qui permet d’augmenter la taille de l’échantillon avec 10 observations supplémentaires par sport pour arriver à <span class="math inline">\(n_i=13\)</span>.</p>
+<p>Les chercheurs organisent une seconde collecte de données qui permet d’augmenter la taille de l’échantillon avec 10 observations supplémentaires par sport pour arriver à <span class="math inline">\(n_i=13\)</span>.</p>
 <div id="importation-du-jeu-de-données-final" class="section level4">
 <h4>Importation du jeu de données final</h4>
 <ul>
-<li>Importer les 10 nouveaux individus statistiques à partir de la table <code>dataSportV2.csv</code>. Vérifier que ce nouveau jeu de données contient bien 60 individus : 10 individus par sport.</li>
+<li><p>Importer les 10 nouveaux individus statistiques à partir de la table <code>dataSportV2.csv</code></p></li>
+<li><p>Vérifier que chaque sport est bien représenté dans ces données par dix individus statistiques.</p></li>
+<li><p>A l’aide de la fonction <em>bind_rows</em>, créer le jeu de données complet, que vous nommerez <em>data.sport.Vf</em>, contenant les 13 individus statistiques.</p></li>
 </ul>
-<p>A l’aide de la fonction <em>bind_rows</em>, créer le jeu de données complet, que vous nommerez <em>data.sport.Vf</em>, contenant les 13 individus statistiques.</p>
 </div>
 <div id="visualisation-des-données-1" class="section level4">
 <h4>Visualisation des données</h4>
 <ul>
-<li>Comme pour le jeu de données initial, visualiser et calculer quelques statistiques descriptives par sport. Comparer avec la visualisation et le résumé obtenu pour <span class="math inline">\(n_i=3\)</span>, en particulier comparer la moyenne et la variance de la carrure par sport.</li>
+<li><p>Comme pour le jeu de données initial, visualiser et calculer quelques statistiques descriptives par sport.</p></li>
+<li><p>Comparer avec la visualisation et le résumé obtenu pour <span class="math inline">\(n_i=3\)</span>. En particulier comparer la moyenne et la variance de la carrure par sport.</p></li>
 </ul>
 <table class=" lightable-classic" style="font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -604,9 +634,6 @@ Volley
 <li>Ecrire le modèle et les hypothèses permettant de tester l’effet du sport sur la carrure.</li>
 <li>Réaliser le test avec R.</li>
 </ul>
-<div id="test-global-effet-des-facteurs-1" class="section level5">
-<h5>Test global (=Effet des facteurs)</h5>
-</div>
 <div id="test-post-hoc-comparaison-entre-les-modalités-des-facteurs" class="section level5">
 <h5>Test Post-Hoc (= Comparaison entre les modalités des facteurs)</h5>
 <p>Si le test est significatif, on cherche à déterminer quels sports permettent de développer des carrures significativement différentes.</p>
@@ -614,10 +641,10 @@ Volley
 <li><p>Exprimer cette question sous la forme d’hypothèses statistiques.</p></li>
 <li><p>A l’aide de la fonction <em>emmeans</em> du package <em>emmeans</em>, tester quelles sont les sports qui, deux à deux, donnent des carrures différentes.</p></li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sport_comp_Vf <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(mod.Vf,  <span class="sc">~</span> Sport )</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(sport_comp_Vf, <span class="at">adjust =</span> <span class="st">&quot;bonf&quot;</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sport_comp_Vf)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>sport_comp_Vf <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(mod.Vf,  <span class="sc">~</span> Sport )</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(sport_comp_Vf, <span class="at">adjust =</span> <span class="st">&quot;bonf&quot;</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sport_comp_Vf)</span></code></pre></div>
 </div>
 </div>
 </div>
