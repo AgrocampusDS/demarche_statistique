@@ -182,6 +182,7 @@ ggplot(data.frame(x = c(0, 7)), aes(x)) +
 * En déduire une réponse à la question initialement posée.
 
 * Utiliser la fonction 'anova' pour repérer dans son résultat toutes les quantités que nous avons calculées dans ce TD.
+
 ## Le vocabulaire de la séance
 
 ### Commandes R
