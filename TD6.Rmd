@@ -113,7 +113,7 @@ power.t.test(n=3,sd=3,power=0.90,sig.level=0.05)
 ```
 * Quelle taille d'échantillon est nécessaire pour détecter une différence de carrures moyennes de 5 cm entre les sportifs pratiquant l'athlétisme et la natation ?
 
-```{r puissance_V1, echo = FALSE, results='markup'}
+```{r puissance_V2, echo = FALSE, results='markup'}
 power.t.test(delta=5,sd=3,power=0.90,sig.level=0.05)
 ```
 ### Analyse avec $n_i=13$
