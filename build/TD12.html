@@ -281,7 +281,7 @@ $(document).ready(function () {
 <h3>Relation entre la teneur en amines et le stress salin</h3>
 <p>L’étude suivante porte sur la réponse à un stress salin de différents bromes (graminées, voir photos). Nous disposions de trois espèces de bromes et pour chaque espèce la moitié des plantes ont été soumises à un stress salin et l’autre moitié des plantes “témoin” n’ont pas subi de stress. On a alors mesuré les concentrations de différentes amines sur chaque plante. Certaines données sont manquantes et donc le plan d’expériences n’est pas toujours équilibré.</p>
 <p><img src="brome.jpg" alt="brome.jpg" width="250"/><img src="Le-brome.jpg" alt="brome" width="200"/></p>
-<p>Toutes les données sont disponibles dans le <a href="https://r-stat-sc-donnees.github.io/brome.csv">fichier</a>.</p>
+<p>Toutes les données sont disponibles dans le <a href="https://agrocampusds.github.io/demarche_statistique/brome.csv">fichier</a>.</p>
 <p>On voudra répondre aux questions suivantes :</p>
 <ul>
 <li>Le traitement a-t-il un effet significatif sur la concentration en amines ?</li>
@@ -301,16 +301,16 @@ $(document).ready(function () {
 <h3>La paléoclimatologie : utiliser les pollens comme témoins de l’évolution du climat</h3>
 <p>On s’intéresse ici à des données de paléoclimatologie, i.e. la science qui étudie les climats passés et leurs variations. Cela permet de mieux comprendre les évolutions du climat actuelles et à quel point elles sont liées à l’homme. Le jeu de données (fourni par Joël Guiot) correspond à 700 relevés (dans 700 endroits différents du globe) qui mesurent le pourcentage de pollens de 31 espèces d’arbres. Ces relevés ont été effectués récemment (lors de ce siècle) et nous disposons donc aussi des relevés de variables climatiques, et notamment la température moyenne annuelle.</p>
 <p>On donne également pour chaque relevé le macrosystème (on parle aussi de biomes) du prélèvement. 9 macrosystèmes différents sont possibles : COCO (cool conifer forest), COMX (cool mixed forest), COST (cool steppes), HODE (hot desert), TEDE (temperate deciduous forest), TUND (tundra), WAMX (warm mixed broad-leaved forest), WAST (warm steppes), XERO (xerophytic scrubs).</p>
-<p>Les données sont diponibles dans le <a href="https://r-stat-sc-donnees.github.io/paleo_present.csv">fichier</a>.</p>
+<p>Les données sont diponibles dans le <a href="https://agrocampusds.github.io/demarche_statistique/paleo_present.csv">fichier</a>.</p>
 <ol style="list-style-type: decimal">
-<li>On cherche à voir s’il est possible de modéliser la température annuelle en fonction des données disponibles. Proposer un modèle.</li>
-<li>Construire ce modèle et commenter la qualité du modèle (R²).</li>
+<li><p>On cherche à voir s’il est possible de modéliser la température annuelle en fonction des données disponibles. Proposer un modèle.</p></li>
+<li><p>Construire ce modèle et commenter la qualité du modèle (R²).</p></li>
 </ol>
 <p>On souhaite maintenant utiliser ce modèle pour prévoir la température moyenne annuelle dans les siècles précédents. On dispose pour cela des relevés d’une carotte glaciaire. Sur cette carotte, on peut, siècle par siècle, obtenir le pourcentage de chacun des 31 pollens. Ces échantillons remontent à 128 siècles et sont notés BPxx pour Before Present xx siècles : BP15 il y a 15 siècles (ceci est approximatif, la datation avant le présent est donnée dans la colonne age). Pour ces données, on ne dispose pas du macroécosystème, ni bien entendu du climat. L’objectif est justement d’essayer de prédire le climat au cours des siècles passés à partir de la composition en les différents pollens.</p>
-<p>Les données du passé, pour lesquelles on veut faire des prévisions, sont diponibles dans le <a href="https://r-stat-sc-donnees.github.io/paleo_passe.csv">fichier</a>. Pour importer ce jeu de données, on utilisera row.names=1 pour que la date correspond au nom de l’échantillon.</p>
+<p>Les données du passé, pour lesquelles on veut faire des prévisions, sont diponibles dans le <a href="https://agrocampusds.github.io/demarche_statistique/paleo_passe.csv">fichier</a>. Pour importer ce jeu de données, on utilisera row.names=1 pour que la date corresponde au nom de l’échantillon.</p>
 <ol start="3" style="list-style-type: decimal">
-<li>Le modèle que vous avez construit précédemment est-il utile pour prédire la température moyenne annuelle des siècles passé ? Si non, comment feriez-vous ?</li>
-<li>Prédire la température moyenne annuelle pour le siècle BP15 et BP100 (il faudra certainement attendre le prochain cours pour savoir faire cette prévision !)</li>
+<li><p>Le modèle que vous avez construit précédemment est-il utile pour prédire la température moyenne annuelle des siècles passé ? Si non, comment feriez-vous ?</p></li>
+<li><p>Prédire la température moyenne annuelle pour le siècle BP15 et BP100 (il faudra certainement attendre le prochain cours pour savoir faire cette prévision !)</p></li>
 </ol>
 </div>
 </div>
