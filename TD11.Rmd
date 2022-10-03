@@ -79,23 +79,22 @@ On étudie le rendement de pois fourragers pour trois variétés et trois écart
 des expériences ont été menées sur 4 parcelles. Toutes les combinaisons variété-écartement ont été testé sur chacune des 4 parcelles.
 Les données sont regroupées dans le tableau [suivant](https://agrocampusds.github.io/demarche_statistique/pois.csv).
 
-|Variété|Ecartement|Parcelle|
-|:---------------:|:---------------:|:-----:|
-|   |  | 1  2  3  4|
-|I  |4 |51 47 47 50|
-|   |8 |60 50 45 48|
-|   |12|64 55 48 48|
-|II |4 |64 58 57 61|
-|   |8 |60 58 56 60|
-|   |12|58 58 53 60|
-|III|4 |64 65 54 57|
-|   |8 |62 68 67 60|
-|   |12|71 75 75 63|
+
+```{r,echo=FALSE, results='markup', eval = TRUE}
+library(kableExtra)
+pois <- read.table('pois.csv', sep = ";", header =TRUE,stringsAsFactors = TRUE)
+pois %>% spread(Parcelle, Rendement) %>% 
+  kable(align = "c") %>% 
+  kable_paper(full_width = F) %>%
+  column_spec(1, bold = T) %>%
+  add_header_above(c(" ", " " = 1, "Parcelle" = 4)) %>% 
+  collapse_rows(columns = 1:2, valign = "top")
+
+```
 
 On considérera ici que l'écartement est une variable qualitative avec 3 modalités (4= petit, 8=moyen, 12=grand).
 
 ```{r, echo=FALSE, results='markup', eval = TRUE}
-pois <- read.table('pois.csv', sep = ";", header =TRUE,stringsAsFactors = TRUE)
 for (i in 2:3) pois[,i] <- as.factor(pois[,i])
 summary(pois)
 ```
