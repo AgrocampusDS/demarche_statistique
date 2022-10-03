@@ -42,7 +42,7 @@ On a alors mesuré les concentrations de différentes amines sur chaque plante. 
 
 <img src="brome.jpg" alt="brome.jpg" width="250"/><img src="Le-brome.jpg" alt="brome" width="200"/>
 
-Toutes les données sont disponibles dans le [fichier](https://r-stat-sc-donnees.github.io/brome.csv).
+Toutes les données sont disponibles dans le [fichier](https://agrocampusds.github.io/demarche_statistique/brome.csv).
 
 On voudra répondre aux questions suivantes :
 
@@ -67,18 +67,20 @@ Ces relevés ont été effectués récemment (lors de ce siècle) et nous dispos
 
 On donne également pour chaque relevé le macrosystème (on parle aussi de biomes) du prélèvement. 9 macrosystèmes différents sont possibles : COCO (cool conifer forest), COMX (cool mixed forest), COST (cool steppes), HODE (hot desert), TEDE (temperate deciduous forest), TUND (tundra), WAMX (warm mixed broad-leaved forest), WAST (warm steppes), XERO (xerophytic scrubs).
 
-Les données sont diponibles dans le [fichier](https://r-stat-sc-donnees.github.io/paleo_present.csv). 
+Les données sont diponibles dans le [fichier](https://agrocampusds.github.io/demarche_statistique/paleo_present.csv). 
 
 1. On cherche à voir s'il est possible de modéliser la température annuelle en fonction des données disponibles. Proposer un modèle.
+
 2. Construire ce modèle et commenter la qualité du modèle (R²).
 
 On souhaite maintenant utiliser ce modèle pour prévoir la température moyenne annuelle dans les siècles précédents. 
 On dispose pour cela des relevés d'une carotte glaciaire. Sur cette carotte, on peut, siècle par siècle, obtenir le pourcentage de chacun des 31 pollens. Ces échantillons remontent à 128 siècles et sont notés BPxx pour Before Present xx siècles : BP15 il y a 15 siècles (ceci est approximatif, la datation avant le présent est donnée dans la colonne age). 
 Pour ces données, on ne dispose pas du macroécosystème, ni bien entendu du climat. L'objectif est justement d'essayer de prédire le climat au cours des siècles passés à partir de la composition en les différents pollens.
 
-Les données du passé, pour lesquelles on veut faire des prévisions, sont diponibles dans le [fichier](https://r-stat-sc-donnees.github.io/paleo_passe.csv). Pour importer ce jeu de données, on utilisera row.names=1 pour que la date correspond au nom de l'échantillon.
+Les données du passé, pour lesquelles on veut faire des prévisions, sont diponibles dans le [fichier](https://agrocampusds.github.io/demarche_statistique/paleo_passe.csv). Pour importer ce jeu de données, on utilisera row.names=1 pour que la date corresponde au nom de l'échantillon.
 
 3. Le modèle que vous avez construit précédemment est-il utile pour prédire la température moyenne annuelle des siècles passé ? Si non, comment feriez-vous ?
+
 4. Prédire la température moyenne annuelle pour le siècle BP15 et BP100 (il faudra certainement attendre le prochain cours pour savoir faire cette prévision !)
 
 ## Le vocabulaire de la séance

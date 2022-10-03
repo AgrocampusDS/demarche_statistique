@@ -92,7 +92,7 @@ bebe_dta %>% ggplot() +
 Lors d'un test de dégustation sensorielle, on veut comparer plusieurs caractéristiques sensorielles de 10 chocolats noirs.
 Pour cela, un jury d'analyse sensoriel, constitué de 12 juges a évalué chacun des chocolats 2 fois, lors de 2 séances de dégustation.
 On va s'intéresser ici à la variable A.cacao qui correspond à l'arôme de cacao perçue par le juge (0 = par d'arôme cacoo, 10=très fort arôme de cacao).
-Les données sont diponibles dans le [fichier](https://r-stat-sc-donnees.github.io/chocolat_2022.csv). 
+Les données sont diponibles dans le [fichier](https://agrocampusds.github.io/demarche_statistique/chocolat_2022.csv). 
 
 On veut répondre aux questions suivantes :
 + y a-t-il des différences d'arôme de cacao d'un produit à l'autre ?
@@ -114,7 +114,7 @@ On veut répondre aux questions suivantes :
 
 ###  Comparaison de trois types de sondes
 
-En préparation d'une future expérimentation en champs,  on a comparé, dans deux types de sols, trois types de sondes destinées à prélever des échantillons de terre, en effectuant plusieurs prélèvements et en mesurant la teneur en anhydride phosphorique ($P_20_5$) en mg pour 100 g de terre sèche.  On s'intéresse principalement aux différences qui pourraient exister d'un type de sonde à l'autre, et aux interférences éventuelles des types de sonde avec les types de sol. Les données sont disponibles dans le fichier [sonde_sol.csv](sonde_sol.csv).
+En préparation d'une future expérimentation en champs,  on a comparé, dans deux types de sols, trois types de sondes destinées à prélever des échantillons de terre, en effectuant plusieurs prélèvements et en mesurant la teneur en anhydride phosphorique ($P_20_5$) en mg pour 100 g de terre sèche.  On s'intéresse principalement aux différences qui pourraient exister d'un type de sonde à l'autre, et aux interférences éventuelles des types de sonde avec les types de sol. Les données sont disponibles dans le fichier [sonde_sol.csv](https://agrocampusds.github.io/demarche_statistique/sonde_sol.csv).
 
 #### Importation et visualisation
 
