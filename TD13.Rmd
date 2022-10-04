@@ -1,5 +1,5 @@
 ---
-title: "TD13 : Prendre en compte un effet bloc"
+title: "TD13 : Prédiction et interprétation"
 author: "UP Mathématiques appliquées"
 date: ''
 output:
@@ -91,7 +91,7 @@ poussins_dta %>%
 * Que pouvez-vous conseiller comme traitement pour les éleveurs ? Est-ce en adéquation avec les moyennes des rendements par traitement ? Si ce n'est pas le cas, expliquer le paradoxe.
 
 
-### Etude du rendement fromager : régression linéaire simple 
+### Etude du rendement fromager
 
 Un laboratoire d'analyse souhaite mettre en évidence l'influence de la composition du lait sur le rendement
 fromager. Pour ce faire, il a mesuré sur un échantillon de n = 85 laits, la densité, le taux butyreux, le taux de
@@ -99,8 +99,7 @@ protéine, le taux de caséine, l'extrait sec et le rendement fromager de chacun
 
 #### Importation du jeu de données  et matrice des corrélations
 * Charger les données provenant du fichier `lait.txt`.
-* Calculer les corrélations entre les variables  à l'aide de la fonction 
-`cor`.
+* Etudier les corrélations en adaptant le code fourni au [TD 11](https://agrocampusds.github.io/demarche_statistique/TD11.html).
 
 ```{r, echo=FALSE, results='markup', eval = TRUE}
 fromages <- read.table("lait.txt", sep = "\t", dec = ",", header = T)
@@ -114,6 +113,7 @@ fromages %>%
   kable_classic(full_width = F, html_font = "Cambria")
 ```
 
+#### Modélisation et prédiction
 
 * Construire le modèle permettant de prédire le rendement et sélectionner le sous-modèle adapté.
 * Commenter les estimations des coefficients (rappeler le test effectué pour un coefficient en rappelant les hypothèses, la statistique de test et sa conclusion).
