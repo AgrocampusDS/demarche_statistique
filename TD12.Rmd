@@ -58,6 +58,28 @@ On voudra répondre aux questions suivantes :
 
 Répondre aux 3 questions.
 
+```{r, echo = FALSE, eval = FALSE}
+### chargement des donnees
+bromes <- read.table("brome.csv", sep = ";", header = TRUE, stringsAsFactors = TRUE)
+### stats descriptives bivariees
+bromes %>% ggplot(aes(x = Espece, y = Amines)) + geom_boxplot(aes(col = Espece))
+bromes %>% ggplot(aes(x = Traitement, y = Amines)) + geom_boxplot(aes(col = Traitement))
+### stats descriptives avec interaction
+bromes %>% 
+  group_by(Espece, Traitement) %>% 
+  summarize(m = mean(Amines)) %>% 
+  ggplot(aes(x = Espece, y = m, group = Traitement)) + geom_line(aes(col = Traitement))
+### modele complet
+library(FactoMineR)
+mod1 <- LinearModel(Amines ~ Espece*Traitement , data = bromes)
+mod1
+### selection BIC
+mod2 <- LinearModel(Amines ~ Espece*Traitement , data = bromes, selection = "BIC")
+mod2
+```
+
+
+
 
 ### La paléoclimatologie : utiliser les pollens comme témoins de l'évolution du climat
 
@@ -83,6 +105,20 @@ Les données du passé, pour lesquelles on veut faire des prévisions, sont dipo
 
 4. Prédire la température moyenne annuelle pour le siècle BP15 et BP100 (il faudra certainement attendre le prochain cours pour savoir faire cette prévision !)
 
+
+```{r, echo = FALSE, eval = FALSE}
+### chargement des donnees
+present <- read.table("paleo_present.csv", sep = ";", header = TRUE, stringsAsFactors = TRUE)
+### modele complet
+library(FactoMineR)
+mod1 <- LinearModel(tann ~ . , data = present)
+mod1
+### chargement des autres donnees
+passe <- read.table("paleo_passe.csv", sep = ";", header = TRUE, stringsAsFactors = TRUE, row.names = 1)
+## Rmq : deux variables manquent par rapport au tableau precedent
+mod2 <- LinearModel(tann ~. , data = present[,-33])
+predict(mod2, newdata = passe, interval = "prediction")
+```
 ## Le vocabulaire de la séance
 
 ### Commandes R
