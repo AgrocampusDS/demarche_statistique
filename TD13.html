@@ -12,7 +12,7 @@
 <meta name="author" content="UP Mathématiques appliquées" />
 
 
-<title>TD13 : Prendre en compte un effet bloc</title>
+<title>TD13 : Prédiction et interprétation</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -354,7 +354,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">TD13 : Prendre en compte un effet bloc</h1>
+<h1 class="title toc-ignore">TD13 : Prédiction et interprétation</h1>
 <h4 class="author">UP Mathématiques appliquées</h4>
 
 </div>
@@ -409,16 +409,21 @@ $(document).ready(function () {
 </ul>
 </div>
 </div>
-<div id="etude-du-rendement-fromager-régression-linéaire-simple" class="section level3">
-<h3>Etude du rendement fromager : régression linéaire simple</h3>
+<div id="etude-du-rendement-fromager" class="section level3">
+<h3>Etude du rendement fromager</h3>
 <p>Un laboratoire d’analyse souhaite mettre en évidence l’influence de la composition du lait sur le rendement fromager. Pour ce faire, il a mesuré sur un échantillon de n = 85 laits, la densité, le taux butyreux, le taux de protéine, le taux de caséine, l’extrait sec et le rendement fromager de chacun de ces laits.</p>
 <div id="importation-du-jeu-de-données-et-matrice-des-corrélations" class="section level4">
 <h4>Importation du jeu de données et matrice des corrélations</h4>
 <ul>
-<li><p>Charger les données provenant du fichier <code>lait.txt</code>.</p></li>
-<li><p>Calculer les corrélations entre les variables à l’aide de la fonction <code>cor</code>.</p></li>
-<li><p>Construire le modèle permettant de prédire le rendement et sélectionner le sous-modèle adapté.</p></li>
-<li><p>Commenter les estimations des coefficients (rappeler le test effectué pour un coefficient en rappelant les hypothèses, la statistique de test et sa conclusion).</p></li>
+<li>Charger les données provenant du fichier <code>lait.txt</code>.</li>
+<li>Etudier les corrélations en adaptant le code fourni au <a href="https://agrocampusds.github.io/demarche_statistique/TD11.html">TD 11</a>.</li>
+</ul>
+</div>
+<div id="modélisation-et-prédiction" class="section level4">
+<h4>Modélisation et prédiction</h4>
+<ul>
+<li>Construire le modèle permettant de prédire le rendement et sélectionner le sous-modèle adapté.</li>
+<li>Commenter les estimations des coefficients (rappeler le test effectué pour un coefficient en rappelant les hypothèses, la statistique de test et sa conclusion).</li>
 </ul>
 Les mesures sur un nouvel échantillon de lait sont les suivantes :
 <table class=" lightable-classic" style="font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;">
