@@ -283,8 +283,8 @@ La puissance des tests augmente quand (rayer les mentions inutiles) :
 
 Si un 2ème facteur a un effet significatif, il faut (rayer les mentions inutiles) :
 
-+ ne pas mettre ce 2ème facteur dans le modèle modèle,
-+ mettre ce 2ème facteur dans le modèle et interpréter la significativité du test qui lui est associé associé sans regarder le test du 1er facteur
++ ne pas mettre ce 2ème facteur dans le modèle,
++ mettre ce 2ème facteur dans le modèle et interpréter la significativité du test qui lui est associé sans regarder le test du 1er facteur
 + mettre ce 2ème facteur dans le modèle, même si celui-ci n'est pas intéressant à interpréter
   
 ## Le vocabulaire de la séance
