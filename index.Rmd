@@ -201,6 +201,10 @@ C'est prêt.
 
 ### Des ressources 
 
+**Un guide complet en français**
+
+* [R pour la statistique et la science des données](https://r-stat-sc-donnees.github.io/)
+
 **Pour les graphiques**
 
 *  https://www.r-graph-gallery.com/
