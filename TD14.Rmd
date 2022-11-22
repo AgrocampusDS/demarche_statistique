@@ -91,13 +91,13 @@ bebe_dta %>% ggplot() +
 
 Lors d'un test de dégustation sensorielle, on veut comparer plusieurs caractéristiques sensorielles de 10 chocolats noirs.
 Pour cela, un jury d'analyse sensoriel, constitué de 12 juges a évalué chacun des chocolats 2 fois, lors de 2 séances de dégustation.
-On va s'intéresser ici à la variable A.cacao qui correspond à l'arôme de cacao perçue par le juge (0 = par d'arôme cacoo, 10=très fort arôme de cacao).
-Les données sont diponibles dans le [fichier](https://agrocampusds.github.io/demarche_statistique/chocolat_2022.csv). 
+On va s'intéresser ici à la variable `A.cacao` qui correspond à l'arôme de cacao perçue par le juge (0 = par d'arôme cacao, 10=très fort arôme de cacao).
+Les données sont disponibles dans le [fichier](https://agrocampusds.github.io/demarche_statistique/chocolat_2022.csv). 
 
 On veut répondre aux questions suivantes :
-+ y a-t-il des différences d'arôme de cacao d'un produit à l'autre ?
-+ les juges perçoivent-ils les différences entre chocolats de la même façon au niveau de l'arôme de cacao ?
-+ d'une séance à l'autre, la perception des chocolats est-elle la même ?
+* y a-t-il des différences d'arôme de cacao d'un produit à l'autre ?
+* les juges perçoivent-ils les différences entre chocolats de la même façon au niveau de l'arôme de cacao ?
+* d'une séance à l'autre, la perception des chocolats est-elle la même ?
 
 #### Importation et visualisation
 
@@ -110,6 +110,25 @@ On veut répondre aux questions suivantes :
 * Commenter les coefficient.
 
 * Quels chocolats ont des arômes de cacao perçus équivalents ?
+
+```{r, eval = TRUE, echo=FALSE}
+library(FactoMineR)
+## Chargement
+cacao <- read.table("chocolat_2022.csv", header = TRUE, sep = ";", stringsAsFactors = TRUE)
+## Boxplots
+cacao %>% ggplot(aes(x = Juge, y = A.cacao)) + geom_boxplot(aes(col = Session))
+## Graphiques interactions
+cacao %>% 
+  group_by(Juge, Produit) %>% 
+  summarise(A.cacao_groupe = mean(A.cacao)) %>% 
+  ggplot() +
+  aes(x = Juge, y = A.cacao_groupe, color = Produit) +
+  geom_line(aes(group = Produit)) +
+  geom_point()
+## Ajustement modeles et selection suivant AIC et BIC
+modBIC <- LinearModel(data = cacao, A.cacao ~ (Produit + Juge + Session)^2, selection = "BIC")
+modAIC <- LinearModel(data = cacao, A.cacao ~ (Produit + Juge + Session)^2, selection = "AIC")
+```
 
 
 ###  Comparaison de trois types de sondes
@@ -150,7 +169,7 @@ dta %>%
 ```{r comparaison, echo=TRUE, eval = FALSE, results='hide'}
 library(FactoMineR)
 mod <- LinearModel(P205 ~ Sol*Sonde, data=dta)
-compMeans(mod, ~sonde)
+meansComp(mod, ~sonde)
 ```
 
 ## Le vocabulaire de la séance
