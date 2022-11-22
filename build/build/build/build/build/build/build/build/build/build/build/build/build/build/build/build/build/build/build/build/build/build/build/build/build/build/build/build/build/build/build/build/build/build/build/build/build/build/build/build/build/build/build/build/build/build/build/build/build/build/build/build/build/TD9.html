@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="UP Mathématique appliquée" />
+
+
+<title>TD9 : La régression simple et au-delà</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Agrocampus Ouest : démarche statistique</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/AgrocampusDS/demarche_statistique">
+    <span class="fa fa-github"></span>
+     
+    
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">TD9 : La régression simple et au-delà</h1>
+<h4 class="author">UP Mathématique appliquée</h4>
+
+</div>
+
+
+<div id="section" class="section level1 tabset tabset-fade tabset-pills">
+<h1 class="tabset tabset-fade tabset-pills"></h1>
+<div id="objectifs-de-la-séance" class="section level2">
+<h2>Objectifs de la séance</h2>
+<ul>
+<li>Visualisation de données
+<ul>
+<li>Visualiser les relations entre deux variables quantitatives</li>
+</ul></li>
+<li>Analyse de données
+<ul>
+<li>Comprendre le modèle de régression</li>
+<li>Ajuster un modèle de régression et exploiter les résultats qui en découlent</li>
+</ul></li>
+</ul>
+</div>
+<div id="exercices" class="section level2">
+<h2>Exercices</h2>
+<div id="prédiction-du-volume-de-bois-exploitable" class="section level3">
+<h3>Prédiction du volume de bois exploitable</h3>
+<p>Pour évaluer le volume de bois exploitable d’un arbre, il est fréquent d’assimiler le tronc à un cylindre. Dans ce cas, on mesure le diamètre à hauteur de poitrine, noté DBH (Diameter at Breast Height) et en notant <em>H</em> la hauteur du tronc, on évalue le volume <em>V</em> par la formule : <span class="math display">\[V = D^2 H \frac{\pi}{4}. \]</span></p>
+<ul>
+<li>En passant au logarithme, écrire une relation liant le logarithme du diamètre au logarithme de de <em>V/H</em>.</li>
+</ul>
+<p>Des données recueillies sur des pins Douglas sont diponibles dans le jeu de données <a href="douglas.csv">douglas</a></p>
+<ul>
+<li><p>Importer ce jeu de données et ajouter les colonnes suivantes :</p>
+<ul>
+<li><code>ratioVH</code> : le ratio <code>Volume</code> sur <code>Hauteur</code>,</li>
+<li><code>log_ratioVH</code> : le logarithme de <code>ratioVH</code></li>
+<li><code>log_diametre</code> : le logarithme de <code>Diametre</code></li>
+</ul></li>
+<li><p>Proposer un graphique permettant de visualiser la relation potentielle entre <code>log_diametre</code> et <code>log_ratioVH</code>.</p></li>
+<li><p>Mettre en place un test statistique permettant de conclure qu’il existe un lien entre le logarithme du diamètre et le logarithme du ratio Volume sur Hauteur.</p></li>
+<li><p>Si le tronc d’arbre est véritablement un cylindre, quelle serait la valeur du paramètre mesurant l’effet du log du diamètre sur le ratioVH ?</p></li>
+<li><p>Ecrire les hypothèses de test permettant de tester l’égalité du paramètre mesurant l’effet de <code>log_diametre</code> sur <code>log_ratioVH</code> à cette valeur théorique.</p></li>
+<li><p>Mettre ce test en place et conclure.</p></li>
+</ul>
+</div>
+<div id="influence-du-déboisement-sur-la-relation-entre-température-de-leau-et-température-de-lair" class="section level3">
+<h3>Influence du déboisement sur la relation entre température de l’eau et température de l’air</h3>
+<p>On cherche à étudier l’influence du déboisement d’une rivière sur la relation entre la température de l’eau et la température de l’air. On dispose pour cela de mesures conjointes de la température d’eau dans la Flume et de la température de l’air effectuées avant le déboisement et après le déboisement. L’unité expérimentale est une décade et les mesures de températures sont en fait des maxima sur une décade.</p>
+<p>Le jeu de données <a href="deboisement.csv">deboisement.csv</a> contient 56 lignes disponibles correspondant aux 28 décades d’observation avant le déboisement et aux 28 décades d’observation après le déboisement.</p>
+<ul>
+<li><p>La température de l’air est-elle la même avant et après déboisement ? (proposer une visualisation graphique puis un test de compraison entre ces deux périodes)</p></li>
+<li><p>Même question pour la température de l’eau</p></li>
+<li><p>Proposer un graphique illustrant la relation entre température de l’eau et température de l’air et qui permet également de faire apparaître l’information sur la période concernée.</p></li>
+</ul>
+<p>La forme de ce nuage de points suggère que les variations de la température de l’eau sont proportionnelles aux variations de la température de l’air. Dans la suite, le coefficient de proportionnalité est appelé coefficient de <em>transfert</em> de chaleur entre l’air et l’eau.</p>
+<ul>
+<li>En vous appuyant sur le graphiqué précédent, proposer un modèle du lien entre la température de l’eau et la température de l’air permettant de tester un effet du déboisement sur le coefficient de transfert. Vous donnerez explicitement :
+<ul>
+<li>la variable à expliquer,</li>
+<li>les variables explicatives,</li>
+<li>les paramètres capturant les différents effets.</li>
+</ul></li>
+<li>Montrer que le test de l’égalité des coefficients de transfert avant et apprès le déboisement peut être vu comme un test de comparaison de deux modèles emboîtés.</li>
+</ul>
+<p>Les lignes de code ci-dessous permettent d’ajuster un modèle dans lequel on impose l’égalité du coefficient de transfert</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>M12 <span class="ot">&lt;-</span> <span class="fu">lm</span>(EAU <span class="sc">~</span>AIR <span class="sc">+</span> DEBOIST , <span class="at">data =</span> temp_eau_air)</span></code></pre></div>
+<ul>
+<li>Ajuster le modèle complet et comparer ces deux modèles à l’aide de la fonction <code>anova</code>, puis conclure sur l’égalité des coefficients de transfert.</li>
+</ul>
+</div>
+</div>
+<div id="le-vocabulaire-de-la-séance" class="section level2">
+<h2>Le vocabulaire de la séance</h2>
+<div id="commandes-r" class="section level3">
+<h3>Commandes R</h3>
+<ul>
+<li>anova</li>
+<li>geom_smooth</li>
+</ul>
+</div>
+<div id="environnement-r" class="section level3">
+<h3>Environnement R</h3>
+</div>
+<div id="statistique" class="section level3">
+<h3>Statistique</h3>
+<ul>
+<li>Analyse de la variance</li>
+<li>Comparaison de droites de régression (Ancova)</li>
+<li>Regression</li>
+<li>Test d’égalité d’un coefficient à une valeur</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

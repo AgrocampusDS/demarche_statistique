@@ -415,8 +415,8 @@ $(document).ready(function () {
 </div>
 <div id="une-petite-dégustation-de-chocolats" class="section level3">
 <h3>Une petite dégustation de chocolats</h3>
-<p>Lors d’un test de dégustation sensorielle, on veut comparer plusieurs caractéristiques sensorielles de 10 chocolats noirs. Pour cela, un jury d’analyse sensoriel, constitué de 12 juges a évalué chacun des chocolats 2 fois, lors de 2 séances de dégustation. On va s’intéresser ici à la variable A.cacao qui correspond à l’arôme de cacao perçue par le juge (0 = par d’arôme cacoo, 10=très fort arôme de cacao). Les données sont diponibles dans le <a href="https://agrocampusds.github.io/demarche_statistique/chocolat_2022.csv">fichier</a>.</p>
-<p>On veut répondre aux questions suivantes : + y a-t-il des différences d’arôme de cacao d’un produit à l’autre ? + les juges perçoivent-ils les différences entre chocolats de la même façon au niveau de l’arôme de cacao ? + d’une séance à l’autre, la perception des chocolats est-elle la même ?</p>
+<p>Lors d’un test de dégustation sensorielle, on veut comparer plusieurs caractéristiques sensorielles de 10 chocolats noirs. Pour cela, un jury d’analyse sensoriel, constitué de 12 juges a évalué chacun des chocolats 2 fois, lors de 2 séances de dégustation. On va s’intéresser ici à la variable <code>A.cacao</code> qui correspond à l’arôme de cacao perçue par le juge (0 = par d’arôme cacao, 10=très fort arôme de cacao). Les données sont disponibles dans le <a href="https://agrocampusds.github.io/demarche_statistique/chocolat_2022.csv">fichier</a>.</p>
+<p>On veut répondre aux questions suivantes : * y a-t-il des différences d’arôme de cacao d’un produit à l’autre ? * les juges perçoivent-ils les différences entre chocolats de la même façon au niveau de l’arôme de cacao ? * d’une séance à l’autre, la perception des chocolats est-elle la même ?</p>
 <div id="importation-et-visualisation" class="section level4">
 <h4>Importation et visualisation</h4>
 <ul>
@@ -452,7 +452,7 @@ $(document).ready(function () {
 </ul>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FactoMineR)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">LinearModel</span>(P205 <span class="sc">~</span> Sol<span class="sc">*</span>Sonde, <span class="at">data=</span>dta)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">compMeans</span>(mod, <span class="sc">~</span>sonde)</span></code></pre></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">meansComp</span>(mod, <span class="sc">~</span>sonde)</span></code></pre></div>
 </div>
 </div>
 </div>

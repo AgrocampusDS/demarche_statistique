@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="UP Mathématique appliquée" />
+
+
+<title>TD10 : Comparaison de droites de régression</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Agrocampus Ouest : démarche statistique</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/AgrocampusDS/demarche_statistique">
+    <span class="fa fa-github"></span>
+     
+    
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">TD10 : Comparaison de droites de régression</h1>
+<h4 class="author">UP Mathématique appliquée</h4>
+
+</div>
+
+
+<div id="section" class="section level1 tabset tabset-fade tabset-pills">
+<h1 class="tabset tabset-fade tabset-pills"></h1>
+<div id="objectifs-de-la-séance" class="section level2">
+<h2>Objectifs de la séance</h2>
+<ul>
+<li>Visualisation de données
+<ul>
+<li>Visualiser les relations entre deux variables (quantitative ou qualitative)</li>
+</ul></li>
+<li>Analyse de données
+<ul>
+<li>Ajuster un modèle d’analyse de la variance et exploiter les résultats qui en découlent</li>
+<li>Ajuster un modèle de régresssion et examiner les résultats qui en découlent</li>
+<li>Comparer des droites de régression (modèle d’analyse de la covariance)</li>
+</ul></li>
+</ul>
+</div>
+<div id="exercices" class="section level2">
+<h2>Exercices</h2>
+<p class="care">
+Prédiction du taux de glucose d’un abricot par colorimétrie
+</p>
+<p>Une des difficultés que rencontrent les producteurs d’abricots est la détermination du stade de maturité du fruit, information utile pour choisir le moment opportun de la récolte. Un abricot cueilli à maturité a un taux de glucose élevé. La colorimétrie est parfois identifiée comme un bon marqueur de la maturité. Il est en effet possible de mesurer précisément la couleur d’un fruit selon trois dimensions correspondant à trois composantes numériques :</p>
+<ul>
+<li>L, la clarté, qui va de 0 (noir) à 100 (blanc),</li>
+<li>a, sur un axe vert (-) - rouge (+),</li>
+<li>b, sur un axe bleu (-) - jaune (+).</li>
+</ul>
+<div id="lien-entre-colorimétrie-et-maturité-de-labricot" class="section level3">
+<h3>Lien entre colorimétrie et maturité de l’abricot</h3>
+<p>Dans un premier temps, on souhaite vérifier le lien entre colorimétrie et maturité d’un abricot à partir de données expérimentales sur 108 abricots d’une même variété, répartis selon 3 stades de maturité (1, 2 ou 3 du moins mûr au plus mûr). Les données sont disponibles dans le fichier <a href="abricotsSG.txt">abricots</a></p>
+<ul>
+<li><p>Importer le jeu de données dans un objet nommé <code>abricots</code> et indiquer le nombre d’abricots dans chaque stade.</p></li>
+<li><p>Construire un graphique illsutrant le lien entre la maturité d’un abricot et son indice colorimétrique a.</p></li>
+<li><p>Construire un test d’égalité des indices <code>a</code> moyens des abricots aux différents stades de maturité.</p></li>
+<li><p>L’indice <code>a</code> est-il un bon candidat pour évaluer la maturité d’un abricot ?</p></li>
+</ul>
+</div>
+<div id="etude-du-lien-entre-lindice-colorimétrique-a-et-le-taux-de-glucose" class="section level3">
+<h3>Etude du lien entre l’indice colorimétrique a et le taux de glucose</h3>
+<p>Un des indicateurs de la qualité de l’abricot est son taux de glucose. On cherche maintenant à savoir comment le taux de glocose dépend du marqueur indirect de la maturité qu’est l’indice colorimétrique a.</p>
+<ul>
+<li><p>Construire un graphique décrivant la relation entre le taux de glucose et l’indice <code>a</code>.</p></li>
+<li><p>Proposer un modèle du lien entre le taux de glucose et l’indice <code>a</code> d’un abricot.</p></li>
+<li><p>A l’aide de ce modèle, donner un <strong>intervalle de confiance</strong> de niveau 95% du <strong>taux de glucose moyen</strong> d’un abricot dont l’indice colorimétrique <code>a</code> est égal à 5.</p></li>
+<li><p>A l’aide de ce modèle, donnez un <strong>intervalle de prédiction</strong> de niveau 95% pour <strong>le taux de glucose</strong> d’un abricot dont l’indice colorimétrique ‘a’ est égal à 5.</p></li>
+</ul>
+<p>La différence entre intervalle de confiance pour la valeur moyenne et intervalle de prédiction peut-être représentée graphiquement sous la forme suivante :</p>
+<div class="figure">
+<img src="TD10_files/figure-html/facultatif-1.png" alt="La ligne bleue indique le taux de Glucose moyen prédit par le modèle en fonction de l'indice a, la zone grisée représente l'intervalle de confiance pour ce taux moyen tandis que les deux lignes pointillées rouges délimitent le taux de Glucose prédit pour un abricot selon son indice a" width="672" />
+<p class="caption">
+La ligne bleue indique le taux de Glucose moyen prédit par le modèle en fonction de l’indice a, la zone grisée représente l’intervalle de confiance pour ce taux moyen tandis que les deux lignes pointillées rouges délimitent le taux de Glucose prédit pour un abricot selon son indice a
+</p>
+</div>
+<ul>
+<li><p>Montrer graphiquement qu’en moyenne la prédiction du taux de glucose d’un abricot par le modèle ci-dessus sur-estime le taux de glucose pour les abricots au stade de maturité 2 et au contraire, le sous-estime pour les abricots au stade de maturité 3.</p></li>
+<li><p>Proposer une extension du modèle ci-dessus visant à corriger le problème de <em>biais de prédiction</em> mis en avant dans la question précédente.</p></li>
+<li><p>La relation liant l’indice a et le taux de Glucose est-elle la même à tous les stades de Maturité ?</p></li>
+<li><p>Au vu des résultats précédents, choisir un modèle pour prédire au mieux le taux de glucose d’un abricot.</p></li>
+<li><p>Donner un intervalle de confiance de niveau 95 % de la valeur prédite du taux de glucose pour un abricot dont l’indice colorimétrique ‘a’ est égal à 5 et dont le stade de maturité est ‘2’ et pour un abricot de stade de maturité ‘3’.</p></li>
+</ul>
+</div>
+</div>
+<div id="le-vocabulaire-de-la-séance" class="section level2">
+<h2>Le vocabulaire de la séance</h2>
+<div id="commandes-r" class="section level3">
+<h3>Commandes R</h3>
+<ul>
+<li>anova</li>
+<li>Anova (package car)</li>
+<li>predict</li>
+<li>geom_smooth</li>
+</ul>
+</div>
+<div id="environnement-r" class="section level3">
+<h3>Environnement R</h3>
+</div>
+<div id="statistique" class="section level3">
+<h3>Statistique</h3>
+<ul>
+<li>Analyse de la variance</li>
+<li>Comparaison de droites de régression (Ancova)</li>
+<li>Regression</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

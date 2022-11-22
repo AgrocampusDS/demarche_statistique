@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="UP Mathématique appliquée" />
+
+
+<title>TD15 : Analyse en composantes principales</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Agrocampus Ouest : démarche statistique</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/AgrocampusDS/demarche_statistique">
+    <span class="fa fa-github"></span>
+     
+    
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">TD15 : Analyse en composantes principales</h1>
+<h4 class="author">UP Mathématique appliquée</h4>
+
+</div>
+
+
+<div id="section" class="section level1 tabset tabset-fade tabset-pills">
+<h1 class="tabset tabset-fade tabset-pills"></h1>
+<div id="objectifs-de-la-séance" class="section level2">
+<h2>Objectifs de la séance</h2>
+<ul>
+<li>Comprendre la notion de projection des variables sur un plan.</li>
+<li>Utiliser Factoshiny pour effectuer une ACP.</li>
+<li>Interpréter un cercle des corrélations.</li>
+<li>Interpréter les premiers plans de l’ACP à l’aide du cercle des corrélations et nuage des individus projetés.</li>
+</ul>
+</div>
+<div id="exercices" class="section level2">
+<h2>Exercices</h2>
+<div id="description-du-cercle-des-corrélations" class="section level3">
+<h3>Description du cercle des corrélations</h3>
+<p>La figure ci-dessous représente la projection de 5 variables sur le plan principal d’une ACP.</p>
+<ul>
+<li>Que peut-on dire des corrélations entre les variables A-B, B-C, B-D et C-E ?</li>
+</ul>
+<p><img src="plan_acp.png" style="width:50.0%" /></p>
+<ul>
+<li>Quel est, approximativement, le pourcentage d’inertie associé au premier plan ?</li>
+</ul>
+</div>
+<div id="analyse-de-performances-en-décathlon" class="section level3">
+<h3>Analyse de performances en décathlon</h3>
+<p>Les épreuves du décathlon couronnent des athlètes complets. Toutefois, chaque athlète possède ses points forts et ses points faibles. C’est à cette variabilité que nous nous intéressons ici. Pour cela, on a regroupé les résultats de 4 décathlons : les Jeux Olympiques d’Athènes en 2004, ceux de Rio en 2016, les championnats d’Europe 2018 et le decastar de Talence en 2018.</p>
+<p>On dispose, pour chaque athlète, de ses performances à chacune des 10 épreuves, de son nombre de points (à chaque épreuve, un athlète gagne des points en fonction de sa performance) et de son classement final.</p>
+<p>Les épreuves se déroulent dans l’ordre suivant : 100m, longueur,poids, hauteur, 400m le premier jour et 110m haies, disque, perche, javelot, 1500m le deuxième jour.</p>
+<p>Nous avons conservé les 20 meilleurs athlètes pour chacun des décathlons dans le fichier suivant <code>decathlon.csv</code>.</p>
+<p>Pour importer les données, utiliser les arguments <code>row.names=1</code> et <code>check.names=FALSE</code> .</p>
+<pre><code>## Rows: 40
+## Columns: 13
+## $ X100m       &lt;dbl&gt; 10.85, 10.44, 10.50, 10.89, 10.62, 10.91, 10.97, 10.80, 10…
+## $ Longueur    &lt;dbl&gt; 7.84, 7.96, 7.81, 7.47, 7.74, 7.14, 7.19, 7.53, 7.48, 7.49…
+## $ Poids       &lt;dbl&gt; 16.36, 15.23, 15.93, 15.73, 14.48, 15.31, 14.65, 14.26, 14…
+## $ Hauteur     &lt;dbl&gt; 2.12, 2.06, 2.09, 2.15, 1.97, 2.12, 2.03, 1.88, 2.12, 1.94…
+## $ X400m       &lt;dbl&gt; 48.36, 49.19, 46.81, 48.97, 47.97, 49.40, 48.73, 48.81, 49…
+## $ X110m.haies &lt;dbl&gt; 14.05, 14.13, 13.97, 14.56, 14.01, 14.95, 14.25, 14.80, 14…
+## $ Disque      &lt;dbl&gt; 48.72, 50.11, 51.65, 48.34, 43.73, 45.62, 44.72, 42.05, 44…
+## $ Perche      &lt;dbl&gt; 5.0, 4.9, 4.6, 4.4, 4.9, 4.7, 4.8, 5.4, 4.4, 5.1, 5.2, 5.4…
+## $ Javelot     &lt;dbl&gt; 70.52, 69.71, 55.54, 58.46, 55.39, 63.45, 57.76, 61.33, 55…
+## $ X1500m      &lt;dbl&gt; 280.01, 282.00, 278.11, 265.42, 278.05, 269.54, 264.35, 27…
+## $ Rang        &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, …
+## $ Points      &lt;int&gt; 8893, 8820, 8725, 8414, 8343, 8287, 8237, 8235, 8225, 8102…
+## $ Competition &lt;fct&gt; JO04, JO04, JO04, JO04, JO04, JO04, JO04, JO04, JO04, JO04…</code></pre>
+<div id="une-première-impression-sur-les-données" class="section level4">
+<h4>Une première impression sur les données</h4>
+<ul>
+<li><p>Décrire les données (variables ? individus ?) et préciser les objectifs d’une ACP effectuée sur ces données.</p></li>
+<li><p>Que pouvez-vous dire à partir des données centrées-réduites (utiliser la fonction <code>scale</code> ) ? Pourquoi est-ce important dans cet exemple de centrer et réduire les données</p></li>
+<li><p>Calculer la matrice des corrélations (avec la fonction <code>cor</code> et <code>round</code> pour arrondir les résultats).</p></li>
+</ul>
+<pre><code>##             X100m Longueur Poids Hauteur X400m X110m.haies Disque Perche
+## X100m        1.00    -0.71 -0.29   -0.20  0.59        0.63  -0.23  -0.17
+## Longueur    -0.71     1.00  0.25    0.33 -0.64       -0.53   0.26   0.26
+## Poids       -0.29     0.25  1.00    0.11 -0.36       -0.49   0.62  -0.09
+## Hauteur     -0.20     0.33  0.11    1.00 -0.17       -0.25   0.41  -0.06
+## X400m        0.59    -0.64 -0.36   -0.17  1.00        0.66  -0.23  -0.06
+## X110m.haies  0.63    -0.53 -0.49   -0.25  0.66        1.00  -0.50  -0.11
+## Disque      -0.23     0.26  0.62    0.41 -0.23       -0.50   1.00   0.08
+## Perche      -0.17     0.26 -0.09   -0.06 -0.06       -0.11   0.08   1.00
+## Javelot     -0.05     0.12  0.42    0.26 -0.22       -0.31   0.44   0.19
+## X1500m       0.02    -0.12 -0.13   -0.11  0.51        0.32  -0.06   0.11
+##             Javelot X1500m
+## X100m         -0.05   0.02
+## Longueur       0.12  -0.12
+## Poids          0.42  -0.13
+## Hauteur        0.26  -0.11
+## X400m         -0.22   0.51
+## X110m.haies   -0.31   0.32
+## Disque         0.44  -0.06
+## Perche         0.19   0.11
+## Javelot        1.00  -0.38
+## X1500m        -0.38   1.00</code></pre>
+</div>
+<div id="mettre-en-oeuvre-une-acp" class="section level4">
+<h4>Mettre en oeuvre une ACP</h4>
+<p>Utiliser le package ensuite la fonction <code>Factoshiny</code> du package <code>Factoshiny</code> pour mettre en oeuvre une Analyse en Composantes Principales de ce tableau de données.</p>
+<ul>
+<li>Quelles variables doit-on utiliser pour construire l’ACP ? Ces variables sont appelées variables actives. Mettre les autres variables en illustratif.</li>
+</ul>
+</div>
+<div id="interprétation-à-laide-du-premier-plan-de-lacp" class="section level4">
+<h4>Interprétation à l’aide du premier plan de l’ACP</h4>
+<ul>
+<li><p>Commenter les pourcentages d’inertie expliquée par le premier axe de l’ACP, par le plan principal. Selon quel point de vue est-il préférable que les 2 premiers axes n’expliquent pas trop l’inertie totale ?</p></li>
+<li><p>Quels sont les 5 athlètes les mieux représentés sur le plan principal ?</p></li>
+<li><p>Quels sont les athlètes qui contribuent le plus à la construction de la 1ère dimension de l’ACP ? Et à la 2ème ? Que signifie une contribution importante ?</p></li>
+<li><p>À partir du cercle des corrélations, que pouvez-vous dire concernant les corrélations suivantes :</p>
+<ul>
+<li>100 m haies - 400 m</li>
+<li>100 m - Longueur</li>
+<li>Disque - Poids</li>
+<li>Disque - Longueur</li>
+<li>Perche - 1500 m</li>
+</ul></li>
+<li><p>Comparer les profils de MAYER et LELIEVRE. Puis ceux de Kaul et Duckworth. Que pouvez-vous dire sur la proximité entre Karpov et Clay ? Et celle entre Ziemek et Bernard ?</p></li>
+<li><p>Interpréter les facteurs principaux de l’ACP (à l’aide du graphe des individus et du graphe des variables actives et illustratives).</p></li>
+</ul>
+</div>
+<div id="au-delà-des-deux-premières-dimensions" class="section level4">
+<h4>Au delà des deux premières dimensions</h4>
+<ul>
+<li>A partir des 4 variables les mieux projetées sur l’axe 3, comparer les profils des athlètes qui sont opposés sur cet axe.</li>
+</ul>
+</div>
+<div id="pour-finir" class="section level4">
+<h4>Pour finir</h4>
+<ul>
+<li><p>Dans quelles épreuves les vainqueurs des décathlons excellent-ils ? Certaines épreuves influent-elles peu la performance (le nombre de points) au décathlon ?</p></li>
+<li><p>Comparer les performances réalisées aux quatre compétitions. Que pouvez-vous dire sur la performance moyenne lors de cette compétition ?</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="le-vocabulaire-de-la-séance" class="section level2">
+<h2>Le vocabulaire de la séance</h2>
+<div id="commandes-r" class="section level3">
+<h3>Commandes R</h3>
+<ul>
+<li>cor</li>
+<li>round</li>
+<li>Factoshiny</li>
+</ul>
+</div>
+<div id="environnement-r" class="section level3">
+<h3>Environnement R</h3>
+<ul>
+<li>Factoshiny</li>
+</ul>
+</div>
+<div id="statistique" class="section level3">
+<h3>Statistique</h3>
+<ul>
+<li>ACP</li>
+<li>Inertie</li>
+<li>Axe et plan principal</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

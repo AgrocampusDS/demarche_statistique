@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="UP Mathématiques appliquées" />
+
+
+<title>TD2 : Charger, manipuler et visualiser des données dans R</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Agrocampus Ouest : démarche statistique</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/AgrocampusDS/demarche_statistique">
+    <span class="fa fa-github"></span>
+     
+    
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">TD2 : Charger, manipuler et visualiser des données dans R</h1>
+<h4 class="author">UP Mathématiques appliquées</h4>
+
+</div>
+
+
+<div id="section" class="section level1 tabset tabset-fade tabset-pills">
+<h1 class="tabset tabset-fade tabset-pills"></h1>
+<div id="objectifs-de-la-séance" class="section level2">
+<h2>Objectifs de la séance</h2>
+<ul>
+<li>Manipulation de données
+<ul>
+<li>Sélectionner une partie du jeu de données :
+<ul>
+<li>sélectionner des variables (colonnes),</li>
+<li>sélectionner des individus (lignes),</li>
+<li>utiliser un critère de sélection.</li>
+</ul></li>
+</ul></li>
+<li>Visualisation de données
+<ul>
+<li>Représentation du lien entre une variable quantitative et une variable qualitative</li>
+<li>Représentation du lien entre deux variables quantitatives</li>
+<li>contrôle de la transparence et des couleurs</li>
+<li>personnalisation des graphiques</li>
+</ul></li>
+<li>Analyse de données</li>
+</ul>
+</div>
+<div id="exercices" class="section level2">
+<h2>Exercices</h2>
+<div id="retour-sur-la-séance-de-td-1-de-lintérêt-de-créer-un-projet" class="section level3">
+<h3>Retour sur la séance de TD 1 : de l’intérêt de créer un projet</h3>
+<p>Au cours de la dernière séance, vous avez créé un projet dans Rstudio et enregistré un script R qui permet notamment d’importer des données. Le TD d’aujourd’hui s’inscrit dans la continuité du précédent et propose de poursuivre la découverte du jeu de données des manchots de Palmer.</p>
+<p>Aller dans le répertoire <code>ds_TD</code> et cliquer sur l’icone associé au projet créé lors de la dernière séance. Rstudio s’ouvre et reprend apparemment la session là où elle s’était arrêtée :</p>
+<ul>
+<li>la fenêtre Environment, en haut à droite, indique que l’objet penguins a été sauvegardé,</li>
+<li>la fenêtre Files, en bas à droite, indique que le script R <code>TD1_script.R</code> a été sauvegardé.</li>
+</ul>
+<p>Ouvrir le script de la dernière séance et l’enregistrer sous le nom <code>TD2_script.R</code>. La fenêtre Files liste maintenant deux fichiers <code>R</code> dans votre répertoire <code>ds_TD</code>, un pour chacune des séances de TD, le script de la deuxième séance incluant les lignes de commande de celui de la première.</p>
+<p>Cliquer sur la fenêtre Packages.</p>
+<ul>
+<li>Que constatez-vous ?</li>
+</ul>
+<p>Rstudio n’a chargé aucun package à l’ouverture du projet et il faut les charger via la fonction <code>library</code> (vue en TD1) dont l’argument principal est le nom du package souhaité.</p>
+<ul>
+<li>Exécuter à nouveau la ligne qui charge le package <code>tidyverse</code>. Dans l’onglet Packages, la ligne portant sur tidyverse est maintenant cochée.</li>
+</ul>
+<p>Le <code>tidyverse</code> est en fait un ensemble de packages, contenant entre autres</p>
+<ul>
+<li>le package <code>dplyr</code> dédié à la manipulation de données,</li>
+<li>le package <code>ggplot2</code> dédié à la visualisation de données.</li>
+</ul>
+</div>
+<div id="manipulation-de-données-dans-r" class="section level3">
+<h3>Manipulation de données dans R</h3>
+<div id="sélectionner-des-variables-opérations-sur-des-colonnes" class="section level4">
+<h4>Sélectionner des variables (opérations sur des colonnes)</h4>
+<p>La fonction <code>select</code> du package <code>dplyr</code> permet de sélectionner des variables (des colonnes) d’un jeu de données.</p>
+<ul>
+<li><p>Quels arguments faut-il renseigner pour sélectionner la seule variable <code>Espece</code> ?</p></li>
+<li><p>Sélectionner cette variable puis l’afficher.</p></li>
+<li><p>Sélectionner cette variable et la stocker dans un objet nommé <code>dta</code>.</p></li>
+<li><p>Que fait la commande suivante ?</p></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(penguins,  <span class="sc">-</span>poids)</span></code></pre></div>
+<p>Cette opération peut se comprendre de la façon suivante : à partir du jeu de données penguins, on retire la variable <code>poids</code>. Ceci peut s’écrire à l’aide d’un opérateur appelé pipe et noté <code>%&gt;%</code> (raccourci CTRL + Shift + m ), de la façon suivante :</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>poids)</span></code></pre></div>
+<p>L’opérateur pipe permet d’enchaîner les commandes et préserve la lisibilité.</p>
+<ul>
+<li>Que fait la suite de commandes suivante ?</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>poids) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>ile) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>espece)</span></code></pre></div>
+<ul>
+<li>Créer un nouveau jeu de données à partir du jeu de données penguins, en supprimant la variable <code>poids</code>.</li>
+</ul>
+<p>Il est possible de sauvegarder ce jeu de données simplifié dans l’objet penguins lui-même, c’est ce qu’illustre la ligne de commande suivante :</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> <span class="fu">select</span>( <span class="sc">-</span>poids)</span></code></pre></div>
+</div>
+<div id="sélectionner-des-individus-opérations-sur-les-lignes" class="section level4">
+<h4>Sélectionner des individus (opérations sur les lignes)</h4>
+<ul>
+<li>Consulter l’aide de la fonction <code>filter</code></li>
+<li>Sélectionner les individus pour lesquels la longueur de bec dépasse 35mm</li>
+</ul>
+<p>De façon formelle, vous venez d’utiliser l’opérateur logique <code>&gt;</code>. Les opérateurs logiques permettent notamment d’exprimer des conditions. Les plus importants sont, in english :</p>
+<ul>
+<li><code>&lt;</code> less than</li>
+<li><code>&lt;=</code> less than or equal to</li>
+<li><code>&gt;</code> greater than</li>
+<li><code>&gt;=</code> greater than or equal to</li>
+<li><code>==</code> exactly equal to</li>
+<li><code>!=</code> not equal to</li>
+<li><code>!x</code> Not x</li>
+<li><code>x | y</code> x OR y</li>
+<li><code>x &amp; y</code> x AND y</li>
+</ul>
+<p>Remarque : pour transformer vos variables, vous utiliserez des opérateurs arithmétiques tels que <code>+</code>, pour additionner deux variables par exemple.</p>
+<ul>
+<li>Dans le jeu de données penguins, le sexe de certains individus n’est pas renseigné (on parle de données manquantes - Not Available en anglais). On peut identifier ces individus grâce à la commande</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">is.na</span>(sexe))</span></code></pre></div>
+<ul>
+<li>A l’aide de l’opérateur <code>!x</code>, garder uniquement les individus pour lesquels le sexe est renseigné</li>
+</ul>
+</div>
+<div id="combiner-les-sélections-dindividus-et-de-variables" class="section level4">
+<h4>Combiner les sélections d’individus et de variables</h4>
+<ul>
+<li>Combiner plusieurs conditions : à partir du jeu de données penguins, garder les individus pour lesquels le sexe est renseigné, conserver les variables longueur du bec, longueur des nageoires et sexe, stocker votre sélection dans un objet que vous appellerez manchots.</li>
+</ul>
+</div>
+</div>
+<div id="visualisation-de-données" class="section level3">
+<h3>Visualisation de données</h3>
+<p>Grâce au jeu de données <code>manchots</code>, il est possible de comparer les longueurs de bec chez les mâles et les femelles.</p>
+<div id="comparer-des-distributions-à-laide-dhistogramme" class="section level4">
+<h4>Comparer des distributions à l’aide d’histogramme</h4>
+<ul>
+<li>Proposer un graphique pour visualiser la distribution des longueurs de bec, sans prendre en compte le sexe</li>
+</ul>
+<p>Pour différencier les distributions des longueurs de bec selon le sexe, il est nécessaire d’ajouter une information sur le sexe sur le graphique créé précédemment, comme proposé dans la commande suivante :</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>manchots <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>longueur_bec, <span class="at">fill =</span> sexe))</span></code></pre></div>
+<ul>
+<li>Discuter du choix par défaut pour représenter la variable sexe</li>
+</ul>
+<p>Pour obtenir un histogramme par sexe, il faut modifier le comportement par défaut et indiquer que l’on veut deux histogrammes différents et non pas superposer dans chaque classe le nombre de mâles et de femelles. Il faut modifier l’argument <code>position</code> par défaut.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>manchots <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>longueur_bec, <span class="at">fill =</span> sexe), <span class="at">position =</span> <span class="st">&#39;identity&#39;</span>)</span></code></pre></div>
+<p>Enfin pour bien visualiser les différents histogrammes, il est possible de jouer sur la transparence.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>manchots <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>longueur_bec, <span class="at">fill =</span> sexe), <span class="at">position =</span> <span class="st">&#39;identity&#39;</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>)</span></code></pre></div>
+<ul>
+<li>(En option) Refaire ce même graphique en représentant les densités par classes.</li>
+</ul>
+</div>
+<div id="comparer-des-distributions-à-laide-de-boîtes-à-moustaches" class="section level4">
+<h4>Comparer des distributions à l’aide de boîtes à moustaches</h4>
+<p>Il est difficile, à l’oeil, de comparer des histogrammes : les boîtes à moustaches sont plus adaptées pour comparer l’effet du sexe sur la distribution des longueurs de bec.</p>
+<ul>
+<li>Rappeler la nature des variables <code>sexe</code> et <code>longueur_bec</code>.</li>
+</ul>
+<p>Les boîtes à moustaches sont une représentation adaptée à la visualisation de l’effet d’une variable qualitative sur une variable quantitative, elles sont obtenues dans <code>R</code> grâce à la fonction graphique <code>geom_boxplot</code>. Il faut spécifier que l’abscisse est la variable qualitative et l’ordonnée la variable quantitative.</p>
+<ul>
+<li>Représenter à l’aide de boîtes à moustaches les distributions des longueurs de bec en fonction du sexe.</li>
+</ul>
+<p>Ce graphique par défaut est largement personnalisable (cf fin du TD)</p>
+</div>
+<div id="visualiser-le-lien-entre-taille-du-bec-et-longueur-des-nageoires" class="section level4">
+<h4>Visualiser le lien entre taille du bec et longueur des nageoires</h4>
+<ul>
+<li><p>Rappeler la nature des variables longueur du bec et longueur des nageoires. Quelle sorte de graphique semble le plus adpatée ?</p></li>
+<li><p>Utiliser la fonction graphique <code>geom_point</code> en précisant bien les abscisses et les ordonnées pour obtenir une visulaisation du lien entre la longueur des nageoires sur la longueur du bec.</p></li>
+<li><p>Utiliser la couleur pour différencier les mâles des femelles.</p></li>
+<li><p>Ajouter un titre au graphique précédent</p></li>
+</ul>
+</div>
+<div id="personnalisation-des-graphiques" class="section level4">
+<h4>Personnalisation des graphiques</h4>
+<p>Il est possible de modifier l’intitulé par défaut des axes grâce à la fonction <code>labs</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>manchots <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sexe, <span class="at">y =</span> longueur_bec))  <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span><span class="st">&#39;Sexe&#39;</span>, <span class="at">y =</span> <span class="st">&#39;Longueur du bec (mm)&#39;</span> )</span></code></pre></div>
+<p>Il est également possible de représenter les données elles-mêmes. On peut utiliser la commande <code>geom_point</code> qui va dessiner un point aux abscisses et ordonnées spécifiées.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>manchots <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sexe, <span class="at">y =</span> longueur_bec))  <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span><span class="st">&#39;Sexe&#39;</span>, <span class="at">y =</span> <span class="st">&#39;Longueur du bec (mm)&#39;</span> ) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> sexe, <span class="at">y =</span> longueur_bec))  </span></code></pre></div>
+<p>Le résultat n’est pas très satisfaisant, car tous les points ayant la même abscisse, il est difficile de les différencier. Il est possible de perturber légèrement l’abscisse de manière à mieux distinguer les différentes mesures.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>manchots <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sexe, <span class="at">y =</span> longueur_bec))  <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span><span class="st">&#39;Sexe&#39;</span>, <span class="at">y =</span> <span class="st">&#39;Longueur du bec (mm)&#39;</span> ) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">x =</span> sexe, <span class="at">y =</span> longueur_bec))  </span></code></pre></div>
+<p>Finalement pour avoir un très joli graphique, il est possible de</p>
+<ul>
+<li>limiter la perturbation de l’abscisse,</li>
+<li>dessiner des points plus petits,</li>
+<li>les rendre légèrement transparents.</li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>manchots <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sexe, <span class="at">y =</span> longueur_bec))  <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span><span class="st">&#39;Sexe&#39;</span>, <span class="at">y =</span> <span class="st">&#39;Longueur du bec (mm)&#39;</span> ) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">x =</span> sexe, <span class="at">y =</span> longueur_bec), <span class="at">width =</span> <span class="fl">0.3</span>, <span class="at">size=</span><span class="fl">0.4</span>, <span class="at">alpha=</span><span class="fl">0.8</span>)  </span></code></pre></div>
+<p>Utiliser la couleur comme cerise sur le gâteau.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>manchots <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sexe, <span class="at">y =</span> longueur_bec, <span class="at">fill =</span> sexe), <span class="at">alpha =</span> <span class="fl">0.2</span>)  <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span><span class="st">&#39;Sexe&#39;</span>, <span class="at">y =</span> <span class="st">&#39;Longueur du bec (mm)&#39;</span> ) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">x =</span> sexe, <span class="at">y =</span> longueur_bec, <span class="at">col =</span> sexe), <span class="at">width =</span> <span class="fl">0.3</span>, <span class="at">size=</span><span class="fl">0.4</span>, <span class="at">alpha=</span><span class="fl">0.8</span>)  <span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&#39;Sexe&#39;</span>, <span class="at">col =</span> <span class="st">&#39;Sexe&#39;</span>)</span></code></pre></div>
+<p>Reprendre les graphiques qui visualisent l’effet de la longueur des nageoires sur la longueur du bec.</p>
+<ul>
+<li>La relation liant les deux variables s’apparente-t-elle à une droite ?</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>manchots <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> longueur_nageoire, <span class="at">y =</span> longueur_bec)) <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&#39;Longueur des nageoires (mm)&#39;</span>) <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Longueur du bec (mm)&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&#39;lm&#39;</span>, <span class="fu">aes</span>(<span class="at">x =</span> longueur_nageoire , </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> longueur_bec))</span></code></pre></div>
+<ul>
+<li>Cette relation est-elle la même pour les mâles et les femelles ?</li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>manchots <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> longueur_nageoire, <span class="at">y =</span> longueur_bec, <span class="at">col =</span> sexe)) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&#39;Longueur des nageoires (mm)&#39;</span>) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Longueur du bec (mm)&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&#39;lm&#39;</span>, <span class="fu">aes</span>(<span class="at">x =</span> longueur_nageoire , </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> longueur_bec, <span class="at">col =</span> sexe))</span></code></pre></div>
+<p>La fonction <code>aes</code> étant utilisé 2 fois de façon équivalente, il est possible de factoriser la fonction <code>aes</code></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>manchots <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> longueur_nageoire, <span class="at">y =</span> longueur_bec, <span class="at">col =</span> sexe) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&#39;Longueur des nageoires (mm)&#39;</span>) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Longueur du bec (mm)&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&#39;lm&#39;</span>)</span></code></pre></div>
+<p><img src="TD2_files/figure-html/geom_smooth_col_aes-1.png" width="672" /></p>
+</div>
+</div>
+<div id="terminer-une-session-de-travail" class="section level3">
+<h3>Terminer une session de travail</h3>
+<p>Il est essentiel de nettoyer (ne garder que les commandes pertinentes) et de sauvegarder le script final pour pouvoir le réutiliser lors d’une séance prochaine. Il est préférable de charger les packages lors des premières lignes du script.</p>
+<ul>
+<li>Enregistrer votre script avant de quitter <code>R</code>.</li>
+</ul>
+</div>
+</div>
+<div id="le-vocabulaire-de-la-séance" class="section level2">
+<h2>Le vocabulaire de la séance</h2>
+<div id="commandes-r" class="section level3">
+<h3>Commandes R</h3>
+<ul>
+<li>%&gt;%</li>
+<li>filter</li>
+<li>geom_boxplot</li>
+<li>geom_jitter</li>
+<li>geom_point</li>
+<li>geom_smooth</li>
+<li>is.na</li>
+<li>labs</li>
+<li>select</li>
+</ul>
+</div>
+<div id="environnement-r" class="section level3">
+<h3>Environnement R</h3>
+<ul>
+<li>Reprendre un projet</li>
+</ul>
+</div>
+<div id="statistique" class="section level3">
+<h3>Statistique</h3>
+<ul>
+<li>distribution d’une variable</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
