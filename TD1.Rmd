@@ -40,7 +40,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 
 Télécharger les données de manchots de Palmers `penguins.csv` disponibles sur l'onglet Scripts et données de la [page d'accueil du module](https://agrocampusds.github.io/demarche_statistique/index.html) ainsi que le fichier `TD1_script.R` dans le répertoire Téléchargement par défaut.
 
-Créer un nouveau répertoire intitulé `ds_TD` contenant les fichiers `penguins.csv` et `TD1_script.R` : ce répertoire est appelé *répertoire de travail (working directory)*
+Créer un nouveau répertoire intitulé `ds_TD1` contenant les fichiers `penguins.csv` et `TD1_script.R` : ce répertoire est appelé *répertoire de travail (working directory)*
 
 Créer un projet dans RStudio à partir du répertoire `ds_TD`.
 
