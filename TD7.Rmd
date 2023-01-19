@@ -102,16 +102,19 @@ On cherche à savoir si la saveur de pomme crue est différente selon la compote
 
 ##### Test global (=Effet des facteurs)
 
+* Ecrire un modèle permettant de mesurer un effet potentiel de la compote sur la note de saveur de pomme crue.  
 
-```{r modele1, echo = TRUE, results='markup'}
+* Indiquer les hypothèses testées, la stitistique de test et sa loi sous $H_0$, puis conclure sur l'existence d'une différence entre les compotes sur la saveur de pomme crue.
+
+```{r modele1, echo = FALSE, results='markup'}
 mod1.compote <- lm(S.pom.crue ~ compote,data=dta)
 mod0 <- lm(S.pom.crue~1,data=dta)
 anova(mod0,mod1.compote)
 ```
 
-### Prise en compte de la variable juge
+### Prise en compte de la variabilité associée aux juges.
 
-Surpris du résultat, on décide de prendre en compte la variable juge.
+Les premiers graphiques semblaient mettre en évidence un effet de la copote, le résultat obtenu est donc assez surprenant. Quelles peuvent en être les causes ?
 
 #### Visualisation
 
@@ -135,6 +138,7 @@ dta %>%
 #### Test statistique
 
 * Ecrire le modèle et les hypothèses permettant de tester l'effet compote sur la saveur mais en prenant en compte l'effet du juge.
+
 * Réaliser le test avec R.
 
 
@@ -146,19 +150,19 @@ Plusieurs modèles ont été construits, et plusieurs tests sont proposés perme
 * Par rapport à la problématique permettant de savoir s'il y a des différences de saveur de pomme crue entre les compotes, indiquer quels tests vous allez commenter.
 * Commenter et interpréter le test en lien avec votre problématique.
 
-```{r testGlobal, echo = TRUE, results='markup'}
+```{r testGlobal, echo = FALSE, results='markup'}
 mod2 <- lm(S.pom.crue ~ compote + juge,data=dta)
 mod1.compote <- lm(S.pom.crue ~ compote,data=dta)
 mod1.juge <- lm(S.pom.crue ~ juge,data=dta)
-anova(mod2,mod0)
-anova(mod2,mod1.juge)
-anova(mod2,mod1.compote)
+anova(mod0, mod2)
+anova(mod1.juge, mod2)
+anova(mod1.compote, mod2)
 ```
 
-* Dans le modele mod1.compote, où se trouve la variabilité associée aux juges ? Pourquoi cela est-il gênant lorsqu'on s'intéresse à tester un effet compote ?
+* Dans le modèle utilisé dans la première partie,  où se trouve la variabilité associée aux juges ? Pourquoi cela est-il gênant lorsqu'on s'intéresse à tester un effet compote ?
 
 * La fonction `Anova` (avec un A majuscule) du package `car` (qu'il vous faudra sûrement installer) permet de retrouver en une seule commande les probabilités critiques de tests associés à chacun des effets. Retrouver ces probabilités critiques.
-Remarque : dans le cas de données déséquilibrées, les probabilités critiques obtenus avec `anova` et `Anova` peuvent être légèrement différentes. On préférera généralement utiliser les résultats fournis par la fonction `Anova'. 
+
 
 ```{r Anova, echo = TRUE, results='markup'}
 library(car)
@@ -167,7 +171,9 @@ Anova(mod2)
 
 ##### Test Post-Hoc (=Comparaison entre les modalités des facteurs)
 
-```{r emmeans, echo = TRUE, results='markup', fig.show='asis'}
+On souhaite maintenant identifier quelles compotes ont des saveurs de pomme crue différente. On souhaite pour ceci reproduire l'approche mise en oeuvre au TD précédant pour comparer les carures des sportifs à l'aide de la fonction`emmeans`.
+
+```{r emmeans, echo = FALSE, results='markup', fig.show='asis'}
 library(emmeans)
 comparaison_compote <- emmeans(mod2,  ~ compote )
 pairs(comparaison_compote)
@@ -181,7 +187,6 @@ plot(comparaison_compote)
 <!-- ``` -->
 
 
-<!-- On peut aussi tester si la saveur de pomme crue d'une compote particulière est égale ou différente de la moyenne de l'ensemble des compotes. La moyenne correspond à des coefficients de -1/6 pour chaque compote, et donc si on compare la note de chaque compote à la note moyenne moyenne, on écrira: -->
 
 <!-- ```{r , echo = TRUE, results='markup'} -->
 <!-- Tests <- rbind("comp1 - moy"=c((1 - 1/6),-1/6,-1/6,-1/6,-1/6,-1/6), -->
