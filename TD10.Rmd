@@ -46,7 +46,7 @@ out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 
 ### Lien entre colorimétrie et maturité de l'abricot 
 
-Dans un premier temps, on souhaite vérifier le lien entre colorimétrie et maturité d'un abricot à partir de données expérimentales sur 108 abricots d'une même variété, répartis selon 3 stades de maturité (1, 2 ou 3 du moins mûr au plus mûr). Les données sont disponibles dans le fichier [abricots](abricotsSG.txt)
+Dans un premier temps, on souhaite vérifier le lien entre colorimétrie et maturité d'un abricot à partir de données expérimentales sur 108 abricots d'une même variété, répartis selon 3 stades de maturité (1, 2 ou 3 du moins mûr au plus mûr). Les données sont disponibles dans le fichier [abricots](abricotsSG.csv)
 
 * Importer le jeu de données dans un objet nommé `abricots` et indiquer le nombre d'abricots dans chaque stade.
 
