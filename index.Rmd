@@ -13,9 +13,7 @@ header-includes:
 - \usepackage[T1]{fontenc}
 ---
 
-
-
-Vous trouverez sur ce site les énoncés de TDs associés au cours de démarche statistique
+Vous trouverez sur ce site les énoncés de TDs associés au cours de démarche statistique. Les exercices utilisés lors de l'année universitaire 2022-2023 sont disponibles sur <https://agrocampusds.github.io/demarche_statistique2022_2023/>.
 
 ```{r setup-TD_liste, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, cache= FALSE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'markup' )
@@ -46,10 +44,9 @@ liste_complete <- do.call('rbind', ll) %>%
 
 ```
 
-# {.tabset .tabset-fade .tabset-pills}
+#  {.tabset .tabset-fade .tabset-pills}
 
-
-## Liste des TDs du module 
+## Liste des TDs du module
 
 ```{r echo = FALSE, eval = TRUE, results='markup'}
 
@@ -67,37 +64,32 @@ liste_complete %>%
 
 ## Scripts et données
 
-
 ### Script
 
-- [TD1_script.R](TD1_script.R) : le script pour bien démarrer le TD1.
-- [TD2_script.R](TD2_script.R) : le script pour bien démarrer le TD2 si vous n'avez pas fait le TD1, sinon reprenez la suite du TD1.
+-   [TD1_script.R](TD1_script.R) : le script pour bien démarrer le TD1.
+-   [TD2_script.R](TD2_script.R) : le script pour bien démarrer le TD2 si vous n'avez pas fait le TD1, sinon reprenez la suite du TD1.
 
 ### Données
 
-- [Abricots](abricotsSG.csv) : données sur la maturité des abricots,
-- [Angle](angle.csv) : données sur l'évaluation des angles, 
-- [Bébé](bebe.csv) : données sur le poids des bébés à la naiussance en fonction du sexe et du nombre de semaines de grossesse,
-- [Buëch](buech.csv) : La pollution des eaux du Buëch
-- [Cafe](cafe_DM.csv) : données sur la qualité des cafés en fonction de différentes provenances,
-- [Compote](compote.csv) : données sur les compotes,
-- [dataSportV1](dataSportV1.csv) et [dataSportV2](dataSportV2.csv)
-- [Deboisement](deboisement.csv) : effet du déboisement sur e coefficient de transfert entre température de  l'air et température de l'eau
-- [Decathlon](decathlon.csv) : résultats des 20 meilleurs athlètes aux décathlons  des  Jeux Olympiques d'Athènes en 2004, de ceux de Rio en 2016, des championnats d'Europe 2018 et du decastar de Talence en 2018.
-- [Douglas](douglas.csv) : relation entre volume et diamètre pour les pins Douglas,
-- [Financiers 3](financiers3.csv) : données sur la longueur des financiers produits,
-- [Jambon](jambon.txt) : données sur les dégustations de jambon,
-- [Lait](lait.txt) : données sur le lien entre rendement fromager et composition du lait,
-- [Manchots de Palmer](penguins.csv) : ce jeu de données est distribué dans le package [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/) d'Allison Horst <img src="https://allisonhorst.github.io/palmerpenguins/reference/figures/logo.png" alt="manchot" height="50"/>
-- [Poussins](poussin.txt) : Evolution du poids des poussins selon le sexe et le traitement,
-- [puissance1](puissance_1.csv) et [puissance2](puissance_2.csv),
-- [Sonde et sol](sonde_sol.csv) compariason de 3 sondes sur 2 types de sol.
-
+-   [Abricots](abricotsSG.csv) : données sur la maturité des abricots,
+-   [Angle](angle.csv) : données sur l'évaluation des angles,
+-   [Bébé](bebe.csv) : données sur le poids des bébés à la naiussance en fonction du sexe et du nombre de semaines de grossesse,
+-   [Buëch](buech.csv) : La pollution des eaux du Buëch
+-   [Cafe](cafe_DM.csv) : données sur la qualité des cafés en fonction de différentes provenances,
+-   [Compote](compote.csv) : données sur les compotes,
+-   [dataSportV1](dataSportV1.csv) et [dataSportV2](dataSportV2.csv)
+-   [Deboisement](deboisement.csv) : effet du déboisement sur e coefficient de transfert entre température de l'air et température de l'eau
+-   [Decathlon](decathlon.csv) : résultats des 20 meilleurs athlètes aux décathlons des Jeux Olympiques d'Athènes en 2004, de ceux de Rio en 2016, des championnats d'Europe 2018 et du decastar de Talence en 2018.
+-   [Douglas](douglas.csv) : relation entre volume et diamètre pour les pins Douglas,
+-   [Financiers 3](financiers3.csv) : données sur la longueur des financiers produits,
+-   [Jambon](jambon.txt) : données sur les dégustations de jambon,
+-   [Lait](lait.txt) : données sur le lien entre rendement fromager et composition du lait,
+-   [Manchots de Palmer](penguins.csv) : ce jeu de données est distribué dans le package [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/) d'Allison Horst <img src="https://allisonhorst.github.io/palmerpenguins/reference/figures/logo.png" alt="manchot" height="50"/>
+-   [Poussins](poussin.txt) : Evolution du poids des poussins selon le sexe et le traitement,
+-   [puissance1](puissance_1.csv) et [puissance2](puissance_2.csv),
+-   [Sonde et sol](sonde_sol.csv) compariason de 3 sondes sur 2 types de sol.
 
 ## Vocabulaire du module
-
-
-
 
 ```{r setup-TDvocabulaire, include=FALSE, results='hide'}
 knitr::opts_chunk$set(echo = FALSE, cache= FALSE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'markup' )
@@ -159,21 +151,17 @@ liste_complete <- liste_complete %>%
 
 ```
 
-
-
 ### Statistique
 
 ```{r stat, echo = FALSE, eval = TRUE, results='markup'}
 print_liste('Statistique')
 ```
 
-
 ### Environnement R
 
 ```{r env_R, echo = FALSE, eval = TRUE, results='markup'}
 print_liste('Environnement R')
 ```
-
 
 ### Commandes R
 
@@ -182,61 +170,56 @@ print_liste('Environnement R')
 print_liste('Commandes R')
 ```
 
-
 ## Informations diverses
 
-
-### Installation de logiciels 
+### Installation de logiciels
 
 Les séances de travaux dirigés se feront sur vos ordinateurs personels, merci de venir à chaque séance avec au moins un ordinateur pour deux étudiants.
 
-Nous utiliserons le logiciel [R](https://www.r-project.org/)  et l'environnement [RStudio](https://www.rstudio.com/). Ces logiciels sont aujourd'hui les standards en statistique dans un grand nombre d'entreprises et sont disponibles pour Windows, Mac et Linux. (L'installation sur chromebook est en théorie [possible](https://blog.sellorm.com/2018/12/20/installing-r-and-rstudio-on-a-chromebook/)  mais la théorie pourrait être mise en défaut par les faits).
+Nous utiliserons le logiciel [R](https://www.r-project.org/) et l'environnement [RStudio](https://www.rstudio.com/). Ces logiciels sont aujourd'hui les standards en statistique dans un grand nombre d'entreprises et sont disponibles pour Windows, Mac et Linux. (L'installation sur chromebook est en théorie [possible](https://blog.sellorm.com/2018/12/20/installing-r-and-rstudio-on-a-chromebook/) mais la théorie pourrait être mise en défaut par les faits).
 
 **Processus d'installation :**
 
-* Il faut en premier lieu [installer R](https://cran.r-project.org/)
-* puis installer l'environnement [RStudio](https://www.rstudio.com/products/rstudio/download/) (version Rstudio Desktop).
+-   Il faut en premier lieu [installer R](https://cran.r-project.org/)
+-   puis installer l'environnement [RStudio](https://www.rstudio.com/products/rstudio/download/) (version Rstudio Desktop).
 
 C'est prêt.
 
-### Des ressources 
+### Des ressources
 
 **Un guide complet en français**
 
-* [R pour la statistique et la science des données](https://r-stat-sc-donnees.github.io/)
+-   [R pour la statistique et la science des données](https://r-stat-sc-donnees.github.io/)
 
 **Pour les graphiques**
 
-*  https://www.r-graph-gallery.com/
+-   <https://www.r-graph-gallery.com/>
 
 Les travaux dirigés sont l'occasion d'explorer quelques fonctionalités de R, suffisantes pour mettre en oeuvre la démarche statistique enseignée dans ce cours. Néanmoins il est probable que lors des projets, lors de vos stages à venir ou lorsque vous serez en situation professionnelle, vous ayez besoin d'acquérir de nouvelles connaissances pour répondre à vos besoins. nous listons ici quelques ressources intéressantes
 
+-   [Data wrangling with R](https://cengel.github.io/R-data-wrangling/)
+-   ou le très complet [R for data science](https://www.tidyverse.org/learn/)
 
-* [Data wrangling with R](https://cengel.github.io/R-data-wrangling/)
-* ou le très complet [R for data science](https://www.tidyverse.org/learn/)
+**Des aides mémoires**
 
-
-
-**Des aides mémoires **
-
-* [Data Wrangling Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
+-   [Data Wrangling Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
 
 ### Des données
 
 Le projet de statistique demande d'identifier une problématique et de l'analyser à partir d'un jeu de données de votre choix. Voici quelques pistes pour trouver un jeu de données, à choisir selon vos intérêts personnels.
 
-* [zenodo](https://zenodo.org/) un site de dépots de données ouvertes
+-   [zenodo](https://zenodo.org/) un site de dépots de données ouvertes
 
-* Les sites de municipalités, des états avec les mots clés open data, par exemple à [Rennes](https://data.rennesmetropole.fr/explore/?sort=modified&q=)
+-   Les sites de municipalités, des états avec les mots clés open data, par exemple à [Rennes](https://data.rennesmetropole.fr/explore/?sort=modified&q=)
 
-* Aller chercher dans des revues scientifiques qui publient des **Data paper** par exemple
+-   Aller chercher dans des revues scientifiques qui publient des **Data paper** par exemple
 
-  - [Scientific Data (Nature Pubishing Group) ](http://www.nature.com/scientificdata/) 
+    -   [Scientific Data (Nature Pubishing Group)](http://www.nature.com/scientificdata/)
 
-  - [PLoS One (Public Library of Science)](http://www.plosone.org/static/information.action) 
+    -   [PLoS One (Public Library of Science)](http://www.plosone.org/static/information.action)
 
-  - [Genomics Data (Elsevier)](http://www.journals.elsevier.com/genomics-data/)
+    -   [Genomics Data (Elsevier)](http://www.journals.elsevier.com/genomics-data/)
 
-  - [International Journal of Food Contamination (SpringerOpen)](http://foodcontaminationjournal.springeropen.com/about)
+    -   [International Journal of Food Contamination (SpringerOpen)](http://foodcontaminationjournal.springeropen.com/about)
 
-  - [Ecology - Ecological Archives (Ecological Society of America / Wiley)](http://www.esajournals.org/loi/ecol)
+    -   [Ecology - Ecological Archives (Ecological Society of America / Wiley)](http://www.esajournals.org/loi/ecol)
