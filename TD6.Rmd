@@ -14,7 +14,7 @@ header-includes:
 ---
 
 
-```{r setup-TD5, include=FALSE, }
+```{r setup-TD5, include=FALSE }
 knitr::opts_chunk$set(echo = FALSE, cache= TRUE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'hide' )
 library(tidyverse)
 library(FactoMineR)
@@ -179,7 +179,7 @@ dta %>%
   geom_boxplot()+ geom_dotplot(binaxis = 'y', stackdir = "center" )  
 ```
 
-```{r mean, echo = FALSE, results='markup'}
+```{r mean, echo = FALSE}
 stat_desc <- dta %>% 
   group_by(compote) %>% 
   summarise(note_mean = mean(S.pom.crue), 
@@ -190,14 +190,14 @@ stat_desc <- dta %>%
             )
 ```
 
-```{r stat_desc_html, echo = FALSE, results='markup', eval = false}
+```{r stat_desc_html, echo = FALSE, eval = FALSE}
 stat_desc %>% 
   kable(digits=2, format = "html", escape = FALSE) %>%
   collapse_rows(columns = 1, valign = 'top') %>%
   kable_classic(full_width = F, html_font = "Cambria")
 ```
 
-```{r stat_desc, echo = FALSE, results='markup', eval = false}
+```{r stat_desc, echo = FALSE, eval = FALSE}
 stat_desc %>% 
   kable(digits=2, booktabs = T)%>%
   kable_styling(latex_options = "striped")
