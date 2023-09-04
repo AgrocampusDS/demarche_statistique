@@ -1,5 +1,5 @@
 name: "Démarche statistique"
-output_dir: "./build"
+output_dir: "build"
 navbar:
  title: "Agrocampus Ouest : démarche statistique"
  left:
