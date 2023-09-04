@@ -17,6 +17,7 @@ header-includes:
 ```{r setup-TD5, include=FALSE, }
 knitr::opts_chunk$set(echo = FALSE, cache= TRUE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'hide' )
 library(tidyverse)
+library(FactoMineR)
 library(kableExtra)
 out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 
@@ -33,7 +34,15 @@ print(is_pdf)
 
 ##  Objectifs de la séance  
 
-
+* Manipulation de données     
+  * Utiliser un tableur
+  * Construire un tableau de données :
+    * faire le lien entre des mesures sur des individus et un tableau de données,
+    * réfléchir à la notion de dimensions d'un tableau de données.
+* Visualisation de données     
+  * Représentation d'une variable quantitative en fonction d'une variable qualitative
+* Analyse de données     
+  * Comprendre les mécanismes derrière une analyse de variance
 * Puissance des tests
   + Effet de la taille de l'échantillon
   + Etude par simulations
@@ -43,184 +52,224 @@ print(is_pdf)
   
 ## Exercices 
 
+### Contrôle en usine
 
-### Problématique
+Les données sur lesquelles vous allez travailler sont extraites du livre *Statistique* de Wonnacott et Wonnacott. Pour cet exercice vous allez construire 3 tableaux de données dans un tableur, que vous allez importer. Le premier sera constitué de données de 3 échantillons de la production d'une seule machine, le second et le troisième seront constitués d'échantillons issus de la production de 3 machines. Toutes les machines produisent des financiers aux amandes de forme rectangulaire. On mesure la longueur en *cm* de ces financiers.
 
-Dans une étude menée à l'université de Lyon, des scientifiques s'intéressent à l'association entre le sport pratiqué par un athlète et son développement morphologique. Pour répondre à cette question de recherche, les chercheurs vont chercher à tester l'hypothèse selon laquelle la carrure dépend du sport pratiqué.
+#### Construction des tableaux de données et importation des données dans `R`
 
-Plus précisément, cette étude s'est intéressée à six sports : l'athlétisme, le football, le handball, le judo, la natation et le volley. D'autre part, la carrure a été mesurée par la distance en cm entre les 2 épaules. Pour gagner du temps et limiter les coûts, les chercheurs réalisent un recueil de données où le nombre d'individus observés par sport est égal à $n_i=3$.
+##### Utiliser un tableur
 
-### Analyse avec $n_i=3$
+Les données du premier tableau sont des mesures de conformation de la production de financiers sur une même machine à trois périodes différentes. Pour chacune des trois périodes (matin, après-midi et soir), on prélève 5 gâteaux (de forme rectangulaire) dont on mesure la longueur en *cm*.
 
+* Pour le matin, les cinq financiers sont de longueur : 4.9, 5.5, 5.1, 5.2, 4.8.
+
+* Pour l'après-midi, les cinq financiers sont de longueur :5.2, 5.1, 5.5, 5.8, 4.9.
+
+* Pour le soir, les cinq financiers sont de longueur : 5.5, 5.1, 5.2, 5.2, 5.0.
+
+Une autre expérience, consiste à mesurer des financiers en sortie de 3 machines différentes.
+
+* Pour la machine 1, nous avons les mesures suivantes : 4.7, 4.9, 5.3, 5.0, 4.6.
+
+* Pour la machine 2, nous avons les mesures suivantes : 5.5, 5.8, 5.4, 6.1, 5.2.
+
+* Pour la machine 3, nous avons les mesures suivantes : 5.4, 5.1, 5.0, 5.1, 4.9.
+
+Rentrer les données dans un tableur de votre choix (Calc de la suite LibreOffice ou OpenOffice, Excel de la suite Microsoft Office, par exemple). Pour cela, il faudra bien réfléchir à la notion d'individu statistique, et aux variables qui les caractérisent.
+
+Sauver les tableaux de données dans deux fichiers *csv*.
+
+#### Importations et premières descriptions
+
+* Importer les deux tableaux respectivement dans `tab1` et  `tab2`
+
+```{r importations}
+tab1 <- read.table("https://agrocampusds.github.io/demarche_statistique/wonnacott1.csv", header = TRUE, stringsAsFactors = TRUE, sep = ";", dec = ",")
+tab2 <- read.table("https://agrocampusds.github.io/demarche_statistique/wonnacott2.csv", header = TRUE, stringsAsFactors = TRUE, sep = ";", dec = ",")
+```
+
+
+* Pour chaque tableau, représenter les répartitions et  calculer les moyennes et écarts type pour chaque groupe
+
+```{r descriptions}
+tab1 %>% ggplot + aes(x = "periode", y  = "longueur", col = "periode", fill = "periode") +
+  geom_boxplot(alpha = 0.4, outlier.shape = NA) +
+  geom_dotplot(binaxis = "y",stackdir = "center") 
+tab1 %>% group_by(periode) %>% summarise(moyenne = mean(longueur), ecart_type = sd(longueur))
+
+tab2 %>% ggplot + aes(x = "machine", y  = "longueur", col = "machine", fill = "machine") +
+  geom_boxplot(alpha = 0.4, outlier.shape = NA) +
+  geom_dotplot(binaxis = "y",stackdir = "center")
+tab2 %>% group_by(machine) %>% summarise(moyenne = mean(longueur), ecart_type = sd(longueur))
+```
+
+#### Tests statistiques
+
+* Pour chaque tableau rappeler le cadre du test de l'étude d'un effet de la variable qualitative sur les mesures de longueur de financier (modèle, hypothèses, statistique de test, loi de la statistique sous H$_0$, décision)
+
+* Effectuer alors les calculs par `R` et conclure
+```{r anovas}
+res1 <- LinearModel(data = tab1, formula = longueur ~ periode)
+res1$Ftest
+res2 <- LinearModel(data = tab2, formula = longueur ~ machine)
+res2$Ftest
+```
+
+* Mêmes questions pour les comparaisons de groupes deux à deux.
+```{r posthoc}
+meansComp(res1, ~periode)
+meansComp(res2, ~machine)
+```
+
+
+
+#### Puissance
+
+De nouveaux financiers sont prélevés sur la même machine que les données de `tab1`.
+
+* Charger les données contenues dans le fichier `financiers3.csv` dans un objet que vous nommerez `tab3`
+```{r tab3, echo = FALSE}
+tab3 <- read.table("https://agrocampusds.github.io/demarche_statistique/financiers3.csv", header = TRUE, stringsAsFactors = TRUE, sep = ",")
+```
+
+* Effectuer l'analyse de variance comme réalisée précédemment sur ce nouveau tableau et commenter les résultats
+```{r anovabis}
+  tab3 %>% group_by(periode) %>% summarise(moyenne = mean(longueur), ecart_type = sd(longueur))  
+  res3 <- LinearModel(data = tab3, formula = longueur ~ periode)
+  res3$Ftest
+```
+* Rappeler le principe de puissance d'un test. Quelles sont les éléments qui permettent d'augmenter théoriquement la puissance
+
+* A l'aide de la fonction `bind_rows()`, il est possible de concaténer les lignes des tableaux `tab1` et `tab3`
+```{r bind_rows, echo = TRUE, eval=FALSE}
+ tab <- bind_rows(tab1,tab3)
+```
+
+* Effectuer l'analyse de variance et les comparaisons de moyennes comme réalisées précédemment sur ce nouveau tableau et commenter les résultats
+```{r anovater}
+  tab %>% group_by(periode) %>% summarise(moyenne = mean(longueur), ecart_type = sd(longueur))  
+  resT <- LinearModel(data = tab, formula = longueur ~ periode)
+  resT$Ftest
+  meansComp(resT, ~ periode)
+```
+### Dégustation de compotes
+
+#### Problématique
+
+On cherche à évaluer comment sont perçues 6 compotes de pommes au niveau de la saveur de pomme crue. Une dégustation est mise en place et 6 juges vont déguster chacune des 6 compotes. Les notes sont attribuées sur une échelle allant de 0 à 10.
+
+La question est donc de savoir si certaines compotes sont en moyenne perçues comme ayant une plus forte saveur de pomme crue.
 
 #### Importation du premier jeu de données
 
-* Importer le jeu de données `dataSportV1.csv`
+* Importez le jeu de données intial `compote.csv`.
 
-```{r import_data_V1}
-data.sport.V1 <- read.table('https://agrocampusds.github.io/demarche_statistique/dataSportV1.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
+```{r import_data}
+dta <- read.table('https://agrocampusds.github.io/demarche_statistique/compote.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
+dta$juge <- as.factor(dta$juge)
+dta$compote <- as.factor(dta$compote)
 ```
 
-* Quelles sont les variables de ce tableau de données ? Quelle est la nature (quantitative/qualitative) de chacune de ces variables ?
+* Visualiser les données pour avoir une idée des saveurs de pomme crue selon les compotes et calculez quelques statistiques descriptives par compote.
 
-* Sur combien d'individus statistiques ce tableau de données contient-il des informations ?
-
-* Vérifier que chaque sport est bien représenté dans ces données par trois individus statistiques.
-
-#### Visualisation des données
-
-* Visualiser les données pour avoir une idée de la distribution des carrures par sport et calculer quelques statistiques descriptives par sport.
-
-```{r boxplot_V1, echo = FALSE}
-data.sport.V1 %>% 
-  ggplot() + aes(x=Sport, y = Carrure, fill=Sport, col=Sport) + 
-  geom_boxplot()+ geom_jitter()
+```{r boxplot, echo = FALSE}
+dta %>% 
+  ggplot() + aes(x=compote, y = S.pom.crue, col=compote, fill = compote) + 
+  geom_boxplot()+ geom_dotplot(binaxis = 'y', stackdir = "center" )  
 ```
 
-```{r mean_V1, echo = FALSE, results='markup'}
-stat_desc.V1 <- data.sport.V1 %>% 
-  group_by(Sport) %>% 
-  summarise(Carrure_mean = mean(Carrure), 
-            Carrure_sd = sd(Carrure)
-            #q05 = quantile(Carrure, probs = 0.05 ),
-            #q50 = quantile(Carrure, probs = 0.5 ),
-            #q95 = quantile(Carrure, probs = 0.95 )
+```{r mean, echo = FALSE, results='markup'}
+stat_desc <- dta %>% 
+  group_by(compote) %>% 
+  summarise(note_mean = mean(S.pom.crue), 
+            S.pom.crue_sd = sd(S.pom.crue), 
+            q05 = quantile(S.pom.crue, probs = 0.05 ),
+            q50 = quantile(S.pom.crue, probs = 0.5 ),
+            q95 = quantile(S.pom.crue, probs = 0.95 )
             )
 ```
 
-```{r stat_desc_html_V1, echo = FALSE, results='markup', eval = TRUE}
-stat_desc.V1 %>% 
+```{r stat_desc_html, echo = FALSE, results='markup', eval = false}
+stat_desc %>% 
   kable(digits=2, format = "html", escape = FALSE) %>%
   collapse_rows(columns = 1, valign = 'top') %>%
   kable_classic(full_width = F, html_font = "Cambria")
 ```
 
-#### Test statistique
-
-* Traduire la problématique ci-dessus sous la forme d'un test d'hypothèses.
-* Réaliser le test et conclure.
-
-```{r testGlobal_V1, echo = FALSE, results='markup'}
-mod.V1 <- lm(Carrure ~ Sport,data=data.sport.V1)
-mod0.V1 <- lm(Carrure~1,data=data.sport.V1)
-anova(mod0.V1,mod.V1)
-```
-
-* En utilisant la fonction `power.t.test`, donner la différence de carrure détectable par un test de comparaisons des carrures moyennes entre des sportifs pratiquant la natation et l'athlétisme avec une probabilité de 0.90.
-
-```{r puissance_V1, echo = FALSE, results='markup'}
-power.t.test(n=3,sd=3,power=0.90,sig.level=0.05)
-```
-
-* Quelle taille d'échantillon est nécessaire pour détecter une différence de carrures moyennes de 5 cm entre les sportifs pratiquant l'athlétisme et la natation ?
-
-```{r puissance_V2, echo = FALSE, results='markup'}
-power.t.test(delta=5,sd=3,power=0.90,sig.level=0.05)
-```
-### Analyse avec $n_i=13$
-
-Les chercheurs organisent une seconde collecte de données qui permet d'augmenter la taille de l'échantillon avec 10 observations supplémentaires par sport pour arriver à $n_i=13$.
-
-#### Importation du jeu de données final
-
-* Importer les 10 nouveaux individus statistiques à partir de la table `dataSportV2.csv`
-
-```{r import_data_V2}
-data.sport.V2 <- read.table('https://agrocampusds.github.io/demarche_statistique/dataSportV2.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
-```
-
-* Vérifier que chaque sport est bien représenté dans ces données par dix individus statistiques.
-
-* A l'aide de la fonction *bind_rows*, créer le jeu de données complet, que vous nommerez *data.sport.Vf*, contenant les 13 individus statistiques.
-
-```{r import_data_Vf}
-data.sport.Vf <- bind_rows(data.sport.V1,data.sport.V2)
-```
-
-#### Visualisation des données
-
-* Comme pour le jeu de données initial, visualiser et calculer quelques statistiques descriptives par sport. 
-
-* Comparer avec la visualisation et le résumé obtenu pour $n_i=3$. En particulier comparer la moyenne et la variance de la carrure par sport.
-
-```{r boxplot_Vf, echo = FALSE}
-data.sport.Vf %>% 
-  ggplot() + aes(x=Sport, y = Carrure, fill=Sport, col=Sport) + 
-  geom_boxplot()+ geom_jitter()
-```
-
-```{r mean_Vf, echo = FALSE, results='markup'}
-stat_desc.Vf <- data.sport.Vf %>% 
-  group_by(Sport) %>% 
-  summarise(Carrure_mean = mean(Carrure), 
-            Carrure_sd = sd(Carrure)
-            #q05 = quantile(Carrure, probs = 0.05 ),
-            #q50 = quantile(Carrure, probs = 0.5 ),
-            #q95 = quantile(Carrure, probs = 0.95 )
-            )
-```
-
-```{r stat_desc_html_Vf, echo = FALSE, results='markup', eval = !is_pdf}
-stat_desc.Vf %>% 
-  kable(digits=2, format = "html", escape = FALSE) %>%
-  collapse_rows(columns = 1, valign = 'top') %>%
-  kable_classic(full_width = F, html_font = "Cambria")
-```
-
-```{r stat_desc_pdf_Vf, echo = FALSE, results='markup', eval = is_pdf}
-stat_desc.V1 %>% 
+```{r stat_desc, echo = FALSE, results='markup', eval = false}
+stat_desc %>% 
   kable(digits=2, booktabs = T)%>%
   kable_styling(latex_options = "striped")
 ```
 
+
 #### Test statistique
 
-* Ecrire le modèle et les hypothèses permettant de tester l'effet du sport sur la carrure.
+On cherche à savoir si la saveur de pomme crue est différente selon la compote.
+
+##### Test global (=Effet des facteurs)
+
+* Rappeler le cadre du test de l'étude d'un effet de la variable `compote` sur les notes de saveur pomme crue (modèle, hypothèses, statistique de test, loi de la statistique sous H$_0$, décision)
+
+* Effectuer alors les calculs par `R` et conclure
+
+```{r modele1, echo = TRUE}
+mod1.compote <- LinearModel(S.pom.crue ~ compote, data=dta)
+mod1.compote$Ftest
+```
+
+#### Prise en compte de la variable juge
+
+Surpris du résultat, on décide de prendre en compte la variable juge.
+
+* Visualisez les notes en fonction de la compote mais en coloriant les points de couleurs différentes selon les juges.
+
+```{r ggplot}
+dta %>% 
+  ggplot() + aes(x=compote, y = S.pom.crue, col=juge) + 
+  geom_point()
+  
+ dta %>% 
+  ggplot() + aes(x=compote, y = S.pom.crue, col=juge) + 
+  geom_jitter(width = 0.1, size = 3)
+ 
+ dta %>% 
+  ggplot(aes(x=compote, y = S.pom.crue)) +
+  geom_boxplot() + 
+  geom_jitter(aes(col=juge), size =2, width = 0.1)
+```
+
+* Essayer d'écrire le modèle et les hypothèses permettant de tester l'effet compote sur la saveur mais en prenant en compte l'effet du juge.
 * Réaliser le test avec R.
-
-```{r testGlobal_Vf, echo = FALSE, results='markup', eval=FALSE}
-mod.Vf <- lm(Carrure ~ Sport,data=data.sport.Vf)
-mod0.Vf <- lm(Carrure~1,data=data.sport.Vf)
-anova(mod0.Vf,mod.Vf)
-```
-
-##### Test Post-Hoc (= Comparaison entre les modalités des facteurs)
-
-```{r testCoeff_Vf, echo = FALSE, results='markup', eval=FALSE}
-summary(mod.Vf)
+```{r global}
+mod2.compote <- LinearModel(S.pom.crue ~ compote + juge, data=dta)
+mod2.compote$Ftest
 ```
 
 
-```{r testCoeff2_Vf, echo = FALSE, results='markup', eval=FALSE}
-pairwise.t.test(data.sport.Vf$Carrure, data.sport.Vf$Sport, p.adj = "bonf")
-```
+* Dans le modele mod1.compote, où se trouve la variabilité associée aux juges ? Pourquoi cela est-il gênant lorsqu'on s'intéresse à tester un effet compote ?
 
-Si le test est significatif, on cherche à déterminer quels sports permettent de développer des carrures significativement différentes.
-
-* Exprimer cette question sous la forme d'hypothèses statistiques.
-
-* A l'aide de la fonction *emmeans* du package *emmeans*, tester quelles sont les sports qui, deux à deux, donnent des carrures différentes.
-
-```{r testCoeff3_Vf, echo = TRUE, results='markup',eval=FALSE}
-library(emmeans)
-sport_comp_Vf <- emmeans(mod.Vf,  ~ Sport )
-pairs(sport_comp_Vf, adjust = "bonf")
-plot(sport_comp_Vf)
+* Etudier les différences entre compotes puis celles entre juges
+```{r juges}
+meansComp(mod2.compote, ~ compote)
+meansComp(mod2.compote, ~ juge)
 ```
 
 
 
-### Conclusion de l'étude
 
-L'effet d'un facteur sur une variable réponse doit être testé en premier. Si un facteur a un effet, il est alors possible d'aller *creuser* quelles sont les modalités (ou les combinaisons de modalités) du facteur qui ont une moyenne de la variable réponse différente.
+#### Conclusion de l'étude
+
+Il est indispensable de lister tous les facteurs qui peuvent influer sur la variable réponse, même si ceux-ci ne sont pas intéressants à interpréter. Cela permet de réduire la variabilité résiduelle et par suite de mieux mettre en évidence l'effet potentiel qui nous intéresse.
+
 
 
 ## Le vocabulaire de la séance
 
 ### Commandes R
-- anova et lm
-- pairwise.t.test
-- emmeans (package emmeans)
+- LinearModel
+- meansComp
 
 ### Statistique 
 - Effet de la taille d'échantillon sur la puissance de détection
