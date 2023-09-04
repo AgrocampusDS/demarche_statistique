@@ -147,7 +147,7 @@ tab3 <- read.table("https://agrocampusds.github.io/demarche_statistique/financie
 ```
 
 * Effectuer l'analyse de variance et les comparaisons de moyennes comme réalisées précédemment sur ce nouveau tableau et commenter les résultats
-```{r anovater}
+```{r anovater, eval=FALSE}
   tab %>% group_by(periode) %>% summarise(moyenne = mean(longueur), ecart_type = sd(longueur))  
   resT <- LinearModel(data = tab, formula = longueur ~ periode)
   resT$Ftest
