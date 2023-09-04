@@ -276,16 +276,16 @@ manchots %>% ggplot() +
 Il est possible de modifier l'intitulé par défaut des axes grâce à la fonction `labs`.
 
 ```{r boxplot_labs, echo = TRUE}
-manchots %>% ggplot() + 
-  geom_boxplot(aes(x = sexe, y = longueur_bec))  +
+manchots %>% ggplot(aes(x = sexe, y = longueur_bec)) + 
+  geom_boxplot()  +
   labs(x ='Sexe', y = 'Longueur du bec (mm)' )
 ```
 
 Il est également possible de représenter les données elles-mêmes. On peut utiliser la commande `geom_point` qui va dessiner un point aux abscisses et ordonnées spécifiées.
 
 ```{r boxplot_labs_points, echo = TRUE}
-manchots %>% ggplot() + 
-  geom_boxplot(aes(x = sexe, y = longueur_bec))  +
+manchots %>% ggplot(aes(x = sexe, y = longueur_bec)) + 
+  geom_boxplot()  +
   labs(x ='Sexe', y = 'Longueur du bec (mm)' ) +
   geom_point(aes(x = sexe, y = longueur_bec))  
 ```
@@ -293,36 +293,21 @@ manchots %>% ggplot() +
 Le résultat n'est pas très satisfaisant, car tous les points ayant la même abscisse, il est difficile de les différencier. Il est possible de perturber légèrement l'abscisse de manière à mieux distinguer les différentes mesures. 
 
 
-```{r boxplot_labs_points_jitter, echo = TRUE}
-manchots %>% ggplot() + 
-  geom_boxplot(aes(x = sexe, y = longueur_bec))  +
-  labs(x ='Sexe', y = 'Longueur du bec (mm)' ) +
-  geom_jitter(aes(x = sexe, y = longueur_bec))  
-```
-
-
-Finalement pour avoir un très joli graphique, il est possible de 
-
-- limiter la perturbation de l'abscisse,
-- dessiner des points plus petits,
-- les rendre légèrement transparents.
-
-```{r boxplot_labs_points_jitter_nice, echo = TRUE}
-manchots %>% ggplot() + 
-  geom_boxplot(aes(x = sexe, y = longueur_bec))  +
-  labs(x ='Sexe', y = 'Longueur du bec (mm)' ) +
-  geom_jitter(aes(x = sexe, y = longueur_bec), width = 0.3, size=0.4, alpha=0.8)  
+```{r boxplot_labs_points_dotplot, echo = TRUE}
+manchots %>% ggplot(aes(x = sexe, y = longueur_bec, fill = sexe)) +
+  geom_boxplot()  +
+  geom_dotplot(binaxis = "y", stackdir = "center") +
+  labs(x = 'Sexe', y = 'Longueur du bec (mm)')
 ```
 
 
 Utiliser la couleur comme cerise sur le gâteau.
 
-```{r boxplot_labs_points_jitter_nice_col, echo = TRUE}
-manchots %>% ggplot() + 
-  geom_boxplot(aes(x = sexe, y = longueur_bec, fill = sexe), alpha = 0.2)  +
-  labs(x ='Sexe', y = 'Longueur du bec (mm)' ) +
-  geom_jitter(aes(x = sexe, y = longueur_bec, col = sexe), width = 0.3, size=0.4, alpha=0.8)  +
-  labs(fill = 'Sexe', col = 'Sexe')
+```{r boxplot_labs_points_dotplot_nice_col, echo = TRUE}
+manchots %>% ggplot(aes(x = sexe, y = longueur_bec, fill = sexe)) +
+  geom_boxplot(alpha = 0.2)  +
+  labs(x = 'Sexe', y = 'Longueur du bec (mm)') +
+  geom_dotplot(binaxis = "y", stackdir = "center", dotsize = .5) 
 ```
 
 Reprendre les graphiques qui visualisent l'effet de la longueur des nageoires sur la longueur du bec. 
@@ -375,7 +360,7 @@ Il est essentiel de nettoyer (ne garder que les commandes pertinentes) et de sau
 - %>%
 - filter
 - geom_boxplot
-- geom_jitter
+- geom_dotplot
 - geom_point
 - geom_smooth
 - is.na

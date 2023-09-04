@@ -1,5 +1,5 @@
 ---
-title: "TD3 : Tester l'existence d'un effet groupe"
+title: "TD3 : Comparaison de moyennes"
 author: "UP Mathématique appliquée"
 date: ''
 output:
@@ -38,150 +38,96 @@ print(is_pdf)
   - Effectuer des calculs par modalité du facteur
 * Visualisation de données
   - Boîte à moustaches
-* Analyse de données
+* Tests 
   - Démarche statistique 
-  - Reconnaître le contexte d'une analyse de la variance
-  - Ecrire le modèle correspondant
-  - Mettre en oeuvre le test du modèle complet
+  - Reconnaître le contexte d'un test de comparaison ou d'adéquation
+  - Ecrire les hypothèses correspondantes du test et leur interprétation
+  - Donner la statistique de test et sa loi sous l'hypothèse nulle
+  - Mettre en oeuvre le test
 
 ## Exercices 
 
- Le problème qui suit est inspiré d'un stage de fin d'études réalisé par une étudiante de la spécialisation  *Science des données* du cursus d'ingénieur agro-alimentaire d'Agrocampus.
- 
-Un groupe industriel commercialisant du café souhaite comparer les cafés provenant de différents lieux de production à partir de leur profil de composition physico-chimique, dont une des composantes importantes est le taux de matière sèche (`DM`). Pour cela, il s'appuie sur des données contenant le lieu de production, codé par un entier allant de `1` à `7`, de 240 mesures de café disponible sur l'onglet Scripts et données de la [page d'accueil du module](https://agrocampusds.github.io/demarche_statistique/index.html).
+### Dégustation de chocolats
 
-### Description des données sur la qualité du  café
+#### Importation et exploration des données
 
-#### Importation des données
+Dans le cadre d'un cours d'analyse sensorielle à l'Institut Agro, des étudiants ont dégusté des chocolats. Le but ici consiste à savoir dans quelle mesure le consommateur détecte ou non une différence de teneur en cacao. Chaque personne a goûté un seul chocolat dont la teneur en cacao est soit 72%, soit 85%. Elle devait alors deviner la teneur en cacao du chocolat dégusté. Les données sont enregistrées dans le fichier `chocolat_72_85.csv`.
 
-* Importer le fichier de données `cafe_DM.csv` disponible sur la page des [jeux de données ](index.html) dans un  objet nommé `cafe`  en utilisant un script `TD3_script.R` que vous aurez créé dans votre répertoire de projet.
-
-```{r import_data}
-cafe <- read.table('https://agrocampusds.github.io/demarche_statistique/cafe_DM.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
+* Importer les données.
+```{r data}
+chocolat <- read.table('https://agrocampusds.github.io/demarche_statistique/chocolat_72_85.csv', sep = ';', header = TRUE)
 ```
 
-* Quels sont les noms des variables de ce tableau de données ?
-* La nature de chacune de ces variables, telle que déclarée dans `R`, correspond-elle à votre appréciation personnelle ? 
-
-`R` traite la variable `Localisation`, un entier compris entre 1 et 7, comme une variable quantitative. 
-Il faut indiquer à `R`  que cette variable  est en fait une variable qualitative, un facteur : 
-
+* Pour constituer les deux groupes de goûteurs, il faut que la variable `Pourcentage_reel` soit reconnue comme une variable qualitative 
 ```{r as.factor, echo = TRUE}
-cafe <- cafe %>% 
-  mutate(Localisation = as.factor(Localisation))
+chocolat <- chocolat %>% 
+  mutate(Pourcentage.reel = as.factor(Pourcentage.reel))
 ```
 
-* Après cette transformation, la nature de chacune de ces variables correspond-elle finalement à votre appréciation personnelle ? 
-
-#### Visualisation des données
-
-* Construire maintenant une boîte à moustaches des taux de matière sèche pour chaque site de production des cafés.
-
-```{r boxplot, echo = FALSE, warning=FALSE}
-cafe %>% 
-  ggplot() + geom_boxplot(aes(x=Localisation, y = DM))
+* Représenter à l'aide du graphique adapté les différences de réponses entre ceux qui ont goûté un chocolat à 72% et ceux qui ont goûté un chocolat à 85%. 
+```{r boxplot}
+chocolat %>% ggplot + aes(x = "Pourcentage.reel", y  = "Pourcentage.percu", col = "Pourcentage.reel", fill = "Pourcentage.reel") +
+  geom_boxplot(alpha = 0.4, outlier.shape = NA) +
+  geom_dotplot(binaxis = "y",stackdir = "center") 
 ```
 
-#### Calcul de statistiques descriptives
 
-La commande suivante permet de calculer la moyenne de matière sèche pour chaque site de production de café :
 
-```{r mean, echo = TRUE, results='markup'}
-cafe %>% 
-  group_by(Localisation) %>% 
-  summarise(DM_mean = mean(DM))
+La commande suivante permet de calculer la moyenne et la médiane des réponses pour les deux groupes de goûteurs :
+
+```{r mean, echo = TRUE}
+chocolat %>% 
+  group_by(Pourcentage.reel) %>% 
+  summarise(moyennes = mean(Pourcentage.percu), ecarts_type = sd(Pourcentage.percu))
 ```
 
-* Calculer la médiane et l'écart-type pour chaque site de production.
+#### Mise en place de la comparaison de moyennes
 
-```{r stat_desc, echo = FALSE, results='markup'}
-stat_desc <- cafe %>% 
-  group_by(Localisation) %>% 
-  summarise(DM_mean = mean(DM),
-            DM_q50 = quantile(DM,probs=0.5),
-            DM_sd = sd(DM))
+* Rappeler le cadre du test de comparaison de moyennes (hypothèses, statistique de test, loi de la statistique, décision), que faut-il vérifier en premier lieu ?
+
+* Effectuer cette vérification, puis répondre à la problématique.
+```{r comparaison_moyennes, echo = FALSE}
+var.test(formula = Pourcentage.percu ~ Pourcentage.reel, data = chocolat)
+t.test(formula = Pourcentage.percu ~ Pourcentage.reel, data = chocolat, var.equal = TRUE)
+```
+* On cherche à savoir maintenant si les goûteurs du chocolat à 72% ont su reconnaître le véritable pourcentage. Mettre en place le test correspondant en rappelant leur cadre avant d'effectuer les calculs dans `R`.
+```{r adequation}
+Ech_72 <- chocolat %>% filter(Pourcentage.reel == "72") %>% select(Pourcentage.percu)
+t.test(Ech_72, mu = 72)
 ```
 
-```{r stat_desc_html, echo = FALSE, results='markup', eval = !is_pdf}
-stat_desc %>% 
-  kable(digits=2, format = "html", escape = FALSE) %>%
-  collapse_rows(columns = 1, valign = 'top') %>%
-  kable_classic(full_width = F, html_font = "Cambria")
+* On pense que les gens qui goûtent un chocolat à haute teneur en cacao ont tendance à sous-estimer cette teneur. Mettre en place le test correspondant en rappelant leur cadre avant d'effectuer les calculs dans `R`.
+
+```{r unilateral}
+Ech_85 <- chocolat %>% filter(Pourcentage.reel == "85") %>% select(Pourcentage.percu)
+t.test(Ech_85, mu = 85, alternative = "less")
+
 ```
 
-```{r stat_desc_pdf, echo = FALSE, results='markup', eval = FALSE}
-stat_desc %>% 
-  kable(digits=2, booktabs = T)%>%
-  kable_styling(latex_options = "striped")
+
+### Elevage bovin
+
+Le gain moyen quotidien (GMQ) est défini comme la moyenne sur une période des prises de poids. C'est un indicateur courant pour les élevages bovins pour la simple raison qu'un GMQ élevé garantit une carcasse plus lourde, donc plus rentable. Les données sont fournies dans le fichier `vaches.csv`.
+
+*  Une fois les données correctement chargées, formuler la problématique adaptée
+```{r cows}
+vaches <- read.table("https://agrocampusds.github.io/demarche_statistique/vaches.csv", sep = ',', header = TRUE, stringsAsFactors = TRUE)
 ```
 
-### Modélisation statistique
+* Répondre à la problématique en reprenant les étapes de l'exercice précédent puis conclure 
 
-On cherche à répondre à la question suivante : Les taux de matière sèche moyens à l'échelle de toute la production diffèrent-ils d'un site à l'autre ?
-
-#### Mise en place de l'analyse statistique
-
-* Donner l'expression du modèle statistique M$_1$ permettant de répondre à cette question ? Quels sont les paramètres de ce modèle ?
-
-* Quelles sont les hypothèses H$_{0}$ et H$_{1}$ du test de l'existence de différences moyennes de taux de matière sèche entre les sites de production ? Exprimer ces hypothèses à partir des paramètres du modèle de la question précédente.
-
-#### Ajustement du modèle 
-
-* A l'aide des fonctions `lm` et `coef`, donner la valeur estimée des paramètres du modèle d'analyse de la variance M$_1$ introduit ci-dessus. 
- 
-* Donner l'expression mathématique du modèle nul M$_0$.
-
-* Le paramètre désigné par le nom `Intercept` est-il estimé à la même valeur dans les modèles M$_0$ et M$_1$ ? Pourquoi ?
-
-La qualité d'ajustement d'un modèle est mesurée par la somme des carrés des écarts entre les valeurs observées de la variable réponse et les valeurs ajustées par le modèle, que l'on nomme RSS (residual sum of squares).
-
-* Selon ce critère de qualité d'ajustement, peut-on dire que le modèle M$_1$ est beaucoup mieux ajusté aux données que le modèle M$_0$ ? Proposer une évaluation quantitative de ce gain d'ajustement.
-
-* Quelle est la valeur estimée de l'écart-type résiduel du modèle M$_{1}$ ?
-
-#### Test de l'effet site de production sur la quantité de matière sèche
-
-*  Quelle est l'expression de la statistique de test permettant de tester l'existence de différences moyennes entre les lieux de production ? Quelle est la valeur prise par cette statistique de test ?
-
-* Quelle est la distribution $\mathcal{F}_{0}$ sous l'hypothèse H$_{0}$ de la statistique de test $F$ introduite à la question précédente ?
-
-
-### Conclusion de l'étude
-
-La fonction `pf(q = .., df1 = .. , df2= .. , lower.tail = FALSE) `  donne la probabilité qu'une variable aléatoire suivant une loi de Fisher de paramètre `df1`, `df2` dépasse la valeur `q`.  
-```{r graph_p_value, fig.show='asis'}
-cafe_residuals <- cafe %>% 
-  group_by(Localisation) %>% 
-  mutate(DM_mean = mean(DM), Residuals = DM -DM_mean)
-RSS <- cafe_residuals %>% 
-  ungroup() %>% 
-  summarise(RSS_group=sum(Residuals^2))
-RSS0 <- cafe %>% 
-  mutate(DM_mean = mean(DM), Residuals = DM -DM_mean) %>% 
-  summarise(RSS_group=sum(Residuals^2))
-norigine <- nrow(stat_desc)
-n <- nrow(cafe)
-
-numerateur <- (RSS0 - RSS)/(norigine-1) 
-denominateur <- RSS/(n-norigine)
-stat_test <- numerateur/denominateur 
-q_value <- 1.8
-ggplot(data.frame(x = c(0, 7)), aes(x)) +
-  stat_function(fun = df, args = list(df1=norigine-1, df2 =n -norigine)) + 
-  stat_function(fun = df,
-                args = list(df1=norigine-1, df2 =n -norigine),
-                xlim = c(q_value,7),
-                geom = "area") +
-  geom_segment(aes(x = q_value, y = 0, xend = q_value, yend = df(q_value, df1= norigine-1, df2 = n - norigine), colour = "red")) +
-  annotate(geom = "text", x= q_value, y = -0.05, label = 'q', colour = 'red') +
-  theme(legend.position = 'none')
+```{r cows analysis}
+vaches %>% ggplot + aes(x = race, y  = gmq_moyen, col = race, fill = race) +
+  geom_boxplot(alpha = 0.4, outlier.shape = NA) +
+  geom_dotplot(binaxis = "y",stackdir = "center") 
+vaches %>% 
+  group_by(race) %>% 
+  summarise(moyennes = mean(gmq_moyen), ecarts_type = sd(gmq_moyen))
+var.test(data = vaches, gmq_moyen ~ race)
+t.test(data = vaches, gmq_moyen ~ race, var.equal = TRUE)
 ```
 
-* En déduire la p-value du test de comparaison des teneurs moyennes en matières sèches entre les sites de production. 
 
-* En déduire une réponse à la question initialement posée.
-
-* Utiliser la fonction 'anova' pour repérer dans son résultat toutes les quantités que nous avons calculées dans ce TD.
 
 ## Le vocabulaire de la séance
 
@@ -196,5 +142,7 @@ ggplot(data.frame(x = c(0, 7)), aes(x)) +
 
 
 ### Statistique 
-- Analyse de la variance
+- Comparaison de moyennes
+- Comparaison de variances
+- Test d'adéquation
 

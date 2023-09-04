@@ -1,6 +1,6 @@
 ---
-title: "TD4 : Comparaison de l'effet groupe dans deux situations différentes"
-author: "UP Mathématiques appliquées"
+title: "TD4 : Comparer les moyennes de 2 groupes"
+author: "UP Mathématique appliquée"
 date: ''
 output:
   html_document:
@@ -13,108 +13,158 @@ header-includes:
 - \usepackage[T1]{fontenc}
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+```{r setup-TD5, include=FALSE, }
+knitr::opts_chunk$set(echo = FALSE, cache= TRUE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'hide' )
+library(tidyverse)
+library(kableExtra)
+out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+
+```
+
+```{r}
+print(out_type)
+
+is_pdf <-  (out_type=='latex')
+print(is_pdf)
 ```
 
 # {.tabset .tabset-fade .tabset-pills}
 
 ##  Objectifs de la séance  
 
-* Manipulation de données     
-  * Utiliser un tableur
-  * Construire un tableau de données :
-    * faire le lien entre des mesures sur des individus et un tableau de données,
-    * réfléchir à la notion de dimensions d'un tableau de données.
-* Visualisation de données     
-  * Représentation d'une variable quantitative en fonction d'une variable qualitative
-* Analyse de données     
-  * Comprendre les mécanismes derrière une analyse de variance
-  
+* Visualisation de données
+  - Boîte à moustaches
+* Analyse de données
+  - Construire un test de conformité à une valeur
+  - Construire un test de comparaison de variances
+  - Construire un test de comparaison de moyennes
+  - Adapter la règle de décision pour un test unilatéral
+
 ## Exercices 
 
-Les données sur lesquelles vous allez travailler sont extraites du livre *Statistique* de Wonnacott et Wonnacott. Pour cet exercice vous allez construire 3 tableaux de données dans un tableur, que vous allez importer. Le premier sera constitué de données de 3 échantillons de la production d'une seule machine, le second et le troisième seront constitués d'échantillons issus de la production de 3 machines. Toutes les machines produisent des financiers aux amandes de forme rectangulaire. On mesure la longueur en *cm* de ces financiers.
+### Le compas dans l'oeil
 
-### Construction des tableaux de données et importation des données dans `R`
+#### Recueil des données
 
-#### Utiliser un tableur
+A l'oeil, **sans l'aide d'outil (rapporteur, règle ou compas)** et **indépendamment de vos voisins**, évaluer l'angle (en degrés) entre AB et AC (selon votre groupe, celui de la figure 1 ou de la figure 2). 
 
-Les données du premier tableau sont des mesures de conformation de la production de financiers sur une même machine à trois périodes différentes. Pour chacune des trois périodes (matin, après-midi et soir), on prélève 5 gâteaux (de forme rectangulaire) dont on mesure la longueur en *cm*.
+![Evaluation de l'angle entre AB et AC](angle37_et_54.png){width=50%}
 
-* Pour le matin, les cinq financiers sont de longueur : 4.9, 5.5, 5.1, 5.2, 4.8.
+Une fois toutes les données recueillies dans votre tableur préféré, considérons deux groupes : les évaluations faites par les garçons et
+les évaluations faites par les filles.
+On suppose que la mesure d'un angle suit une loi normale d'espérance $\mu_{1}$
+et de variance $\sigma^2$ lorsqu'elle est évaluée par des garçons et une
+loi normale d'espérance $\mu_{2}$ et de variance $\sigma^2$ lorsqu'elle
+est évaluée par des filles.
 
-* Pour l'après-midi, les cinq financiers sont de longueur : 5.2, 5.1, 5.5, 5.8, 4.9.
+#### Importation du jeu de données
 
-* Pour le soir, les cinq financiers sont de longueur : 5.5, 5.1, 5.2, 5.2, 5.0.
+* Saisir les données et les sauvegarder dans un fichier `angle.csv`.
 
-Une autre expérience, consiste à mesurer des financiers en sortie de 3 machines différentes.
+* Importer le jeu de données `angle.csv` dans un  objet nommé `don_Angle` en utilisant un script `TD5_script.R` que vous aurez créé dans votre répertoire de projet.
 
-* Pour la machine 1, nous avons les mesures suivantes : 4.7, 4.9, 5.3, 5.0, 4.6.
+```{r import_data}
+don_Angle <- read.table('angle.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
+```
 
-* Pour la machine 2, nous avons les mesures suivantes : 5.5, 5.8, 5.4, 6.1, 5.2.
+#### Visualisation des données
 
-* Pour la machine 3, nous avons les mesures suivantes : 5.4, 5.1, 5.0, 5.1, 4.9.
+* Visualiser les données pour avoir une idée de la distribution des angles pour les garçons, et pour les filles. Calculer quelques statistiques par sexe.
 
-Rentrer les données dans un tableur de votre choix (Calc de la suite LibreOffice ou OpenOffice, Excel de la suite Microsoft Office, par exemple). Pour cela, il faudra bien réfléchir à la notion d'individu statistique, et aux variables qui les caractérisent.
+```{r boxplot}
+don_Angle %>% 
+  ggplot() + aes(x=Sexe, y = Angle, fill=Sexe, col=Sexe) + 
+    geom_boxplot() + geom_dotplot(binaxis = 'y', stackdir = "center" )  +
+    scale_fill_manual(values=c("pink", "lightblue"))
+```
 
-Sauver les tableaux de données dans deux fichiers *csv*.
+```{r mean}
+stat_desc <- don_Angle %>% 
+  group_by(Sexe) %>% 
+  summarise(long_mean = mean(Angle), 
+            long_sd = sd(Angle), 
+            q05 = quantile(Angle, probs = 0.05 ),
+            q50 = quantile(Angle, probs = 0.5 ),
+            q95 = quantile(Angle, probs = 0.95 )
+            )
+```
 
-####  Importer les tableaux de données dans `R`
+```{r stat_desc_html}
+stat_desc %>% 
+  kable(digits=2, format = "html", escape = FALSE) %>%
+  collapse_rows(columns = 1, valign = 'top') %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+```
 
-De même que pour les séances précédentes, vous allez importer les tableaux de données en utilisant un script `TD4_script.R` que vous aurez créé dans votre répertoire de projet.
-
-Stocker le premier tableau importé dans un objet appelé *tab1*, et le second tableau importé dans un objet appelé *tab2*. Par la suite, pour *tab1*, on appelle *periode* la variable qui désigne le moment où l'échantillon a été prélevé, et pour *tab2*, on appelle *machine* la variable qui désigne la machine qui a produit l'échantillon prélevé ; *longueur* est le nom de la variable qui désigne la longueur des financiers aux amandes pour les deux jeux de données *tab1* et *tab2*.
-
-Attention, les variables *periode* et *machine* sont des variables qualitatives et doivent être considérées comme telles par `R`.
-
-####  Visualisation des données
-
-Visualiser les données des jeux *tab1* et *tab2* en vous inspirant du code des séances précédentes ; afficher pour chaque graphique un titre permettant d'identifier le jeu de données représenté.
-
-Pour *tab1*, calculer les longueurs moyennes par période ainsi que la longueur moyenne d'un financier de la machine 1. 
-Pour *tab2*, calculer les longueurs moyennes par machine. 
-
-Que pensez-vous des différences entre les moyennes calculées pour *tab1* d'une part, pour *tab2* d'autre part ? Sont-elles du même ordre de grandeur d'un jeu de données à l'autre ? Que suggèrent les différences entre les moyennes calculées pour *tab2* ?
+```{r stat_desc_pdf, echo = FALSE, results='hide', eval = is_pdf}
+stat_desc %>% 
+  kable(digits=2, booktabs = T)%>%
+  kable_styling(latex_options = "striped")
+```
 
 
-### Comparaison des données issues de 3 machines différentes
+#### Mise en place de l'analyse statistique
 
-#### Les machines d'un autre atelier
+On cherche dans un premier temps à savoir si, en moyenne, les filles ont une évaluation non biaisée de l'angle. 
 
-La même expérimentation pour celle présente dans le tableau2 a été menée dans un autre atelier. les données sont disponibles dans le fichier [financiers3.csv](financiers3.csv) 
+* Exprimer la problématique ci-dessus sous la forme d'un test d'hypothèses.
 
-* Importer le tableau de données dans `R`, dans un objet que vous appellerez *tab3*. De même que pour *tab2*, on appelle *machine* la variable qui désigne la machine ; *longueur* est le nom de la variable qui désigne la longueur des financiers aux amandes.
+* Dans cette problématique de test, quel est l'échantillon et quelle est la population ?
 
-Pour *tab3*, calculer les longueurs moyennes des financiers produits pour chaque machine. 
+* A l'aide des données recueillies, mettre en oeuvre le test avec un niveau de confiance de 95 % (i.e. un seuil de 5 % pour l'erreur de type I). 
 
-* Que pensez-vous des différences entre les moyennes calculées pour *tab2* d'une part, pour *tab3* d'autre part ? 
+```{r, echo=FALSE}
+angle_ref <- 37
+```
 
-* Que pensez-vous de la régularité des machines du jeu de données *tab2* ? Les machines de ce jeu de données vous semblent-elles plus régulières que celles de *tab3* ?
+```{r testCoeff, echo = FALSE}
+don_Angle  %>% select(Angle) %>% t.test(mu=angle_ref)
+```
 
-#### Modèle statistique pour un effet groupe
+```{r testMoyF}
+don_Angle  %>% filter(Sexe=="F") %>% select(Angle) %>% t.test(mu=angle_ref)
+```
 
-* Tester l'effet de la machine sur la longueur des financiers pour les données issues de *tab2* d'une part, *tab3* d'autre part. Il s'agit ici :
-  * d'écrire le modèle statistique
-  * de préciser les hypothèses de test
-  * de mettre ce test en oeuvre sur `R` et de conclure sur l'homogénéité de la production.
+* Pour les garçons, tester si, en moyenne, ils évaluent justement ou s'ils sous-estiment l'angle (préciser $H_0$ et $H_1$ avant de construire le test sous R).
 
-#### La table d'analyse de variance
+```{r testMoyH}
+don_Angle  %>% filter(Sexe=="H") %>% 
+select(Angle) %>% 
+t.test(mu=angle_ref, alternative = "less")
+```
 
-Comme son nom ne l'indique pas forcément, la table d'analyse de variance n'est pas un résultat spécifique du modèle d'analyse de la variance ; vous la retrouverez également quand vous chercherez à expliquer une variable quantitative par une autre variable quantitative.
+* On souhaite maintenant tester l'égalité des moyennes entre garçons et filles. Préciser l'hypothèse $H_0$ et l'hypothèse $H_1$. 
 
-Après avoir testé l'effet de la machine sur la longueur des financiers pour les données issues de *tab2* d'une part et de *tab3* d'autre part, commenter les tables issues de la fonction `anova` appliquée aux résultats produits par la fonction `lm`.
+```{r testMoy}
+var.test(Angle ~ Sexe, data=don_Angle)
+t.test(Angle ~ Sexe, data=don_Angle, var.equal = TRUE)   # TRUE ou FALSE suivant résultat précédent
+#don_Angle  %>% t.test(Angle ~ Sexe, data=.)  # Avec dplyr = tordu non ?
+```
 
-RSS$_{0}$-RSS mesure le gain apporté par le modèle proposé par rapport au modèle nul, c'est la somme des carrés du modèle **SCM**.
+### La puissance d'un test
 
-La somme des carrés des écarts résiduels, RSS, est la somme des $(Y_{ij}-\bar{Y_{i.}})^2$ ; autrement dit, c'est la somme des écarts au carré entre la valeur observée et la valeur moyenne propre à chaque modalité.
+Reprenons la même problématique d'élevage bovin que dans le TD précédent. 
 
+* Combien de vaches étudier pour réussir à détecter un écart d'environ 100g entre les gains moyens théoriques des Charolaises et des Limousines ?
+
+* Quelle est la différence de  gains moyens théoriques entre ces races de vache que l'on peut détecter au risque 90% ?
 
 ## Le vocabulaire de la séance
 
 ### Commandes R
-- anova
+- as.factor
+- group_by
+- var.test
+- t.test
+- LinearModel
 
 ### Environnement R
 
+
 ### Statistique 
-- Table d'analyse de la variance
+- Test d'égalité de 2 variances
+- Test d'égalité de 2 moyennes
+- Test de conformité
+- Test unilatéral
+

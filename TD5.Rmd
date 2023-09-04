@@ -1,5 +1,5 @@
 ---
-title: "TD5 : Comparer les moyennes de 2 groupes"
+title: "TD5 : Tester l'existence d'un effet groupe"
 author: "UP Mathématique appliquée"
 date: ''
 output:
@@ -14,10 +14,11 @@ header-includes:
 ---
 
 
-```{r setup-TD5, include=FALSE, }
+```{r setup-TD3, include=FALSE, }
 knitr::opts_chunk$set(echo = FALSE, cache= TRUE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'hide' )
 library(tidyverse)
 library(kableExtra)
+library(FactoMineR)
 out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 
 ```
@@ -33,143 +34,142 @@ print(is_pdf)
 
 ##  Objectifs de la séance  
 
+* Manipulation de données
+  - Grouper les données par modalité d'un facteur
+  - Effectuer des calculs par modalité du facteur
 * Visualisation de données
   - Boîte à moustaches
 * Analyse de données
-  - Construire un test de conformité à une valeur
-  - Construire un test de comparaison de moyennes
-  - Adapter la règle de décision pour un test unilatéral
+  - Démarche statistique 
+  - Reconnaître le contexte d'une analyse de la variance
+  - Ecrire le modèle correspondant
+  - Mettre en oeuvre le test du modèle complet
 
 ## Exercices 
 
+ Le problème qui suit est inspiré d'un stage de fin d'études réalisé par une étudiante de la spécialisation  *Science des données* du cursus d'ingénieur agro-alimentaire d'Agrocampus.
+ 
+Un groupe industriel commercialisant du café souhaite comparer les cafés provenant de différents lieux de production à partir de leur profil de composition physico-chimique, dont une des composantes importantes est le taux de matière sèche (`DM`). Pour cela, il s'appuie sur des données contenant le lieu de production, codé par un entier allant de `1` à `7`, de 240 mesures de café disponible sur l'onglet Scripts et données de la [page d'accueil du module](https://agrocampusds.github.io/demarche_statistique/index.html).
 
-### Recueil des données
+### Description des données sur la qualité du  café
 
-A l'oeil, **sans l'aide d'outil (rapporteur, règle ou compas)** et **indépendamment de vos voisins**, évaluer l'angle (en degrés) entre AB et AC (selon votre groupe, celui de la figure 1 ou de la figure 2). 
+#### Importation des données
 
-![Evaluation de l'angle entre AB et AC](angle37_et_54.png){width=50%}
-
-Une fois toutes les données recueillies, considérons deux groupes : les évaluations faites par les garçons et
-les évaluations faites par les filles.
-On suppose que la mesure d'un angle suit une loi normale d'espérance $\mu_{1}$
-et de variance $\sigma^2$ lorsqu'elle est évaluée par des garçons et une
-loi normale d'espérance $\mu_{2}$ et de variance $\sigma^2$ lorsqu'elle
-est évaluée par des filles.
-
-#### Importation du jeu de données
-
-* Saisir les données et les sauvegarder dans un fichier `angle.csv`.
-
-* Importer le jeu de données `angle.csv` dans un  objet nommé `don_Angle` en utilisant un script `TD5_script.R` que vous aurez créé dans votre répertoire de projet.
+* Importer le fichier de données `cafe_DM.csv` disponible sur la page des [jeux de données ](index.html) dans un  objet nommé `cafe`  en utilisant un script `TD5_script.R` que vous aurez créé dans votre répertoire de projet.
 
 ```{r import_data}
-don_Angle <- read.table('angle.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
+cafe <- read.table('https://agrocampusds.github.io/demarche_statistique/cafe_DM.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
 ```
+
+* Quels sont les noms des variables de ce tableau de données ?
+* La nature de chacune de ces variables, telle que déclarée dans `R`, correspond-elle à vos attentes ?
+
+
+```{r as.factor, echo = FALSE}
+cafe <- cafe %>% 
+  mutate(Localisation = as.factor(Localisation))
+```
+
+* Après cette transformation, la nature de chacune de ces variables correspond-elle finalement à vos attentes ?  
 
 #### Visualisation des données
 
-* Visualiser les données pour avoir une idée de la distribution des angles pour les garçons, et pour les filles. Calculer quelques statistiques par sexe.
+* Construire la visualisation adaptée pour représenter les taux de matière sèche pour chaque site de production des cafés.
 
-```{r boxplot}
-don_Angle %>% 
-  ggplot() + aes(x=Sexe, y = Angle, fill=Sexe, col=Sexe) + 
-    geom_boxplot() + geom_jitter()  +
-    scale_fill_manual(values=c("pink", "lightblue"))
+```{r boxplot, echo = FALSE, warning=FALSE}
+cafe %>%
+  ggplot() +
+  aes(x = Localisation,
+      y = DM,
+      col = DM,
+      fill = DM) +
+  geom_boxplot() + 
+  geom_dotplot(
+    binaxis = 'y', 
+    stackdir = "center")
 ```
 
-```{r mean}
-stat_desc <- don_Angle %>% 
-  group_by(Sexe) %>% 
-  summarise(long_mean = mean(Angle), 
-            long_sd = sd(Angle), 
-            q05 = quantile(Angle, probs = 0.05 ),
-            q50 = quantile(Angle, probs = 0.5 ),
-            q95 = quantile(Angle, probs = 0.95 )
-            )
+#### Calcul de statistiques descriptives
+
+
+* Calculer les quartiles, le minimum, le maximum et l'écart-type pour chaque site de production.
+
+```{r stat_desc, echo = FALSE, eval = TRUE}
+stat_desc <- cafe %>% 
+  group_by(Localisation) %>% 
+  summarise(DM_mean = mean(DM),
+            DM_q25 = quantile(DM,probs=0.25),
+            DM_q50 = quantile(DM,probs=0.5),
+            DM_q75 = quantile(DM,probs=0.75),
+            DM_min = min(DM),
+            DM_max = max(DM),
+            DM_sd = sd(DM))
 ```
 
-```{r stat_desc_html}
-stat_desc %>% 
-  kable(digits=2, format = "html", escape = FALSE) %>%
-  collapse_rows(columns = 1, valign = 'top') %>%
+```{r stat_desc_html, echo = FALSE, results='markup', eval = FALSE}
+stat_desc %>% kable(digits=2, format = "html", escape = FALSE) %>%
   kable_classic(full_width = F, html_font = "Cambria")
 ```
 
-```{r stat_desc_pdf, echo = FALSE, results='hide', eval = is_pdf}
+```{r stat_desc_pdf, echo = FALSE, results='markup', eval = FALSE}
 stat_desc %>% 
   kable(digits=2, booktabs = T)%>%
   kable_styling(latex_options = "striped")
 ```
 
-### Test statistique
+### Modélisation statistique
+
+On cherche à répondre à la question suivante : Les taux de matière sèche moyens à l'échelle de toute la production diffèrent-ils d'un site à l'autre ?
 
 #### Mise en place de l'analyse statistique
 
-On cherche dans un premier temps à savoir si, en moyenne, les filles ont une évaluation non biaisée de l'angle. 
+* Donner l'expression du modèle statistique M$_1$ permettant de répondre à cette question ? Quels sont les paramètres de ce modèle ?
 
-* Exprimer la problématique ci-dessus sous la forme d'un test d'hypothèses.
+* Quelles sont les hypothèses H$_{0}$ et H$_{1}$ du test de l'existence de différences moyennes de taux de matière sèche entre les sites de production ? Exprimer ces hypothèses à partir des paramètres du modèle de la question précédente.
 
-* Dans cette problématique de test, quel est l'échantillon et quelle est la population ?
+* Donner l'expression mathématique du modèle sous l'hypothèse nulle H$_0$.
 
-* A l'aide des données recueillies, mettre en oeuvre le test avec un niveau de confiance de 95 % (i.e. un seuil de 5 % pour l'erreur de type I). Vous utiliserez la fonction `t.test` et adapterez la ligne de code suivante en ne sélectionnant que les filles (n'hésitez pas à voir l'aide de la fonction en faisant `help('t.test')`). La fonction `t.test` permet à la fois de construire le test d'égalité de la moyenne à une valeur et de construire un intervalle de confiance.
+#### Test de l'effet site de production sur la quantité de matière sèche
 
-```{r, echo=FALSE}
-angle_ref <- 37
+* Quelle est la valeur estimée de l'écart-type résiduel du modèle M$_{1}$ ?
+
+*  Quelle est l'expression de la statistique de test permettant de tester l'existence de différences de moyennes entre les lieux de production ? Quelle est la valeur prise par cette statistique de test ?
+
+* Quelle est la distribution $\mathcal{F}_{0}$ sous l'hypothèse H$_{0}$ de la statistique de test $F$ introduite à la question précédente ?
+
+* Répondre à la problématique 
+
+```{r LinearModel, echo = FALSE, eval=TRUE}
+res <- LinearModel(data = cafe,formula = DM ~ Localisation, selection = "none")
+res$Ftest
 ```
 
-```{r testCoeff, echo = TRUE}
-don_Angle  %>% select(Angle) %>% t.test(mu=angle_ref)
+#### Analyse approfondie des résultats
+
+* Pour un site de production 3, rappeler le cadre du test de nullité du coefficient associé (hypothèses, interprétation des hypothèses, statistique de test, loi sous H$_0$, décision)
+
+```{r ttest, echo = FALSE, eval=TRUE}
+res$Ttest
 ```
 
-```{r testMoyF}
-don_Angle  %>% filter(Sexe=="F") %>% select(Angle) %>% t.test(mu=angle_ref)
+* Commenter le résultat de comparaison par paires des différents sites de production obtenu à l'aide de la fonction `meansComp`
+
+```{r meansComp, echo = TRUE, eval=TRUE, results='markup', fig.show = TRUE}
+meansComp(res, spec = 'Localisation')
 ```
-
-* Pour les garçons, tester si, en moyenne, ils évaluent justement ou s'ils sous-estiment l'angle (préciser $H_0$ et $H_1$ avant de construire le test sous R).
-
-```{r testMoyH}
-don_Angle  %>% filter(Sexe=="H") %>% 
-select(Angle) %>% 
-t.test(mu=angle_ref, alternative = "less")
-```
-
-* On souhaite maintenant tester l'égalité des moyennes entre garçons et filles. Préciser l'hypothèse $H_0$ et l'hypothèse $H_1$. La fonction `t.test` permet également de construire un test d'égalité de 2 moyennes.
-
-```{r testMoy}
-t.test(Angle ~ Sexe, data=don_Angle)   # Sans utiliser dplyr ==> tellement mieux
-don_Angle  %>% t.test(Angle ~ Sexe, data=.)  # Avec dplyr = tordu non ?
-```
-#### Et en utilisant un modèle d'analyse de variance
-
-On propose d'utiliser les fonctions `lm` et  `anova` de la façon suivante. Expliciter ce que font chaque ligne de code et à quoi correspondent les résultats obtenus par rapport aux résultats précédents.
-
-```{r anova, echo=TRUE}
-mod <- lm(Angle~Sexe, data = don_Angle)
-m0 <- lm(Angle~1, data = don_Angle)
-
-summary(mod)
-anova(m0, mod)
-```
-
-### Conclusion de l'étude
-
-* Quel pourrait être l'intérêt d'utiliser un modèle et les fonctions `lm` et `anova` plutôt que de construire un test d'égalité de 2 moyennes avec la fonction `t.test` ? Et quel est l'intérêt de la fonction `t.test` ?
-
 
 ## Le vocabulaire de la séance
 
 ### Commandes R
 - as.factor
 - group_by
-- t.test
-- lm
-- anova
+- summarise
+- LinearModel
+- meansComp
 
 ### Environnement R
 
 
 ### Statistique 
-- Test d'égalité de 2 moyennes
-- Test de conformité
-- Test unilatéral
-
+- Analyse de la variance
+- Tests post-hoc
