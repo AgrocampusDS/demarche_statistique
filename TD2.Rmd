@@ -246,7 +246,7 @@ Ce graphique par défaut est largement personnalisable (cf fin du TD)
 
 * Rappeler la nature des variables longueur du bec et longueur des nageoires. Quelle sorte de graphique semble le plus adpatée ?
 
-* Utiliser la fonction graphique `geom_point` en précisant bien les abscisses et les ordonnées pour obtenir une visulaisation du lien entre  la longueur des nageoires sur la longueur du bec.
+* Utiliser la fonction graphique `geom_point` en précisant bien les abscisses et les ordonnées pour obtenir une visualisation du lien entre  la longueur des nageoires sur la longueur du bec.
 
 
 ```{r point_nagoire_bec}

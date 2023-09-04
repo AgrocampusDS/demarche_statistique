@@ -76,6 +76,7 @@ liste_complete %>%
 -   [Bébé](bebe.csv) : données sur le poids des bébés à la naiussance en fonction du sexe et du nombre de semaines de grossesse,
 -   [Buëch](buech.csv) : La pollution des eaux du Buëch
 -   [Cafe](cafe_DM.csv) : données sur la qualité des cafés en fonction de différentes provenances,
+- [Chocolat](chocolat_72_85.csv) : données sur la perception de la teneur en cacao de chocolats,
 -   [Compote](compote.csv) : données sur les compotes,
 -   [dataSportV1](dataSportV1.csv) et [dataSportV2](dataSportV2.csv)
 -   [Deboisement](deboisement.csv) : effet du déboisement sur e coefficient de transfert entre température de l'air et température de l'eau
@@ -87,7 +88,8 @@ liste_complete %>%
 -   [Manchots de Palmer](penguins.csv) : ce jeu de données est distribué dans le package [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/) d'Allison Horst <img src="https://allisonhorst.github.io/palmerpenguins/reference/figures/logo.png" alt="manchot" height="50"/>
 -   [Poussins](poussin.txt) : Evolution du poids des poussins selon le sexe et le traitement,
 -   [puissance1](puissance_1.csv) et [puissance2](puissance_2.csv),
--   [Sonde et sol](sonde_sol.csv) compariason de 3 sondes sur 2 types de sol.
+-   [Sonde et sol](sonde_sol.csv) comparaison de 3 sondes sur 2 types de sol,
+-   [Vaches](vaches.csv) comparaison de prises de poids de deux races bovines.
 
 ## Vocabulaire du module
 
