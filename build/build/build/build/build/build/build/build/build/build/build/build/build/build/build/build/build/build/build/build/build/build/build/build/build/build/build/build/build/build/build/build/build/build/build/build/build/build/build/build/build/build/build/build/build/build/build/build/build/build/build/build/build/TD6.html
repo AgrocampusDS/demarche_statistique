@@ -31,8 +31,6 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -365,6 +363,23 @@ $(document).ready(function () {
 <div id="objectifs-de-la-séance" class="section level2">
 <h2>Objectifs de la séance</h2>
 <ul>
+<li>Manipulation de données
+<ul>
+<li>Utiliser un tableur</li>
+<li>Construire un tableau de données :
+<ul>
+<li>faire le lien entre des mesures sur des individus et un tableau de données,</li>
+<li>réfléchir à la notion de dimensions d’un tableau de données.</li>
+</ul></li>
+</ul></li>
+<li>Visualisation de données
+<ul>
+<li>Représentation d’une variable quantitative en fonction d’une variable qualitative</li>
+</ul></li>
+<li>Analyse de données
+<ul>
+<li>Comprendre les mécanismes derrière une analyse de variance</li>
+</ul></li>
 <li>Puissance des tests
 <ul>
 <li>Effet de la taille de l’échantillon</li>
@@ -379,278 +394,101 @@ $(document).ready(function () {
 </div>
 <div id="exercices" class="section level2">
 <h2>Exercices</h2>
-<div id="problématique" class="section level3">
-<h3>Problématique</h3>
-<p>Dans une étude menée à l’université de Lyon, des scientifiques s’intéressent à l’association entre le sport pratiqué par un athlète et son développement morphologique. Pour répondre à cette question de recherche, les chercheurs vont chercher à tester l’hypothèse selon laquelle la carrure dépend du sport pratiqué.</p>
-<p>Plus précisément, cette étude s’est intéressée à six sports : l’athlétisme, le football, le handball, le judo, la natation et le volley. D’autre part, la carrure a été mesurée par la distance en cm entre les 2 épaules. Pour gagner du temps et limiter les coûts, les chercheurs réalisent un recueil de données où le nombre d’individus observés par sport est égal à <span class="math inline">\(n_i=3\)</span>.</p>
+<div id="contrôle-en-usine" class="section level3">
+<h3>Contrôle en usine</h3>
+<p>Les données sur lesquelles vous allez travailler sont extraites du livre <em>Statistique</em> de Wonnacott et Wonnacott. Pour cet exercice vous allez construire 3 tableaux de données dans un tableur, que vous allez importer. Le premier sera constitué de données de 3 échantillons de la production d’une seule machine, le second et le troisième seront constitués d’échantillons issus de la production de 3 machines. Toutes les machines produisent des financiers aux amandes de forme rectangulaire. On mesure la longueur en <em>cm</em> de ces financiers.</p>
+<div id="construction-des-tableaux-de-données-et-importation-des-données-dans-r" class="section level4">
+<h4>Construction des tableaux de données et importation des données dans <code>R</code></h4>
+<div id="utiliser-un-tableur" class="section level5">
+<h5>Utiliser un tableur</h5>
+<p>Les données du premier tableau sont des mesures de conformation de la production de financiers sur une même machine à trois périodes différentes. Pour chacune des trois périodes (matin, après-midi et soir), on prélève 5 gâteaux (de forme rectangulaire) dont on mesure la longueur en <em>cm</em>.</p>
+<ul>
+<li><p>Pour le matin, les cinq financiers sont de longueur : 4.9, 5.5, 5.1, 5.2, 4.8.</p></li>
+<li><p>Pour l’après-midi, les cinq financiers sont de longueur :5.2, 5.1, 5.5, 5.8, 4.9.</p></li>
+<li><p>Pour le soir, les cinq financiers sont de longueur : 5.5, 5.1, 5.2, 5.2, 5.0.</p></li>
+</ul>
+<p>Une autre expérience, consiste à mesurer des financiers en sortie de 3 machines différentes.</p>
+<ul>
+<li><p>Pour la machine 1, nous avons les mesures suivantes : 4.7, 4.9, 5.3, 5.0, 4.6.</p></li>
+<li><p>Pour la machine 2, nous avons les mesures suivantes : 5.5, 5.8, 5.4, 6.1, 5.2.</p></li>
+<li><p>Pour la machine 3, nous avons les mesures suivantes : 5.4, 5.1, 5.0, 5.1, 4.9.</p></li>
+</ul>
+<p>Rentrer les données dans un tableur de votre choix (Calc de la suite LibreOffice ou OpenOffice, Excel de la suite Microsoft Office, par exemple). Pour cela, il faudra bien réfléchir à la notion d’individu statistique, et aux variables qui les caractérisent.</p>
+<p>Sauver les tableaux de données dans deux fichiers <em>csv</em>.</p>
 </div>
-<div id="analyse-avec-n_i3" class="section level3">
-<h3>Analyse avec <span class="math inline">\(n_i=3\)</span></h3>
+</div>
+<div id="importations-et-premières-descriptions" class="section level4">
+<h4>Importations et premières descriptions</h4>
+<ul>
+<li><p>Importer les deux tableaux respectivement dans <code>tab1</code> et <code>tab2</code></p></li>
+<li><p>Pour chaque tableau, représenter les répartitions et calculer les moyennes et écarts type pour chaque groupe</p></li>
+</ul>
+</div>
+<div id="tests-statistiques" class="section level4">
+<h4>Tests statistiques</h4>
+<ul>
+<li><p>Pour chaque tableau rappeler le cadre du test de l’étude d’un effet de la variable qualitative sur les mesures de longueur de financier (modèle, hypothèses, statistique de test, loi de la statistique sous H<span class="math inline">\(_0\)</span>, décision)</p></li>
+<li><p>Effectuer alors les calculs par <code>R</code> et conclure</p></li>
+<li><p>Mêmes questions pour les comparaisons de groupes deux à deux.</p></li>
+</ul>
+</div>
+<div id="puissance" class="section level4">
+<h4>Puissance</h4>
+<p>De nouveaux financiers sont prélevés sur la même machine que les données de <code>tab1</code>.</p>
+<ul>
+<li><p>Charger les données contenues dans le fichier <code>financiers3.csv</code> dans un objet que vous nommerez <code>tab3</code></p></li>
+<li><p>Effectuer l’analyse de variance comme réalisée précédemment sur ce nouveau tableau et commenter les résultats</p></li>
+<li><p>Rappeler le principe de puissance d’un test. Quelles sont les éléments qui permettent d’augmenter théoriquement la puissance</p></li>
+<li><p>A l’aide de la fonction <code>bind_rows()</code>, il est possible de concaténer les lignes des tableaux <code>tab1</code> et <code>tab3</code></p></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a> tab <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(tab1,tab3)</span></code></pre></div>
+<ul>
+<li>Effectuer l’analyse de variance et les comparaisons de moyennes comme réalisées précédemment sur ce nouveau tableau et commenter les résultats</li>
+</ul>
+</div>
+</div>
+<div id="dégustation-de-compotes" class="section level3">
+<h3>Dégustation de compotes</h3>
+<div id="problématique" class="section level4">
+<h4>Problématique</h4>
+<p>On cherche à évaluer comment sont perçues 6 compotes de pommes au niveau de la saveur de pomme crue. Une dégustation est mise en place et 6 juges vont déguster chacune des 6 compotes. Les notes sont attribuées sur une échelle allant de 0 à 10.</p>
+<p>La question est donc de savoir si certaines compotes sont en moyenne perçues comme ayant une plus forte saveur de pomme crue.</p>
+</div>
 <div id="importation-du-premier-jeu-de-données" class="section level4">
 <h4>Importation du premier jeu de données</h4>
 <ul>
-<li><p>Importer le jeu de données <code>dataSportV1.csv</code></p></li>
-<li><p>Quelles sont les variables de ce tableau de données ? Quelle est la nature (quantitative/qualitative) de chacune de ces variables ?</p></li>
-<li><p>Sur combien d’individus statistiques ce tableau de données contient-il des informations ?</p></li>
-<li><p>Vérifier que chaque sport est bien représenté dans ces données par trois individus statistiques.</p></li>
+<li><p>Importez le jeu de données intial <code>compote.csv</code>.</p></li>
+<li><p>Visualiser les données pour avoir une idée des saveurs de pomme crue selon les compotes et calculez quelques statistiques descriptives par compote.</p></li>
 </ul>
-</div>
-<div id="visualisation-des-données" class="section level4">
-<h4>Visualisation des données</h4>
-<ul>
-<li>Visualiser les données pour avoir une idée de la distribution des carrures par sport et calculer quelques statistiques descriptives par sport.</li>
-</ul>
-<table class=" lightable-classic" style="font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-Sport
-</th>
-<th style="text-align:right;">
-Carrure_mean
-</th>
-<th style="text-align:right;">
-Carrure_sd
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Athletisme
-</td>
-<td style="text-align:right;">
-34.73
-</td>
-<td style="text-align:right;">
-2.16
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Foot
-</td>
-<td style="text-align:right;">
-36.07
-</td>
-<td style="text-align:right;">
-2.11
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Hand
-</td>
-<td style="text-align:right;">
-34.80
-</td>
-<td style="text-align:right;">
-4.10
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Judo
-</td>
-<td style="text-align:right;">
-36.47
-</td>
-<td style="text-align:right;">
-3.32
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Natation
-</td>
-<td style="text-align:right;">
-38.60
-</td>
-<td style="text-align:right;">
-3.14
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Volley
-</td>
-<td style="text-align:right;">
-36.17
-</td>
-<td style="text-align:right;">
-1.96
-</td>
-</tr>
-</tbody>
-</table>
 </div>
 <div id="test-statistique" class="section level4">
 <h4>Test statistique</h4>
+<p>On cherche à savoir si la saveur de pomme crue est différente selon la compote.</p>
+<div id="test-global-effet-des-facteurs" class="section level5">
+<h5>Test global (=Effet des facteurs)</h5>
 <ul>
-<li>Traduire la problématique ci-dessus sous la forme d’un test d’hypothèses.</li>
-<li>Réaliser le test et conclure.</li>
+<li><p>Rappeler le cadre du test de l’étude d’un effet de la variable <code>compote</code> sur les notes de saveur pomme crue (modèle, hypothèses, statistique de test, loi de la statistique sous H<span class="math inline">\(_0\)</span>, décision)</p></li>
+<li><p>Effectuer alors les calculs par <code>R</code> et conclure</p></li>
 </ul>
-<pre><code>## Analysis of Variance Table
-## 
-## Model 1: Carrure ~ 1
-## Model 2: Carrure ~ Sport
-##   Res.Df    RSS Df Sum of Sq      F Pr(&gt;F)
-## 1     17 131.26                           
-## 2     12 101.45  5    29.816 0.7054 0.6304</code></pre>
-<ul>
-<li>En utilisant la fonction <code>power.t.test</code>, donner la différence de carrure détectable par un test de comparaisons des carrures moyennes entre des sportifs pratiquant la natation et l’athlétisme avec une probabilité de 0.90.</li>
-</ul>
-<pre><code>## 
-##      Two-sample t test power calculation 
-## 
-##               n = 3
-##           delta = 10.76763
-##              sd = 3
-##       sig.level = 0.05
-##           power = 0.9
-##     alternative = two.sided
-## 
-## NOTE: n is number in *each* group</code></pre>
-<ul>
-<li>Quelle taille d’échantillon est nécessaire pour détecter une différence de carrures moyennes de 5 cm entre les sportifs pratiquant l’athlétisme et la natation ?</li>
-</ul>
-<pre><code>## 
-##      Two-sample t test power calculation 
-## 
-##               n = 8.649245
-##           delta = 5
-##              sd = 3
-##       sig.level = 0.05
-##           power = 0.9
-##     alternative = two.sided
-## 
-## NOTE: n is number in *each* group</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mod1.compote <span class="ot">&lt;-</span> <span class="fu">LinearModel</span>(S.pom.crue <span class="sc">~</span> compote, <span class="at">data=</span>dta)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>mod1.compote<span class="sc">$</span>Ftest</span></code></pre></div>
 </div>
 </div>
-<div id="analyse-avec-n_i13" class="section level3">
-<h3>Analyse avec <span class="math inline">\(n_i=13\)</span></h3>
-<p>Les chercheurs organisent une seconde collecte de données qui permet d’augmenter la taille de l’échantillon avec 10 observations supplémentaires par sport pour arriver à <span class="math inline">\(n_i=13\)</span>.</p>
-<div id="importation-du-jeu-de-données-final" class="section level4">
-<h4>Importation du jeu de données final</h4>
+<div id="prise-en-compte-de-la-variable-juge" class="section level4">
+<h4>Prise en compte de la variable juge</h4>
+<p>Surpris du résultat, on décide de prendre en compte la variable juge.</p>
 <ul>
-<li><p>Importer les 10 nouveaux individus statistiques à partir de la table <code>dataSportV2.csv</code></p></li>
-<li><p>Vérifier que chaque sport est bien représenté dans ces données par dix individus statistiques.</p></li>
-<li><p>A l’aide de la fonction <em>bind_rows</em>, créer le jeu de données complet, que vous nommerez <em>data.sport.Vf</em>, contenant les 13 individus statistiques.</p></li>
+<li><p>Visualisez les notes en fonction de la compote mais en coloriant les points de couleurs différentes selon les juges.</p></li>
+<li><p>Essayer d’écrire le modèle et les hypothèses permettant de tester l’effet compote sur la saveur mais en prenant en compte l’effet du juge.</p></li>
+<li><p>Réaliser le test avec R.</p></li>
+<li><p>Dans le modele mod1.compote, où se trouve la variabilité associée aux juges ? Pourquoi cela est-il gênant lorsqu’on s’intéresse à tester un effet compote ?</p></li>
+<li><p>Etudier les différences entre compotes puis celles entre juges</p></li>
 </ul>
 </div>
-<div id="visualisation-des-données-1" class="section level4">
-<h4>Visualisation des données</h4>
-<ul>
-<li><p>Comme pour le jeu de données initial, visualiser et calculer quelques statistiques descriptives par sport.</p></li>
-<li><p>Comparer avec la visualisation et le résumé obtenu pour <span class="math inline">\(n_i=3\)</span>. En particulier comparer la moyenne et la variance de la carrure par sport.</p></li>
-</ul>
-<table class=" lightable-classic" style="font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-Sport
-</th>
-<th style="text-align:right;">
-Carrure_mean
-</th>
-<th style="text-align:right;">
-Carrure_sd
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Athletisme
-</td>
-<td style="text-align:right;">
-34.92
-</td>
-<td style="text-align:right;">
-2.20
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Foot
-</td>
-<td style="text-align:right;">
-36.27
-</td>
-<td style="text-align:right;">
-2.31
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Hand
-</td>
-<td style="text-align:right;">
-35.52
-</td>
-<td style="text-align:right;">
-3.35
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Judo
-</td>
-<td style="text-align:right;">
-37.38
-</td>
-<td style="text-align:right;">
-2.98
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Natation
-</td>
-<td style="text-align:right;">
-38.68
-</td>
-<td style="text-align:right;">
-3.06
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Volley
-</td>
-<td style="text-align:right;">
-36.64
-</td>
-<td style="text-align:right;">
-2.44
-</td>
-</tr>
-</tbody>
-</table>
+<div id="conclusion-de-létude" class="section level4">
+<h4>Conclusion de l’étude</h4>
+<p>Il est indispensable de lister tous les facteurs qui peuvent influer sur la variable réponse, même si ceux-ci ne sont pas intéressants à interpréter. Cela permet de réduire la variabilité résiduelle et par suite de mieux mettre en évidence l’effet potentiel qui nous intéresse.</p>
 </div>
-<div id="test-statistique-1" class="section level4">
-<h4>Test statistique</h4>
-<ul>
-<li>Ecrire le modèle et les hypothèses permettant de tester l’effet du sport sur la carrure.</li>
-<li>Réaliser le test avec R.</li>
-</ul>
-<div id="test-post-hoc-comparaison-entre-les-modalités-des-facteurs" class="section level5">
-<h5>Test Post-Hoc (= Comparaison entre les modalités des facteurs)</h5>
-<p>Si le test est significatif, on cherche à déterminer quels sports permettent de développer des carrures significativement différentes.</p>
-<ul>
-<li><p>Exprimer cette question sous la forme d’hypothèses statistiques.</p></li>
-<li><p>A l’aide de la fonction <em>emmeans</em> du package <em>emmeans</em>, tester quelles sont les sports qui, deux à deux, donnent des carrures différentes.</p></li>
-</ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>sport_comp_Vf <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(mod.Vf,  <span class="sc">~</span> Sport )</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(sport_comp_Vf, <span class="at">adjust =</span> <span class="st">&quot;bonf&quot;</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sport_comp_Vf)</span></code></pre></div>
-</div>
-</div>
-</div>
-<div id="conclusion-de-létude" class="section level3">
-<h3>Conclusion de l’étude</h3>
-<p>L’effet d’un facteur sur une variable réponse doit être testé en premier. Si un facteur a un effet, il est alors possible d’aller <em>creuser</em> quelles sont les modalités (ou les combinaisons de modalités) du facteur qui ont une moyenne de la variable réponse différente.</p>
 </div>
 </div>
 <div id="le-vocabulaire-de-la-séance" class="section level2">
@@ -658,9 +496,8 @@ Volley
 <div id="commandes-r" class="section level3">
 <h3>Commandes R</h3>
 <ul>
-<li>anova et lm</li>
-<li>pairwise.t.test</li>
-<li>emmeans (package emmeans)</li>
+<li>LinearModel</li>
+<li>meansComp</li>
 </ul>
 </div>
 <div id="statistique" class="section level3">
