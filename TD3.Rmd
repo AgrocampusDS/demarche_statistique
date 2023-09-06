@@ -66,7 +66,7 @@ chocolat <- chocolat %>%
 
 * Représenter à l'aide du graphique adapté les différences de réponses entre ceux qui ont goûté un chocolat à 72% et ceux qui ont goûté un chocolat à 85%. 
 ```{r boxplot}
-chocolat %>% ggplot + aes(x = "Pourcentage.reel", y  = "Pourcentage.percu", col = "Pourcentage.reel", fill = "Pourcentage.reel") +
+chocolat %>% ggplot + aes(x = Pourcentage.reel, y  = Pourcentage.percu, col = Pourcentage.reel, fill = Pourcentage.reel) +
   geom_boxplot(alpha = 0.4, outlier.shape = NA) +
   geom_dotplot(binaxis = "y",stackdir = "center") 
 ```

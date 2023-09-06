@@ -128,11 +128,11 @@ La distribution  des valeurs d'une variable quantitative peut être représenté
 
 * En vous aidant de la commandant précédente, proposer une commande pour dessiner un histogramme des longueurs de bec (fonction `geom_histogram`). 
 
-Par défaut, sans autre indication dans la fonction `aes`, l'ordonnée de l'histogramme indique l'effectif de manchots par classe de valeurs. Dans la définition mathématique de l'histogramme, les aires de chaque barre sont proportionnelles aux fréquences (proportions d'individus dans chaque classe), l'ordonnée représentant alors une densité. Pour obtenir ce graphique,  il faut modifier le comportement par défaut de la fonction `aes` pour spécifier l'ordonnée explicitement avec un mot réservé `..density..`. 
+Par défaut, sans autre indication dans la fonction `aes`, l'ordonnée de l'histogramme indique l'effectif de manchots par classe de valeurs. Dans la définition mathématique de l'histogramme, les aires de chaque barre sont proportionnelles aux fréquences (proportions d'individus dans chaque classe), l'ordonnée représentant alors une densité. Pour obtenir ce graphique,  il faut modifier le comportement par défaut de la fonction `aes` pour spécifier l'ordonnée explicitement avec un mot réservé `after_stat(density)`. 
 
 ```{r histogram,  fig.show='hide'}
 ggplot(data = penguins) +
-  geom_histogram(aes(x = longueur_bec, y = ..density..))
+  geom_histogram(aes(x = longueur_bec, y = after_stat(density)))
 ```
 
 
@@ -144,21 +144,21 @@ La couleur de fond de l'histogramme peut être modifiée grâce à l'argument `f
 
 ```{r histogram_fill, fig.show='hide'}
 ggplot(data = penguins) +
-  geom_histogram(aes(x = longueur_bec, y = ..density..), fill = 'green')
+  geom_histogram(aes(x = longueur_bec, y = after_stat(density)), fill = 'green')
 ```
 
 La couleur peut être choisie plus harmonieusement et spécifiée sous [format html](https://htmlcolorcodes.com/color-picker/). Par exemple :
 
 ```{r histogram_fill_nice, fig.show='hide'}
 ggplot(data = penguins) +
-  geom_histogram(aes(x = longueur_bec, y = ..density..), fill = '#59C9A5')
+  geom_histogram(aes(x = longueur_bec, y = after_stat(density)), fill = '#59C9A5')
 ```
 
 Enfin, il est possible de modifier la couleur des traits
 
 ```{r histogram_fill_nice_col, fig.show='hide'}
 ggplot(data = penguins) +
-  geom_histogram(aes(x = longueur_bec, y = ..density..), fill = '#59C9A5', col = '#5C6D70')
+  geom_histogram(aes(x = longueur_bec, y = after_stat(density)), fill = '#59C9A5', col = '#5C6D70')
 ```
 
 * Proposer une représentation de la distribution des longueurs de bec qui ne contient que 10 classes de valeurs.
@@ -167,7 +167,7 @@ Il est possible d'enregistrer l'objet graphique produit par `R` :
 
 ```{r histogram_save, fig.show='hide'}
 p1 <- ggplot(data = penguins) +
-  geom_histogram(aes(x = longueur_bec, y = ..density..))
+  geom_histogram(aes(x = longueur_bec, y = after_stat(density)))
 p1
 ```
 

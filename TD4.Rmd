@@ -62,7 +62,7 @@ est évaluée par des filles.
 
 * Saisir les données et les sauvegarder dans un fichier `angle.csv`.
 
-* Importer le jeu de données `angle.csv` dans un  objet nommé `don_Angle` en utilisant un script `TD5_script.R` que vous aurez créé dans votre répertoire de projet.
+* Importer le jeu de données `angle.csv` dans un  objet nommé `don_Angle` en utilisant un script `TD4_script.R` que vous aurez créé dans votre répertoire de projet.
 
 ```{r import_data}
 don_Angle <- read.table('angle.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
@@ -144,11 +144,24 @@ t.test(Angle ~ Sexe, data=don_Angle, var.equal = TRUE)   # TRUE ou FALSE suivant
 
 ### La puissance d'un test
 
-Reprenons la même problématique d'élevage bovin que dans le TD précédent. 
+Reprenons la même problématique d'élevage bovin que dans le TD précédent. Cette fois-ci on souhaiterait réaliser une étude sur des Charolaises et des Limousines.
 
-* Combien de vaches étudier pour réussir à détecter un écart d'environ 100g entre les gains moyens théoriques des Charolaises et des Limousines ?
+* Avec un effectif de 60 vaches de chaque race, quelle serait alors la différence de  gains moyens théoriques entre ces races de vache potentiellement détectable avec une probabilité de 0.90 ?
+ ?
 
-* Quelle est la différence de  gains moyens théoriques entre ces races de vache que l'on peut détecter au risque 90% ?
+```{r delta}
+power.t.test(sd = 90,  power = .9, n = 60, sig.level = .05)
+```
+
+
+
+* Combien de vaches suffirait-il d'avoir pour réussir à détecter un écart d'environ 100g entre les gains moyens théoriques des Charolaises et des Limousines avec une probabilité de 0.90 ?
+
+```{r taille}
+power.t.test(sd = 90,  delta = 100, power = .9, sig.level = .05)
+```
+
+
 
 ## Le vocabulaire de la séance
 

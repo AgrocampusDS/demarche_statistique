@@ -93,12 +93,12 @@ tab2 <- read.table("https://agrocampusds.github.io/demarche_statistique/wonnacot
 * Pour chaque tableau, représenter les répartitions et  calculer les moyennes et écarts type pour chaque groupe
 
 ```{r descriptions}
-tab1 %>% ggplot + aes(x = "periode", y  = "longueur", col = "periode", fill = "periode") +
+tab1 %>% ggplot + aes(x = periode, y  = longueur, col = periode, fill = periode) +
   geom_boxplot(alpha = 0.4, outlier.shape = NA) +
   geom_dotplot(binaxis = "y",stackdir = "center") 
 tab1 %>% group_by(periode) %>% summarise(moyenne = mean(longueur), ecart_type = sd(longueur))
 
-tab2 %>% ggplot + aes(x = "machine", y  = "longueur", col = "machine", fill = "machine") +
+tab2 %>% ggplot + aes(x = machine, y  = longueur, col = machine, fill = machine) +
   geom_boxplot(alpha = 0.4, outlier.shape = NA) +
   geom_dotplot(binaxis = "y",stackdir = "center")
 tab2 %>% group_by(machine) %>% summarise(moyenne = mean(longueur), ecart_type = sd(longueur))
