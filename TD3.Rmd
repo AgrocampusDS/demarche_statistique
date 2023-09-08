@@ -104,14 +104,15 @@ t.test(Ech_85, mu = 85, alternative = "less")
 
 ```
 
+* Par rapport au test de comparaison de moyennes, suggérez une autre façon de recueillir les données qui permettraient de mieux mettre en avant une différence potentielle de perceptions.
 
 ### Elevage bovin
 
-Le gain moyen quotidien (GMQ) est défini comme la moyenne sur une période des prises de poids. C'est un indicateur courant pour les élevages bovins pour la simple raison qu'un GMQ élevé garantit une carcasse plus lourde, donc plus rentable. Les données sont fournies dans le fichier `vaches.csv`.
+Le gain moyen quotidien (GMQ) est défini comme la moyenne sur une période des prises de poids journalières. C'est un indicateur courant pour les élevages bovins pour la simple raison qu'un GMQ élevé garantit une carcasse plus lourde, donc plus rentable. Les données sont fournies dans le fichier `vaches.csv`.
 
 *  Une fois les données correctement chargées, formuler la problématique adaptée
 ```{r cows}
-vaches <- read.table("https://agrocampusds.github.io/demarche_statistique/vaches.csv", sep = ',', header = TRUE, stringsAsFactors = TRUE)
+vaches <- read.table("https://agrocampusds.github.io/demarche_statistique/vaches.csv", sep = ';', header = TRUE, stringsAsFactors = TRUE)
 ```
 
 * Répondre à la problématique en reprenant les étapes de l'exercice précédent puis conclure 
