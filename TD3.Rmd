@@ -117,7 +117,7 @@ vaches <- read.table("https://agrocampusds.github.io/demarche_statistique/vaches
 
 * Répondre à la problématique en reprenant les étapes de l'exercice précédent puis conclure 
 
-```{r cows analysis}
+```{r cows analysis, eval = FALSE, echo = FALSE}
 vaches %>% ggplot + aes(x = race, y  = gmq_moyen, col = race, fill = race) +
   geom_boxplot(alpha = 0.4, outlier.shape = NA) +
   geom_dotplot(binaxis = "y",stackdir = "center") 
