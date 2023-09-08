@@ -47,7 +47,7 @@ print(is_pdf)
 
 #### Recueil des données
 
-A l'oeil, **sans l'aide d'outil (rapporteur, règle ou compas)** et **indépendamment de vos voisins**, évaluer l'angle (en degrés) entre AB et AC (selon votre groupe, celui de la figure 1 ou de la figure 2). 
+A l'oeil, **sans l'aide d'outil (rapporteur, règle ou compas)** et **indépendamment de vos voisins**, évaluer l'angle (en degrés, au dixième de degré près) entre AB et AC (selon votre groupe, celui de la figure 1 ou de la figure 2). 
 
 ![Evaluation de l'angle entre AB et AC](angle37_et_54.png){width=50%}
 
@@ -144,21 +144,19 @@ t.test(Angle ~ Sexe, data=don_Angle, var.equal = TRUE)   # TRUE ou FALSE suivant
 
 ### La puissance d'un test
 
-Reprenons la même problématique d'élevage bovin que dans le TD précédent. Cette fois-ci on souhaiterait réaliser une étude sur des Charolaises et des Limousines.
+Reprenons la problématique d’élevage bovin du TD précédent. Cette fois-ci on souhaiterait réaliser une étude sur des Charolaises et des Limousines. On suppose que la variabilité des gains moyens pour une race de vache est connu et vaut 85 g/jour.
 
-* Avec un effectif de 60 vaches de chaque race, quelle serait alors la différence de  gains moyens théoriques entre ces races de vache potentiellement détectable avec une probabilité de 0.90 ?
- ?
+* Avec un effectif de 60 vaches de chaque race, quelle différence de gains moyens serait détectable avec une probabilité de 0.90 ?
 
 ```{r delta}
-power.t.test(sd = 90,  power = .9, n = 60, sig.level = .05)
+power.t.test(sd = 85,  power = .9, n = 60, sig.level = .05)
 ```
 
 
 
-* Combien de vaches suffirait-il d'avoir pour réussir à détecter un écart d'environ 100g entre les gains moyens théoriques des Charolaises et des Limousines avec une probabilité de 0.90 ?
-
+* Combien de vaches faut-il avoir pour avoir une probabilité de 0.90 de détecter un écart de 100g entre les gains moyens des Charolaises et des Limousines ?
 ```{r taille}
-power.t.test(sd = 90,  delta = 100, power = .9, sig.level = .05)
+power.t.test(sd = 85,  delta = 100, power = .9, sig.level = .05)
 ```
 
 
