@@ -142,7 +142,7 @@ tab3 <- read.table("https://agrocampusds.github.io/demarche_statistique/financie
 * Rappeler le principe de puissance d'un test. Quelles sont les éléments qui permettent d'augmenter théoriquement la puissance
 
 * A l'aide de la fonction `bind_rows()`, il est possible de concaténer les lignes des tableaux `tab1` et `tab3`
-```{r bind_rows, echo = TRUE, eval=FALSE}
+```{r bind_rows, echo = FALSE, eval=FALSE}
  tab <- bind_rows(tab1,tab3)
 ```
 
@@ -214,7 +214,7 @@ On cherche à savoir si la saveur de pomme crue est différente selon la compote
 
 * Effectuer alors les calculs par `R` et conclure
 
-```{r modele1, echo = TRUE}
+```{r modele1, echo = FALSE}
 mod1.compote <- LinearModel(S.pom.crue ~ compote, data=dta)
 mod1.compote$Ftest
 ```
@@ -242,7 +242,7 @@ dta %>%
 
 * Essayer d'écrire le modèle et les hypothèses permettant de tester l'effet compote sur la saveur mais en prenant en compte l'effet du juge.
 * Réaliser le test avec R.
-```{r global}
+```{r global, echo=TRUE, eval=FALSE}
 mod2.compote <- LinearModel(S.pom.crue ~ compote + juge, data=dta)
 mod2.compote$Ftest
 ```
@@ -250,10 +250,9 @@ mod2.compote$Ftest
 
 * Dans le modele mod1.compote, où se trouve la variabilité associée aux juges ? Pourquoi cela est-il gênant lorsqu'on s'intéresse à tester un effet compote ?
 
-* Etudier les différences entre compotes puis celles entre juges
-```{r juges}
+* Comment interpréter les résultats de la commande suivante ?
+```{r juges, echo=TRUE, eval=FALSE}
 meansComp(mod2.compote, ~ compote)
-meansComp(mod2.compote, ~ juge)
 ```
 
 

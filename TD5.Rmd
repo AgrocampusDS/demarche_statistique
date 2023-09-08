@@ -146,7 +146,7 @@ res$Ftest
 
 #### Analyse approfondie des résultats
 
-* Pour un site de production 3, rappeler le cadre du test de nullité du coefficient associé (hypothèses, interprétation des hypothèses, statistique de test, loi sous H$_0$, décision)
+* Pour le site de production 3, rappeler le cadre du test de nullité du coefficient associé (hypothèses, interprétation des hypothèses, statistique de test, loi sous H$_0$, décision)
 
 ```{r ttest, echo = FALSE, eval=TRUE}
 res$Ttest

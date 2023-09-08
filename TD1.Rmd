@@ -184,7 +184,7 @@ Il est essentiel de nettoyer (ne garder que les commandes pertinentes) et de sau
 
 * Enregistrer votre script avant de quitter `R`.  
 
-
+* Conseil pour l'ensemble du module : Conserver dans un fichier les principales lignes de commande pour importer des données, construire des graphes ... ces lignes de code seront régulièrement utilisées !!
 
 ## Le vocabulaire de la séance
 
