@@ -440,10 +440,7 @@ $(document).ready(function () {
 <li><p>Effectuer l’analyse de variance comme réalisée précédemment sur ce nouveau tableau et commenter les résultats</p></li>
 <li><p>Rappeler le principe de puissance d’un test. Quelles sont les éléments qui permettent d’augmenter théoriquement la puissance</p></li>
 <li><p>A l’aide de la fonction <code>bind_rows()</code>, il est possible de concaténer les lignes des tableaux <code>tab1</code> et <code>tab3</code></p></li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a> tab <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(tab1,tab3)</span></code></pre></div>
-<ul>
-<li>Effectuer l’analyse de variance et les comparaisons de moyennes comme réalisées précédemment sur ce nouveau tableau et commenter les résultats</li>
+<li><p>Effectuer l’analyse de variance et les comparaisons de moyennes comme réalisées précédemment sur ce nouveau tableau et commenter les résultats</p></li>
 </ul>
 </div>
 </div>
@@ -470,8 +467,6 @@ $(document).ready(function () {
 <li><p>Rappeler le cadre du test de l’étude d’un effet de la variable <code>compote</code> sur les notes de saveur pomme crue (modèle, hypothèses, statistique de test, loi de la statistique sous H<span class="math inline">\(_0\)</span>, décision)</p></li>
 <li><p>Effectuer alors les calculs par <code>R</code> et conclure</p></li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mod1.compote <span class="ot">&lt;-</span> <span class="fu">LinearModel</span>(S.pom.crue <span class="sc">~</span> compote, <span class="at">data=</span>dta)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>mod1.compote<span class="sc">$</span>Ftest</span></code></pre></div>
 </div>
 </div>
 <div id="prise-en-compte-de-la-variable-juge" class="section level4">
@@ -481,9 +476,14 @@ $(document).ready(function () {
 <li><p>Visualisez les notes en fonction de la compote mais en coloriant les points de couleurs différentes selon les juges.</p></li>
 <li><p>Essayer d’écrire le modèle et les hypothèses permettant de tester l’effet compote sur la saveur mais en prenant en compte l’effet du juge.</p></li>
 <li><p>Réaliser le test avec R.</p></li>
-<li><p>Dans le modele mod1.compote, où se trouve la variabilité associée aux juges ? Pourquoi cela est-il gênant lorsqu’on s’intéresse à tester un effet compote ?</p></li>
-<li><p>Etudier les différences entre compotes puis celles entre juges</p></li>
 </ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mod2.compote <span class="ot">&lt;-</span> <span class="fu">LinearModel</span>(S.pom.crue <span class="sc">~</span> compote <span class="sc">+</span> juge, <span class="at">data=</span>dta)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mod2.compote<span class="sc">$</span>Ftest</span></code></pre></div>
+<ul>
+<li><p>Dans le modele mod1.compote, où se trouve la variabilité associée aux juges ? Pourquoi cela est-il gênant lorsqu’on s’intéresse à tester un effet compote ?</p></li>
+<li><p>Comment interpréter les résultats de la commande suivante ?</p></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">meansComp</span>(mod2.compote, <span class="sc">~</span> compote)</span></code></pre></div>
 </div>
 <div id="conclusion-de-létude" class="section level4">
 <h4>Conclusion de l’étude</h4>
