@@ -18,6 +18,8 @@ header-includes:
 knitr::opts_chunk$set(echo = FALSE, cache= TRUE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'hide' )
 library(tidyverse)
 library(kableExtra)
+library(FactoMineR)
+library(plotly)
 out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 
 ```
@@ -72,6 +74,13 @@ chocolat %>% ggplot + aes(x = Pourcentage.reel, y  = Pourcentage.percu, col = Po
 ```
 
 
+* Stocker le résultat de `ggplot()` dans un objet nommé `p`. Installer le package `plolty`, puis exécuter les commandes suivantes
+```{r plotly, echo = TRUE, eval=FALSE}
+library(plotly)
+ggplotly(p)
+```
+
+* Repérer les individus les plus éloignés de la boîte de dispersion. (Remarque : cet outil peut donc se révéler très utile en phase exploratoire sur les données.)
 
 La commande suivante permet de calculer la moyenne et la médiane des réponses pour les deux groupes de goûteurs :
 
