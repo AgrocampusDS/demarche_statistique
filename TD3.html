@@ -396,12 +396,18 @@ $(document).ready(function () {
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>chocolat <span class="ot">&lt;-</span> chocolat <span class="sc">%&gt;%</span> </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Pourcentage.reel =</span> <span class="fu">as.factor</span>(Pourcentage.reel))</span></code></pre></div>
 <ul>
-<li>Représenter à l’aide du graphique adapté les différences de réponses entre ceux qui ont goûté un chocolat à 72% et ceux qui ont goûté un chocolat à 85%.</li>
+<li><p>Représenter à l’aide du graphique adapté les différences de réponses entre ceux qui ont goûté un chocolat à 72% et ceux qui ont goûté un chocolat à 85%.</p></li>
+<li><p>Stocker le résultat de <code>ggplot()</code> dans un objet nommé <code>p</code>. Installer le package <code>plolty</code>, puis exécuter les commandes suivantes</p></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(p)</span></code></pre></div>
+<ul>
+<li>Repérer les individus les plus éloignés de la boîte de dispersion. (Remarque : cet outil peut donc se révéler très utile en phase exploratoire sur les données.)</li>
 </ul>
 <p>La commande suivante permet de calculer la moyenne et la médiane des réponses pour les deux groupes de goûteurs :</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>chocolat <span class="sc">%&gt;%</span> </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Pourcentage.reel) <span class="sc">%&gt;%</span> </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">moyennes =</span> <span class="fu">mean</span>(Pourcentage.percu), <span class="at">ecarts_type =</span> <span class="fu">sd</span>(Pourcentage.percu))</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>chocolat <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Pourcentage.reel) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">moyennes =</span> <span class="fu">mean</span>(Pourcentage.percu), <span class="at">ecarts_type =</span> <span class="fu">sd</span>(Pourcentage.percu))</span></code></pre></div>
 </div>
 <div id="mise-en-place-de-la-comparaison-de-moyennes" class="section level4">
 <h4>Mise en place de la comparaison de moyennes</h4>
