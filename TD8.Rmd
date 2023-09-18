@@ -81,7 +81,7 @@ mod$Ttest
 * Peut-on considérer que le réglage des éoliennes est bon (i.e. peut-on considérer que la puissance moyenne des éoliennes
 vérifie bien l'équation de puissance (cf plus haut)?
 
-```{r testPente}
+```{r testPente, echo = FALSE, eval=FALSE}
 betaHat.mean <- mod$lmResult$coefficients[2]
 betaHat.sd <- mod$lmResult$coefficients[4]
 t <- (betaHat.mean-3)/betaHat.sd
