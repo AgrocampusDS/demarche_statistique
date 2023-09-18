@@ -1,5 +1,5 @@
 ---
-title: "TD8 : Puissance de test"
+title: "TD8 : Régression linéaire simple"
 author: "UP Mathématique appliquée"
 date: ''
 output:
@@ -14,12 +14,12 @@ header-includes:
 ---
 
 
-```{r setup-TD8, include=FALSE, }
+```{r setup-TD5, include=FALSE, }
 knitr::opts_chunk$set(echo = FALSE, cache= TRUE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'hide' )
 library(tidyverse)
 library(kableExtra)
+library(FactoMineR)
 out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
-
 ```
 
 ```{r}
@@ -34,271 +34,85 @@ print(is_pdf)
 ##  Objectifs de la séance  
 
 
-* Puissance des tests
-  + Effet de la taille de l'échantillon
-  + Effet de la variance
-  + Effet de l'écart entre les 2 moyennes
-  + Prise en compte d'un 2ème facteur en analyse de variance
-
+* Visualisation de données
+  - Visualiser les relations entre deux variables quantitatives
+* Analyse de données
+   - Comprendre le modèle de régression
+   - Ajuster un modèle de régression et exploiter les résultats qui en découlent
+  
+  
 ## Exercices 
 
-On a simulé 5 variables quantitatives indépendantes ($Y_1$, $Y_2$, $Y_3$, $Y_4$ et $Y_5$) en tirant des valeurs dans une loi normale de moyenne $\mu_A$ et de variance $\sigma_A^2$ pour les $n/2$ premières données et de moyenne $\mu_B$ (différente de $\mu_A$) et de variance $\sigma_B^2$ (égale à $\sigma_A^2$) pour les $n/2$ dernières données.  L'objectif est ici de voir dans quelles situations les tests de comparaison de moyenne permettent de mettre en évidence l'écart de moyenne qui existe entre $\mu_A$ et $\mu_B$.
+###  Prédiction de la puissance éolienne
 
-Les situations sont les suivantes :
+Une entreprise de production d'électricité verte souhaite prévoir la puissance électrique d'un parc éolien. Il est en effet
+très coûteux de stocker de l'énergie et il est donc important de prévoir au mieux la production.
 
-* pour $Y_1$ : $n=100$, $\mu_A=0$, $\mu_B=1$ et $\sigma_A=\sigma_B=1$
-* pour $Y_2$ : $n=100$, $\mu_A=0$, $\mu_B=0.1$ et $\sigma_A=\sigma_B=1$
-* pour $Y_3$ : $n=100$, $\mu_A=0$, $\mu_B=0.1$ et $\sigma_A=\sigma_B=0.05$
-* pour $Y_4$ : $n=10$, $\mu_A=0$, $\mu_B=1$ et $\sigma_A=\sigma_B=1$
-* pour $Y_5$ : $n=10$, $\mu_A=0$, $\mu_B=0.1$ et $\sigma_A=\sigma_B=1$ mais les données dépendent aussi d'un second facteur
+La puissance théorique d'une éolienne est connue et dépend uniquement du vent et de la longueur de ses pâles, la formule étant~:
+$$Puissance = \rho V^3 \pi\ r^2$$
+avec la puissance exprimée en kiloWatt $kW$, $\rho$ la densité de l'air égale à 1.225 $kg.m^{-3}$,
+$V$ la vitesse du vent en $m.s^{-1}$, $r$ la longueur des pâles de l'éolienne en $m$.
+La longueur des pâles du rotor est ici de 20$m$.
 
-### Effet de la variance et de l'écart entre moyennes sur la puissance des tests
+Les éoliennes sont conçues pour démarrer à une vitesse de vent de 3 à 5 $m.s^{-1}$ et l'éolienne
+s'arrête de fonctionner lorsque la vitesse du vent dépasse 25 $m.s^{-1}$ afin d'éviter tout endommagement
+de l'éolienne. De plus, lorsque la vitesse du vent est supérieure à 15 $m.s^{-1}$, l'éolienne est bridée.
 
-#### Importation du premier jeu de données
+Des données de vitesse de vent et de puissance sont disponibles dans le fichier [eolienne](eolienne.csv). Ce fichier contient la puissance
+moyenne des éoliennes (en fonctionnement) d'un parc,
+la vitesse du vent sur un mât de 60 mètres à proximité des éoliennes et la direction du vent.
+Toutes les puissances sont données en $kW$.
+Toutes ces mesures sont effectuées toutes les heures.
 
-```{r, echo=FALSE}
-set.seed(123)
-fac <- rep(c("A","B"),50)
-Y1 <- rep(c(0,1),50)+ rnorm(100,0,1)
-Y2 <- rep(c(0,0.1),50)+ rnorm(100,0,1)
-Y3 <- rep(c(0,0.1),50)+ rnorm(100,0,0.05)
-dta <- cbind.data.frame(fac,Y1,Y2,Y3)
-write.table(dta,file="puissance_1.csv", sep = ";",col.names =TRUE,row.names = FALSE)
-
-fact <- rep(c("A","B"),5)
-fact2 <- letters[rep(1:5,each=2)]
-Y4 <- rep(c(0,2),5)+ rnorm(10)
-alea <- rnorm(5)
-Y5 <- rep(c(0,0.2),5)+ rep(alea,each=2) + rnorm(10)*0.01
-dta2 <- cbind.data.frame(fact,Y4,Y5,fact2)
-write.table(dta2,file="puissance_2.csv", sep = ";",col.names =TRUE,row.names = FALSE)
-```
-
-* Importez le jeu de données intial `puissance_1.csv`.
-
-```{r import_data}
-dta <- read.table('https://agrocampusds.github.io/demarche_statistique/puissance_1.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
-```
-
-* D'après vous, et sans faire de calcul, quelles sont les situations où il y a le plus de puissance 
- 
- +  entre $Y_1$ et $Y_2$ ?
- +  entre $Y_2$ et $Y_3$ ?
- +  entre $Y_1$ et $Y_4$ ?
-
-#### Visualisation des données
-
-* Visualisez la variable $Y_1$ pour voir s'il y a un éventuel effet de la variable qualitative `fac1`.
-* Calculez les statistiques descriptives par modalité
-* D'après vous, et seulement à partir du graphe, est-ce que le test de comparaison de moyenne sera significatif ?
-* Faire de même pour $Y_2$ et $Y_3$
-
-```{r boxplot, echo = FALSE}
-dta %>% 
-  ggplot() + aes(x=fac, y = Y1, col=fac) + 
-  geom_boxplot()+ geom_jitter()
-```
-
-```{r mean, echo = FALSE}
-stat_desc1 <- dta %>% 
-  group_by(fac) %>% 
-  summarise(Y1_mean = mean(Y1), 
-            Y1_sd = sd(Y1), 
-            Y1_q05 = quantile(Y1, probs = 0.05 ),
-            Y1_q50 = quantile(Y1, probs = 0.5 ),
-            Y1_q95 = quantile(Y1, probs = 0.95))
-stat_desc2 <- dta %>% 
-  group_by(fac) %>% 
-  summarise(Y2_mean = mean(Y2), 
-            Y2_sd = sd(Y2), 
-            Y2_q05 = quantile(Y2, probs = 0.05 ),
-            Y2_q50 = quantile(Y2, probs = 0.5 ),
-            Y2_q95 = quantile(Y2, probs = 0.95 ))
-stat_desc3 <- dta %>% 
-  group_by(fac) %>% 
-  summarise(Y3_mean = mean(Y3), 
-            Y3_sd = sd(Y3), 
-            Y3_q05 = quantile(Y3, probs = 0.05 ),
-            Y3_q50 = quantile(Y3, probs = 0.5 ),
-            Y3_q95 = quantile(Y3, probs = 0.95 ))
-```
-
-```{r stat_desc_html, echo = FALSE, eval = !is_pdf}
-stat_desc1 %>% 
-  kable(digits=2, format = "html", escape = FALSE) %>%
-  collapse_rows(columns = 1, valign = 'top') %>%
-  kable_classic(full_width = F, html_font = "Cambria")
-stat_desc2 %>% 
-  kable(digits=2, format = "html", escape = FALSE) %>%
-  collapse_rows(columns = 1, valign = 'top') %>%
-  kable_classic(full_width = F, html_font = "Cambria")
-stat_desc3 %>% 
-  kable(digits=2, format = "html", escape = FALSE) %>%
-  collapse_rows(columns = 1, valign = 'top') %>%
-  kable_classic(full_width = F, html_font = "Cambria")
-```
-
-```{r stat_desc, echo = FALSE, eval = is_pdf}
-stat_desc1 %>% 
-  kable(digits=2, booktabs = T)%>%
-  kable_styling(latex_options = "striped")
-stat_desc2 %>% 
-  kable(digits=2, booktabs = T)%>%
-  kable_styling(latex_options = "striped")
-stat_desc3 %>% 
-  kable(digits=2, booktabs = T)%>%
-  kable_styling(latex_options = "striped")
-```
-
-#### Test statistique
-
-##### Test de comparaison de moyenne et analyse de variance à 1 facteur
-
-* Tester la significativité de la différence de moyennes de $Y_1$ quand le facteur `fac1` prend les modalités `A` et `B` (2 tests sont possibles). Faire de même avec $Y_2$ et $Y_3$.
-
-```{r modele1, echo = FALSE}
-mod1 <- anova(lm(Y1 ~ fac,data=dta))
-t.test(Y1 ~ fac,data = dta)
-t.test(Y2 ~ fac,data = dta)
-t.test(Y3 ~ fac,data = dta)
-```
-
-#### Calcul de puissance avec la fonction `power.t.test`
-
-A l'aide de la fonction `power.t.test`, déterminer dans quelle situation, entre celles qui ont permis les simultations de $Y_1$, $Y_2$, $Y_3$ et $Y_4$, la puissance de détecter une différence de moyenne est la plus importante.
-
-Commenter par rapport à la question 1.1.
-
-_Remarque_ : l'utilisation de la fonction `power.t.test` nécessite ici de connaître la différence de moyenne et l'écart-type __sans incertitude__.
-
-```{r, echo=TRUE,results='markup'}
-power.t.test(n=50, delta=1,sd=1,sig.level=0.05)
-```
-
-```{r, echo=FALSE}
-power.t.test(n=50, delta=0.1,sd=1,sig.level=0.05)
-power.t.test(n=50, delta=0.1,sd=0.05,sig.level=0.05)
-power.t.test(n=5, delta=0.1,sd=1,sig.level=0.05)
-```
-
-### Effet de la taille de l'échantillon et de la prise en compte d'un second facteur sur la puissance des tests
-
-* Importez le jeu de données intial `puissance_2.csv`.
-
-```{r}
-dta2 <- read.table('https://agrocampusds.github.io/demarche_statistique/puissance_2.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
-```
-
-#### Visualisation des données
-
-* Visualisez les variables $Y_4$ et $Y_5$ pour voir s'il y a un éventuel effet de la variable qualitative `fac1`.
-* Calculez les statistiques descriptives par modalité
-
-```{r, echo = FALSE}
-dta2 %>% 
-  ggplot() + aes(x=fact, y = Y4) + 
-  geom_boxplot()+ geom_jitter()
-```
-
-```{r mean4, echo = FALSE}
-stat_desc4 <- dta2 %>% 
-  group_by(fact) %>% 
-  summarise(Y4_mean = mean(Y4), 
-            Y4_sd = sd(Y4), 
-            Y4_q05 = quantile(Y4, probs = 0.05 ),
-            Y4_q50 = quantile(Y4, probs = 0.5),
-            Y4_q95 = quantile(Y4, probs = 0.95))
-stat_desc5 <- dta2 %>% 
-  group_by(fact) %>% 
-  summarise(Y5_mean = mean(Y5), 
-            Y5_sd = sd(Y5), 
-            Y5_q05 = quantile(Y5, probs = 0.05 ),
-            Y5_q50 = quantile(Y5, probs = 0.5),
-            Y5_q95 = quantile(Y5, probs = 0.95))
-```
-
-```{r stat_desc4_html, echo = FALSE, eval = !is_pdf}
-stat_desc4 %>% 
-  kable(digits=2, format = "html", escape = FALSE) %>%
-  collapse_rows(columns = 1, valign = 'top') %>%
-  kable_classic(full_width = F, html_font = "Cambria")
-stat_desc5 %>% 
-  kable(digits=2, format = "html", escape = FALSE) %>%
-  collapse_rows(columns = 1, valign = 'top') %>%
-  kable_classic(full_width = F, html_font = "Cambria")
-```
-
-```{r stat_desc4, echo = FALSE, eval = is_pdf}
-stat_desc4 %>% 
-  kable(digits=2, booktabs = T)%>%
-  kable_styling(latex_options = "striped")
-stat_desc5 %>% 
-  kable(digits=2, booktabs = T)%>%
-  kable_styling(latex_options = "striped")
-```
-
-#### Prise en compte d'un 2ème facteur
-
-* Visualisez la réponse Y5 en fonction du facteur `fact` mais en coloriant les points de couleur différente selon le facteur `fact2`.
-
-```{r, echo=FALSE}
-dta2 %>% 
-  ggplot() + aes(x = fact, y = Y5, col = fact2) + 
-  geom_point()
-```
-
-#### Tests
-* Ecrire le modèle et les hypothèses permettant de tester l'effet de la variable `fact` sur `Y4`. Faire de même avec `Y5` mais en prenant en compte l'effet de la variable `fact2`.
-
-```{r, echo = FALSE}
-t.test(Y4~fact,data=dta2)
-mod1 <- anova(lm(Y4 ~ fact,data=dta2))
-```
-
-```{r, echo = FALSE}
-t.test(Y5~fact,data=dta2)
-
-mod1 <- anova(lm(Y5 ~ fact,data=dta2))
-mod2 <- lm(Y5 ~ fact + fact2,data=dta2)
-anova(mod2)
-library(car)
-Anova(mod2)
-```
-### Calcul de la puissance d'un test
-
-On veut mettre en évidence un potentiel effet entre deux traitements A et B. On sait que l'écart-type de la variable réponse est de 1 mais la moyenne peut différer selon le traitement. On veut détecter une différence de moyenne si celle-ci dépasse 0.2. Combien faut-il faire de mesure si on veut détecter dans 80% des cas une telle différence au seuil 95% (utiliser la fonction `power.t.test`) ?
-
-```{r, echo=FALSE}
-power.t.test(delta=0.2, sd=1, sig.level=0.05, power=0.8)
+* Proposer un modèle permettant de prédire la puissance moyenne en fonction de la vitesse du vent.
+Construire ce modèle en ne conservant que les vitesses de vent comprises entre 5 et 15 $m.s^{-1}$
+et interpréter les résultats.
+```{r reg_lin, eval=FALSE, echo=FALSE}
+dta <- read.table('https://agrocampusds.github.io/demarche_statistique/eolienne.csv', sep = ';', header = TRUE, stringsAsFactors = TRUE)
+dta <- dta %>% filter((5<= VitMat60) & (VitMat60 <= 15)) %>% 
+  mutate(lnP = log(Pmoy), lnV = log(VitMat60)) 
+dta %>% ggplot() + aes (x = lnV, y = lnP) + geom_point() + geom_smooth(method = "lm")
+cor.test( ~ lnV + lnP, data = dta)
+mod <- LinearModel(lnP ~ lnV, data = dta)
+mod$Ttest
 ```
 
 
-### Conclusion de l'étude
+* Peut-on considérer que le réglage des éoliennes est bon (i.e. peut-on considérer que la puissance moyenne des éoliennes
+vérifie bien l'équation de puissance (cf plus haut)?
 
-La puissance des tests augmente quand (rayer les mentions inutiles) : 
+```{r testPente}
+betaHat.mean <- mod$lmResult$coefficients[2]
+betaHat.sd <- mod$lmResult$coefficients[4]
+t <- (betaHat.mean-3)/betaHat.sd
+pt(t, 4394)
+```
 
-+ la variance augmente, 
-+ le nombre d'individus augmente, 
-+ l'écart entre les moyennes augmente.
+* Donner un intervalle de confiance de la puissance éolienne moyenne pour une vitesse de vent de 10$m.s^{-1}$. Même question pour une vitesse de vent de  18$m.s^{-1}$.
 
-Si un 2ème facteur a un effet significatif, il faut (rayer les mentions inutiles) :
+```{r IC}
+predict(mod, newdata = data.frame(lnV = c(10,18)), interval = "confidence")
+```
 
-+ ne pas mettre ce 2ème facteur dans le modèle,
-+ mettre ce 2ème facteur dans le modèle et interpréter la significativité du test qui lui est associé sans regarder le test du 1er facteur
-+ mettre ce 2ème facteur dans le modèle, même si celui-ci n'est pas intéressant à interpréter
-  
+On suspecte que la direction du vent à un effet sur la puissance de l'éolienne (même si
+le rotor est censé se positionner face au vent).
+
+* Proposer une représentation graphique tenant compte de la direction du vent.
+```{r ancova}
+dta %>% ggplot() + aes (x = lnV, y = lnP, col = SecMat) + geom_point() + geom_smooth(method = "lm")
+```
+
 ## Le vocabulaire de la séance
 
 ### Commandes R
-- t.test
-- anova
-- power.t.test
-- Anova (package car)
+- cor.test
+- LinearModel
+- geom_smooth
 
 ### Environnement R
 
 
 ### Statistique 
-- Test de comparaison de moyenne
-- Test d'analyse de la variance
-- Puissance des tests
+- Régression linéaire
+- Test de corrélation de Pearson
+- Test d'égalité d'un coefficient à une valeur
