@@ -68,19 +68,24 @@ chocolat <- chocolat %>%
 
 * Représenter à l'aide du graphique adapté les différences de réponses entre ceux qui ont goûté un chocolat à 72% et ceux qui ont goûté un chocolat à 85%. 
 ```{r boxplot}
-chocolat %>% ggplot + aes(x = Pourcentage.reel, y  = Pourcentage.percu, col = Pourcentage.reel, fill = Pourcentage.reel) +
+chocolat %>% ggplot() + aes(x = Pourcentage.reel, y  = Pourcentage.percu, col = Pourcentage.reel, fill = Pourcentage.reel) +
   geom_boxplot(alpha = 0.4, outlier.shape = NA) +
   geom_dotplot(binaxis = "y",stackdir = "center") 
 ```
 
 
-* Stocker le résultat de `ggplot()` dans un objet nommé `p`. Installer le package `plolty`, puis exécuter les commandes suivantes
+* Pour aider dans l'exploration des données,  installer le package `plotly`, puis exécuter les commandes suivantes
 ```{r plotly, echo = TRUE, eval=FALSE}
 library(plotly)
+p <- chocolat %>% ggplot() +
+  aes(x = Pourcentage.reel,
+      y = Pourcentage.percu,
+      col = Pourcentage.reel,
+      fill = Pourcentage.reel) + geom_boxplot(alpha = 0.3)
+p
 ggplotly(p)
 ```
 
-* Repérer les individus les plus éloignés de la boîte de dispersion. (Remarque : cet outil peut donc se révéler très utile en phase exploratoire sur les données.)
 
 La commande suivante permet de calculer la moyenne et la médiane des réponses pour les deux groupes de goûteurs :
 

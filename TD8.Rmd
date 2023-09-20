@@ -71,7 +71,7 @@ et interpréter les résultats.
 dta <- read.table('https://agrocampusds.github.io/demarche_statistique/eolienne.csv', sep = ';', header = TRUE, stringsAsFactors = TRUE)
 dta <- dta %>% filter((5<= VitMat60) & (VitMat60 <= 15)) %>% 
   mutate(lnP = log(Pmoy), lnV = log(VitMat60)) 
-dta %>% ggplot() + aes (x = lnV, y = lnP) + geom_point() + geom_smooth(method = "lm")
+dta %>% ggplot() + aes (x = lnV, y = lnP) + geom_point() + geom_smooth(method = "lm", se = FALSE)
 cor.test( ~ lnV + lnP, data = dta)
 mod <- LinearModel(lnP ~ lnV, data = dta)
 mod$Ttest
@@ -99,7 +99,7 @@ le rotor est censé se positionner face au vent).
 
 * Proposer une représentation graphique tenant compte de la direction du vent.
 ```{r ancova, eval=FALSE, echo=FALSE}
-dta %>% ggplot() + aes (x = lnV, y = lnP, col = SecMat) + geom_point() + geom_smooth(method = "lm")
+dta %>% ggplot() + aes (x = lnV, y = lnP, col = SecMat) + geom_point() + geom_smooth(method = "lm", se = FALSE)
 ```
 
 ## Le vocabulaire de la séance

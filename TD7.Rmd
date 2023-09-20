@@ -1,5 +1,5 @@
 ---
-title: "TD7 : Analyse de variance à 2 facteurs"
+title: "TD7 : Régression linéaire"
 author: "UP Mathématique appliquée"
 date: ''
 output:
@@ -18,6 +18,8 @@ header-includes:
 knitr::opts_chunk$set(echo = FALSE, cache= TRUE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'hide' )
 library(tidyverse)
 library(kableExtra)
+library(FactoMineR)
+library(plotly)
 out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 
 ```
@@ -34,180 +36,84 @@ print(is_pdf)
 ##  Objectifs de la séance  
 
 
-* Analyse de variance à 2 facteurs
-  + Prise en compte d'un 2ème facteur
-* Puissance des tests
-  + Effet de la taille de l'échantillon
-  + Etude par simulations
-
+* Visualisation de données
+  - Visualiser les relations entre deux variables quantitatives
+* Analyse de données
+   - Comprendre le modèle de régression
+   - Ajuster un modèle de régression et exploiter les résultats qui en découlent
+  
+  
 ## Exercices 
 
 
 ### Problématique
+La fédération française de rugby sélectionne des joueurs de moins de 15 ans pour des stages pendant les vacances scolaires. 500 jeunes sont sélectionnés chaque année selon leur potentiel, et la vitesse au 50m est une de ces mesures.
+Cependant, la tranche d'âge des joueurs sélectionnés (moins de 15 ans) est d'1 an et les joueurs nés en début d'année civile ont un développement physiologique plus important que les joueurs nés en fin d'année. Pour éviter un biais de sélection et défavoriser les joueurs plus jeunes, la fédération de rugby souhaite relativiser la performance en fonction du mois de naissance.
+Pour cela, elle a enregistré les performances de 72 jeunes nés lors d'une même année civile et passant un test de vitesse de 50m. Notez qu'ici, seules les vitesses des joueurs jouant à l'arrière (et donc qui courent vite) sont comparées.
 
-On cherche à évaluer comment sont perçues 6 compotes de pommes au niveau de la saveur de pomme crue. Une dégustation est mise en place et 6 juges vont déguster chacune des 6 compotes. Les notes sont attribuées sur une échelle allant de 0 à 10.
+* Calculer le coefficient de corrélation entre la vitesse et le mois de naissance
+```{r correl, echo=FALSE,eval=TRUE}
+don <- read.table("vitesse_rugbymen.csv", header=TRUE, sep=";")
+ggplot(don) +
+  aes(x=MoisNais, y=vitesse) +
+  geom_point() +
+  geom_smooth(method="lm", se=FALSE) +
+  ggtitle("Effet du mois de naissance sur la performance")+
+  scale_x_continuous(breaks=1:12)+
+  xlab("Mois de naissance")+
+  ylab("Vitesse (m/s)")
 
-La question est donc de savoir si certaines compotes sont en moyenne perçues comme ayant une plus forte saveur de pomme crue.
-
-### Analyse prenant en compte l'effet compote uniquement
-
-#### Importation du premier jeu de données
-
-* Importez le jeu de données intial `compote.csv`.
-
-```{r import_data}
-dta <- read.table('https://agrocampusds.github.io/demarche_statistique/compote.csv', sep = ';' , stringsAsFactors = TRUE, header = TRUE)
-dta$juge <- as.factor(dta$juge)
-dta$compote <- as.factor(dta$compote)
+cor.test(don$MoisNais,don$vitesse)
 ```
-
-#### Visualisation des données
-
-* Visualiser les données pour avoir une idée des saveurs de pomme crue selon les compotes et calculez quelques statistiques descriptives par compote.
-
-```{r boxplot, echo = FALSE}
-dta %>% 
-  ggplot() + aes(x=compote, y = S.pom.crue, col=compote) + 
-  geom_boxplot()+ geom_jitter()
+* Construire le modèle permettant de prédire la vitesse en fonction du mois de naissance. Interprétez les coefficients du modèle
+```{r analyse, echo=FALSE,eval=TRUE}
+res <- LinearModel(vitesse~MoisNais, data=don)
+res$Ttest
 ```
-
-```{r mean, echo = FALSE, results='markup'}
-stat_desc <- dta %>% 
-  group_by(compote) %>% 
-  summarise(note_mean = mean(S.pom.crue), 
-            S.pom.crue_sd = sd(S.pom.crue), 
-            q05 = quantile(S.pom.crue, probs = 0.05 ),
-            q50 = quantile(S.pom.crue, probs = 0.5 ),
-            q95 = quantile(S.pom.crue, probs = 0.95 )
-            )
+* Prédire la performance moyenne d'un joueur né en janvier, et celle d'un joueur né en décembre.
+```{r predictions, echo=FALSE,eval=TRUE}
+predict(res)
+pred <- predict(res)[1:2]
 ```
-
-```{r stat_desc_html, echo = FALSE, results='markup', eval = !is_pdf}
-stat_desc %>% 
-  kable(digits=2, format = "html", escape = FALSE) %>%
-  collapse_rows(columns = 1, valign = 'top') %>%
-  kable_classic(full_width = F, html_font = "Cambria")
+* Donner les performances des deux premiers joueurs du jeu de données.
+```{r perfs, echo=FALSE,eval=TRUE}
+perf <- don$vitesse[1:2] # le premier est né en janvier, le 2e en décembre, le premier apparait plus rapide
 ```
+* Comparer les performances des 2 premiers joueurs du jeu de données **en relativisant** par rapport à leur âge.
 
-```{r stat_desc, echo = FALSE, results='markup', eval = is_pdf}
-stat_desc %>% 
-  kable(digits=2, booktabs = T)%>%
-  kable_styling(latex_options = "striped")
+```{r comparaisons, echo=FALSE,eval=TRUE}
+perf-pred # le 1er court moins vite que la moyenne attendue pour son age, le 2nd est plus rapide
+# et pourtant avec les valeurs brutes le 1er semblait + rapide
 ```
 
 
-#### Test statistique
+* Représenter les intervalles de prédiction en fonction du mois de naissance à l'aide des commandes suivantes
+```{r, eval =FALSE, echo=TRUE}
+pred_interval <- predict(res,  interval="prediction", level = 0.95)
+pred_interval <- data.frame(pred_interval,MoisNais=don$MoisNais)
+ggplot() +  geom_point(data = don, aes(x=MoisNais, y=vitesse)) +
+  geom_smooth(method="lm", se=TRUE) +
+  ggtitle("Effet du mois de naissance sur la performance")+
+  scale_x_continuous(breaks=1:12)+
+  xlab("Mois de naissance")+
+  ylab("Vitesse (m/s)") +
+  geom_ribbon(data=pred_interval, aes(x = MoisNais, ymin = lwr, ymax = upr), fill = "blue", alpha = 0.1)
 
-On cherche à savoir si la saveur de pomme crue est différente selon la compote.
-
-##### Test global (=Effet des facteurs)
-
-
-```{r modele1, echo = TRUE, results='markup'}
-mod1.compote <- lm(S.pom.crue ~ compote,data=dta)
-mod0 <- lm(S.pom.crue~1,data=dta)
-anova(mod0,mod1.compote)
 ```
 
-### Prise en compte de la variable juge
 
-Surpris du résultat, on décide de prendre en compte la variable juge.
-
-#### Visualisation
-
-* Visualisez les notes en fonction de la compote mais en coloriant les points de couleurs différentes selon les juges.
-
-```{r ggplot}
-dta %>% 
-  ggplot() + aes(x=compote, y = S.pom.crue, col=juge) + 
-  geom_point()
-  
- dta %>% 
-  ggplot() + aes(x=compote, y = S.pom.crue, col=juge) + 
-  geom_jitter(width = 0.1, size = 3)
- 
- dta %>% 
-  ggplot(aes(x=compote, y = S.pom.crue)) +
-  geom_boxplot() + 
-  geom_jitter(aes(col=juge), size =2, width = 0.1)
-```
-
-#### Test statistique
-
-* Ecrire le modèle et les hypothèses permettant de tester l'effet compote sur la saveur mais en prenant en compte l'effet du juge.
-* Réaliser le test avec R.
-
-
-##### Test global (= Effet des facteurs)
-
-Plusieurs modèles ont été construits, et plusieurs tests sont proposés permettant de tester un modèle contre un autre. 
-
-* Dire à quelle question répond chacun des tests ci-dessous.
-* Par rapport à la problématique permettant de savoir s'il y a des différences de saveur de pomme crue entre les compotes, indiquer quels tests vous allez commenter.
-* Commenter et interpréter le test en lien avec votre problématique.
-
-```{r testGlobal, echo = TRUE, results='markup'}
-mod2 <- lm(S.pom.crue ~ compote + juge,data=dta)
-mod1.compote <- lm(S.pom.crue ~ compote,data=dta)
-mod1.juge <- lm(S.pom.crue ~ juge,data=dta)
-anova(mod2,mod0)
-anova(mod2,mod1.juge)
-anova(mod2,mod1.compote)
-```
-
-* Dans le modele mod1.compote, où se trouve la variabilité associée aux juges ? Pourquoi cela est-il gênant lorsqu'on s'intéresse à tester un effet compote ?
-
-* La fonction `Anova` (avec un A majuscule) du package `car` (qu'il vous faudra sûrement installer) permet de retrouver en une seule commande les probabilités critiques de tests associés à chacun des effets. Retrouver ces probabilités critiques.
-Remarque : dans le cas de données déséquilibrées, les probabilités critiques obtenus avec `anova` et `Anova` peuvent être légèrement différentes. On préférera généralement utiliser les résultats fournis par la fonction `Anova'. 
-
-```{r Anova, echo = TRUE, results='markup'}
-library(car)
-Anova(mod2)
-```
-
-##### Test Post-Hoc (=Comparaison entre les modalités des facteurs)
-
-```{r emmeans, echo = TRUE, results='markup', fig.show='asis'}
-library(emmeans)
-comparaison_compote <- emmeans(mod2,  ~ compote )
-pairs(comparaison_compote)
-plot(comparaison_compote)
-```
-
-<!-- ```{r multcomp, echo = TRUE, results='markup'} -->
-<!-- require(multcomp) -->
-<!-- test_AllPairs <- glht(mod2,linfct=mcp(compote="Tukey")) -->
-<!-- summary(test_AllPairs, test = adjusted("bonferroni")) -->
-<!-- ``` -->
-
-
-<!-- On peut aussi tester si la saveur de pomme crue d'une compote particulière est égale ou différente de la moyenne de l'ensemble des compotes. La moyenne correspond à des coefficients de -1/6 pour chaque compote, et donc si on compare la note de chaque compote à la note moyenne moyenne, on écrira: -->
-
-<!-- ```{r , echo = TRUE, results='markup'} -->
-<!-- Tests <- rbind("comp1 - moy"=c((1 - 1/6),-1/6,-1/6,-1/6,-1/6,-1/6), -->
-<!--               "comp2 - moy"=c(-1/6,(1 -1/6),-1/6,-1/6,-1/6,-1/6), -->
-<!--               "comp3 - moy"=c(-1/6,-1/6,(1 -1/6),-1/6,-1/6,-1/6), -->
-<!--               "comp4 - moy"=c(-1/6,-1/6,-1/6,(1 -1/6),-1/6,-1/6), -->
-<!--               "comp5 - moy"=c(-1/6,-1/6,-1/6,-1/6,(1 -1/6),-1/6), -->
-<!--               "comp6 - moy"=c(-1/6,-1/6,-1/6,-1/6,-1/6,(1 -1/6))) -->
-<!-- test_1Pair <- glht(mod2,linfct=mcp(compote=Tests)) -->
-<!-- summary(test_1Pair, test = adjusted("bonferroni")) -->
-<!-- ``` -->
-
-### Conclusion de l'étude
-
-Il est indispensable de lister tous les facteurs qui peuvent influer sur la variable réponse, même si ceux-ci ne sont pas intéressants à interpréter. Cela permet de réduire la variabilité résiduelle et par suite de mieux mettre en évidence l'effet potentiel qui nous intéresse.
 
 ## Le vocabulaire de la séance
 
 ### Commandes R
-- anova et lm
-- Anova (package car)
-- emmeans (package emmeans)
+- cor.test
+- LinearModel
+- geom_smooth
+
 
 ### Environnement R
 
 
 ### Statistique 
-- Test d'analyse de la variance
-- Test post-hoc (comparaison entre modalités d'un facteur)
+- Régression linéaire
+- Test de corrélation de Pearson
