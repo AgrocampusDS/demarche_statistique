@@ -397,13 +397,16 @@ $(document).ready(function () {
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Pourcentage.reel =</span> <span class="fu">as.factor</span>(Pourcentage.reel))</span></code></pre></div>
 <ul>
 <li><p>Représenter à l’aide du graphique adapté les différences de réponses entre ceux qui ont goûté un chocolat à 72% et ceux qui ont goûté un chocolat à 85%.</p></li>
-<li><p>Stocker le résultat de <code>ggplot()</code> dans un objet nommé <code>p</code>. Installer le package <code>plolty</code>, puis exécuter les commandes suivantes</p></li>
+<li><p>Pour aider dans l’exploration des données, installer le package <code>plotly</code>, puis exécuter les commandes suivantes</p></li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(p)</span></code></pre></div>
-<ul>
-<li>Repérer les individus les plus éloignés de la boîte de dispersion. (Remarque : cet outil peut donc se révéler très utile en phase exploratoire sur les données.)</li>
-</ul>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> chocolat <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Pourcentage.reel,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> Pourcentage.percu,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> Pourcentage.reel,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">fill =</span> Pourcentage.reel) <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>p</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(p)</span></code></pre></div>
 <p>La commande suivante permet de calculer la moyenne et la médiane des réponses pour les deux groupes de goûteurs :</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>chocolat <span class="sc">%&gt;%</span> </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Pourcentage.reel) <span class="sc">%&gt;%</span> </span>

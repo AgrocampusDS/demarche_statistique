@@ -12,7 +12,7 @@
 <meta name="author" content="UP Mathématique appliquée" />
 
 
-<title>TD7 : Analyse de variance à 2 facteurs</title>
+<title>TD7 : Régression linéaire</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -31,8 +31,6 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -354,7 +352,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">TD7 : Analyse de variance à 2 facteurs</h1>
+<h1 class="title toc-ignore">TD7 : Régression linéaire</h1>
 <h4 class="author">UP Mathématique appliquée</h4>
 
 </div>
@@ -365,14 +363,14 @@ $(document).ready(function () {
 <div id="objectifs-de-la-séance" class="section level2">
 <h2>Objectifs de la séance</h2>
 <ul>
-<li>Analyse de variance à 2 facteurs
+<li>Visualisation de données
 <ul>
-<li>Prise en compte d’un 2ème facteur</li>
+<li>Visualiser les relations entre deux variables quantitatives</li>
 </ul></li>
-<li>Puissance des tests
+<li>Analyse de données
 <ul>
-<li>Effet de la taille de l’échantillon</li>
-<li>Etude par simulations</li>
+<li>Comprendre le modèle de régression</li>
+<li>Ajuster un modèle de régression et exploiter les résultats qui en découlent</li>
 </ul></li>
 </ul>
 </div>
@@ -380,307 +378,24 @@ $(document).ready(function () {
 <h2>Exercices</h2>
 <div id="problématique" class="section level3">
 <h3>Problématique</h3>
-<p>On cherche à évaluer comment sont perçues 6 compotes de pommes au niveau de la saveur de pomme crue. Une dégustation est mise en place et 6 juges vont déguster chacune des 6 compotes. Les notes sont attribuées sur une échelle allant de 0 à 10.</p>
-<p>La question est donc de savoir si certaines compotes sont en moyenne perçues comme ayant une plus forte saveur de pomme crue.</p>
-</div>
-<div id="analyse-prenant-en-compte-leffet-compote-uniquement" class="section level3">
-<h3>Analyse prenant en compte l’effet compote uniquement</h3>
-<div id="importation-du-premier-jeu-de-données" class="section level4">
-<h4>Importation du premier jeu de données</h4>
+<p>La fédération française de rugby sélectionne des joueurs de moins de 15 ans pour des stages pendant les vacances scolaires. 500 jeunes sont sélectionnés chaque année selon leur potentiel, et la vitesse au 50m est une de ces mesures. Cependant, la tranche d’âge des joueurs sélectionnés (moins de 15 ans) est d’1 an et les joueurs nés en début d’année civile ont un développement physiologique plus important que les joueurs nés en fin d’année. Pour éviter un biais de sélection et défavoriser les joueurs plus jeunes, la fédération de rugby souhaite relativiser la performance en fonction du mois de naissance. Pour cela, elle a enregistré les performances de 72 jeunes nés lors d’une même année civile et passant un test de vitesse de 50m. Notez qu’ici, seules les vitesses des joueurs jouant à l’arrière (et donc qui courent vite) sont comparées.</p>
 <ul>
-<li>Importez le jeu de données intial <code>compote.csv</code>.</li>
+<li><p>Calculer le coefficient de corrélation entre la vitesse et le mois de naissance</p></li>
+<li><p>Construire le modèle permettant de prédire la vitesse en fonction du mois de naissance. Interprétez les coefficients du modèle</p></li>
+<li><p>Prédire la performance moyenne d’un joueur né en janvier, et celle d’un joueur né en décembre.</p></li>
+<li><p>Donner les performances des deux premiers joueurs du jeu de données.</p></li>
+<li><p>Comparer les performances des 2 premiers joueurs du jeu de données <strong>en relativisant</strong> par rapport à leur âge.</p></li>
+<li><p>Représenter les intervalles de prédiction en fonction du mois de naissance à l’aide des commandes suivantes</p></li>
 </ul>
-</div>
-<div id="visualisation-des-données" class="section level4">
-<h4>Visualisation des données</h4>
-<ul>
-<li>Visualiser les données pour avoir une idée des saveurs de pomme crue selon les compotes et calculez quelques statistiques descriptives par compote.</li>
-</ul>
-<table class=" lightable-classic" style="font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-compote
-</th>
-<th style="text-align:right;">
-note_mean
-</th>
-<th style="text-align:right;">
-S.pom.crue_sd
-</th>
-<th style="text-align:right;">
-q05
-</th>
-<th style="text-align:right;">
-q50
-</th>
-<th style="text-align:right;">
-q95
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-andros
-</td>
-<td style="text-align:right;">
-3.83
-</td>
-<td style="text-align:right;">
-2.79
-</td>
-<td style="text-align:right;">
-0.50
-</td>
-<td style="text-align:right;">
-3.5
-</td>
-<td style="text-align:right;">
-7.00
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-carrefour
-</td>
-<td style="text-align:right;">
-4.33
-</td>
-<td style="text-align:right;">
-2.42
-</td>
-<td style="text-align:right;">
-1.50
-</td>
-<td style="text-align:right;">
-4.0
-</td>
-<td style="text-align:right;">
-7.00
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-delisse
-</td>
-<td style="text-align:right;">
-5.83
-</td>
-<td style="text-align:right;">
-2.32
-</td>
-<td style="text-align:right;">
-2.75
-</td>
-<td style="text-align:right;">
-6.0
-</td>
-<td style="text-align:right;">
-8.50
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-poti
-</td>
-<td style="text-align:right;">
-2.67
-</td>
-<td style="text-align:right;">
-1.21
-</td>
-<td style="text-align:right;">
-1.25
-</td>
-<td style="text-align:right;">
-2.5
-</td>
-<td style="text-align:right;">
-4.00
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-scoup
-</td>
-<td style="text-align:right;">
-2.83
-</td>
-<td style="text-align:right;">
-3.06
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-2.0
-</td>
-<td style="text-align:right;">
-6.75
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-st mamet
-</td>
-<td style="text-align:right;">
-2.83
-</td>
-<td style="text-align:right;">
-2.56
-</td>
-<td style="text-align:right;">
-0.25
-</td>
-<td style="text-align:right;">
-2.0
-</td>
-<td style="text-align:right;">
-6.00
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="test-statistique" class="section level4">
-<h4>Test statistique</h4>
-<p>On cherche à savoir si la saveur de pomme crue est différente selon la compote.</p>
-<div id="test-global-effet-des-facteurs" class="section level5">
-<h5>Test global (=Effet des facteurs)</h5>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mod1.compote <span class="ot">&lt;-</span> <span class="fu">lm</span>(S.pom.crue <span class="sc">~</span> compote,<span class="at">data=</span>dta)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mod0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(S.pom.crue<span class="sc">~</span><span class="dv">1</span>,<span class="at">data=</span>dta)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod0,mod1.compote)</span></code></pre></div>
-<pre><code>## Analysis of Variance Table
-## 
-## Model 1: S.pom.crue ~ 1
-## Model 2: S.pom.crue ~ compote
-##   Res.Df    RSS Df Sum of Sq      F Pr(&gt;F)
-## 1     35 227.22                           
-## 2     30 182.00  5    45.222 1.4908 0.2223</code></pre>
-</div>
-</div>
-</div>
-<div id="prise-en-compte-de-la-variable-juge" class="section level3">
-<h3>Prise en compte de la variable juge</h3>
-<p>Surpris du résultat, on décide de prendre en compte la variable juge.</p>
-<div id="visualisation" class="section level4">
-<h4>Visualisation</h4>
-<ul>
-<li>Visualisez les notes en fonction de la compote mais en coloriant les points de couleurs différentes selon les juges.</li>
-</ul>
-</div>
-<div id="test-statistique-1" class="section level4">
-<h4>Test statistique</h4>
-<ul>
-<li>Ecrire le modèle et les hypothèses permettant de tester l’effet compote sur la saveur mais en prenant en compte l’effet du juge.</li>
-<li>Réaliser le test avec R.</li>
-</ul>
-<div id="test-global-effet-des-facteurs-1" class="section level5">
-<h5>Test global (= Effet des facteurs)</h5>
-<p>Plusieurs modèles ont été construits, et plusieurs tests sont proposés permettant de tester un modèle contre un autre.</p>
-<ul>
-<li>Dire à quelle question répond chacun des tests ci-dessous.</li>
-<li>Par rapport à la problématique permettant de savoir s’il y a des différences de saveur de pomme crue entre les compotes, indiquer quels tests vous allez commenter.</li>
-<li>Commenter et interpréter le test en lien avec votre problématique.</li>
-</ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(S.pom.crue <span class="sc">~</span> compote <span class="sc">+</span> juge,<span class="at">data=</span>dta)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mod1.compote <span class="ot">&lt;-</span> <span class="fu">lm</span>(S.pom.crue <span class="sc">~</span> compote,<span class="at">data=</span>dta)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>mod1.juge <span class="ot">&lt;-</span> <span class="fu">lm</span>(S.pom.crue <span class="sc">~</span> juge,<span class="at">data=</span>dta)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod2,mod0)</span></code></pre></div>
-<pre><code>## Analysis of Variance Table
-## 
-## Model 1: S.pom.crue ~ compote + juge
-## Model 2: S.pom.crue ~ 1
-##   Res.Df     RSS  Df Sum of Sq    F    Pr(&gt;F)    
-## 1     25  69.444                                 
-## 2     35 227.222 -10   -157.78 5.68 0.0002035 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod2,mod1.juge)</span></code></pre></div>
-<pre><code>## Analysis of Variance Table
-## 
-## Model 1: S.pom.crue ~ compote + juge
-## Model 2: S.pom.crue ~ juge
-##   Res.Df     RSS Df Sum of Sq     F  Pr(&gt;F)  
-## 1     25  69.444                             
-## 2     30 114.667 -5   -45.222 3.256 0.02121 *
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod2,mod1.compote)</span></code></pre></div>
-<pre><code>## Analysis of Variance Table
-## 
-## Model 1: S.pom.crue ~ compote + juge
-## Model 2: S.pom.crue ~ compote
-##   Res.Df     RSS Df Sum of Sq     F    Pr(&gt;F)    
-## 1     25  69.444                                 
-## 2     30 182.000 -5   -112.56 8.104 0.0001174 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<ul>
-<li><p>Dans le modele mod1.compote, où se trouve la variabilité associée aux juges ? Pourquoi cela est-il gênant lorsqu’on s’intéresse à tester un effet compote ?</p></li>
-<li><p>La fonction <code>Anova</code> (avec un A majuscule) du package <code>car</code> (qu’il vous faudra sûrement installer) permet de retrouver en une seule commande les probabilités critiques de tests associés à chacun des effets. Retrouver ces probabilités critiques. Remarque : dans le cas de données déséquilibrées, les probabilités critiques obtenus avec <code>anova</code> et <code>Anova</code> peuvent être légèrement différentes. On préférera généralement utiliser les résultats fournis par la fonction `Anova’.</p></li>
-</ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Anova</span>(mod2)</span></code></pre></div>
-<pre><code>## Anova Table (Type II tests)
-## 
-## Response: S.pom.crue
-##            Sum Sq Df F value    Pr(&gt;F)    
-## compote    45.222  5   3.256 0.0212142 *  
-## juge      112.556  5   8.104 0.0001174 ***
-## Residuals  69.444 25                      
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-</div>
-<div id="test-post-hoc-comparaison-entre-les-modalités-des-facteurs" class="section level5">
-<h5>Test Post-Hoc (=Comparaison entre les modalités des facteurs)</h5>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>comparaison_compote <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(mod2,  <span class="sc">~</span> compote )</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(comparaison_compote)</span></code></pre></div>
-<pre><code>##  contrast             estimate    SE df t.ratio p.value
-##  andros - carrefour     -0.500 0.962 25  -0.520  0.9949
-##  andros - delisse       -2.000 0.962 25  -2.078  0.3299
-##  andros - poti           1.167 0.962 25   1.212  0.8267
-##  andros - scoup          1.000 0.962 25   1.039  0.9000
-##  andros - st mamet       1.000 0.962 25   1.039  0.9000
-##  carrefour - delisse    -1.500 0.962 25  -1.559  0.6314
-##  carrefour - poti        1.667 0.962 25   1.732  0.5247
-##  carrefour - scoup       1.500 0.962 25   1.559  0.6314
-##  carrefour - st mamet    1.500 0.962 25   1.559  0.6314
-##  delisse - poti          3.167 0.962 25   3.291  0.0314
-##  delisse - scoup         3.000 0.962 25   3.118  0.0462
-##  delisse - st mamet      3.000 0.962 25   3.118  0.0462
-##  poti - scoup           -0.167 0.962 25  -0.173  1.0000
-##  poti - st mamet        -0.167 0.962 25  -0.173  1.0000
-##  scoup - st mamet        0.000 0.962 25   0.000  1.0000
-## 
-## Results are averaged over the levels of: juge 
-## P value adjustment: tukey method for comparing a family of 6 estimates</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(comparaison_compote)</span></code></pre></div>
-<p><img src="TD7_files/figure-html/emmeans-1.png" width="672" /></p>
-<!-- ```{r multcomp, echo = TRUE, results='markup'} -->
-<!-- require(multcomp) -->
-<!-- test_AllPairs <- glht(mod2,linfct=mcp(compote="Tukey")) -->
-<!-- summary(test_AllPairs, test = adjusted("bonferroni")) -->
-<!-- ``` -->
-<!-- On peut aussi tester si la saveur de pomme crue d'une compote particulière est égale ou différente de la moyenne de l'ensemble des compotes. La moyenne correspond à des coefficients de -1/6 pour chaque compote, et donc si on compare la note de chaque compote à la note moyenne moyenne, on écrira: -->
-<!-- ```{r , echo = TRUE, results='markup'} -->
-<!-- Tests <- rbind("comp1 - moy"=c((1 - 1/6),-1/6,-1/6,-1/6,-1/6,-1/6), -->
-<!--               "comp2 - moy"=c(-1/6,(1 -1/6),-1/6,-1/6,-1/6,-1/6), -->
-<!--               "comp3 - moy"=c(-1/6,-1/6,(1 -1/6),-1/6,-1/6,-1/6), -->
-<!--               "comp4 - moy"=c(-1/6,-1/6,-1/6,(1 -1/6),-1/6,-1/6), -->
-<!--               "comp5 - moy"=c(-1/6,-1/6,-1/6,-1/6,(1 -1/6),-1/6), -->
-<!--               "comp6 - moy"=c(-1/6,-1/6,-1/6,-1/6,-1/6,(1 -1/6))) -->
-<!-- test_1Pair <- glht(mod2,linfct=mcp(compote=Tests)) -->
-<!-- summary(test_1Pair, test = adjusted("bonferroni")) -->
-<!-- ``` -->
-</div>
-</div>
-</div>
-<div id="conclusion-de-létude" class="section level3">
-<h3>Conclusion de l’étude</h3>
-<p>Il est indispensable de lister tous les facteurs qui peuvent influer sur la variable réponse, même si ceux-ci ne sont pas intéressants à interpréter. Cela permet de réduire la variabilité résiduelle et par suite de mieux mettre en évidence l’effet potentiel qui nous intéresse.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pred_interval <span class="ot">&lt;-</span> <span class="fu">predict</span>(res,  <span class="at">interval=</span><span class="st">&quot;prediction&quot;</span>, <span class="at">level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pred_interval <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(pred_interval,<span class="at">MoisNais=</span>don<span class="sc">$</span>MoisNais)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span>  <span class="fu">geom_point</span>(<span class="at">data =</span> don, <span class="fu">aes</span>(<span class="at">x=</span>MoisNais, <span class="at">y=</span>vitesse)) <span class="sc">+</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Effet du mois de naissance sur la performance&quot;</span>)<span class="sc">+</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)<span class="sc">+</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Mois de naissance&quot;</span>)<span class="sc">+</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Vitesse (m/s)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data=</span>pred_interval, <span class="fu">aes</span>(<span class="at">x =</span> MoisNais, <span class="at">ymin =</span> lwr, <span class="at">ymax =</span> upr), <span class="at">fill =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.1</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="le-vocabulaire-de-la-séance" class="section level2">
@@ -688,9 +403,9 @@ st mamet
 <div id="commandes-r" class="section level3">
 <h3>Commandes R</h3>
 <ul>
-<li>anova et lm</li>
-<li>Anova (package car)</li>
-<li>emmeans (package emmeans)</li>
+<li>cor.test</li>
+<li>LinearModel</li>
+<li>geom_smooth</li>
 </ul>
 </div>
 <div id="environnement-r" class="section level3">
@@ -699,8 +414,8 @@ st mamet
 <div id="statistique" class="section level3">
 <h3>Statistique</h3>
 <ul>
-<li>Test d’analyse de la variance</li>
-<li>Test post-hoc (comparaison entre modalités d’un facteur)</li>
+<li>Régression linéaire</li>
+<li>Test de corrélation de Pearson</li>
 </ul>
 </div>
 </div>
