@@ -1,5 +1,5 @@
 ---
-title: "TD11 : Construction et choix de modèle"
+title: "TD11 : Prédiction et interprétation"
 author: "UP Mathématiques appliquées"
 date: ''
 output:
@@ -13,120 +13,145 @@ header-includes:
 - \usepackage[T1]{fontenc}
 ---
 
-```{r setup-TD11, include=FALSE}
+
+```{r setup-TD13, include=FALSE, }
 knitr::opts_chunk$set(echo = FALSE, cache= TRUE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'hide' )
 library(tidyverse)
 library(kableExtra)
-library(devtools) 
 out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 ```
+
+
 # {.tabset .tabset-fade .tabset-pills}
 
 ##  Objectifs de la séance  
 
-* Construire un modèle
-  + choisir les effets et interactions potentiels 
-  + écrire le modèle
-* Sélectionner un sous-modèle
-* Interpréter la présence ou l'absence d'effet
-* Comprendre l'intérêt d'un effet bloc
- 
+* Visualisation de données
+  - Visualiser les relations entre une variable quantitative et deux variables qualitatives
+  - Visualiser de potentielless interactions entre facteurs
+  
+* Analyse de données
+   - Comprendre la notion d'interaction entre deux facteurs
+   - Comprendre le modèle d'analyse de la variance à deux facteurs
+   - Ajuster un modèle d'analyse de la variance  à deux facteurs et exploiter les résultats qui en découlent
+  
+  
 ## Exercices 
 
-### Construction d'un modèle, choix des effets et interactions 
+### Étude de la croissance en poids de poussins en fonction du sexe et de trois traitements
 
-1. Quelles variables explicatives, quelles interactions utiliseriez-vous pour construire un modèle permettant de prédire (répondre à 2 questions au choix parmi les 4)
-* la taille d'un individu adulte ? <!-- sexe, taille père, taille mère, maladie pendant l'enfance, nutrition équilibrée ou non. Interaction possible : sexe et tailles des parents, nutrition et taille, nutrition et sexe -->
-* la taille d'un enfant entre 2 et 15 ans. <!-- même variables mais en plus l'âge. -->
-* le nombre de lombrics dans un cube de terre de 10 cm de côté ? <!-- la composition du sol (%argile, % sable, % MO), si le sol est nu ou s'il y a différents types de paillage -->
-* le poids des poubelles à la cantine de l'IA ? <!-- si tri des déchets, type de repas, si on peut se servir, etc, si mise en place de préconisations. -->
+Lors de leur mise en incubateur, 45 oeufs de poules ont été répartis de façon aléatoire en trois lots de 15. Trois traitements (températures d'incubation différentes) ont ensuite été appliqués aux différents lots. Nous supposons qu'après éclosion, les poussins ont tous été élevés dans des conditions identiques, puis pesés à un même âge de référence. À ce moment, le sexe des poussins, dont on sait a priori qu'il induit de fortes différences de poids, pouvait aussi être observé. La modalité 1 (respectif 2) de la variable Sexe correspond à Male (respetivement Femelle).
 
-2. Préciser quelles variables sont quantitatives (resp. qualitatives) 
-3. Ecrire le modèle 
+L'objectif est de choisir le traitement qui maximise le poids des poussins.
 
-### Choix de modèle pour la préférence d'un jambon
+#### Importation des données et visualisation
 
-Un organisme d'analyse sensorielle souhaite savoir s'il est possible de prévoir l'appréciation globale d'un jambon à partir de sa description sensorielle. Un jury entraîné a utilisé les variables suivantes pour décrire 21
-jambons : Jutosité, Caractère croquant, Tendreté, Caractère pâteux, Fibreux, Saveur salée, Saveur sucrée, Flaveur de viande, Assaisonnement, Flaveur métallique, Flaveur fèces/urine, Flaveur de gras, Flaveur braisé/fumé,
-Flaveur lactique . Puis une note d' Appréciation globale a été attribué à chacun des jambons. 
+Les données sont disponibles dans le fichier  `poussin.txt`. 
 
-* Charger le fichier de données `jambon.txt`, il est conseillé d'utiliser le paramètre `row.names =`.
+* Importer les données. La colonne `Rdt ` indique le gain de poids entre la naissance et le jour de pesée.
+
+```{r import_dta}
+
+poussins_dta <- read.table(file = "https://agrocampusds.github.io/demarche_statistique/poussin.txt", header = TRUE) %>%   
+  mutate(Sexe = case_when(
+    Sexe ==1 ~ "Male",
+    Sexe ==2 ~ "Femelle")) %>%  ## pour éviter de se demander qui est 1 et qui est 2
+  mutate(Sexe = as.factor(Sexe), Trait = as.factor(Trait))
+```
+
+* Proposer un graphique permettant de visualiser un potentiel effet Sexe d'une part, puis un potentiel effet Traitement.
+
+```{r visu1}
+poussins_dta %>% ggplot() +
+  geom_boxplot(aes(x=Sexe, y = Rdt))
+poussins_dta %>% ggplot() +
+  geom_boxplot(aes(x=Trait, y = Rdt))
+poussins_dta %>% ggplot() +
+  geom_boxplot(aes(x=Trait, y = Rdt, fill = Sexe))
+```
+
+* Qu'est ce que le code ci-dessous permet de visualiser ?
+
+```{r interaction, echo=TRUE}
+poussins_dta %>% 
+  group_by(Sexe, Trait) %>% 
+  summarise(Rdt_groupe = mean(Rdt)) %>% 
+  ggplot() +
+  aes(x = Trait, y = Rdt_groupe, color = Sexe) +
+  geom_line(aes(group = Sexe)) +
+  geom_point()
+```
+
+#### Modélisation
+
+* Préciser les différents effets qui peuvent être pris en compte dans un modèle.
+
+* Construire le modèle et sélectionner le "bon" sous-modèle.
+
+* Que pouvez-vous conseiller comme traitement pour les éleveurs ? Est-ce en adéquation avec les moyennes des rendements par traitement ? Si ce n'est pas le cas, expliquer le paradoxe.
+
+
+### Etude du rendement fromager
+
+Un laboratoire d'analyse souhaite mettre en évidence l'influence de la composition du lait sur le rendement
+fromager. Pour ce faire, il a mesuré sur un échantillon de n = 85 laits, la densité, le taux butyreux, le taux de
+protéine, le taux de caséine, l'extrait sec et le rendement fromager de chacun de ces laits.
+
+#### Importation du jeu de données  et matrice des corrélations
+* Charger les données provenant du fichier `lait.txt`.
+* Etudier les corrélations en adaptant le code fourni au [TD 11](https://agrocampusds.github.io/demarche_statistique/TD11.html).
+
 ```{r, echo=FALSE, results='markup', eval = TRUE}
-jambons <- read.table('jambon.txt', sep = "\t", header =TRUE, row.names = 1)
+fromages <- read.table("lait.txt", sep = "\t", dec = ",", header = T)
 ```
-* A l'aide de la fonction `ggpairs` du paquet `GGally` lancez une première analyse descriptive du  lien entre variables deux à deux. 
-```{r, echo=TRUE, results='markup', fig.align='center', out.width = '1000px', out.height= '800px',eval = TRUE}
-library(ggcorrplot)
-jambons %>% 
+
+```{r, echo=FALSE, results='markup', eval = FALSE}
+fromages %>% 
   cor() %>% 
-  round(1) %>% 
-  ggcorrplot(type = "lower",
-             lab = TRUE)
-library(GGally)
-jambons %>% ggpairs(
-  columns = c(1, 7:9),
-  lower = list(continuous = wrap("points", color = "dodgerblue4")),
-  diag = list(continuous = wrap("densityDiag", color = "dodgerblue4"))
-  )
+  kable(digits=2, format = "html", escape = FALSE) %>%
+  collapse_rows(columns = 1, valign = 'top') %>%
+  kable_classic(full_width = F, html_font = "Cambria")
 ```
 
-* Proposer une problématique liée au contexte.
-* Sélectionner le modèle.
+#### Modélisation et prédiction
 
-### Prise en compte d'un effet bloc 
+* Construire le modèle permettant de prédire le rendement et sélectionner le sous-modèle adapté.
+* Commenter les estimations des coefficients (rappeler le test effectué pour un coefficient en rappelant les hypothèses, la statistique de test et sa conclusion).
 
-On étudie le rendement de pois fourragers pour trois variétés et trois écartements entre les rangs des lignées. Pour disposer de répétitions,
-des expériences ont été menées sur 4 parcelles. Toutes les combinaisons variété-écartement ont été testé sur chacune des 4 parcelles.
-Les données sont regroupées dans le tableau [suivant](https://agrocampusds.github.io/demarche_statistique/pois.csv).
-
-
-```{r,echo=FALSE, results='markup', eval = TRUE}
-library(kableExtra)
-pois <- read.table('pois.csv', sep = ";", header =TRUE,stringsAsFactors = TRUE)
-pois %>% spread(Parcelle, Rendement) %>% 
-  kable(align = "c") %>% 
-  kable_paper(full_width = F) %>%
-  column_spec(1, bold = T) %>%
-  add_header_above(c(" ", " " = 1, "Parcelle" = 4)) %>% 
-  collapse_rows(columns = 1:2, valign = "top")
-
+Les mesures sur un nouvel échantillon de lait sont les suivantes :
+```{r, echo=FALSE, results='markup', eval = TRUE}
+fromagesNEW <- data.frame(1.032,37.7,35.7,28.5,127.1) 
+  names(fromagesNEW) <- names(fromages)[-6]
+fromagesNEW %>% 
+  kable(digits=2, format = "html", escape = FALSE) %>%
+  collapse_rows(columns = 1, valign = 'top') %>%
+  kable_classic(full_width = F, html_font = "Cambria")
 ```
 
-On considérera ici que l'écartement est une variable qualitative avec 3 modalités (4= petit, 8=moyen, 12=grand).
+* A l'aide de la fonction `predict`, déterminer l'intervalle de confiance associé à ce rendement moyen.
 
-```{r, echo=FALSE, results='markup', eval = FALSE}
-for (i in 2:3) pois[,i] <- as.factor(pois[,i])
-summary(pois)
+```{r, echo=FALSE, eval=FALSE, results='markup' }
+predict(mod, newdata = fromagesNEW, interval = "confidence")
 ```
-+ Seuls les effets suivants intéressent l'agronome: variété, écartement, interaction variété-écartement. Pourtant, on choisit de rajouter l'effet parcelle dans le modèle. Quelle peut en être l'utilité?
-+ Construire et sélectionner le "bon" sous-modèle.
-```{r, echo=FALSE, results='markup', eval = FALSE}
-library(FactoMineR)
-mod1 <- LinearModel(Rendement~Variete+Ecartement+Parcelle+Variete :Ecartement,data=pois,selection="none")
-mod1
-```
-+ Quels sont les effets significatifs (et les effets non significatifs) du sous-modèle sélectionné ?
-+ Interpréter les effets significatifs (et l'absence des effets non significatifs) dans le modèle sélectionné.
-+ Quelles conclusions auriez-vous eues si vous aviez (mal) travaillé en oubliant l'effet parcelle dans le modèle ?
 
-```{r, echo=FALSE, results='markup', eval = FALSE}
-library(FactoMineR)
-mod2 <- LinearModel(Rendement~Variete+Ecartement+Variete :Ecartement,data=pois,selection="none")
-mod2
+* Déterminer l'intervalle de prédiction associé à l'estimation du rendement d'un tel lait.
+
+```{r, echo=FALSE, eval=FALSE, results='markup' }
+predict(mod, newdata = fromagesNEW, interval = "prediction")
 ```
+
 
 ## Le vocabulaire de la séance
 
 ### Commandes R
 - LinearModel
-- ggcorrplot
-- ggpairs
+- compMeans
 
 ### Environnement R
 
 
 ### Statistique 
-- Construction de modèle
-- Sélection de sous-modèle
-- Régression linéaire multiple
-- Analyse de variance
+- Analyse de la variance à 2 facteurs
+- Comparaison des niveaux d'un facteur
+
+- Test d'égalité d'un coefficient à une valeur

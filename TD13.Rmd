@@ -1,6 +1,6 @@
 ---
-title: "TD13 : Prédiction et interprétation"
-author: "UP Mathématiques appliquées"
+title: "TD13 : Etude de cas : analyse des surfaces d'algues échouées"
+author: "UP Mathématique appliquée"
 date: ''
 output:
   html_document:
@@ -14,10 +14,12 @@ header-includes:
 ---
 
 
-```{r setup-TD13, include=FALSE, }
+```{r setup-TD15, include=FALSE, }
 knitr::opts_chunk$set(echo = FALSE, cache= TRUE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'hide' )
 library(tidyverse)
 library(kableExtra)
+library(FactoMineR)
+library(plotly)
 out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 ```
 
@@ -26,132 +28,63 @@ out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 
 ##  Objectifs de la séance  
 
-* Visualisation de données
-  - Visualiser les relations entre une variable quantitative et deux variables qualitatives
-  - Visualiser de potentielless interactions entre facteurs
-  
-* Analyse de données
-   - Comprendre la notion d'interaction entre deux facteurs
-   - Comprendre le modèle d'analyse de la variance à deux facteurs
-   - Ajuster un modèle d'analyse de la variance  à deux facteurs et exploiter les résultats qui en découlent
-  
-  
-## Exercices 
+## Exercice 
 
-### Étude de la croissance en poids de poussins en fonction du sexe et de trois traitements
 
-Lors de leur mise en incubateur, 45 oeufs de poules ont été répartis de façon aléatoire en trois lots de 15. Trois traitements (températures d'incubation différentes) ont ensuite été appliqués aux différents lots. Nous supposons qu'après éclosion, les poussins ont tous été élevés dans des conditions identiques, puis pesés à un même âge de référence. À ce moment, le sexe des poussins, dont on sait a priori qu'il induit de fortes différences de poids, pouvait aussi être observé. La modalité 1 (respectif 2) de la variable Sexe correspond à Male (respetivement Femelle).
+L'agence de l'eau Eau-Seine-Normandie s'intéresse aux échouages d'algues vertes et d'algues rouges-brunes sur la côte normande. La surface d'échouage des algues a été mesurée sur quatre sites d'échouage, à 3 périodes de l'année et sur 14 ans et pour les 2 types d'algues (voir les données dans le jeu `donnees_echouages.csv`).
+L'agence de l'eau souhaite comprendre les échouages d'algues, et notamment les différents facteurs qui peuvent jouer sur les échouages. Ils veulent également voir si les échouages d'algues vertes et rouges-brunes fonctionnent de la même façon. Les variables agricoles comme les épandages, les cultures, etc. ne sont pas mesurées et ne peuvent être prises en compte ici.
 
-L'objectif est de choisir le traitement qui maximise le poids des poussins.
+* Dégager une problématique dans ce contexte après notamment avoir exploré les données. Quels éléments de réponse pouvez-vous apporter à la lumière de vos analyses à l'agence de l'eau Eau-Seine-Normandie ?
 
-#### Importation des données et visualisation
+```{r, echo=FALSE, eval=FALSE}
+# chargement et vérifications d'usage
+algues <-
+  read.table(
+    'donnees_echouages.csv',
+    header = TRUE,
+    sep = ";",
+    dec = ",",
+    stringsAsFactors = TRUE
+  )
+algues <- algues %>% 
+  mutate(
+    Annee = as.factor(Annee),
+    Mois = fct_recode(
+      as.factor(Mois),
+      Mai = "5",
+      Juillet = "7",
+      Septembre = "9")
+)
 
-Les données sont disponibles dans le fichier  `poussin.txt`. 
+# représentations 
+## ex : boîtes à moustache suivant croisement de 2 quali
+algues %>% ggplot() + aes(x = Algues, y = Surface..ha., fill = Mois, color = Mois) + geom_boxplot(alpha = .3)
+## ex2 : graphique d'interaction correspondant
+algues %>% group_by(Site, Algues) %>% 
+  summarise(Surface_moyenne = mean(Surface..ha.)) %>% 
+  ggplot() + aes (x = Site, y = Surface_moyenne, color = Algues) + geom_point() + geom_line(aes(group = Algues))
+## on pourra donc étudier les différentes possibilités 
+## pour ceux qui en veulent toujours plus,
+algues %>% 
+   ggplot() + aes(x = Annee, y = Surface..ha., colour = Algues) +
+   geom_point() + geom_line(aes(group = Algues)) +
+   facet_wrap(Mois ~ Site)
 
-* Importer les données. La colonne `Rdt ` indique le gain de poids entre la naissance et le jour de pesée.
-
-```{r import_dta}
-
-poussins_dta <- read.table(file = "https://agrocampusds.github.io/demarche_statistique/poussin.txt", header = TRUE) %>%   
-  mutate(Sexe = case_when(
-    Sexe ==1 ~ "Male",
-    Sexe ==2 ~ "Femelle")) %>%  ## pour éviter de se demander qui est 1 et qui est 2
-  mutate(Sexe = as.factor(Sexe), Trait = as.factor(Trait))
+# modèle et sélection de variables
+mod <- LinearModel(data = algues, Surface..ha. ~ Algues*(Annee + Mois + Site))
+mod$Ftest
+# lecture et interprétation des coefficients
+meansComp(mod,  ~ Site)
 ```
 
-* Proposer un graphique permettant de visualiser un potentiel effet Sexe d'une part, puis un potentiel effet Traitement.
 
-```{r visu1}
-poussins_dta %>% ggplot() +
-  geom_boxplot(aes(x=Sexe, y = Rdt))
-poussins_dta %>% ggplot() +
-  geom_boxplot(aes(x=Trait, y = Rdt))
-poussins_dta %>% ggplot() +
-  geom_boxplot(aes(x=Trait, y = Rdt, fill = Sexe))
-```
-
-* Qu'est ce que le code ci-dessous permet de visualiser ?
-
-```{r interaction, echo=TRUE}
-poussins_dta %>% 
-  group_by(Sexe, Trait) %>% 
-  summarise(Rdt_groupe = mean(Rdt)) %>% 
-  ggplot() +
-  aes(x = Trait, y = Rdt_groupe, color = Sexe) +
-  geom_line(aes(group = Sexe)) +
-  geom_point()
-```
-
-#### Modélisation
-
-* Préciser les différents effets qui peuvent être pris en compte dans un modèle.
-
-* Construire le modèle et sélectionner le "bon" sous-modèle.
-
-* Que pouvez-vous conseiller comme traitement pour les éleveurs ? Est-ce en adéquation avec les moyennes des rendements par traitement ? Si ce n'est pas le cas, expliquer le paradoxe.
-
-
-### Etude du rendement fromager
-
-Un laboratoire d'analyse souhaite mettre en évidence l'influence de la composition du lait sur le rendement
-fromager. Pour ce faire, il a mesuré sur un échantillon de n = 85 laits, la densité, le taux butyreux, le taux de
-protéine, le taux de caséine, l'extrait sec et le rendement fromager de chacun de ces laits.
-
-#### Importation du jeu de données  et matrice des corrélations
-* Charger les données provenant du fichier `lait.txt`.
-* Etudier les corrélations en adaptant le code fourni au [TD 11](https://agrocampusds.github.io/demarche_statistique/TD11.html).
-
-```{r, echo=FALSE, results='markup', eval = TRUE}
-fromages <- read.table("lait.txt", sep = "\t", dec = ",", header = T)
-```
-
-```{r, echo=FALSE, results='markup', eval = FALSE}
-fromages %>% 
-  cor() %>% 
-  kable(digits=2, format = "html", escape = FALSE) %>%
-  collapse_rows(columns = 1, valign = 'top') %>%
-  kable_classic(full_width = F, html_font = "Cambria")
-```
-
-#### Modélisation et prédiction
-
-* Construire le modèle permettant de prédire le rendement et sélectionner le sous-modèle adapté.
-* Commenter les estimations des coefficients (rappeler le test effectué pour un coefficient en rappelant les hypothèses, la statistique de test et sa conclusion).
-
-Les mesures sur un nouvel échantillon de lait sont les suivantes :
-```{r, echo=FALSE, results='markup', eval = TRUE}
-fromagesNEW <- data.frame(1.032,37.7,35.7,28.5,127.1) 
-  names(fromagesNEW) <- names(fromages)[-6]
-fromagesNEW %>% 
-  kable(digits=2, format = "html", escape = FALSE) %>%
-  collapse_rows(columns = 1, valign = 'top') %>%
-  kable_classic(full_width = F, html_font = "Cambria")
-```
-
-* A l'aide de la fonction `predict`, déterminer l'intervalle de confiance associé à ce rendement moyen.
-
-```{r, echo=FALSE, eval=FALSE, results='markup' }
-predict(mod, newdata = fromagesNEW, interval = "confidence")
-```
-
-* Déterminer l'intervalle de prédiction associé à l'estimation du rendement d'un tel lait.
-
-```{r, echo=FALSE, eval=FALSE, results='markup' }
-predict(mod, newdata = fromagesNEW, interval = "prediction")
-```
 
 
 ## Le vocabulaire de la séance
 
 ### Commandes R
-- LinearModel
-- compMeans
 
 ### Environnement R
 
 
 ### Statistique 
-- Analyse de la variance à 2 facteurs
-- Comparaison des niveaux d'un facteur
-
-- Test d'égalité d'un coefficient à une valeur
