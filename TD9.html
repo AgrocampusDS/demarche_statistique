@@ -9,10 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="UP Mathématique appliquée" />
+<meta name="author" content="UP Mathématiques appliquées" />
 
 
-<title>TD9 : La régression simple et au-delà</title>
+<title>TD9 : Construction et choix de modèle</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -31,6 +31,8 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -352,8 +354,8 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">TD9 : La régression simple et au-delà</h1>
-<h4 class="author">UP Mathématique appliquée</h4>
+<h1 class="title toc-ignore">TD9 : Construction et choix de modèle</h1>
+<h4 class="author">UP Mathématiques appliquées</h4>
 
 </div>
 
@@ -363,63 +365,267 @@ $(document).ready(function () {
 <div id="objectifs-de-la-séance" class="section level2">
 <h2>Objectifs de la séance</h2>
 <ul>
-<li>Visualisation de données
+<li>Construire un modèle
 <ul>
-<li>Visualiser les relations entre deux variables quantitatives</li>
+<li>choisir les effets et interactions potentiels</li>
+<li>écrire le modèle</li>
 </ul></li>
-<li>Analyse de données
-<ul>
-<li>Comprendre le modèle de régression</li>
-<li>Ajuster un modèle de régression et exploiter les résultats qui en découlent</li>
-</ul></li>
+<li>Sélectionner un sous-modèle</li>
+<li>Interpréter la présence ou l’absence d’effet</li>
+<li>Comprendre l’intérêt d’un effet bloc</li>
 </ul>
 </div>
 <div id="exercices" class="section level2">
 <h2>Exercices</h2>
-<div id="prédiction-du-volume-de-bois-exploitable" class="section level3">
-<h3>Prédiction du volume de bois exploitable</h3>
-<p>Pour évaluer le volume de bois exploitable d’un arbre, il est fréquent d’assimiler le tronc à un cylindre. Dans ce cas, on mesure le diamètre à hauteur de poitrine, noté DBH (Diameter at Breast Height) et en notant <em>H</em> la hauteur du tronc, on évalue le volume <em>V</em> par la formule : <span class="math display">\[V = D^2 H \frac{\pi}{4}. \]</span></p>
+<div id="construction-dun-modèle-choix-des-effets-et-interactions" class="section level3">
+<h3>Construction d’un modèle, choix des effets et interactions</h3>
+<ol style="list-style-type: decimal">
+<li>Quelles variables explicatives, quelles interactions utiliseriez-vous pour construire un modèle permettant de prédire (répondre à 2 questions au choix parmi les 4)</li>
+</ol>
 <ul>
-<li>En passant au logarithme, écrire une relation liant le logarithme du diamètre au logarithme de de <em>V/H</em>.</li>
+<li>la taille d’un individu adulte ? <!-- sexe, taille père, taille mère, maladie pendant l'enfance, nutrition équilibrée ou non. Interaction possible : sexe et tailles des parents, nutrition et taille, nutrition et sexe --></li>
+<li>la taille d’un enfant entre 2 et 15 ans. <!-- même variables mais en plus l'âge. --></li>
+<li>le nombre de lombrics dans un cube de terre de 10 cm de côté ? <!-- la composition du sol (%argile, % sable, % MO), si le sol est nu ou s'il y a différents types de paillage --></li>
+<li>le poids des poubelles à la cantine de l’IA ? <!-- si tri des déchets, type de repas, si on peut se servir, etc, si mise en place de préconisations. --></li>
 </ul>
-<p>Des données recueillies sur des pins Douglas sont diponibles dans le jeu de données <a href="douglas.csv">douglas</a></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Préciser quelles variables sont quantitatives (resp. qualitatives)</li>
+<li>Ecrire le modèle</li>
+</ol>
+</div>
+<div id="choix-de-modèle-pour-la-préférence-dun-jambon" class="section level3">
+<h3>Choix de modèle pour la préférence d’un jambon</h3>
+<p>Un organisme d’analyse sensorielle souhaite savoir s’il est possible de prévoir l’appréciation globale d’un jambon à partir de sa description sensorielle. Un jury entraîné a utilisé les variables suivantes pour décrire 21 jambons : Jutosité, Caractère croquant, Tendreté, Caractère pâteux, Fibreux, Saveur salée, Saveur sucrée, Flaveur de viande, Assaisonnement, Flaveur métallique, Flaveur fèces/urine, Flaveur de gras, Flaveur braisé/fumé, Flaveur lactique . Puis une note d’ Appréciation globale a été attribué à chacun des jambons.</p>
 <ul>
-<li><p>Importer ce jeu de données et ajouter les colonnes suivantes :</p>
+<li><p>Charger le fichier de données <code>jambon.txt</code>, il est conseillé d’utiliser le paramètre <code>row.names =</code>.</p></li>
+<li><p>A l’aide de la fonction <code>ggpairs</code> du paquet <code>GGally</code> lancez une première analyse descriptive du lien entre variables deux à deux.</p></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>jambons <span class="sc">%&gt;%</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggcorrplot</span>(<span class="at">type =</span> <span class="st">&quot;lower&quot;</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">lab =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>jambons <span class="sc">%&gt;%</span> <span class="fu">ggpairs</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">columns =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">7</span><span class="sc">:</span><span class="dv">9</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">&quot;points&quot;</span>, <span class="at">color =</span> <span class="st">&quot;dodgerblue4&quot;</span>)),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">diag =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">&quot;densityDiag&quot;</span>, <span class="at">color =</span> <span class="st">&quot;dodgerblue4&quot;</span>))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <ul>
-<li><code>ratioVH</code> : le ratio <code>Volume</code> sur <code>Hauteur</code>,</li>
-<li><code>log_ratioVH</code> : le logarithme de <code>ratioVH</code></li>
-<li><code>log_diametre</code> : le logarithme de <code>Diametre</code></li>
-</ul></li>
-<li><p>Proposer un graphique permettant de visualiser la relation potentielle entre <code>log_diametre</code> et <code>log_ratioVH</code>.</p></li>
-<li><p>Mettre en place un test statistique permettant de conclure qu’il existe un lien entre le logarithme du diamètre et le logarithme du ratio Volume sur Hauteur.</p></li>
-<li><p>Si le tronc d’arbre est véritablement un cylindre, quelle serait la valeur du paramètre mesurant l’effet du log du diamètre sur le ratioVH ?</p></li>
-<li><p>Ecrire les hypothèses de test permettant de tester l’égalité du paramètre mesurant l’effet de <code>log_diametre</code> sur <code>log_ratioVH</code> à cette valeur théorique.</p></li>
-<li><p>Mettre ce test en place et conclure.</p></li>
+<li>Proposer une problématique liée au contexte.</li>
+<li>Sélectionner le modèle.</li>
 </ul>
 </div>
-<div id="influence-du-déboisement-sur-la-relation-entre-température-de-leau-et-température-de-lair" class="section level3">
-<h3>Influence du déboisement sur la relation entre température de l’eau et température de l’air</h3>
-<p>On cherche à étudier l’influence du déboisement d’une rivière sur la relation entre la température de l’eau et la température de l’air. On dispose pour cela de mesures conjointes de la température d’eau dans la Flume et de la température de l’air effectuées avant le déboisement et après le déboisement. L’unité expérimentale est une décade et les mesures de températures sont en fait des maxima sur une décade.</p>
-<p>Le jeu de données <a href="deboisement.csv">deboisement.csv</a> contient 56 lignes disponibles correspondant aux 28 décades d’observation avant le déboisement et aux 28 décades d’observation après le déboisement.</p>
+<div id="prise-en-compte-dun-effet-bloc" class="section level3">
+<h3>Prise en compte d’un effet bloc</h3>
+<p>On étudie le rendement de pois fourragers pour trois variétés et trois écartements entre les rangs des lignées. Pour disposer de répétitions, des expériences ont été menées sur 4 parcelles. Toutes les combinaisons variété-écartement ont été testé sur chacune des 4 parcelles. Les données sont regroupées dans le tableau <a href="https://agrocampusds.github.io/demarche_statistique/pois.csv">suivant</a>.</p>
+<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="empty-cells: hide;" colspan="1">
+</th>
+<th style="empty-cells: hide;" colspan="1">
+</th>
+<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="4">
+<div style="border-bottom: 1px solid #00000020; padding-bottom: 5px; ">
+Parcelle
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:center;">
+Variete
+</th>
+<th style="text-align:center;">
+Ecartement
+</th>
+<th style="text-align:center;">
+1
+</th>
+<th style="text-align:center;">
+2
+</th>
+<th style="text-align:center;">
+3
+</th>
+<th style="text-align:center;">
+4
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;font-weight: bold;vertical-align: top !important;" rowspan="3">
+I
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+51
+</td>
+<td style="text-align:center;">
+47
+</td>
+<td style="text-align:center;">
+47
+</td>
+<td style="text-align:center;">
+50
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+60
+</td>
+<td style="text-align:center;">
+50
+</td>
+<td style="text-align:center;">
+45
+</td>
+<td style="text-align:center;">
+48
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+12
+</td>
+<td style="text-align:center;">
+64
+</td>
+<td style="text-align:center;">
+55
+</td>
+<td style="text-align:center;">
+48
+</td>
+<td style="text-align:center;">
+48
+</td>
+</tr>
+<tr>
+<td style="text-align:center;font-weight: bold;vertical-align: top !important;" rowspan="3">
+II
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+64
+</td>
+<td style="text-align:center;">
+58
+</td>
+<td style="text-align:center;">
+57
+</td>
+<td style="text-align:center;">
+61
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+60
+</td>
+<td style="text-align:center;">
+58
+</td>
+<td style="text-align:center;">
+56
+</td>
+<td style="text-align:center;">
+60
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+12
+</td>
+<td style="text-align:center;">
+58
+</td>
+<td style="text-align:center;">
+58
+</td>
+<td style="text-align:center;">
+53
+</td>
+<td style="text-align:center;">
+60
+</td>
+</tr>
+<tr>
+<td style="text-align:center;font-weight: bold;vertical-align: top !important;" rowspan="3">
+III
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+64
+</td>
+<td style="text-align:center;">
+65
+</td>
+<td style="text-align:center;">
+54
+</td>
+<td style="text-align:center;">
+57
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+62
+</td>
+<td style="text-align:center;">
+68
+</td>
+<td style="text-align:center;">
+67
+</td>
+<td style="text-align:center;">
+60
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+12
+</td>
+<td style="text-align:center;">
+71
+</td>
+<td style="text-align:center;">
+75
+</td>
+<td style="text-align:center;">
+75
+</td>
+<td style="text-align:center;">
+63
+</td>
+</tr>
+</tbody>
+</table>
+<p>On considérera ici que l’écartement est une variable qualitative avec 3 modalités (4= petit, 8=moyen, 12=grand).</p>
 <ul>
-<li><p>La température de l’air est-elle la même avant et après déboisement ? (proposer une visualisation graphique puis un test de compraison entre ces deux périodes)</p></li>
-<li><p>Même question pour la température de l’eau</p></li>
-<li><p>Proposer un graphique illustrant la relation entre température de l’eau et température de l’air et qui permet également de faire apparaître l’information sur la période concernée.</p></li>
-</ul>
-<p>La forme de ce nuage de points suggère que les variations de la température de l’eau sont proportionnelles aux variations de la température de l’air. Dans la suite, le coefficient de proportionnalité est appelé coefficient de <em>transfert</em> de chaleur entre l’air et l’eau.</p>
-<ul>
-<li>En vous appuyant sur le graphiqué précédent, proposer un modèle du lien entre la température de l’eau et la température de l’air permettant de tester un effet du déboisement sur le coefficient de transfert. Vous donnerez explicitement :
-<ul>
-<li>la variable à expliquer,</li>
-<li>les variables explicatives,</li>
-<li>les paramètres capturant les différents effets.</li>
-</ul></li>
-<li>Montrer que le test de l’égalité des coefficients de transfert avant et apprès le déboisement peut être vu comme un test de comparaison de deux modèles emboîtés.</li>
-</ul>
-<p>Les lignes de code ci-dessous permettent d’ajuster un modèle dans lequel on impose l’égalité du coefficient de transfert</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>M12 <span class="ot">&lt;-</span> <span class="fu">lm</span>(EAU <span class="sc">~</span>AIR <span class="sc">+</span> DEBOIST , <span class="at">data =</span> temp_eau_air)</span></code></pre></div>
-<ul>
-<li>Ajuster le modèle complet et comparer ces deux modèles à l’aide de la fonction <code>anova</code>, puis conclure sur l’égalité des coefficients de transfert.</li>
+<li><p>Seuls les effets suivants intéressent l’agronome: variété, écartement, interaction variété-écartement. Pourtant, on choisit de rajouter l’effet parcelle dans le modèle. Quelle peut en être l’utilité?</p></li>
+<li><p>Construire et sélectionner le “bon” sous-modèle.</p></li>
+<li><p>Quels sont les effets significatifs (et les effets non significatifs) du sous-modèle sélectionné ?</p></li>
+<li><p>Interpréter les effets significatifs (et l’absence des effets non significatifs) dans le modèle sélectionné.</p></li>
+<li><p>Quelles conclusions auriez-vous eues si vous aviez (mal) travaillé en oubliant l’effet parcelle dans le modèle ?</p></li>
 </ul>
 </div>
 </div>
@@ -428,8 +634,9 @@ $(document).ready(function () {
 <div id="commandes-r" class="section level3">
 <h3>Commandes R</h3>
 <ul>
-<li>anova</li>
-<li>geom_smooth</li>
+<li>LinearModel</li>
+<li>ggcorrplot</li>
+<li>ggpairs</li>
 </ul>
 </div>
 <div id="environnement-r" class="section level3">
@@ -438,10 +645,10 @@ $(document).ready(function () {
 <div id="statistique" class="section level3">
 <h3>Statistique</h3>
 <ul>
-<li>Analyse de la variance</li>
-<li>Comparaison de droites de régression (Ancova)</li>
-<li>Regression</li>
-<li>Test d’égalité d’un coefficient à une valeur</li>
+<li>Construction de modèle</li>
+<li>Sélection de sous-modèle</li>
+<li>Régression linéaire multiple</li>
+<li>Analyse de variance</li>
 </ul>
 </div>
 </div>

@@ -9,10 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="UP Mathématique appliquée" />
+<meta name="author" content="UP Mathématiques appliquées" />
 
 
-<title>TD10 : Comparaison de droites de régression</title>
+<title>TD10 : Construction et choix de modèle bis</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -258,8 +258,8 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">TD10 : Comparaison de droites de régression</h1>
-<h4 class="author">UP Mathématique appliquée</h4>
+<h1 class="title toc-ignore">TD10 : Construction et choix de modèle bis</h1>
+<h4 class="author">UP Mathématiques appliquées</h4>
 
 </div>
 
@@ -269,62 +269,49 @@ $(document).ready(function () {
 <div id="objectifs-de-la-séance" class="section level2">
 <h2>Objectifs de la séance</h2>
 <ul>
-<li>Visualisation de données
+<li>Construire un modèle
 <ul>
-<li>Visualiser les relations entre deux variables (quantitative ou qualitative)</li>
+<li>choisir les effets et interactions potentiels</li>
+<li>écrire le modèle</li>
 </ul></li>
-<li>Analyse de données
-<ul>
-<li>Ajuster un modèle d’analyse de la variance et exploiter les résultats qui en découlent</li>
-<li>Ajuster un modèle de régresssion et examiner les résultats qui en découlent</li>
-<li>Comparer des droites de régression (modèle d’analyse de la covariance)</li>
-</ul></li>
+<li>Sélectionner un sous-modèle</li>
+<li>Interpréter la présence ou l’absence d’effet</li>
 </ul>
+<div id="relation-entre-la-teneur-en-amines-et-le-stress-salin" class="section level3">
+<h3>Relation entre la teneur en amines et le stress salin</h3>
+<p>L’étude suivante porte sur la réponse à un stress salin de différents bromes (graminées, voir photos). Nous disposions de trois espèces de bromes et pour chaque espèce la moitié des plantes ont été soumises à un stress salin et l’autre moitié des plantes “témoin” n’ont pas subi de stress. On a alors mesuré les concentrations de différentes amines sur chaque plante. Certaines données sont manquantes et donc le plan d’expériences n’est pas toujours équilibré.</p>
+<p><img src="brome.jpg" alt="brome.jpg" width="250"/><img src="Le-brome.jpg" alt="brome" width="200"/></p>
+<p>Toutes les données sont disponibles dans le <a href="https://agrocampusds.github.io/demarche_statistique/brome.csv">fichier</a>.</p>
+<p>On voudra répondre aux questions suivantes :</p>
+<ul>
+<li>Le traitement a-t-il un effet significatif sur la concentration en amines ?</li>
+<li>La concentration en amines diffèrent-elles d’une espèce à l’autre ?</li>
+<li>Y a-t-il des différences significatives dans la réponse au stress d’une espèce à l’autre ?</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>Quel modèle utiliser ? Et à quoi correspond chaque effet que vous mettez dans votre modèle ?</li>
+<li>Visualiser les données (les effets des facteurs et de l’interaction sur la concentration en amines).</li>
+<li>Construire le modèle et donner le R² du modèle complet et du modèle sélectionné. Commenter.</li>
+<li>Calcul la variabilité de la variable réponse puis calculer la somme des carrés expliqués par le modèle.</li>
+<li>Comparer la somme des carrés expliqués par le modèle avec la somme des carrés de tous les effets présents dans le modèle.</li>
+</ol>
+<p>Répondre aux 3 questions.</p>
 </div>
-<div id="exercices" class="section level2">
-<h2>Exercices</h2>
-<p class="care">
-Prédiction du taux de glucose d’un abricot par colorimétrie
-</p>
-<p>Une des difficultés que rencontrent les producteurs d’abricots est la détermination du stade de maturité du fruit, information utile pour choisir le moment opportun de la récolte. Un abricot cueilli à maturité a un taux de glucose élevé. La colorimétrie est parfois identifiée comme un bon marqueur de la maturité. Il est en effet possible de mesurer précisément la couleur d’un fruit selon trois dimensions correspondant à trois composantes numériques :</p>
-<ul>
-<li>L, la clarté, qui va de 0 (noir) à 100 (blanc),</li>
-<li>a, sur un axe vert (-) - rouge (+),</li>
-<li>b, sur un axe bleu (-) - jaune (+).</li>
-</ul>
-<div id="lien-entre-colorimétrie-et-maturité-de-labricot" class="section level3">
-<h3>Lien entre colorimétrie et maturité de l’abricot</h3>
-<p>Dans un premier temps, on souhaite vérifier le lien entre colorimétrie et maturité d’un abricot à partir de données expérimentales sur 108 abricots d’une même variété, répartis selon 3 stades de maturité (1, 2 ou 3 du moins mûr au plus mûr). Les données sont disponibles dans le fichier <a href="abricotsSG.csv">abricots</a></p>
-<ul>
-<li><p>Importer le jeu de données dans un objet nommé <code>abricots</code> et indiquer le nombre d’abricots dans chaque stade.</p></li>
-<li><p>Construire un graphique illsutrant le lien entre la maturité d’un abricot et son indice colorimétrique a.</p></li>
-<li><p>Construire un test d’égalité des indices <code>a</code> moyens des abricots aux différents stades de maturité.</p></li>
-<li><p>L’indice <code>a</code> est-il un bon candidat pour évaluer la maturité d’un abricot ?</p></li>
-</ul>
-</div>
-<div id="etude-du-lien-entre-lindice-colorimétrique-a-et-le-taux-de-glucose" class="section level3">
-<h3>Etude du lien entre l’indice colorimétrique a et le taux de glucose</h3>
-<p>Un des indicateurs de la qualité de l’abricot est son taux de glucose. On cherche maintenant à savoir comment le taux de glocose dépend du marqueur indirect de la maturité qu’est l’indice colorimétrique a.</p>
-<ul>
-<li><p>Construire un graphique décrivant la relation entre le taux de glucose et l’indice <code>a</code>.</p></li>
-<li><p>Proposer un modèle du lien entre le taux de glucose et l’indice <code>a</code> d’un abricot.</p></li>
-<li><p>A l’aide de ce modèle, donner un <strong>intervalle de confiance</strong> de niveau 95% du <strong>taux de glucose moyen</strong> d’un abricot dont l’indice colorimétrique <code>a</code> est égal à 5.</p></li>
-<li><p>A l’aide de ce modèle, donnez un <strong>intervalle de prédiction</strong> de niveau 95% pour <strong>le taux de glucose</strong> d’un abricot dont l’indice colorimétrique ‘a’ est égal à 5.</p></li>
-</ul>
-<p>La différence entre intervalle de confiance pour la valeur moyenne et intervalle de prédiction peut-être représentée graphiquement sous la forme suivante :</p>
-<div class="figure">
-<img src="TD10_files/figure-html/facultatif-1.png" alt="La ligne bleue indique le taux de Glucose moyen prédit par le modèle en fonction de l'indice a, la zone grisée représente l'intervalle de confiance pour ce taux moyen tandis que les deux lignes pointillées rouges délimitent le taux de Glucose prédit pour un abricot selon son indice a" width="672" />
-<p class="caption">
-La ligne bleue indique le taux de Glucose moyen prédit par le modèle en fonction de l’indice a, la zone grisée représente l’intervalle de confiance pour ce taux moyen tandis que les deux lignes pointillées rouges délimitent le taux de Glucose prédit pour un abricot selon son indice a
-</p>
-</div>
-<ul>
-<li><p>Montrer graphiquement qu’en moyenne la prédiction du taux de glucose d’un abricot par le modèle ci-dessus sur-estime le taux de glucose pour les abricots au stade de maturité 2 et au contraire, le sous-estime pour les abricots au stade de maturité 3.</p></li>
-<li><p>Proposer une extension du modèle ci-dessus visant à corriger le problème de <em>biais de prédiction</em> mis en avant dans la question précédente.</p></li>
-<li><p>La relation liant l’indice a et le taux de Glucose est-elle la même à tous les stades de Maturité ?</p></li>
-<li><p>Au vu des résultats précédents, choisir un modèle pour prédire au mieux le taux de glucose d’un abricot.</p></li>
-<li><p>Donner un intervalle de confiance de niveau 95 % de la valeur prédite du taux de glucose pour un abricot dont l’indice colorimétrique ‘a’ est égal à 5 et dont le stade de maturité est ‘2’ et pour un abricot de stade de maturité ‘3’.</p></li>
-</ul>
+<div id="la-paléoclimatologie-utiliser-les-pollens-comme-témoins-de-lévolution-du-climat" class="section level3">
+<h3>La paléoclimatologie : utiliser les pollens comme témoins de l’évolution du climat</h3>
+<p>On s’intéresse ici à des données de paléoclimatologie, i.e. la science qui étudie les climats passés et leurs variations. Cela permet de mieux comprendre les évolutions du climat actuelles et à quel point elles sont liées à l’homme. Le jeu de données (fourni par Joël Guiot) correspond à 700 relevés (dans 700 endroits différents du globe) qui mesurent le pourcentage de pollens de 31 espèces d’arbres. Ces relevés ont été effectués récemment (lors de ce siècle) et nous disposons donc aussi des relevés de variables climatiques, et notamment la température moyenne annuelle.</p>
+<p>On donne également pour chaque relevé le macrosystème (on parle aussi de biomes) du prélèvement. 9 macrosystèmes différents sont possibles : COCO (cool conifer forest), COMX (cool mixed forest), COST (cool steppes), HODE (hot desert), TEDE (temperate deciduous forest), TUND (tundra), WAMX (warm mixed broad-leaved forest), WAST (warm steppes), XERO (xerophytic scrubs).</p>
+<p>Les données sont diponibles dans le <a href="https://agrocampusds.github.io/demarche_statistique/paleo_present.csv">fichier</a>.</p>
+<ol style="list-style-type: decimal">
+<li><p>On cherche à voir s’il est possible de modéliser la température annuelle en fonction des données disponibles. Proposer un modèle.</p></li>
+<li><p>Construire ce modèle et commenter la qualité du modèle (R²).</p></li>
+</ol>
+<p>On souhaite maintenant utiliser ce modèle pour prévoir la température moyenne annuelle dans les siècles précédents. On dispose pour cela des relevés d’une carotte glaciaire. Sur cette carotte, on peut, siècle par siècle, obtenir le pourcentage de chacun des 31 pollens. Ces échantillons remontent à 128 siècles et sont notés BPxx pour Before Present xx siècles : BP15 il y a 15 siècles (ceci est approximatif, la datation avant le présent est donnée dans la colonne age). Pour ces données, on ne dispose pas du macroécosystème, ni bien entendu du climat. L’objectif est justement d’essayer de prédire le climat au cours des siècles passés à partir de la composition en les différents pollens.</p>
+<p>Les données du passé, pour lesquelles on veut faire des prévisions, sont diponibles dans le <a href="https://agrocampusds.github.io/demarche_statistique/paleo_passe.csv">fichier</a>. Pour importer ce jeu de données, on utilisera row.names=1 pour que la date corresponde au nom de l’échantillon.</p>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Le modèle que vous avez construit précédemment est-il utile pour prédire la température moyenne annuelle des siècles passé ? Si non, comment feriez-vous ?</p></li>
+<li><p>Prédire la température moyenne annuelle pour le siècle BP15 et BP100 (il faudra certainement attendre le prochain cours pour savoir faire cette prévision !)</p></li>
+</ol>
 </div>
 </div>
 <div id="le-vocabulaire-de-la-séance" class="section level2">
@@ -332,10 +319,8 @@ La ligne bleue indique le taux de Glucose moyen prédit par le modèle en foncti
 <div id="commandes-r" class="section level3">
 <h3>Commandes R</h3>
 <ul>
-<li>anova</li>
-<li>Anova (package car)</li>
-<li>predict</li>
-<li>geom_smooth</li>
+<li>ggpairs</li>
+<li>LinearModel</li>
 </ul>
 </div>
 <div id="environnement-r" class="section level3">
@@ -344,9 +329,8 @@ La ligne bleue indique le taux de Glucose moyen prédit par le modèle en foncti
 <div id="statistique" class="section level3">
 <h3>Statistique</h3>
 <ul>
-<li>Analyse de la variance</li>
-<li>Comparaison de droites de régression (Ancova)</li>
-<li>Regression</li>
+<li>Régression linéaire multiple</li>
+<li>Sélection de sous-modèle</li>
 </ul>
 </div>
 </div>

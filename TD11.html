@@ -12,7 +12,7 @@
 <meta name="author" content="UP Mathématiques appliquées" />
 
 
-<title>TD11 : Construction et choix de modèle</title>
+<title>TD11 : Prédiction et interprétation</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -354,7 +354,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">TD11 : Construction et choix de modèle</h1>
+<h1 class="title toc-ignore">TD11 : Prédiction et interprétation</h1>
 <h4 class="author">UP Mathématiques appliquées</h4>
 
 </div>
@@ -365,268 +365,112 @@ $(document).ready(function () {
 <div id="objectifs-de-la-séance" class="section level2">
 <h2>Objectifs de la séance</h2>
 <ul>
-<li>Construire un modèle
+<li>Visualisation de données
 <ul>
-<li>choisir les effets et interactions potentiels</li>
-<li>écrire le modèle</li>
+<li>Visualiser les relations entre une variable quantitative et deux variables qualitatives</li>
+<li>Visualiser de potentielless interactions entre facteurs</li>
 </ul></li>
-<li>Sélectionner un sous-modèle</li>
-<li>Interpréter la présence ou l’absence d’effet</li>
-<li>Comprendre l’intérêt d’un effet bloc</li>
+<li>Analyse de données
+<ul>
+<li>Comprendre la notion d’interaction entre deux facteurs</li>
+<li>Comprendre le modèle d’analyse de la variance à deux facteurs</li>
+<li>Ajuster un modèle d’analyse de la variance à deux facteurs et exploiter les résultats qui en découlent</li>
+</ul></li>
 </ul>
 </div>
 <div id="exercices" class="section level2">
 <h2>Exercices</h2>
-<div id="construction-dun-modèle-choix-des-effets-et-interactions" class="section level3">
-<h3>Construction d’un modèle, choix des effets et interactions</h3>
-<ol style="list-style-type: decimal">
-<li>Quelles variables explicatives, quelles interactions utiliseriez-vous pour construire un modèle permettant de prédire (répondre à 2 questions au choix parmi les 4)</li>
-</ol>
+<div id="étude-de-la-croissance-en-poids-de-poussins-en-fonction-du-sexe-et-de-trois-traitements" class="section level3">
+<h3>Étude de la croissance en poids de poussins en fonction du sexe et de trois traitements</h3>
+<p>Lors de leur mise en incubateur, 45 oeufs de poules ont été répartis de façon aléatoire en trois lots de 15. Trois traitements (températures d’incubation différentes) ont ensuite été appliqués aux différents lots. Nous supposons qu’après éclosion, les poussins ont tous été élevés dans des conditions identiques, puis pesés à un même âge de référence. À ce moment, le sexe des poussins, dont on sait a priori qu’il induit de fortes différences de poids, pouvait aussi être observé. La modalité 1 (respectif 2) de la variable Sexe correspond à Male (respetivement Femelle).</p>
+<p>L’objectif est de choisir le traitement qui maximise le poids des poussins.</p>
+<div id="importation-des-données-et-visualisation" class="section level4">
+<h4>Importation des données et visualisation</h4>
+<p>Les données sont disponibles dans le fichier <code>poussin.txt</code>.</p>
 <ul>
-<li>la taille d’un individu adulte ? <!-- sexe, taille père, taille mère, maladie pendant l'enfance, nutrition équilibrée ou non. Interaction possible : sexe et tailles des parents, nutrition et taille, nutrition et sexe --></li>
-<li>la taille d’un enfant entre 2 et 15 ans. <!-- même variables mais en plus l'âge. --></li>
-<li>le nombre de lombrics dans un cube de terre de 10 cm de côté ? <!-- la composition du sol (%argile, % sable, % MO), si le sol est nu ou s'il y a différents types de paillage --></li>
-<li>le poids des poubelles à la cantine de l’IA ? <!-- si tri des déchets, type de repas, si on peut se servir, etc, si mise en place de préconisations. --></li>
+<li><p>Importer les données. La colonne <code>Rdt</code> indique le gain de poids entre la naissance et le jour de pesée.</p></li>
+<li><p>Proposer un graphique permettant de visualiser un potentiel effet Sexe d’une part, puis un potentiel effet Traitement.</p></li>
+<li><p>Qu’est ce que le code ci-dessous permet de visualiser ?</p></li>
 </ul>
-<ol start="2" style="list-style-type: decimal">
-<li>Préciser quelles variables sont quantitatives (resp. qualitatives)</li>
-<li>Ecrire le modèle</li>
-</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>poussins_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Sexe, Trait) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Rdt_groupe =</span> <span class="fu">mean</span>(Rdt)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Trait, <span class="at">y =</span> Rdt_groupe, <span class="at">color =</span> Sexe) <span class="sc">+</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Sexe)) <span class="sc">+</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 </div>
-<div id="choix-de-modèle-pour-la-préférence-dun-jambon" class="section level3">
-<h3>Choix de modèle pour la préférence d’un jambon</h3>
-<p>Un organisme d’analyse sensorielle souhaite savoir s’il est possible de prévoir l’appréciation globale d’un jambon à partir de sa description sensorielle. Un jury entraîné a utilisé les variables suivantes pour décrire 21 jambons : Jutosité, Caractère croquant, Tendreté, Caractère pâteux, Fibreux, Saveur salée, Saveur sucrée, Flaveur de viande, Assaisonnement, Flaveur métallique, Flaveur fèces/urine, Flaveur de gras, Flaveur braisé/fumé, Flaveur lactique . Puis une note d’ Appréciation globale a été attribué à chacun des jambons.</p>
+<div id="modélisation" class="section level4">
+<h4>Modélisation</h4>
 <ul>
-<li><p>Charger le fichier de données <code>jambon.txt</code>, il est conseillé d’utiliser le paramètre <code>row.names =</code>.</p></li>
-<li><p>A l’aide de la fonction <code>ggpairs</code> du paquet <code>GGally</code> lancez une première analyse descriptive du lien entre variables deux à deux.</p></li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>jambons <span class="sc">%&gt;%</span> </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggcorrplot</span>(<span class="at">type =</span> <span class="st">&quot;lower&quot;</span>,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">lab =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>jambons <span class="sc">%&gt;%</span> <span class="fu">ggpairs</span>(</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">columns =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">7</span><span class="sc">:</span><span class="dv">9</span>),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">&quot;points&quot;</span>, <span class="at">color =</span> <span class="st">&quot;dodgerblue4&quot;</span>)),</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">diag =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">&quot;densityDiag&quot;</span>, <span class="at">color =</span> <span class="st">&quot;dodgerblue4&quot;</span>))</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<ul>
-<li>Proposer une problématique liée au contexte.</li>
-<li>Sélectionner le modèle.</li>
+<li><p>Préciser les différents effets qui peuvent être pris en compte dans un modèle.</p></li>
+<li><p>Construire le modèle et sélectionner le “bon” sous-modèle.</p></li>
+<li><p>Que pouvez-vous conseiller comme traitement pour les éleveurs ? Est-ce en adéquation avec les moyennes des rendements par traitement ? Si ce n’est pas le cas, expliquer le paradoxe.</p></li>
 </ul>
 </div>
-<div id="prise-en-compte-dun-effet-bloc" class="section level3">
-<h3>Prise en compte d’un effet bloc</h3>
-<p>On étudie le rendement de pois fourragers pour trois variétés et trois écartements entre les rangs des lignées. Pour disposer de répétitions, des expériences ont été menées sur 4 parcelles. Toutes les combinaisons variété-écartement ont été testé sur chacune des 4 parcelles. Les données sont regroupées dans le tableau <a href="https://agrocampusds.github.io/demarche_statistique/pois.csv">suivant</a>.</p>
-<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+</div>
+<div id="etude-du-rendement-fromager" class="section level3">
+<h3>Etude du rendement fromager</h3>
+<p>Un laboratoire d’analyse souhaite mettre en évidence l’influence de la composition du lait sur le rendement fromager. Pour ce faire, il a mesuré sur un échantillon de n = 85 laits, la densité, le taux butyreux, le taux de protéine, le taux de caséine, l’extrait sec et le rendement fromager de chacun de ces laits.</p>
+<div id="importation-du-jeu-de-données-et-matrice-des-corrélations" class="section level4">
+<h4>Importation du jeu de données et matrice des corrélations</h4>
+<ul>
+<li>Charger les données provenant du fichier <code>lait.txt</code>.</li>
+<li>Etudier les corrélations en adaptant le code fourni au <a href="https://agrocampusds.github.io/demarche_statistique/TD11.html">TD 11</a>.</li>
+</ul>
+</div>
+<div id="modélisation-et-prédiction" class="section level4">
+<h4>Modélisation et prédiction</h4>
+<ul>
+<li>Construire le modèle permettant de prédire le rendement et sélectionner le sous-modèle adapté.</li>
+<li>Commenter les estimations des coefficients (rappeler le test effectué pour un coefficient en rappelant les hypothèses, la statistique de test et sa conclusion).</li>
+</ul>
+Les mesures sur un nouvel échantillon de lait sont les suivantes :
+<table class=" lightable-classic" style="font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
-<th style="empty-cells: hide;" colspan="1">
+<th style="text-align:right;">
+DENSITE
 </th>
-<th style="empty-cells: hide;" colspan="1">
+<th style="text-align:right;">
+BUTYREUX
 </th>
-<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="4">
-<div style="border-bottom: 1px solid #00000020; padding-bottom: 5px; ">
-Parcelle
-</div>
+<th style="text-align:right;">
+PROTEINE
 </th>
-</tr>
-<tr>
-<th style="text-align:center;">
-Variete
+<th style="text-align:right;">
+CASEINE
 </th>
-<th style="text-align:center;">
-Ecartement
-</th>
-<th style="text-align:center;">
-1
-</th>
-<th style="text-align:center;">
-2
-</th>
-<th style="text-align:center;">
-3
-</th>
-<th style="text-align:center;">
-4
+<th style="text-align:right;">
+EXTRAITSEC
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center;font-weight: bold;vertical-align: top !important;" rowspan="3">
-I
+<td style="text-align:right;">
+1.03
 </td>
-<td style="text-align:center;">
-4
+<td style="text-align:right;">
+37.7
 </td>
-<td style="text-align:center;">
-51
+<td style="text-align:right;">
+35.7
 </td>
-<td style="text-align:center;">
-47
+<td style="text-align:right;">
+28.5
 </td>
-<td style="text-align:center;">
-47
-</td>
-<td style="text-align:center;">
-50
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-8
-</td>
-<td style="text-align:center;">
-60
-</td>
-<td style="text-align:center;">
-50
-</td>
-<td style="text-align:center;">
-45
-</td>
-<td style="text-align:center;">
-48
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-12
-</td>
-<td style="text-align:center;">
-64
-</td>
-<td style="text-align:center;">
-55
-</td>
-<td style="text-align:center;">
-48
-</td>
-<td style="text-align:center;">
-48
-</td>
-</tr>
-<tr>
-<td style="text-align:center;font-weight: bold;vertical-align: top !important;" rowspan="3">
-II
-</td>
-<td style="text-align:center;">
-4
-</td>
-<td style="text-align:center;">
-64
-</td>
-<td style="text-align:center;">
-58
-</td>
-<td style="text-align:center;">
-57
-</td>
-<td style="text-align:center;">
-61
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-8
-</td>
-<td style="text-align:center;">
-60
-</td>
-<td style="text-align:center;">
-58
-</td>
-<td style="text-align:center;">
-56
-</td>
-<td style="text-align:center;">
-60
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-12
-</td>
-<td style="text-align:center;">
-58
-</td>
-<td style="text-align:center;">
-58
-</td>
-<td style="text-align:center;">
-53
-</td>
-<td style="text-align:center;">
-60
-</td>
-</tr>
-<tr>
-<td style="text-align:center;font-weight: bold;vertical-align: top !important;" rowspan="3">
-III
-</td>
-<td style="text-align:center;">
-4
-</td>
-<td style="text-align:center;">
-64
-</td>
-<td style="text-align:center;">
-65
-</td>
-<td style="text-align:center;">
-54
-</td>
-<td style="text-align:center;">
-57
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-8
-</td>
-<td style="text-align:center;">
-62
-</td>
-<td style="text-align:center;">
-68
-</td>
-<td style="text-align:center;">
-67
-</td>
-<td style="text-align:center;">
-60
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-12
-</td>
-<td style="text-align:center;">
-71
-</td>
-<td style="text-align:center;">
-75
-</td>
-<td style="text-align:center;">
-75
-</td>
-<td style="text-align:center;">
-63
+<td style="text-align:right;">
+127.1
 </td>
 </tr>
 </tbody>
 </table>
-<p>On considérera ici que l’écartement est une variable qualitative avec 3 modalités (4= petit, 8=moyen, 12=grand).</p>
 <ul>
-<li><p>Seuls les effets suivants intéressent l’agronome: variété, écartement, interaction variété-écartement. Pourtant, on choisit de rajouter l’effet parcelle dans le modèle. Quelle peut en être l’utilité?</p></li>
-<li><p>Construire et sélectionner le “bon” sous-modèle.</p></li>
-<li><p>Quels sont les effets significatifs (et les effets non significatifs) du sous-modèle sélectionné ?</p></li>
-<li><p>Interpréter les effets significatifs (et l’absence des effets non significatifs) dans le modèle sélectionné.</p></li>
-<li><p>Quelles conclusions auriez-vous eues si vous aviez (mal) travaillé en oubliant l’effet parcelle dans le modèle ?</p></li>
+<li><p>A l’aide de la fonction <code>predict</code>, déterminer l’intervalle de confiance associé à ce rendement moyen.</p></li>
+<li><p>Déterminer l’intervalle de prédiction associé à l’estimation du rendement d’un tel lait.</p></li>
 </ul>
+</div>
 </div>
 </div>
 <div id="le-vocabulaire-de-la-séance" class="section level2">
@@ -635,8 +479,7 @@ III
 <h3>Commandes R</h3>
 <ul>
 <li>LinearModel</li>
-<li>ggcorrplot</li>
-<li>ggpairs</li>
+<li>compMeans</li>
 </ul>
 </div>
 <div id="environnement-r" class="section level3">
@@ -645,10 +488,9 @@ III
 <div id="statistique" class="section level3">
 <h3>Statistique</h3>
 <ul>
-<li>Construction de modèle</li>
-<li>Sélection de sous-modèle</li>
-<li>Régression linéaire multiple</li>
-<li>Analyse de variance</li>
+<li><p>Analyse de la variance à 2 facteurs</p></li>
+<li><p>Comparaison des niveaux d’un facteur</p></li>
+<li><p>Test d’égalité d’un coefficient à une valeur</p></li>
 </ul>
 </div>
 </div>
