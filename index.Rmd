@@ -90,6 +90,7 @@ liste_complete %>%
 -   [puissance1](puissance_1.csv) et [puissance2](puissance_2.csv),
 -   [Sonde et sol](sonde_sol.csv) comparaison de 3 sondes sur 2 types de sol,
 -   [Vaches](vaches.csv) comparaison de prises de poids de deux races bovines.
+- [Vitesse des Rugbymen](vitesse_rugbymen.csv) étude de la vitesse sur 10m en tenant compte de l'âge des sportifs
 
 ## Vocabulaire du module
 
