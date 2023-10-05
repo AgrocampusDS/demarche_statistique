@@ -48,9 +48,9 @@ print(is_pdf)
 Une entreprise de production d'électricité verte souhaite prévoir la puissance électrique d'un parc éolien. Il est en effet
 très coûteux de stocker de l'énergie et il est donc important de prévoir au mieux la production.
 
-La puissance théorique d'une éolienne est connue et dépend uniquement du vent et de la longueur de ses pâles, la formule étant~:
+La puissance théorique d'une éolienne est connue et dépend uniquement du vent et de la longueur de ses pâles, la formule étant :
 $$Puissance = \rho V^3 \pi\ r^2$$
-avec la puissance exprimée en kiloWatt $kW$, $\rho$ la densité de l'air égale à 1.225 $kg.m^{-3}$,
+avec la puissance exprimée en kiloWatt $kW$, $\rho$ la densité de l'air égale à 1225 $g.m^{-3}$,
 $V$ la vitesse du vent en $m.s^{-1}$, $r$ la longueur des pâles de l'éolienne en $m$.
 La longueur des pâles du rotor est ici de 20$m$.
 
