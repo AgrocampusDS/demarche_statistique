@@ -62,7 +62,7 @@ de l'éolienne. De plus, lorsque la vitesse du vent est supérieure à 15 $m.s^{
 Des données de vitesse de vent et de puissance sont disponibles dans le fichier [eolienne](eolienne.csv). Ce fichier contient la puissance
 moyenne des éoliennes (en fonctionnement) d'un parc,
 la vitesse du vent sur un mât de 60 mètres à proximité des éoliennes et la direction du vent.
-Toutes les puissances sont données en $kW$.
+Toutes les puissances sont données en $W$.
 Toutes ces mesures sont effectuées toutes les heures.
 
 * Proposer un modèle permettant de prédire la puissance moyenne en fonction de la vitesse du vent.
