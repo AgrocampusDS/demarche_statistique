@@ -85,7 +85,7 @@ vérifie bien l'équation de puissance (cf plus haut)?
 betaHat.mean <- mod$lmResult$coefficients[2]
 betaHat.sd <- mod$lmResult$coefficients[4]
 t <- (betaHat.mean-3)/betaHat.sd
-pt(t, 4394)
+2*pt(t, 4394)
 ```
 
 * Donner un intervalle de confiance de la puissance éolienne moyenne pour une vitesse de vent de 10$m.s^{-1}$. Même question pour une vitesse de vent de  18$m.s^{-1}$.
