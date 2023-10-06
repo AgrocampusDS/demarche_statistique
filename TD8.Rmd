@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 title: "TD8 : Régression linéaire simple"
 author: "UP Mathématique appliquée"
@@ -116,3 +117,123 @@ dta %>% ggplot() + aes (x = lnV, y = lnP, col = SecMat) + geom_point() + geom_sm
 - Régression linéaire
 - Test de corrélation de Pearson
 - Test d'égalité d'un coefficient à une valeur
+=======
+---
+title: "TD8 : Régression linéaire simple"
+author: "UP Mathématique appliquée"
+date: ''
+output:
+  html_document:
+    theme: united
+    css: style.css
+    highlight: tango
+mainfont: SourceSansPro
+header-includes:
+- \usepackage[default]{sourcesanspro}
+- \usepackage[T1]{fontenc}
+---
+
+
+```{r setup-TD5, include=FALSE, }
+knitr::opts_chunk$set(echo = FALSE, cache= TRUE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'hide' )
+library(tidyverse)
+library(kableExtra)
+library(FactoMineR)
+out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+```
+
+```{r}
+print(out_type)
+
+is_pdf <-  (out_type=='latex')
+print(is_pdf)
+```
+
+# {.tabset .tabset-fade .tabset-pills}
+
+##  Objectifs de la séance  
+
+
+* Visualisation de données
+  - Visualiser les relations entre deux variables quantitatives
+* Analyse de données
+   - Comprendre le modèle de régression
+   - Ajuster un modèle de régression et exploiter les résultats qui en découlent
+  
+  
+## Exercices 
+
+###  Prédiction de la puissance éolienne
+
+Une entreprise de production d'électricité verte souhaite prévoir la puissance électrique d'un parc éolien. Il est en effet
+très coûteux de stocker de l'énergie et il est donc important de prévoir au mieux la production.
+
+La puissance théorique d'une éolienne est connue et dépend uniquement du vent et de la longueur de ses pâles, la formule étant :
+$$Puissance = \rho V^3 \pi\ r^2$$
+avec la puissance exprimée en Watt $W$, $\rho$ la densité de l'air égale à 1.225 $kg.m^{-3}$,
+$V$ la vitesse du vent en $m.s^{-1}$, $r$ la longueur des pâles de l'éolienne en $m$.
+La longueur des pâles du rotor est ici de 20$m$.
+
+Les éoliennes sont conçues pour démarrer à une vitesse de vent de 3 à 5 $m.s^{-1}$ et l'éolienne
+s'arrête de fonctionner lorsque la vitesse du vent dépasse 25 $m.s^{-1}$ afin d'éviter tout endommagement
+de l'éolienne. De plus, lorsque la vitesse du vent est supérieure à 15 $m.s^{-1}$, l'éolienne est bridée.
+
+Des données de vitesse de vent et de puissance sont disponibles dans le fichier [eolienne](eolienne.csv). Ce fichier contient la puissance
+moyenne des éoliennes (en fonctionnement) d'un parc,
+la vitesse du vent sur un mât de 60 mètres à proximité des éoliennes et la direction du vent.
+Toutes les puissances sont données en $W$.
+Toutes ces mesures sont effectuées toutes les heures.
+
+* Proposer un modèle permettant de prédire la puissance moyenne en fonction de la vitesse du vent.
+Construire ce modèle en ne conservant que les vitesses de vent comprises entre 5 et 15 $m.s^{-1}$
+et interpréter les résultats.
+```{r reg_lin, eval=FALSE, echo=FALSE}
+dta <- read.table('https://agrocampusds.github.io/demarche_statistique/eolienne.csv', sep = ';', header = TRUE, stringsAsFactors = TRUE)
+dta <- dta %>% filter((5<= VitMat60) & (VitMat60 <= 15)) %>% 
+  mutate(lnP = log(Pmoy), lnV = log(VitMat60)) 
+dta %>% ggplot() + aes (x = lnV, y = lnP) + geom_point() + geom_smooth(method = "lm", se = FALSE)
+cor.test( ~ lnV + lnP, data = dta)
+mod <- LinearModel(lnP ~ lnV, data = dta)
+mod$Ttest
+```
+
+
+* Peut-on considérer que le réglage des éoliennes est bon (i.e. peut-on considérer que la puissance moyenne des éoliennes
+vérifie bien l'équation de puissance (cf plus haut)?
+
+```{r testPente, echo = FALSE, eval=FALSE}
+betaHat.mean <- mod$lmResult$coefficients[2]
+betaHat.sd <- mod$lmResult$coefficients[4]
+t <- (betaHat.mean-3)/betaHat.sd
+2*pt(t, 4394)
+```
+
+* Donner un intervalle de confiance de la puissance éolienne moyenne pour une vitesse de vent de 10$m.s^{-1}$. Même question pour une vitesse de vent de  18$m.s^{-1}$.
+
+```{r IC, eval=FALSE, echo=FALSE}
+predict(mod, newdata = data.frame(lnV = c(10,18)), interval = "confidence")
+```
+
+On suspecte que la direction du vent à un effet sur la puissance de l'éolienne (même si
+le rotor est censé se positionner face au vent).
+
+* Proposer une représentation graphique tenant compte de la direction du vent.
+```{r ancova, eval=FALSE, echo=FALSE}
+dta %>% ggplot() + aes (x = lnV, y = lnP, col = SecMat) + geom_point() + geom_smooth(method = "lm", se = FALSE)
+```
+
+## Le vocabulaire de la séance
+
+### Commandes R
+- cor.test
+- LinearModel
+- geom_smooth
+
+### Environnement R
+
+
+### Statistique 
+- Régression linéaire
+- Test de corrélation de Pearson
+- Test d'égalité d'un coefficient à une valeur
+>>>>>>> master
