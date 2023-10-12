@@ -12,7 +12,7 @@
 <meta name="author" content="UP Mathématique appliquée" />
 
 
-<title>TD13 : Etude de cas : analyse des surfaces d’algues échouées</title>
+<title>TD13 : Modélisation</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -258,7 +258,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">TD13 : Etude de cas : analyse des surfaces d’algues échouées</h1>
+<h1 class="title toc-ignore">TD13 : Modélisation</h1>
 <h4 class="author">UP Mathématique appliquée</h4>
 
 </div>
@@ -268,13 +268,27 @@ $(document).ready(function () {
 <h1 class="tabset tabset-fade tabset-pills"></h1>
 <div id="objectifs-de-la-séance" class="section level2">
 <h2>Objectifs de la séance</h2>
+<ul>
+<li>Réflexion sur la modélisation autour de différentes études de cas.</li>
+</ul>
 </div>
 <div id="exercice" class="section level2">
 <h2>Exercice</h2>
-<p>L’agence de l’eau Eau-Seine-Normandie s’intéresse aux échouages d’algues vertes et d’algues rouges-brunes sur la côte normande. La surface d’échouage des algues a été mesurée sur quatre sites d’échouage, à 3 périodes de l’année et sur 14 ans et pour les 2 types d’algues (voir les données dans le jeu <code>donnees_echouages.csv</code>). L’agence de l’eau souhaite comprendre les échouages d’algues, et notamment les différents facteurs qui peuvent jouer sur les échouages. Ils veulent également voir si les échouages d’algues vertes et rouges-brunes fonctionnent de la même façon. Les variables agricoles comme les épandages, les cultures, etc. ne sont pas mesurées et ne peuvent être prises en compte ici.</p>
+<div id="une-petite-dégustation-de-chocolats" class="section level3">
+<h3>Une petite dégustation de chocolats</h3>
+<p>Lors d’un test de dégustation sensorielle, on veut comparer plusieurs caractéristiques sensorielles de 10 chocolats noirs. Pour cela, un jury d’analyse sensoriel, constitué de 12 juges a évalué chacun des chocolats 2 fois, lors de 2 séances de dégustation. On va s’intéresser ici à la variable <code>A.cacao</code> qui correspond à l’arôme de cacao perçue par le juge (0 = par d’arôme cacao, 10=très fort arôme de cacao). Les données sont disponibles dans le <a href="https://agrocampusds.github.io/demarche_statistique/chocolat_2022.csv">fichier</a>.</p>
+<p>On veut répondre aux questions suivantes : * y a-t-il des différences d’arôme de cacao d’un produit à l’autre ? * les juges perçoivent-ils les différences entre chocolats de la même façon au niveau de l’arôme de cacao ? * d’une séance à l’autre, la perception des chocolats est-elle la même ?</p>
+<div id="importation-et-visualisation" class="section level4">
+<h4>Importation et visualisation</h4>
 <ul>
-<li>Dégager une problématique dans ce contexte après notamment avoir exploré les données. Quels éléments de réponse pouvez-vous apporter à la lumière de vos analyses à l’agence de l’eau Eau-Seine-Normandie ?</li>
+<li><p>Importer les données et les représenter pour avoir quelques idées sur les questions précédentes.</p></li>
+<li><p>Construire un modèle et faire la sélection avec le critère “bic”, le critère “aic” et en faisant une sélection “à la main” (i.e. en supprimant pas à pas d’abord les interactions non significatives, puis les effets non significatifs)</p></li>
+<li><p>Commenter les résultats des effets et interactions (significatifs et non significatifs).</p></li>
+<li><p>Commenter les coefficients.</p></li>
+<li><p>Quels chocolats ont des arômes de cacao perçus équivalents ?</p></li>
 </ul>
+</div>
+</div>
 </div>
 <div id="le-vocabulaire-de-la-séance" class="section level2">
 <h2>Le vocabulaire de la séance</h2>
