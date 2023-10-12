@@ -1,6 +1,6 @@
 ---
-title: "TD14 : Expliquer la variabilité d'une grandeur d'intérêt"
-author: "UP Mathématiques appliquées"
+title: "TD14 : Etude de cas : analyse des surfaces d'algues échouées"
+author: "UP Mathématique appliquée"
 date: ''
 output:
   html_document:
@@ -14,10 +14,12 @@ header-includes:
 ---
 
 
-```{r setup-TD14, include=FALSE, }
+```{r setup-TD15, include=FALSE, }
 knitr::opts_chunk$set(echo = FALSE, cache= TRUE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'hide' )
 library(tidyverse)
 library(kableExtra)
+library(FactoMineR)
+library(plotly)
 out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 ```
 
@@ -25,163 +27,69 @@ out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 # {.tabset .tabset-fade .tabset-pills}
 
 ##  Objectifs de la séance  
-
-* Visualisation de données
-  - Visualiser l'effet potentiel de deux facteurs sur un variable réponse
-  - Visualiser un effet potentiel d'interaction entre deux facteurs sur une variable réponse 
-  - Visualiser l'effet potentiel d'une variable qualitative et d'une variable quantitative sur une variable réponse
-  
-  
-* Analyse de données
-   - Comprendre la notion d'interaction entre deux facteurs
-   - Comprendre le modèle d'analyse de la variance à deux facteurs
-   - Ajuster un modèle d'analyse de la variance  à deux facteurs et exploiter les résultats qui en découlent.
-   - Comprendre le modèle d'analyse de la covariance (droite de régression avec effet groupe) à deux facteurs
-  
-  
-## Exercices 
+* Traitement d'une problématique en autonomie
 
 
-### Effet du sexe sur le poids des bébés à la naissance
-On souhaite étudier le poids des bébés à la naissance en fonction du sexe du bébé et du nombre de semaines de grossesse. On dispose pour cela d'un échantillon constitué de 477 nouveaux nés (242 filles et 255 garçons) et du nombre de semaines d'aménorrhée (plus exactement du nombre de semaines par rapport au terme normal qui est de 40 semaines en France: −3 signifie donc 37 semaines d'aménorrhée, et 1,  41 semaines d'aménorrhée).
-
-Nous cherchons à déterminer si le poids à la naissance est différent chez les garçons et les filles.
-
-#### Importation des données et visualisation
-
-Les données sont disponibles dans le fichier `bebe.csv`.
-
-* Importer les données. Pour chaque bébé , on note son sexe, le nombre de semaines d'aménorrhée `Nbsem`, et le poids du bébé à la naissance `PoidsBB`
-
-```{r import_dta_bb}
-bebe_dta <- read.table(file = "https://agrocampusds.github.io/demarche_statistique/bebe.csv", header = TRUE, sep = ";", stringsAsFactors = TRUE) 
-  
-```
-
-* Proposer une visualisation permettant de visualiser l'effet du nombre de semaines de grossesse sur le poids du bébé à la naissance. Cet effet peut être différent pour les garçons et les filles.
-
-```{r visu1_bb}
-bebe_dta %>% ggplot() +
-  geom_point(aes(x=Nbsem, y = PoidsBB, col = Sexe))
-```
-
-* Qu'est ce que le code ci-dessous permet de visualiser ?
-
-```{r interaction_bb, echo=TRUE}
-bebe_dta %>% ggplot() +
-  geom_point(aes(x=Nbsem, y = PoidsBB, col = Sexe)) + 
-  geom_smooth(method = 'lm', aes(x=Nbsem, y = PoidsBB, col = Sexe), se = FALSE)
-```
+## Exercice 
 
 
-#### Construction du modèle
+L'agence de l'eau Eau-Seine-Normandie s'intéresse aux échouages d'algues vertes et d'algues rouges-brunes sur la côte normande. La surface d'échouage des algues a été mesurée sur quatre sites d'échouage, à 3 périodes de l'année et sur 14 ans et pour les 2 types d'algues (voir les données dans le jeu [donnees_echouages](https://agrocampusds.github.io/demarche_statistique/donnees_echouages.csv).
+L'agence de l'eau souhaite comprendre les échouages d'algues, et notamment les différents facteurs qui peuvent jouer sur les échouages. Ils veulent également voir si les échouages d'algues vertes et rouges-brunes fonctionnent de la même façon. Les variables agricoles comme les épandages, les cultures, etc. ne sont pas mesurées et ne peuvent être prises en compte ici.
 
-* Choisir les effets qui entrent en jeu dans le modèle
-* Construire le modèle et sélectionner le sous-modèle.
-* L'effet du nombre de semaines de grossesse sur le poids à la naissance est-il le même pour les garçons et les filles ?
-* Le poids moyen à la naissance des filles et des garçons est-il différent ?
+* Dégager une problématique dans ce contexte après notamment avoir exploré les données. Quels éléments de réponse pouvez-vous apporter à la lumière de vos analyses à l'agence de l'eau Eau-Seine-Normandie ?
 
-#### Conclusion
+```{r, echo=FALSE, eval=FALSE}
+# chargement et vérifications d'usage
+algues <-
+  read.table(
+    'https://agrocampusds.github.io/demarche_statistique/donnees_echouages.csv',
+    header = TRUE,
+    sep = ";",
+    dec = ",",
+    stringsAsFactors = TRUE
+  )
+algues <- algues %>% 
+  mutate(
+    Annee = as.factor(Annee),
+    Mois = fct_recode(
+      as.factor(Mois),
+      Mai = "5",
+      Juillet = "7",
+      Septembre = "9")
+)
 
-* Conclure sur la différence de poids à la naissance en fonction du sexe et du nombre de semaines de grossesse.
-* La prise en compte du nombre de semaines influence-t-elle l'estimation de l'effet du sexe? 
+# représentations 
+## ex : boîtes à moustache suivant croisement de 2 quali
+algues %>% ggplot() + aes(x = Algues, y = Surface..ha., fill = Mois, color = Mois) + geom_boxplot(alpha = .3)
+## ex2 : graphique d'interaction correspondant
+algues %>% group_by(Site, Algues) %>% 
+  summarise(Surface_moyenne = mean(Surface..ha.)) %>% 
+  ggplot() + aes (x = Site, y = Surface_moyenne, color = Algues) + geom_point() + geom_line(aes(group = Algues))
+## on pourra donc étudier les différentes possibilités 
+## pour ceux qui en veulent toujours plus,
+algues %>% 
+   ggplot() + aes(x = Annee, y = Surface..ha., colour = Algues) +
+   geom_point() + geom_line(aes(group = Algues)) +
+   facet_wrap(Mois ~ Site)
 
-
-###  Une petite dégustation de chocolats
-
-Lors d'un test de dégustation sensorielle, on veut comparer plusieurs caractéristiques sensorielles de 10 chocolats noirs.
-Pour cela, un jury d'analyse sensoriel, constitué de 12 juges a évalué chacun des chocolats 2 fois, lors de 2 séances de dégustation.
-On va s'intéresser ici à la variable `A.cacao` qui correspond à l'arôme de cacao perçue par le juge (0 = par d'arôme cacao, 10=très fort arôme de cacao).
-Les données sont disponibles dans le [fichier](https://agrocampusds.github.io/demarche_statistique/chocolat_2022.csv). 
-
-On veut répondre aux questions suivantes :
-* y a-t-il des différences d'arôme de cacao d'un produit à l'autre ?
-* les juges perçoivent-ils les différences entre chocolats de la même façon au niveau de l'arôme de cacao ?
-* d'une séance à l'autre, la perception des chocolats est-elle la même ?
-
-#### Importation et visualisation
-
-* Importer les données et les représenter pour avoir quelques idées sur les questions précédentes.
-
-* Construire un modèle et faire la sélection avec le critère "bic", le critère "aic" et en faisant une sélection "à la main" (i.e. en supprimant pas à pas d'abord les interactions non significatives, puis les effets non significatifs)
-
-* Commenter les résultats des effets et interactions (significatifs et non significatifs).
-
-* Commenter les coefficient.
-
-* Quels chocolats ont des arômes de cacao perçus équivalents ?
-
-```{r, eval = TRUE, echo=FALSE}
-library(FactoMineR)
-## Chargement
-cacao <- read.table("chocolat_2022.csv", header = TRUE, sep = ";", stringsAsFactors = TRUE)
-## Boxplots
-cacao %>% ggplot(aes(x = Juge, y = A.cacao)) + geom_boxplot(aes(col = Session))
-## Graphiques interactions
-cacao %>% 
-  group_by(Juge, Produit) %>% 
-  summarise(A.cacao_groupe = mean(A.cacao)) %>% 
-  ggplot() +
-  aes(x = Juge, y = A.cacao_groupe, color = Produit) +
-  geom_line(aes(group = Produit)) +
-  geom_point()
-## Ajustement modeles et selection suivant AIC et BIC
-modBIC <- LinearModel(data = cacao, A.cacao ~ (Produit + Juge + Session)^2, selection = "BIC")
-modAIC <- LinearModel(data = cacao, A.cacao ~ (Produit + Juge + Session)^2, selection = "AIC")
+# modèle et sélection de variables
+## ici on va considérer toutes les interactions d'ordre 2 mais on pourra se concentrer sur celles qui ont le plus d'intérêt à être interprétées vis-à-vis du contexte (ex : "Mois:Annee" pas super utile sauf à diminuer le RSS)
+mod <- LinearModel(data = algues, Surface..ha. ~ (Algues + Annee + Mois + Site)^2)
+mod$Ftest
+modBestAIC <- LinearModel(data = algues, Surface..ha. ~ (Algues + Annee + Mois + Site)^2, selection = "AIC")
+modBestAIC$Ftest
+# lecture et interprétation des coefficients
+meansComp(mod,  ~ Site)
 ```
 
 
-###  Comparaison de trois types de sondes
 
-En préparation d'une future expérimentation en champs,  on a comparé, dans deux types de sols, trois types de sondes destinées à prélever des échantillons de terre, en effectuant plusieurs prélèvements et en mesurant la teneur en anhydride phosphorique ($P_20_5$) en mg pour 100 g de terre sèche.  On s'intéresse principalement aux différences qui pourraient exister d'un type de sonde à l'autre, et aux interférences éventuelles des types de sonde avec les types de sol. Les données sont disponibles dans le fichier [sonde_sol.csv](https://agrocampusds.github.io/demarche_statistique/sonde_sol.csv).
-
-#### Importation et visualisation
-
-* Importer les données et les représenter sous forme d'un boxplot dans lequel l'abscisse est le sol, ce boxplot étant rempli par une couleur qui représente la sonde.
-
-```{r importe_data, eval = TRUE, echo = FALSE, fig.show='hide'}
-library(tidyverse)
-dta <- read.table('sonde_sol.csv', sep = ";", header = TRUE) %>% 
-   mutate(Sol = as.factor(Sol), Sonde = as.factor(Sonde))
-
-dta %>% ggplot() + aes(x=Sol,y = P205, fill = Sonde) + geom_boxplot() 
-
-```
-* Visualiser l'effet de l'interaction Sol - Sonde sur la variable réponse.
-
-```{r interaction_plot, echo=TRUE, eval = TRUE}
-dta %>% 
-   group_by(Sonde, Sol) %>% 
-   summarize(P205_m = mean(P205)) %>%
-   ggplot() + aes(x=Sol, col = Sonde, y=P205_m) + geom_line(aes(group = Sonde)) + geom_point()
-```
-
-#### Construction du modèle
-
-* Construire un modèle permettant de répondre à la question "Le taux d'anhydride phosphaté est-il le même dans tous les types de sol, pour tous les sortes de sonde ?"
-
-* Les différences entre les sondes sont elles les mêmes quel que soit le type de sol ?
-
-* Y a-t-il des différences de résultats entre les sondes ?
-
-* Quelles sondes donnent des résultats équivalents ?
-
-```{r comparaison, echo=TRUE, eval = FALSE, results='hide'}
-library(FactoMineR)
-mod <- LinearModel(P205 ~ Sol*Sonde, data=dta)
-meansComp(mod, ~sonde)
-```
 
 ## Le vocabulaire de la séance
 
 ### Commandes R
-- LinearModel
-- compMeans
 
 ### Environnement R
 
 
 ### Statistique 
-- Analyse de la variance à 2 facteurs
-- Analyse de la covariance
-- Droites de régression avec effet groupe
