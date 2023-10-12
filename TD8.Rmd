@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 title: "TD8 : Régression linéaire simple"
 author: "UP Mathématique appliquée"
@@ -134,7 +133,7 @@ header-includes:
 ---
 
 
-```{r setup-TD5, include=FALSE, }
+```{r setup-TD8, include=FALSE, }
 knitr::opts_chunk$set(echo = FALSE, cache= TRUE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'hide' )
 library(tidyverse)
 library(kableExtra)
@@ -236,4 +235,3 @@ dta %>% ggplot() + aes (x = lnV, y = lnP, col = SecMat) + geom_point() + geom_sm
 - Régression linéaire
 - Test de corrélation de Pearson
 - Test d'égalité d'un coefficient à une valeur
->>>>>>> master
