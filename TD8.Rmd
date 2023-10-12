@@ -186,6 +186,7 @@ Toutes ces mesures sont effectuées toutes les heures.
 * Proposer un modèle permettant de prédire la puissance moyenne en fonction de la vitesse du vent.
 Construire ce modèle en ne conservant que les vitesses de vent comprises entre 5 et 15 $m.s^{-1}$
 et interpréter les résultats.
+
 ```{r reg_lin eolienne, eval=FALSE, echo=FALSE}
 dta <- read.table('https://agrocampusds.github.io/demarche_statistique/eolienne.csv', sep = ';', header = TRUE, stringsAsFactors = TRUE)
 dta <- dta %>% filter((5<= VitMat60) & (VitMat60 <= 15)) %>% 
@@ -213,7 +214,7 @@ t <- (betaHat.mean-3)/betaHat.sd
 predict(mod, newdata = data.frame(lnV = c(10,18)), interval = "confidence")
 ```
 
-On suspecte que la direction du vent à un effet sur la puissance de l'éolienne (même si
+On suspecte que la direction du vent a un effet sur la puissance de l'éolienne (même si
 le rotor est censé se positionner face au vent).
 
 * Proposer une représentation graphique tenant compte de la direction du vent.
