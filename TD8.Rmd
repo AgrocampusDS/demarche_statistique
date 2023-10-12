@@ -81,7 +81,7 @@ mod$Ttest
 * Peut-on considérer que le réglage des éoliennes est bon (i.e. peut-on considérer que la puissance moyenne des éoliennes
 vérifie bien l'équation de puissance (cf plus haut)?
 
-```{r testPente, echo = FALSE, eval=FALSE}
+```{r testPente eolienne, echo = FALSE, eval=FALSE}
 betaHat.mean <- mod$lmResult$coefficients[2]
 betaHat.sd <- mod$lmResult$coefficients[4]
 t <- (betaHat.mean-3)/betaHat.sd
@@ -90,7 +90,7 @@ pt(t, 4394)
 
 * Donner un intervalle de confiance de la puissance éolienne moyenne pour une vitesse de vent de 10$m.s^{-1}$. Même question pour une vitesse de vent de  18$m.s^{-1}$.
 
-```{r IC, eval=FALSE, echo=FALSE}
+```{r IC eolienne, eval=FALSE, echo=FALSE}
 predict(mod, newdata = data.frame(lnV = c(10,18)), interval = "confidence")
 ```
 
@@ -98,7 +98,7 @@ On suspecte que la direction du vent à un effet sur la puissance de l'éolienne
 le rotor est censé se positionner face au vent).
 
 * Proposer une représentation graphique tenant compte de la direction du vent.
-```{r ancova, eval=FALSE, echo=FALSE}
+```{r ancova eolienne, eval=FALSE, echo=FALSE}
 dta %>% ggplot() + aes (x = lnV, y = lnP, col = SecMat) + geom_point() + geom_smooth(method = "lm", se = FALSE)
 ```
 
