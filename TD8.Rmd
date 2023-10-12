@@ -186,7 +186,7 @@ Toutes ces mesures sont effectuées toutes les heures.
 * Proposer un modèle permettant de prédire la puissance moyenne en fonction de la vitesse du vent.
 Construire ce modèle en ne conservant que les vitesses de vent comprises entre 5 et 15 $m.s^{-1}$
 et interpréter les résultats.
-```{r reg_lin, eval=FALSE, echo=FALSE}
+```{r reg_lin eolienne, eval=FALSE, echo=FALSE}
 dta <- read.table('https://agrocampusds.github.io/demarche_statistique/eolienne.csv', sep = ';', header = TRUE, stringsAsFactors = TRUE)
 dta <- dta %>% filter((5<= VitMat60) & (VitMat60 <= 15)) %>% 
   mutate(lnP = log(Pmoy), lnV = log(VitMat60)) 
