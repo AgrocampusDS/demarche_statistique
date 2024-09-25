@@ -155,7 +155,7 @@ res$Ttest
 * Commenter le résultat de comparaison par paires des différents sites de production obtenu à l'aide de la fonction `meansComp`
 
 ```{r meansComp, echo = TRUE, eval=TRUE, results='markup', fig.show = TRUE}
-meansComp(res, spec = 'Localisation')
+meansComp(res, ~Localisation)
 ```
 
 ## Le vocabulaire de la séance
