@@ -99,7 +99,7 @@ protéine, le taux de caséine, l'extrait sec et le rendement fromager de chacun
 
 #### Importation du jeu de données  et matrice des corrélations
 * Charger les données provenant du fichier `lait.txt`.
-* Etudier les corrélations en adaptant le code fourni au [TD 11](https://agrocampusds.github.io/demarche_statistique/TD11.html).
+* Etudier les corrélations en adaptant le code fourni au [TD 9](https://agrocampusds.github.io/demarche_statistique/TD9.html).
 
 ```{r, echo=FALSE, results='markup', eval = TRUE}
 fromages <- read.table("lait.txt", sep = "\t", dec = ",", header = T)
