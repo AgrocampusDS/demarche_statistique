@@ -407,7 +407,7 @@ $(document).ready(function () {
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">fill =</span> Pourcentage.reel) <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>)</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>p</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(p)</span></code></pre></div>
-<p>La commande suivante permet de calculer la moyenne et la médiane des réponses pour les deux groupes de goûteurs :</p>
+<p>La commande suivante permet de calculer la moyenne et l’écart-type des réponses pour les deux groupes de goûteurs :</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>chocolat <span class="sc">%&gt;%</span> </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Pourcentage.reel) <span class="sc">%&gt;%</span> </span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">moyennes =</span> <span class="fu">mean</span>(Pourcentage.percu), <span class="at">ecarts_type =</span> <span class="fu">sd</span>(Pourcentage.percu))</span></code></pre></div>
