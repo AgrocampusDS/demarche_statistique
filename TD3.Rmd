@@ -87,7 +87,7 @@ ggplotly(p)
 ```
 
 
-La commande suivante permet de calculer la moyenne et la médiane des réponses pour les deux groupes de goûteurs :
+La commande suivante permet de calculer la moyenne et l'écart-type des réponses pour les deux groupes de goûteurs :
 
 ```{r mean, echo = TRUE}
 chocolat %>% 
