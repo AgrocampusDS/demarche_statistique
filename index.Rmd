@@ -179,7 +179,7 @@ print_liste('Commandes R')
 
 Les séances de travaux dirigés se feront sur vos ordinateurs personels, merci de venir à chaque séance avec au moins un ordinateur pour deux étudiants.
 
-Nous utiliserons le logiciel [R](https://www.r-project.org/) et l'environnement [RStudio](https://www.rstudio.com/). Ces logiciels sont aujourd'hui les standards en statistique dans un grand nombre d'entreprises et sont disponibles pour Windows, Mac et Linux. (L'installation sur chromebook est en théorie [possible](https://blog.sellorm.com/2018/12/20/installing-r-and-rstudio-on-a-chromebook/) mais la théorie pourrait être mise en défaut par les faits).
+Nous utiliserons le logiciel [R](https://www.r-project.org/) et l'environnement [RStudio](https://www.rstudio.com/). Ces logiciels sont aujourd'hui les standards en statistique dans un grand nombre d'entreprises et sont disponibles pour Windows, Mac et Linux. (L'installation sur chromebook est en théorie [possible](https://levente.littvay.hu/chromebook/) mais la théorie pourrait être mise en défaut par les faits).
 
 **Processus d'installation :**
 
