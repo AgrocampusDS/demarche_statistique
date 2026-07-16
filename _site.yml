@@ -5,7 +5,7 @@ navbar:
  left:
   - text: ""
     icon: fa-home
-    href: index.html
+    href: index.qmd
  right:
   - text: ""
     icon: fa-github
