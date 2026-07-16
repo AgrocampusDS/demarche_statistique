@@ -1,5 +1,5 @@
 ---
-title: "TD 2 Démarche statistique"
+title: "TD 2 - Démarche statistique"
 format: html
 ---
 
