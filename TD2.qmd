@@ -1,0 +1,40 @@
+---
+title: "TD 2 Démarche statistique"
+format: html
+---
+
+## Exercice – Visualisation de données sur le carbone organique dissout
+
+On s’intéresse aux éventuels liens entre le carbone organique dissous (COD) présent dans les rivières et les caractéristiques des bassins versants et/ou les caractéristiques physico-chimiques de la rivière. Pour cela, on a retenu 61 stations sur des cours d’eau en amont et à l’aval de bassins versants situés dans le bassin pari-sien ou dans le massif armoricain. On a mesuré le carbone organique dissout (COD en mg/l), et plus préci-sément, pour une station, on prend comme indicateur le percentile 90 des mesures faites sur 15 ans. Pour information, un COD <= 5 mg/l est considéré comme très bon, entre 5 et 7 mg/l comme bon, entre 7 et 10 mg/l comme moyen, entre 10 et 15 mg/l comme médiocre.
+
+On a par ailleurs des variables caractérisant la station (altitude, distance à la source, taille du cours d’eau, région), des indicateurs de débit, indicateurs de rejets en matières carbonées sur le bassin versant selon différentes origines ; des variables descriptives de la géographie du bassin versant et de son occupation du sol ; et enfin des mesures d’autres paramètres physicochimiques de l’eau.
+
+
+1.	Pourquoi prendre comme indicateur le percentile 90 des mesures faites sur 15 ans ?
+2.	Quelle est la nature de chacune des variables ?
+
+Pour importer les variables utiliser les lignes de commande suivantes :
+
+
+```{r}
+
+data_COD <- read.table("Donnees_COD.csv", sep=";", dec=",", header=TRUE, stringsAsFactors = TRUE)
+summary(data_COD)
+
+
+```
+
+
+3.	Pour chacun des points suivants, construire puis interpréter le graphique adapté pour visualiser (les lignes de code pour construire les graphiques sont celles du cours à adapter sur le jeu de données) :
+
+*	la distribution des valeurs du COD (`COD_p90`)
+*	la répartition des relevés selon la taille du cours d’eau (`taille_cours_d_eau`)
+*	la relation entre le pourcentage de culture dans le bassin (`culture`) et le COD
+*	la relation entre la densité de bétail (`d_betail`) et le COD
+*	la relation entre le COD et la taille du cours d’eau
+*	la relation entre la densité de bétail et le COD selon la région
+*	la relation entre le débit du cours d’eau (`debit_p10`) et le COD selon la région
+*	si l’effet de la taille du cours d’eau (`taille_cours_d_eau`) a le même impact sur le COD dans les différentes régions
+*	si l’effet de la taille du cours d’eau (`taille_cours_d_eau`) a le même impact sur le COD selon la position (`position`)
+
+

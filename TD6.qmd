@@ -1,0 +1,34 @@
+---
+title: "TD 6 Démarche statistique"
+format: html
+---
+
+
+# Exercice 1 – Composition physico-chimique et provenance
+
+Un groupe industriel commercialisant du café souhaite comparer les cafés provenant de différents lieux de production à partir de leur profil de composition physico-chimique, dont une des composantes importantes est le taux de matière sèche (DM). Pour cela, il s’appuie sur des données contenant le lieu de production, codé par un entier allant de 1 à 7, de 240 mesures de café.
+
+1. Après avoir importé les données et vérifié la nature de chacune des variables, visualiser les données pour représenter les taux de matière sèche en fonction du site de production des cafés.
+
+2. Les taux de matière sèche moyens à l’échelle de toute la production diffèrent-ils d’un site à l’autre ? (écrire le modèle, appelé M1, permettant de répondre à cette question. Quels sont les paramètres de ce modèle ?)
+
+3. Quelles sont les hypothèses H0 et H1 du test de l’existence de différences moyennes de taux de matière sèche entre les sites de production ? Quelle est l’expression mathématique du modèle sous l’hypothèse nulle H0?
+
+4. Quelle est l’expression de la statistique de test permettant de tester l’existence de différences de moyennes entre les lieux de production ? Quelle est la valeur prise par cette statistique de test ? Quelle est la distribution F0 sous l’hypothèse H0 de la statistique de test F introduite à la question précédente ? Répondre à la problématique.
+
+5. Pour le site de production 3, rappeler le cadre du test de nullité du coefficient associé (hypothèses, interprétation des hypothèses, statistique de test, loi sous H0, décision)
+
+6. Commenter le résultat de comparaison par paires des différents sites de production obtenu à l’aide de la fonction meansComp du package FactoMineR.
+
+# Exercice 2 – Dégustation de compote
+
+On cherche à évaluer comment sont perçues 6 compotes de pommes au niveau de la saveur de pomme crue. Une dégustation est mise en place et 6 juges vont déguster chacune des 6 compotes. Les notes sont attribuées sur une échelle allant de 0 à 10. La question est donc de savoir si certaines compotes sont en moyenne perçues comme ayant une plus forte saveur de pomme crue.
+
+1. La saveur de pomme crue est-elle différente selon la compote ? (préciser le modèle, les hypothèses, la statistique sous H0 et votre décision en utilisant la fonction LinearModel de FactoMineR)
+
+2. Surpris du résultat, on décide de prendre en compte la variable juge. Visualiser les notes en fonction de la compote mais en coloriant les points de couleurs différentes selon les juges. Proposer un modèle et les hypothèses permettant de tester l’effet compote sur la saveur mais en prenant en compte l’effet du juge puis réaliser le test avec R.
+
+3. Dans le premier modèle, où se retrouvait la variabilité liée au juge ? En quoi cela joue-t-il sur le test de l’effet compote ?
+
+4. Construire des tests de comparaisons par paire et les interpréter en utilisant la fonction meansComp du package FactoMineR.
+

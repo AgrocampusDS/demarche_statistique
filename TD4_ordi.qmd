@@ -72,3 +72,4 @@ dta_bassin <- dta |> filter(region=="bassin_parisien")
 3. Construire l’intervalle de confiance du phosphore total pour les stations du bassin parisien.
 4. Construire maintenant l’intervalle de confiance du phosphore total pour les stations du massif armoricain uni-quement.
 5. Peut-on considérer que la moyenne du phosphore total est plus grande dans le bassin parisien que dans le massif armoricain ?
+6. Comparez les largeurs des deux intervalles de confiance (bassin parisien vs massif armoricain). Quelle(s) raison(s) peux/peuvent expliquer la différence de largeur ?

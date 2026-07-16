@@ -1,0 +1,19 @@
+{
+  "hash": "9bf13396db1cd3cc2df0b576bca4bf7f",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Démarche Statistique\"\nformat: html\ntoc: true\ncss: style.css\nexecute: \n  freeze: auto\n---\n\nVous trouverez sur ce site les énoncés de TDs associés au cours de démarche statistique.\n\n\n\n\n# Liste des TDs du module\n\n::: {.panel-tabset}\n## Agronomes\n\n\n::: {.cell}\n::: {.cell-output-display}\n`````{=html}\n<table class=\" lightable-classic\" style=\"font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;\">\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> Nom </th>\n   <th style=\"text-align:left;\"> Lien </th>\n  </tr>\n </thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> TD 1 - Démarche statistique </td>\n   <td style=\"text-align:left;\"> <a href=\"TD1.html\" style=\"     \">TD1</a> </td>\n  </tr>\n  <tr>\n   <td style=\"text-align:left;\"> TD 2 Démarche statistique </td>\n   <td style=\"text-align:left;\"> <a href=\"TD2.html\" style=\"     \">TD2</a> </td>\n  </tr>\n  <tr>\n   <td style=\"text-align:left;\"> TD 4 Démarche statistique </td>\n   <td style=\"text-align:left;\"> <a href=\"TD4_ordi.html\" style=\"     \">TD4_ordi</a> </td>\n  </tr>\n</tbody>\n</table>\n\n`````\n:::\n:::\n\n\n## Agroalimentaires\n\n\n::: {.cell}\n::: {.cell-output-display}\n`````{=html}\n<table class=\" lightable-classic\" style=\"font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;\">\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> Nom </th>\n   <th style=\"text-align:left;\"> Lien </th>\n  </tr>\n </thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> TD 1 - Démarche statistique </td>\n   <td style=\"text-align:left;\"> <a href=\"TD1.html\" style=\"     \">TD1</a> </td>\n  </tr>\n  <tr>\n   <td style=\"text-align:left;\"> TD 2 Démarche statistique </td>\n   <td style=\"text-align:left;\"> <a href=\"TD2.html\" style=\"     \">TD2</a> </td>\n  </tr>\n  <tr>\n   <td style=\"text-align:left;\"> TD 4 Démarche statistique </td>\n   <td style=\"text-align:left;\"> <a href=\"TD4_ordi.html\" style=\"     \">TD4_ordi</a> </td>\n  </tr>\n</tbody>\n</table>\n\n`````\n:::\n:::\n\n\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {
+      "include-in-header": [
+        "<script src=\"site_libs/kePrint-0.0.1/kePrint.js\"></script>\n<link href=\"site_libs/lightable-0.0.1/lightable.css\" rel=\"stylesheet\" />\n"
+      ]
+    },
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

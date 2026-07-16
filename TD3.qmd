@@ -1,0 +1,75 @@
+---
+title: "TD 3 - Démarche statistique"
+format: html
+editor: 
+  markdown: 
+    wrap: sentence
+---
+
+## Exercice 1 – Les haies favorisent-elles la biodiversité ?
+
+Une association environnementale affirme : « Les parcelles agricoles entourées de haies hébergent davantage d'espèces d'oiseaux.
+» Des données seront recueillies sur un ensemble de parcelles avec ou sans haies.
+
+- concentration en nitrates ;
+- concentration en phosphore ;
+- présence ou absence de truites ;
+- catégorie du cours d’eau (rivière de montagne, rivière de plaine, canal) ;
+- nombre d’espèces d’invertébrés observées ;
+- couleur dominante de l’eau (claire, verdâtre, brunâtre).
+
+1.  Quelle est la question scientifique étudiée ?
+2.  Quelle est la variable réponse ? Quelle est la variable explicative ?
+3.  Proposer une hypothèse nulle $H_0$ et une hypothèse alternative $H_1$.
+4.  Si $H_0$ est rejetée, que pourra-t-on conclure ?
+5.  Si $H_0$ n'est pas rejetée, pourra-t-on conclure que les haies n'ont aucun effet ?
+
+## Exercice 2 – Quelle hypothèse est la bonne ?
+
+Pour chacune des situations suivantes, identifier laquelle des deux propositions correspond à $H_0$.
+
+- Situation A : On cherche à savoir si un couvert végétal améliore la teneur en matière organique des sols.
+
+  - Proposition 1 : Le couvert végétal modifie la teneur en matière organique.
+  - Proposition 2 : Le couvert végétal ne modifie pas la teneur en matière organique.
+
+- Situation B : On cherche à savoir si une rivière est contaminée.
+
+  - Proposition 1 : La rivière respecte les normes de qualité.
+  - Proposition 2 : La rivière ne respecte pas les normes.
+
+- Situation C : On cherche à savoir si deux pratiques agricoles donnent des rendements différents.
+
+  - Proposition 1 : Les rendements sont identiques.
+  - Proposition 2 : Les rendements diffèrent.
+
+## Exercice 3 – Une nouvelle variété de blé est-elle plus productive ?
+
+Une entreprise semencière affirme : « La variété X produit davantage que la variété actuellement utilisée.»
+
+1.  Formuler la question scientifique.
+2.  Proposer $H_0$ et $H_1$.
+3.  Cette situation conduit-elle naturellement à un test bilatéral ou unilatéral ? Pourquoi ?
+
+## Exercice 4 – Le tribunal statistique
+
+On compare souvent un test statistique à une décision de justice.
+Un accusé est présumé innocent tant qu'il n'existe pas suffisamment de preuves pour conclure à sa culpabilité.
+
+1.  Dans cette analogie, que représente $H_0$ ?
+2.  Que représente $H_1$ ?
+3.  Que signifie rejeter $H_0$ ?
+4.  Que signifie ne pas rejeter $H_0$ ?
+5.  Pourquoi ne dit-on jamais qu'un test « prouve » $H_0$ ?
+
+## Exercice 5 – Définition des hypothèses
+
+Pour chacune des cinq problématiques suivantes, proposer une hypothèse $H_0$ et une hypothèse $H_1$.
+
+| **Question scientifique** | $H_0$ | $H_1$ |
+|------------------------|------------------------|------------------------|
+| Les haies augmentent-elles la biodiversité ? |  |  |
+| Le semis direct a-t-il un effet sur l'érosion ? |  |  |
+| Les bandes fleuries attirent-elles davantage de pollinisateurs ? |  |  |
+| La fertilisation azotée augmente-t-elle le rendement ? |  |  |
+| Les zones humides stockent-elles davantage de carbone ? |  |  |
