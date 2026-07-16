@@ -1,26 +1,38 @@
-name: website
+name: Publish Quarto Website
+
 on:
   push:
-    branches:
-      - master
-
-jobs:   
-  build:
-    name: Build website with rmarkdown
+    branches: [main]
+      
+jobs:
+  build-deploy:
     runs-on: ubuntu-latest
-    container: mpetienne/demarche_stat:0.33
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Generate slides
-        run: Rscript -e "install.packages('plotly')"
-      - name: Generate slides
-        run: "quarto render"
-      - name: Copy R files
-        run: Rscript copy_scripts.R
-      - name: GitHub Pages action
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+
+      - name: Setup Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpoppler-cpp-dev build-essential tcl tk
+
+      - name: Install R packages
+        run: |
+          Rscript -e 'install.packages("remotes", repos = "https://cloud.r-project.org")'
+          Rscript -e 'install.packages(c("kableExtra", "rmarkdown", "knitr", "quarto", "plotly", "pdftools", "Rcpp", "tidyverse", "FactoMineR", "htmltools"))'
+
+      - name: Render site
+        run: quarto render
+
+      - name: Publish to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+          publish_dir: ./_site
