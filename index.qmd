@@ -3,8 +3,6 @@ title: "Démarche Statistique"
 format: html
 toc: true
 css: style.css
-execute: 
-  freeze: auto
 ---
 
 Vous trouverez sur ce site les énoncés de TDs associés au cours de démarche statistique.
