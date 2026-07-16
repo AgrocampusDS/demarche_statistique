@@ -1,0 +1,34 @@
+---
+title: "TD 8 - Démarche statistique"
+format: html
+---
+
+
+# Exercice 1 – Etude de l’évolution des températures à Paris
+
+On s'intéresse à l'évolution de la température moyenne annuelle à Paris entre 1873 et 2024. Les données sont disponibles dans le fichier [temperature_moyenne_paris.csv](temperature_moyenne_paris.csv).
+
+1. Construire un graphique pour représenter les données. Pourquoi peut-on ici relier les points ?
+2. Donner un indicateur permettant d’évaluer la relation entre les deux variables. Interpréter.
+3. Ecrire mathématiquement un modèle permettant l’étude d’une éventuelle relation entre la température moyenne annuelle et l’année.
+4. Construire ce modèle et interpréter les résultats.
+5. Comment interprétez-vous concrètement chaque coefficient du modèle ? Ces interprétations ont-elle un sens ici ? 
+6. Comment l’expliquez-vous ?
+7. Quelle température moyenne annuelle prédisez-vous avec le modèle construit. Quelle hypothèse sous-jacente faites-vous ?
+
+Après avoir construit un graphique en coloriant en rouge les années de 1873 à 1993 et en bleu les points de 1994 à 2024, vous remarquez que les points bleus sont très souvent au-dessus de la droite de régression. 
+
+8. Qu’est-ce que cela signifie sur les valeurs des résidus pour les points bleus ? (vous pouvez vérifier votre propos en regardant l’objet $lmResult$residuals qui donne les résidus du modèle). Comment interprétez-vous concrètement cela ?
+
+# Exercice 2 – Evolution de l’empreinte GES moyenne par français
+
+On s'intéresse à l'évolution de l’empreinte des gaz à effets de serre (GES) des français entre 1990 et 2024. Les données sont disponibles dans le fichier [empreinteGES.csv](empreinteGES.csv).
+
+1. Pourquoi selon vous on s’intéresse à l’empreinte moyenne par français plutôt qu’à l’empreinte totale des GES de la France ?
+2. Construire un graphique pour représenter les données.
+
+On cherche maintenant à prévoir l’évolution jusqu’en 2050. Après avoir bien visualisé les données, proposer un modèle et les données que vous utiliseriez pour prévoir l’évolution de l’empreinte GES dans les prochaines années. 
+3. Construire et interpréter le modèle.
+
+4. Quelle empreinte carbone prédisez-vous pour 2050 (sachant que l’objectif défini lors des accords de Paris est de 2teqCO2/hab/an) ? Quelle hypothèse sous-jacente faites-vous quand vous faites cette prédiction ? Qu’en pensez-vous.
+
