@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TD 8 - Démarche statistique – Agrocampus Ouest : démarche statistique</title>
+<title>TD 10 - Démarche statistique – Agrocampus Ouest : démarche statistique</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -71,35 +71,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -149,7 +120,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">TD 8 - Démarche statistique</h1>
+<h1 class="title">TD 10 - Démarche statistique</h1>
 </div>
 
 
@@ -166,34 +137,40 @@ window.Quarto = {
 </header>
 
 
-<section id="exercice-1-etude-de-lévolution-des-températures-à-paris" class="level1">
-<h1>Exercice 1 – Etude de l’évolution des températures à Paris</h1>
-<p>On s’intéresse à l’évolution de la température moyenne annuelle à Paris entre 1873 et 2024. Les données sont disponibles dans le fichier <a href="https://agrocampusds.github.io/demarche_statistique/temperature_moyenne_paris.csv">temperature_moyenne_paris.csv</a>.</p>
+<section id="exercice-1-relation-entre-la-teneur-en-amines-et-le-stress-salin" class="level1">
+<h1>Exercice 1 – Relation entre la teneur en amines et le stress salin</h1>
+<div class="grid">
+<div class="g-col-8">
+<p>L’étude suivante porte sur la réponse à un stress salin de différents bromes (graminées, voir photos). Nous disposions de trois espèces de bromes et pour chaque espèce la moitié des plantes ont été soumises à un stress salin et l’autre moitié des plantes “témoin” n’ont pas subi de stress. On a alors mesuré les concentrations de différentes amines sur chaque plante. Certaines données sont manquantes et donc le plan d’expériences n’est pas toujours équilibré. Toutes les données sont disponibles dans le fichier <a href="https://agrocampusds.github.io/demarche_statistique/amines.csv">amines.csv</a>.</p>
+</div>
+<div class="g-col-4">
+<p><img src="amine1.jpg" class="img-fluid"> <br></p>
+<p><img src="amine2.jpg" class="img-fluid" style="width:50.0%"></p>
+</div>
+</div>
+<p>On voudra répondre aux questions suivantes :</p>
+<ul>
+<li>Le traitement a-t-il un effet significatif sur la concentration en amines ?</li>
+<li>La concentration en amines diffèrent-elles d’une espèce à l’autre ?</li>
+<li>Y a-t-il des différences significatives dans la réponse au stress d’une espèce à l’autre ?</li>
+</ul>
 <ol type="1">
-<li>Construire un graphique pour représenter les données. Pourquoi peut-on ici relier les points ?</li>
-<li>Donner un indicateur permettant d’évaluer la relation entre les deux variables. Interpréter.</li>
-<li>Ecrire mathématiquement un modèle permettant l’étude d’une éventuelle relation entre la température moyenne annuelle et l’année.</li>
-<li>Construire ce modèle et interpréter les résultats.</li>
-<li>Comment interprétez-vous concrètement chaque coefficient du modèle ? Ces interprétations ont-elle un sens ici ?</li>
-<li>Comment l’expliquez-vous ?</li>
-<li>Quelle température moyenne annuelle prédisez-vous avec le modèle construit. Quelle hypothèse sous-jacente faites-vous ?</li>
-</ol>
-<p>Après avoir construit un graphique en coloriant en rouge les années de 1873 à 1993 et en bleu les points de 1994 à 2024, vous remarquez que les points bleus sont très souvent au-dessus de la droite de régression.</p>
-<ol start="8" type="1">
-<li>Qu’est-ce que cela signifie sur les valeurs des résidus pour les points bleus ? (vous pouvez vérifier votre propos en regardant l’objet <span class="math inline">\(lmResult\)</span>residuals qui donne les résidus du modèle). Comment interprétez-vous concrètement cela ?</li>
+<li>Quel modèle utiliser ? Et à quoi correspond chaque effet que vous mettez dans votre modèle ?</li>
+<li>Visualiser les données (les effets des facteurs et de l’interaction sur la concentration en amines).</li>
+<li>Construire le modèle et donner le R² du modèle complet et du modèle sélectionné. Commenter.</li>
+<li>Calculer la variabilité de la variable réponse puis calculer la somme des carrés expliqués par le modèle. Comparer la somme des carrés du modèle avec la somme des carrés de tous les effets présents dans le modèle.</li>
+<li>Répondre aux 3 questions.</li>
 </ol>
 </section>
-<section id="exercice-2-evolution-de-lempreinte-ges-moyenne-par-français" class="level1">
-<h1>Exercice 2 – Evolution de l’empreinte GES moyenne par français</h1>
-<p>On s’intéresse à l’évolution de l’empreinte des gaz à effets de serre (GES) des français entre 1990 et 2024. Les données sont disponibles dans le fichier <a href="https://agrocampusds.github.io/demarche_statistique/empreinteGES.csv">empreinteGES.csv</a>.</p>
+<section id="exercice-2-la-paléoclimatologie-les-pollens-témoins-de-lévolution-du-climat" class="level1">
+<h1>Exercice 2 – La paléoclimatologie : les pollens témoins de l’évolution du climat</h1>
+<p>On s’intéresse ici à des données de paléoclimatologie, i.e.&nbsp;la science qui étudie les climats passés et leurs variations. Cela permet de mieux comprendre les évolutions du climat actuelles et à quel point elles sont liées à l’homme. Le jeu de données (fourni par Joël Guiot) correspond à 700 relevés (dans 700 endroits différents du globe) qui mesurent le pourcentage de pollens de 31 espèces d’arbres. Ces relevés ont été effectués récemment (lors de ce siècle) et nous disposons donc aussi des relevés de variables climatiques, et notamment la température moyenne annuelle. On donne également pour chaque relevé le macrosystème (on parle aussi de biomes) du prélèvement. 9 macrosystèmes différents sont possibles : COCO (cool conifer forest), COMX (cool mixed forest), COST (cool steppes), HODE (hot desert), TEDE (temperate deciduous forest), TUND (tundra), WAMX (warm mixed broad-leaved forest), WAST (warm steppes), XERO (xerophytic scrubs). Les données sont disponibles dans le paleo_present.csv.</p>
 <ol type="1">
-<li>Pourquoi selon vous on s’intéresse à l’empreinte moyenne par français plutôt qu’à l’empreinte totale des GES de la France ?</li>
-<li>Construire un graphique pour représenter les données.</li>
+<li>On cherche à modéliser la température annuelle en fonction des données disponibles. Proposer un modèle.</li>
+<li>Construire ce modèle et commenter sa qualité.</li>
 </ol>
-<p>On cherche maintenant à prévoir l’évolution jusqu’en 2050. Après avoir bien visualisé les données, proposer un modèle et les données que vous utiliseriez pour prévoir l’évolution de l’empreinte GES dans les prochaines années. 3. Construire et interpréter le modèle.</p>
-<ol start="4" type="1">
-<li>Quelle empreinte carbone prédisez-vous pour 2050 (sachant que l’objectif défini lors des accords de Paris est de 2teqCO2/hab/an) ? Quelle hypothèse sous-jacente faites-vous quand vous faites cette prédiction ? Qu’en pensez-vous.</li>
-</ol>
+<p>On souhaite maintenant utiliser ce modèle pour prévoir la température moyenne annuelle des siècles précédents. On dispose pour cela des relevés d’une carotte glaciaire à partir de laquelle, siècle par siècle, on peut obtenir le pourcentage de chacun des 31 pollens. Ces échantillons remontent à 128 siècles et sont notés BPxx pour Before Present xx siècles : BP15 il y a 15 siècles (ceci est approximatif, la datation avant le présent est donnée dans la colonne age). Pour ces données (disponibles dans le fichier <code>paleo_passe.csv</code>), on ne dispose ni du macroécosystème, ni bien entendu du climat. L’objectif est d’essayer de prédire le climat au cours des siècles passés à partir de la composition en les différents pollens. Importer le jeu de données en utilisant <code>row.names=1</code> pour que la date corresponde au nom de l’échantillon.</p>
+<p>Le modèle que vous avez construit précédemment est-il utile pour prédire la température moyenne annuelle des siècles passés ? Si non, comment feriez-vous ? Prédire la température moyenne annuelle pour le siècle BP15 et BP100 (il faudra certainement attendre le prochain cours pour savoir faire cette prévision !)</p>
 
 
 </section>

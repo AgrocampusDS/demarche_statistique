@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TD 8 - Démarche statistique – Agrocampus Ouest : démarche statistique</title>
+<title>TD 12 - Démarche statistique – Agrocampus Ouest : démarche statistique</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -71,35 +71,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -149,7 +120,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">TD 8 - Démarche statistique</h1>
+<h1 class="title">TD 12 - Démarche statistique</h1>
 </div>
 
 
@@ -166,33 +137,180 @@ window.Quarto = {
 </header>
 
 
-<section id="exercice-1-etude-de-lévolution-des-températures-à-paris" class="level1">
-<h1>Exercice 1 – Etude de l’évolution des températures à Paris</h1>
-<p>On s’intéresse à l’évolution de la température moyenne annuelle à Paris entre 1873 et 2024. Les données sont disponibles dans le fichier <a href="https://agrocampusds.github.io/demarche_statistique/temperature_moyenne_paris.csv">temperature_moyenne_paris.csv</a>.</p>
+<section id="exercice-1-prise-en-compte-dun-effet-bloc" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-1-prise-en-compte-dun-effet-bloc">Exercice 1 – Prise en compte d’un effet bloc</h2>
+<p>On étudie le rendement de pois fourragers pour trois variétés et trois écartements entre les rangs des lignées. Pour disposer de répétitions, des expériences ont été menées sur 4 parcelles. Toutes les combinaisons variété-écartement ont été testé sur chacune des 4 parcelles. Les données sont regroupées dans le tableau suivant et disponibles dans le fichier <a href="https://agrocampusds.github.io/demarche_statistique/pois.csv">pois.csv</a>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variété</th>
+<th>Ecartement</th>
+<th>Parcelle 1</th>
+<th>Parcelle 2</th>
+<th>Parcelle 3</th>
+<th>Parcelle 4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>I</td>
+<td>Petit</td>
+<td>51</td>
+<td>47</td>
+<td>47</td>
+<td>50</td>
+</tr>
+<tr class="even">
+<td>I</td>
+<td>Moyen</td>
+<td>60</td>
+<td>50</td>
+<td>45</td>
+<td>48</td>
+</tr>
+<tr class="odd">
+<td>I</td>
+<td>Grand</td>
+<td>64</td>
+<td>55</td>
+<td>48</td>
+<td>48</td>
+</tr>
+<tr class="even">
+<td>II</td>
+<td>Petit</td>
+<td>64</td>
+<td>58</td>
+<td>57</td>
+<td>61</td>
+</tr>
+<tr class="odd">
+<td>II</td>
+<td>Moyen</td>
+<td>60</td>
+<td>58</td>
+<td>56</td>
+<td>60</td>
+</tr>
+<tr class="even">
+<td>II</td>
+<td>Grand</td>
+<td>58</td>
+<td>58</td>
+<td>53</td>
+<td>60</td>
+</tr>
+<tr class="odd">
+<td>III</td>
+<td>Petit</td>
+<td>64</td>
+<td>65</td>
+<td>54</td>
+<td>57</td>
+</tr>
+<tr class="even">
+<td>III</td>
+<td>Moyen</td>
+<td>62</td>
+<td>68</td>
+<td>67</td>
+<td>60</td>
+</tr>
+<tr class="odd">
+<td>III</td>
+<td>Grand</td>
+<td>71</td>
+<td>75</td>
+<td>75</td>
+<td>63</td>
+</tr>
+</tbody>
+</table>
 <ol type="1">
-<li>Construire un graphique pour représenter les données. Pourquoi peut-on ici relier les points ?</li>
-<li>Donner un indicateur permettant d’évaluer la relation entre les deux variables. Interpréter.</li>
-<li>Ecrire mathématiquement un modèle permettant l’étude d’une éventuelle relation entre la température moyenne annuelle et l’année.</li>
-<li>Construire ce modèle et interpréter les résultats.</li>
-<li>Comment interprétez-vous concrètement chaque coefficient du modèle ? Ces interprétations ont-elle un sens ici ?</li>
-<li>Comment l’expliquez-vous ?</li>
-<li>Quelle température moyenne annuelle prédisez-vous avec le modèle construit. Quelle hypothèse sous-jacente faites-vous ?</li>
-</ol>
-<p>Après avoir construit un graphique en coloriant en rouge les années de 1873 à 1993 et en bleu les points de 1994 à 2024, vous remarquez que les points bleus sont très souvent au-dessus de la droite de régression.</p>
-<ol start="8" type="1">
-<li>Qu’est-ce que cela signifie sur les valeurs des résidus pour les points bleus ? (vous pouvez vérifier votre propos en regardant l’objet <span class="math inline">\(lmResult\)</span>residuals qui donne les résidus du modèle). Comment interprétez-vous concrètement cela ?</li>
+<li>Seuls les effets suivants intéressent l’agronome : variété, écartement, interaction variété-écartement. Pourtant, on choisit de rajouter l’effet parcelle dans le modèle. Quelle peut en être l’utilité ?</li>
+<li>Construire et sélectionner le « bon » sous-modèle.</li>
+<li>Quels sont les effets significatifs (et les effets non significatifs) du sous-modèle sélectionné ?</li>
+<li>Interpréter les effets significatifs (et l’absence des effets non significatifs) dans le modèle sélectionné.</li>
+<li>Quelles conclusions auriez-vous eues si vous aviez (mal) travaillé en oubliant l’effet parcelle dans le modèle ?</li>
 </ol>
 </section>
-<section id="exercice-2-evolution-de-lempreinte-ges-moyenne-par-français" class="level1">
-<h1>Exercice 2 – Evolution de l’empreinte GES moyenne par français</h1>
-<p>On s’intéresse à l’évolution de l’empreinte des gaz à effets de serre (GES) des français entre 1990 et 2024. Les données sont disponibles dans le fichier <a href="https://agrocampusds.github.io/demarche_statistique/empreinteGES.csv">empreinteGES.csv</a>.</p>
+<section id="exercice-2-moyenne-de-notes" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-2-moyenne-de-notes">Exercice 2 – Moyenne de notes</h2>
+<p>Pour l’évaluation d’un module de statistique, 10 étudiants ont passé 2 examens. Ils ont obtenu les notes du tableau ci-dessous. Les étudiants 7 et 8 ont été absents à l’épreuve 1, l’étudiant 9 a été absent à l’épreuve 2. La règle étant de calculer la moyenne des notes pour obtenir la note du module, l’étudiant 7 obtient la note de 9, l’étudiant 8 la note de 8 et l’étudiant 9 la note de 11.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Epreuve 1</th>
+<th>Epreuve 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Etudiant 1</td>
+<td>12</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>Etudiant 2</td>
+<td>14</td>
+<td>10</td>
+</tr>
+<tr class="odd">
+<td>Etudiant 3</td>
+<td>15</td>
+<td>12</td>
+</tr>
+<tr class="even">
+<td>Etudiant 4</td>
+<td>18</td>
+<td>13</td>
+</tr>
+<tr class="odd">
+<td>Etudiant 5</td>
+<td>8</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>Etudiant 6</td>
+<td>13</td>
+<td>9</td>
+</tr>
+<tr class="odd">
+<td>Etudiant 7</td>
+<td>Abs</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>Etudiant 8</td>
+<td>Abs</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td>Etudiant 9</td>
+<td>11</td>
+<td>Abs</td>
+</tr>
+</tbody>
+</table>
 <ol type="1">
-<li>Pourquoi selon vous on s’intéresse à l’empreinte moyenne par français plutôt qu’à l’empreinte totale des GES de la France ?</li>
-<li>Construire un graphique pour représenter les données.</li>
+<li>Soudain, très motivés par leur cours de statistique, les étudiants 7 et 8 le reprennent, l’étudient en détail, et décident d’argumenter que la moyenne ajustée serait beaucoup plus juste pour calculer la note du module. Outre le fait qu’ils auraient mieux fait de relire leur cours plus tôt, que pensez-vous de cette remarque ?</li>
+<li>Quel modèle sont-ils en train de considérer ?</li>
+<li>Saisir les données, construire ce modèle puis donner une estimation des paramètres et les interpréter. Vous pouvez copier-coller les lignes de code suivantes.</li>
 </ol>
-<p>On cherche maintenant à prévoir l’évolution jusqu’en 2050. Après avoir bien visualisé les données, proposer un modèle et les données que vous utiliseriez pour prévoir l’évolution de l’empreinte GES dans les prochaines années. 3. Construire et interpréter le modèle.</p>
 <ol start="4" type="1">
-<li>Quelle empreinte carbone prédisez-vous pour 2050 (sachant que l’objectif défini lors des accords de Paris est de 2teqCO2/hab/an) ? Quelle hypothèse sous-jacente faites-vous quand vous faites cette prédiction ? Qu’en pensez-vous.</li>
+<li><p>Donner les notes que les étudiants 7 et 8 obtiendraient pour la 1ère épreuve et pour l’ensemble du module grâce à ce modèle.</p></li>
+<li><p>Quelles notes obtiendraient les étudiants 1 à 6 ? Qu’en pensez-vous ?</p></li>
+<li><p>Construire le même modèle en considérant uniquement les notes des élèves 1 à 6. Donner une estimation des paramètres puis des moyennes ajustées. Quelle différence y-a-t-il avec les moyennes ajustées de la question précédente ?</p></li>
+<li><p>Finalement, que fait l’analyse de variance dans ces situations où il y a des données manquantes ? Dans quel cas est-ce que l’analyse de variance n’est pas indispensable ?</p></li>
 </ol>
 
 

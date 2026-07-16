@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TD 8 - Démarche statistique – Agrocampus Ouest : démarche statistique</title>
+<title>TD 11 - Démarche statistique – Agrocampus Ouest : démarche statistique</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -71,35 +71,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -149,7 +120,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">TD 8 - Démarche statistique</h1>
+<h1 class="title">TD 11 - Démarche statistique</h1>
 </div>
 
 
@@ -166,33 +137,29 @@ window.Quarto = {
 </header>
 
 
-<section id="exercice-1-etude-de-lévolution-des-températures-à-paris" class="level1">
-<h1>Exercice 1 – Etude de l’évolution des températures à Paris</h1>
-<p>On s’intéresse à l’évolution de la température moyenne annuelle à Paris entre 1873 et 2024. Les données sont disponibles dans le fichier <a href="https://agrocampusds.github.io/demarche_statistique/temperature_moyenne_paris.csv">temperature_moyenne_paris.csv</a>.</p>
+<section id="exercice-1-le-meilleur-modèle-est-il-forcément-le-plus-complexe" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-1-le-meilleur-modèle-est-il-forcément-le-plus-complexe">Exercice 1 – Le meilleur modèle est-il forcément le plus complexe ?</h2>
+<p>Pour expliquer le stockage de carbone dans les sols, deux modèles sont proposés.</p>
+<p><strong>Modèle A Variables explicatives : biomasse restituée ; travail du sol.</strong></p>
+<p><strong>Modèle B Variables explicatives : biomasse restituée ; travail du sol ; teneur en argile ; pente ; altitude ; pluviométrie ; température ; rotation ; profondeur du sol.</strong></p>
+<p>Un étudiant affirme : « Le modèle B est forcément meilleur puisqu’il contient plus de variables. »</p>
 <ol type="1">
-<li>Construire un graphique pour représenter les données. Pourquoi peut-on ici relier les points ?</li>
-<li>Donner un indicateur permettant d’évaluer la relation entre les deux variables. Interpréter.</li>
-<li>Ecrire mathématiquement un modèle permettant l’étude d’une éventuelle relation entre la température moyenne annuelle et l’année.</li>
-<li>Construire ce modèle et interpréter les résultats.</li>
-<li>Comment interprétez-vous concrètement chaque coefficient du modèle ? Ces interprétations ont-elle un sens ici ?</li>
-<li>Comment l’expliquez-vous ?</li>
-<li>Quelle température moyenne annuelle prédisez-vous avec le modèle construit. Quelle hypothèse sous-jacente faites-vous ?</li>
-</ol>
-<p>Après avoir construit un graphique en coloriant en rouge les années de 1873 à 1993 et en bleu les points de 1994 à 2024, vous remarquez que les points bleus sont très souvent au-dessus de la droite de régression.</p>
-<ol start="8" type="1">
-<li>Qu’est-ce que cela signifie sur les valeurs des résidus pour les points bleus ? (vous pouvez vérifier votre propos en regardant l’objet <span class="math inline">\(lmResult\)</span>residuals qui donne les résidus du modèle). Comment interprétez-vous concrètement cela ?</li>
+<li>Êtes-vous d’accord ?</li>
+<li>Quels sont les avantages d’un modèle simple ?</li>
+<li>Quels sont les avantages d’un modèle plus complexe ?</li>
+<li>Pourquoi un modèle très complexe peut-il devenir difficile à interpréter ?</li>
+<li>Quel compromis cherche-t-on généralement lors de la construction d’un modèle ?</li>
+<li>Dans un contexte agronomique, pourquoi l’interprétation peut-elle être aussi importante que la qualité prédictive ?</li>
 </ol>
 </section>
-<section id="exercice-2-evolution-de-lempreinte-ges-moyenne-par-français" class="level1">
-<h1>Exercice 2 – Evolution de l’empreinte GES moyenne par français</h1>
-<p>On s’intéresse à l’évolution de l’empreinte des gaz à effets de serre (GES) des français entre 1990 et 2024. Les données sont disponibles dans le fichier <a href="https://agrocampusds.github.io/demarche_statistique/empreinteGES.csv">empreinteGES.csv</a>.</p>
+<section id="exercice-2-jouons-avec-linteraction" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-2-jouons-avec-linteraction">Exercice 2 – Jouons avec l’interaction !</h2>
+<p>Dans votre session R, lancer la ligne de code suivante pour ouvrir une application shiny : source(“…”) Cette application montre, sur la gauche le graphe des interactions entre un effet produit et un effet juge, et en ordonnée l’appréciation ; et sur la droite, l’application donne des estimations des coefficients du modèle d’analyse de variance qui correspond à la position des points. Les coefficients donnés sont les suivants : μ est l’effet moyen, α_i l’effet du produit i, β_j l’effet du juge j et γ_ij l’effet de l’interaction produit i vu par le juge j. Votre objectif est de bouger les points de la figure et de les positionner de sorte à trouver les configurations suivantes :</p>
 <ol type="1">
-<li>Pourquoi selon vous on s’intéresse à l’empreinte moyenne par français plutôt qu’à l’empreinte totale des GES de la France ?</li>
-<li>Construire un graphique pour représenter les données.</li>
-</ol>
-<p>On cherche maintenant à prévoir l’évolution jusqu’en 2050. Après avoir bien visualisé les données, proposer un modèle et les données que vous utiliseriez pour prévoir l’évolution de l’empreinte GES dans les prochaines années. 3. Construire et interpréter le modèle.</p>
-<ol start="4" type="1">
-<li>Quelle empreinte carbone prédisez-vous pour 2050 (sachant que l’objectif défini lors des accords de Paris est de 2teqCO2/hab/an) ? Quelle hypothèse sous-jacente faites-vous quand vous faites cette prédiction ? Qu’en pensez-vous.</li>
+<li>Un effet moyen proche de 12, et un effet juge mais ni effet produit, ni effet de l’interaction</li>
+<li>Un effet produit tel que le produit 1 ait un coefficient de +1, le produit 2 un coefficient de -1 ; et ni effet juge ni interaction</li>
+<li>Un effet produit, pas d’effet juge, mais une interaction</li>
+<li>Ni effet produit, ni effet juge mais une interaction</li>
 </ol>
 
 

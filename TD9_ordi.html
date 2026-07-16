@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TD 8 - Démarche statistique – Agrocampus Ouest : démarche statistique</title>
+<title>TD 9 - Démarche statistique – Agrocampus Ouest : démarche statistique</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -149,7 +149,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">TD 8 - Démarche statistique</h1>
+<h1 class="title">TD 9 - Démarche statistique</h1>
 </div>
 
 
@@ -166,33 +166,51 @@ window.Quarto = {
 </header>
 
 
-<section id="exercice-1-etude-de-lévolution-des-températures-à-paris" class="level1">
-<h1>Exercice 1 – Etude de l’évolution des températures à Paris</h1>
-<p>On s’intéresse à l’évolution de la température moyenne annuelle à Paris entre 1873 et 2024. Les données sont disponibles dans le fichier <a href="https://agrocampusds.github.io/demarche_statistique/temperature_moyenne_paris.csv">temperature_moyenne_paris.csv</a>.</p>
+<section id="exercice-1-construction-dun-modèle-choix-des-effets-et-interactions" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-1-construction-dun-modèle-choix-des-effets-et-interactions">Exercice 1 – Construction d’un modèle, choix des effets et interactions</h2>
 <ol type="1">
-<li>Construire un graphique pour représenter les données. Pourquoi peut-on ici relier les points ?</li>
-<li>Donner un indicateur permettant d’évaluer la relation entre les deux variables. Interpréter.</li>
-<li>Ecrire mathématiquement un modèle permettant l’étude d’une éventuelle relation entre la température moyenne annuelle et l’année.</li>
-<li>Construire ce modèle et interpréter les résultats.</li>
-<li>Comment interprétez-vous concrètement chaque coefficient du modèle ? Ces interprétations ont-elle un sens ici ?</li>
-<li>Comment l’expliquez-vous ?</li>
-<li>Quelle température moyenne annuelle prédisez-vous avec le modèle construit. Quelle hypothèse sous-jacente faites-vous ?</li>
+<li>Quelles variables explicatives, quelles interactions utiliseriez-vous pour construire un modèle permettant de prédire (répondre à 2 questions au choix parmi les 4)</li>
 </ol>
-<p>Après avoir construit un graphique en coloriant en rouge les années de 1873 à 1993 et en bleu les points de 1994 à 2024, vous remarquez que les points bleus sont très souvent au-dessus de la droite de régression.</p>
-<ol start="8" type="1">
-<li>Qu’est-ce que cela signifie sur les valeurs des résidus pour les points bleus ? (vous pouvez vérifier votre propos en regardant l’objet <span class="math inline">\(lmResult\)</span>residuals qui donne les résidus du modèle). Comment interprétez-vous concrètement cela ?</li>
+<ul>
+<li>la taille d’un individu adulte ?</li>
+<li>la taille d’un enfant entre 2 et 15 ans.</li>
+<li>le nombre de lombrics dans un cube de terre de 10 cm de côté ?</li>
+<li>le poids des poubelles à la cantine de l’IA ?</li>
+</ul>
+<ol start="2" type="1">
+<li>Préciser quelles variables sont quantitatives (resp. qualitatives) puis écrire le modèle.</li>
 </ol>
 </section>
-<section id="exercice-2-evolution-de-lempreinte-ges-moyenne-par-français" class="level1">
-<h1>Exercice 2 – Evolution de l’empreinte GES moyenne par français</h1>
-<p>On s’intéresse à l’évolution de l’empreinte des gaz à effets de serre (GES) des français entre 1990 et 2024. Les données sont disponibles dans le fichier <a href="https://agrocampusds.github.io/demarche_statistique/empreinteGES.csv">empreinteGES.csv</a>.</p>
+<section id="exercice-2-interpréter-un-modèle" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-2-interpréter-un-modèle">Exercice 2 – Interpréter un modèle</h2>
+<div class="grid">
+<div class="g-col-7">
+<p>On étudie l’effet d’une variable qualitative fac à 3 modalités (A, B et C) et d’une variable quantitative x sur une variable réponse Y. On visualise les données avec le graphique ci-contre avant de construire le modèle :</p>
+<p><span class="math display">\[Y_{ij} = \mu + \alpha_i + (\beta + \gamma_i)x_{ij} + \varepsilon_{ij} \]</span> 1. Quel est le nom de ce modèle ? 2. Donner une estimation de <span class="math inline">\(\mu\)</span> et une de <span class="math inline">\(\beta\)</span> 3. Donner une estimation des <span class="math inline">\(\alpha_i\)</span> 4. Donner une estimation des <span class="math inline">\(\gamma_i\)</span> 5. Selon vous, y a-t-il un effet significatif de x sur Y ? un effet de fac sur Y ? un effet de l’interaction entre fac et x sur Y ?</p>
+</div>
+<div class="g-col-5">
+<p><img src="ancova.png" class="img-fluid" style="width:150.0%"></p>
+</div>
+</div>
+</section>
+<section id="exercice-3-stockage-de-carbone-dans-les-sols-agricoles" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-3-stockage-de-carbone-dans-les-sols-agricoles">Exercice 3 – Stockage de carbone dans les sols agricoles</h2>
+<p>Une équipe de recherche souhaite comprendre pourquoi certaines parcelles stockent davantage de carbone que d’autres. Pour chaque parcelle, on mesure :</p>
+<ul>
+<li>le stock de carbone du sol ;</li>
+<li>la quantité annuelle de biomasse restituée au sol ;</li>
+<li>le nombre d’années sous couvert végétal ;</li>
+<li>le travail du sol (labour ou semis direct) ;</li>
+<li>la teneur en argile.</li>
+</ul>
+<p>Après analyse, les chercheurs constatent que les parcelles en semis direct stockent davantage de carbone mais elles sont aussi souvent celles qui ont les couverts végétaux les plus développés.</p>
 <ol type="1">
-<li>Pourquoi selon vous on s’intéresse à l’empreinte moyenne par français plutôt qu’à l’empreinte totale des GES de la France ?</li>
-<li>Construire un graphique pour représenter les données.</li>
-</ol>
-<p>On cherche maintenant à prévoir l’évolution jusqu’en 2050. Après avoir bien visualisé les données, proposer un modèle et les données que vous utiliseriez pour prévoir l’évolution de l’empreinte GES dans les prochaines années. 3. Construire et interpréter le modèle.</p>
-<ol start="4" type="1">
-<li>Quelle empreinte carbone prédisez-vous pour 2050 (sachant que l’objectif défini lors des accords de Paris est de 2teqCO2/hab/an) ? Quelle hypothèse sous-jacente faites-vous quand vous faites cette prédiction ? Qu’en pensez-vous.</li>
+<li>Quelle est la variable réponse ? Quelles sont les variables explicatives ?</li>
+<li>Pourquoi est-il difficile d’attribuer directement l’augmentation du carbone au seul semis direct ?</li>
+<li>Quelles variables pourraient jouer un rôle de confusion ?</li>
+<li>Pourquoi un modèle prenant en compte plusieurs variables explicatives semble-t-il nécessaire ?</li>
+<li>Si l’effet du semis direct disparaît après prise en compte de la biomasse restituée, comment pourriez-vous interpréter ce résultat ?</li>
+<li>Si l’effet du semis direct reste important même après prise en compte des autres variables, qu’est-ce que cela suggère ?</li>
 </ol>
 
 
