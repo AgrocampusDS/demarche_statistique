@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Démarche Statistique – Agrocampus Ouest : démarche statistique</title>
+<title>TD 3 - Démarche statistique – Agrocampus Ouest : démarche statistique</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -70,14 +70,40 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="style.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -95,7 +121,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> <i class="bi bi-fa-home" role="img">
+    <a class="nav-link" href="./index.html"> <i class="bi bi-fa-home" role="img">
 </i> 
 <span class="menu-text">Démarche Statistique</span></a>
   </li>  
@@ -117,21 +143,13 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#liste-des-tds-du-module" id="toc-liste-des-tds-du-module" class="nav-link active" data-scroll-target="#liste-des-tds-du-module">Liste des TDs du module</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Démarche Statistique</h1>
+<h1 class="title">TD 3 - Démarche statistique</h1>
 </div>
 
 
@@ -148,70 +166,110 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Vous trouverez sur ce site les énoncés de TDs associés au cours de démarche statistique.</p>
-<section id="liste-des-tds-du-module" class="level1">
-<h1>Liste des TDs du module</h1>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Agronomes</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Agroalimentaires</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div class="cell">
-<div class="cell-output-display">
-<table class="lightable-classic caption-top table table-sm table-striped small">
+<section id="exercice-1-les-haies-favorisent-elles-la-biodiversité" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-1-les-haies-favorisent-elles-la-biodiversité">Exercice 1 – Les haies favorisent-elles la biodiversité ?</h2>
+<p>Une association environnementale affirme : « Les parcelles agricoles entourées de haies hébergent davantage d’espèces d’oiseaux. » Des données seront recueillies sur un ensemble de parcelles avec ou sans haies.</p>
+<ul>
+<li>concentration en nitrates ;</li>
+<li>concentration en phosphore ;</li>
+<li>présence ou absence de truites ;</li>
+<li>catégorie du cours d’eau (rivière de montagne, rivière de plaine, canal) ;</li>
+<li>nombre d’espèces d’invertébrés observées ;</li>
+<li>couleur dominante de l’eau (claire, verdâtre, brunâtre).</li>
+</ul>
+<ol type="1">
+<li>Quelle est la question scientifique étudiée ?</li>
+<li>Quelle est la variable réponse ? Quelle est la variable explicative ?</li>
+<li>Proposer une hypothèse nulle <span class="math inline">\(H_0\)</span> et une hypothèse alternative <span class="math inline">\(H_1\)</span>.</li>
+<li>Si <span class="math inline">\(H_0\)</span> est rejetée, que pourra-t-on conclure ?</li>
+<li>Si <span class="math inline">\(H_0\)</span> n’est pas rejetée, pourra-t-on conclure que les haies n’ont aucun effet ?</li>
+</ol>
+</section>
+<section id="exercice-2-quelle-hypothèse-est-la-bonne" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-2-quelle-hypothèse-est-la-bonne">Exercice 2 – Quelle hypothèse est la bonne ?</h2>
+<p>Pour chacune des situations suivantes, identifier laquelle des deux propositions correspond à <span class="math inline">\(H_0\)</span>.</p>
+<ul>
+<li><p>Situation A : On cherche à savoir si un couvert végétal améliore la teneur en matière organique des sols.</p>
+<ul>
+<li>Proposition 1 : Le couvert végétal modifie la teneur en matière organique.</li>
+<li>Proposition 2 : Le couvert végétal ne modifie pas la teneur en matière organique.</li>
+</ul></li>
+<li><p>Situation B : On cherche à savoir si une rivière est contaminée.</p>
+<ul>
+<li>Proposition 1 : La rivière respecte les normes de qualité.</li>
+<li>Proposition 2 : La rivière ne respecte pas les normes.</li>
+</ul></li>
+<li><p>Situation C : On cherche à savoir si deux pratiques agricoles donnent des rendements différents.</p>
+<ul>
+<li>Proposition 1 : Les rendements sont identiques.</li>
+<li>Proposition 2 : Les rendements diffèrent.</li>
+</ul></li>
+</ul>
+</section>
+<section id="exercice-3-une-nouvelle-variété-de-blé-est-elle-plus-productive" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-3-une-nouvelle-variété-de-blé-est-elle-plus-productive">Exercice 3 – Une nouvelle variété de blé est-elle plus productive ?</h2>
+<p>Une entreprise semencière affirme : « La variété X produit davantage que la variété actuellement utilisée.»</p>
+<ol type="1">
+<li>Formuler la question scientifique.</li>
+<li>Proposer <span class="math inline">\(H_0\)</span> et <span class="math inline">\(H_1\)</span>.</li>
+<li>Cette situation conduit-elle naturellement à un test bilatéral ou unilatéral ? Pourquoi ?</li>
+</ol>
+</section>
+<section id="exercice-4-le-tribunal-statistique" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-4-le-tribunal-statistique">Exercice 4 – Le tribunal statistique</h2>
+<p>On compare souvent un test statistique à une décision de justice. Un accusé est présumé innocent tant qu’il n’existe pas suffisamment de preuves pour conclure à sa culpabilité.</p>
+<ol type="1">
+<li>Dans cette analogie, que représente <span class="math inline">\(H_0\)</span> ?</li>
+<li>Que représente <span class="math inline">\(H_1\)</span> ?</li>
+<li>Que signifie rejeter <span class="math inline">\(H_0\)</span> ?</li>
+<li>Que signifie ne pas rejeter <span class="math inline">\(H_0\)</span> ?</li>
+<li>Pourquoi ne dit-on jamais qu’un test « prouve » <span class="math inline">\(H_0\)</span> ?</li>
+</ol>
+</section>
+<section id="exercice-5-définition-des-hypothèses" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-5-définition-des-hypothèses">Exercice 5 – Définition des hypothèses</h2>
+<p>Pour chacune des cinq problématiques suivantes, proposer une hypothèse <span class="math inline">\(H_0\)</span> et une hypothèse <span class="math inline">\(H_1\)</span>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Nom</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Lien</th>
+<th><strong>Question scientifique</strong></th>
+<th><span class="math inline">\(H_0\)</span></th>
+<th><span class="math inline">\(H_1\)</span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">TD 1 - Démarche statistique</td>
-<td style="text-align: left;"><a href="TD1.html" style="     ">TD1</a></td>
+<td>Les haies augmentent-elles la biodiversité ?</td>
+<td></td>
+<td></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">TD 2 Démarche statistique</td>
-<td style="text-align: left;"><a href="TD2.html" style="     ">TD2</a></td>
+<td>Le semis direct a-t-il un effet sur l’érosion ?</td>
+<td></td>
+<td></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">TD 4 Démarche statistique</td>
-<td style="text-align: left;"><a href="TD4_ordi.html" style="     ">TD4_ordi</a></td>
+<td>Les bandes fleuries attirent-elles davantage de pollinisateurs ?</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>La fertilisation azotée augmente-t-elle le rendement ?</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Les zones humides stockent-elles davantage de carbone ?</td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div class="cell">
-<div class="cell-output-display">
-<table class="lightable-classic caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Nom</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Lien</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">TD 1 - Démarche statistique</td>
-<td style="text-align: left;"><a href="TD1.html" style="     ">TD1</a></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">TD 2 Démarche statistique</td>
-<td style="text-align: left;"><a href="TD2.html" style="     ">TD2</a></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">TD 4 Démarche statistique</td>
-<td style="text-align: left;"><a href="TD4_ordi.html" style="     ">TD4_ordi</a></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</div>
 
 
 </section>
