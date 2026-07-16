@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TD 3 - Démarche statistique – Agrocampus Ouest : démarche statistique</title>
+<title>TD 8 - Démarche statistique – Agrocampus Ouest : démarche statistique</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -149,7 +149,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">TD 3 - Démarche statistique</h1>
+<h1 class="title">TD 8 - Démarche statistique</h1>
 </div>
 
 
@@ -166,110 +166,34 @@ window.Quarto = {
 </header>
 
 
-<section id="exercice-1-les-haies-favorisent-elles-la-biodiversité" class="level2">
-<h2 class="anchored" data-anchor-id="exercice-1-les-haies-favorisent-elles-la-biodiversité">Exercice 1 – Les haies favorisent-elles la biodiversité ?</h2>
-<p>Une association environnementale affirme : « Les parcelles agricoles entourées de haies hébergent davantage d’espèces d’oiseaux. » Des données seront recueillies sur un ensemble de parcelles avec ou sans haies.</p>
-<ul>
-<li>concentration en nitrates ;</li>
-<li>concentration en phosphore ;</li>
-<li>présence ou absence de truites ;</li>
-<li>catégorie du cours d’eau (rivière de montagne, rivière de plaine, canal) ;</li>
-<li>nombre d’espèces d’invertébrés observées ;</li>
-<li>couleur dominante de l’eau (claire, verdâtre, brunâtre).</li>
-</ul>
+<section id="exercice-1-etude-de-lévolution-des-températures-à-paris" class="level1">
+<h1>Exercice 1 – Etude de l’évolution des températures à Paris</h1>
+<p>On s’intéresse à l’évolution de la température moyenne annuelle à Paris entre 1873 et 2024. Les données sont disponibles dans le fichier <a href="temperature_moyenne_paris.csv">temperature_moyenne_paris.csv</a>.</p>
 <ol type="1">
-<li>Quelle est la question scientifique étudiée ?</li>
-<li>Quelle est la variable réponse ? Quelle est la variable explicative ?</li>
-<li>Proposer une hypothèse nulle <span class="math inline">\(H_0\)</span> et une hypothèse alternative <span class="math inline">\(H_1\)</span>.</li>
-<li>Si <span class="math inline">\(H_0\)</span> est rejetée, que pourra-t-on conclure ?</li>
-<li>Si <span class="math inline">\(H_0\)</span> n’est pas rejetée, pourra-t-on conclure que les haies n’ont aucun effet ?</li>
+<li>Construire un graphique pour représenter les données. Pourquoi peut-on ici relier les points ?</li>
+<li>Donner un indicateur permettant d’évaluer la relation entre les deux variables. Interpréter.</li>
+<li>Ecrire mathématiquement un modèle permettant l’étude d’une éventuelle relation entre la température moyenne annuelle et l’année.</li>
+<li>Construire ce modèle et interpréter les résultats.</li>
+<li>Comment interprétez-vous concrètement chaque coefficient du modèle ? Ces interprétations ont-elle un sens ici ?</li>
+<li>Comment l’expliquez-vous ?</li>
+<li>Quelle température moyenne annuelle prédisez-vous avec le modèle construit. Quelle hypothèse sous-jacente faites-vous ?</li>
+</ol>
+<p>Après avoir construit un graphique en coloriant en rouge les années de 1873 à 1993 et en bleu les points de 1994 à 2024, vous remarquez que les points bleus sont très souvent au-dessus de la droite de régression.</p>
+<ol start="8" type="1">
+<li>Qu’est-ce que cela signifie sur les valeurs des résidus pour les points bleus ? (vous pouvez vérifier votre propos en regardant l’objet <span class="math inline">\(lmResult\)</span>residuals qui donne les résidus du modèle). Comment interprétez-vous concrètement cela ?</li>
 </ol>
 </section>
-<section id="exercice-2-quelle-hypothèse-est-la-bonne" class="level2">
-<h2 class="anchored" data-anchor-id="exercice-2-quelle-hypothèse-est-la-bonne">Exercice 2 – Quelle hypothèse est la bonne ?</h2>
-<p>Pour chacune des situations suivantes, identifier laquelle des deux propositions correspond à <span class="math inline">\(H_0\)</span>.</p>
-<ul>
-<li><p>Situation A : On cherche à savoir si un couvert végétal améliore la teneur en matière organique des sols.</p>
-<ul>
-<li>Proposition 1 : Le couvert végétal modifie la teneur en matière organique.</li>
-<li>Proposition 2 : Le couvert végétal ne modifie pas la teneur en matière organique.</li>
-</ul></li>
-<li><p>Situation B : On cherche à savoir si une rivière est contaminée.</p>
-<ul>
-<li>Proposition 1 : La rivière respecte les normes de qualité.</li>
-<li>Proposition 2 : La rivière ne respecte pas les normes.</li>
-</ul></li>
-<li><p>Situation C : On cherche à savoir si deux pratiques agricoles donnent des rendements différents.</p>
-<ul>
-<li>Proposition 1 : Les rendements sont identiques.</li>
-<li>Proposition 2 : Les rendements diffèrent.</li>
-</ul></li>
-</ul>
-</section>
-<section id="exercice-3-une-nouvelle-variété-de-blé-est-elle-plus-productive" class="level2">
-<h2 class="anchored" data-anchor-id="exercice-3-une-nouvelle-variété-de-blé-est-elle-plus-productive">Exercice 3 – Une nouvelle variété de blé est-elle plus productive ?</h2>
-<p>Une entreprise semencière affirme : « La variété X produit davantage que la variété actuellement utilisée.»</p>
+<section id="exercice-2-evolution-de-lempreinte-ges-moyenne-par-français" class="level1">
+<h1>Exercice 2 – Evolution de l’empreinte GES moyenne par français</h1>
+<p>On s’intéresse à l’évolution de l’empreinte des gaz à effets de serre (GES) des français entre 1990 et 2024. Les données sont disponibles dans le fichier <a href="empreinteGES.csv">empreinteGES.csv</a>.</p>
 <ol type="1">
-<li>Formuler la question scientifique.</li>
-<li>Proposer <span class="math inline">\(H_0\)</span> et <span class="math inline">\(H_1\)</span>.</li>
-<li>Cette situation conduit-elle naturellement à un test bilatéral ou unilatéral ? Pourquoi ?</li>
+<li>Pourquoi selon vous on s’intéresse à l’empreinte moyenne par français plutôt qu’à l’empreinte totale des GES de la France ?</li>
+<li>Construire un graphique pour représenter les données.</li>
 </ol>
-</section>
-<section id="exercice-4-le-tribunal-statistique" class="level2">
-<h2 class="anchored" data-anchor-id="exercice-4-le-tribunal-statistique">Exercice 4 – Le tribunal statistique</h2>
-<p>On compare souvent un test statistique à une décision de justice. Un accusé est présumé innocent tant qu’il n’existe pas suffisamment de preuves pour conclure à sa culpabilité.</p>
-<ol type="1">
-<li>Dans cette analogie, que représente <span class="math inline">\(H_0\)</span> ?</li>
-<li>Que représente <span class="math inline">\(H_1\)</span> ?</li>
-<li>Que signifie rejeter <span class="math inline">\(H_0\)</span> ?</li>
-<li>Que signifie ne pas rejeter <span class="math inline">\(H_0\)</span> ?</li>
-<li>Pourquoi ne dit-on jamais qu’un test « prouve » <span class="math inline">\(H_0\)</span> ?</li>
+<p>On cherche maintenant à prévoir l’évolution jusqu’en 2050. Après avoir bien visualisé les données, proposer un modèle et les données que vous utiliseriez pour prévoir l’évolution de l’empreinte GES dans les prochaines années. 3. Construire et interpréter le modèle.</p>
+<ol start="4" type="1">
+<li>Quelle empreinte carbone prédisez-vous pour 2050 (sachant que l’objectif défini lors des accords de Paris est de 2teqCO2/hab/an) ? Quelle hypothèse sous-jacente faites-vous quand vous faites cette prédiction ? Qu’en pensez-vous.</li>
 </ol>
-</section>
-<section id="exercice-5-définition-des-hypothèses" class="level2">
-<h2 class="anchored" data-anchor-id="exercice-5-définition-des-hypothèses">Exercice 5 – Définition des hypothèses</h2>
-<p>Pour chacune des cinq problématiques suivantes, proposer une hypothèse <span class="math inline">\(H_0\)</span> et une hypothèse <span class="math inline">\(H_1\)</span>.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Question scientifique</strong></th>
-<th><span class="math inline">\(H_0\)</span></th>
-<th><span class="math inline">\(H_1\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Les haies augmentent-elles la biodiversité ?</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Le semis direct a-t-il un effet sur l’érosion ?</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Les bandes fleuries attirent-elles davantage de pollinisateurs ?</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>La fertilisation azotée augmente-t-elle le rendement ?</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Les zones humides stockent-elles davantage de carbone ?</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
 
 
 </section>
