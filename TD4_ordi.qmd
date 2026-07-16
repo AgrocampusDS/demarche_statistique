@@ -7,8 +7,11 @@ format: html
 
 A l’œil, **sans l’aide d’une règle et indépendamment de vos voisins**, évaluer la longueur du segment AK (si votre nom commence par une lettre entre A et K) ou du segment LZ à la fin de l’exercice (si votre nom commence par une lettre entre L et Z).
 
+![](segment.png)
 
-Une fois toutes les données recueillies dans votre tableur préféré, considérons deux groupes : les évalua-tions faites pour la longueur AK et celle faite pour la longueur LZ. On suppose que la longueur AK suit une loi normale d’espérance μ1 et de variance σ2 et que la longueur LZ suit une loi normale d’espérance μ2 et de variance σ2.
+
+
+Une fois toutes les données recueillies dans votre tableur préféré, considérons deux groupes : les évalua-tions faites pour la longueur AK et celle faite pour la longueur LZ. On suppose que la longueur AK suit une loi normale d’espérance $\mu_1$ et de variance $\sigma_2$ et que la longueur LZ suit une loi normale d’espérance $\mu_2$ et de variance $\sigma_2$.
 
 Saisir les données, les sauvegarder dans un fichier `longueur.csv` puis les importer dans un objet `dta` de R. On cherche dans un premier temps à savoir si, en moyenne, l’évaluation de la longueur AK est non biaisée.
 
@@ -22,6 +25,9 @@ Pour le segment LZ, tester si, en moyenne, il est évalué justement ou sous-est
 
 
 - On souhaite maintenant tester l'égalité des moyennes entre AK et LZ
+
+
+![](segment_LZ.png)
 
 
 
@@ -38,7 +44,7 @@ summary(dta)
 
 ```
 
-On s’intéresse maintenant au phosphore total (Ptot_P90).
+On s’intéresse maintenant au phosphore total (`Ptot_P90`).
 Dans un premier temps, on s’intéresse aux données du bassin parisien uniquement. Pour cela, on filtre les données et on construire un objet dta_bassin qui contient uniquement les stations du bassin parisien.
 
 
@@ -54,7 +60,7 @@ dta_bassin <- dta |> filter(region=="bassin_parisien")
 
 2. Peut-on considérer que les moyennes des COD sont égales dans les deux régions ?
 
-On s’intéresse maintenant au phosphore total (Ptot_P90).
+On s’intéresse maintenant au phosphore total (`Ptot_P90`).
 Dans un premier temps, on s’intéresse aux données du bassin parisien uniquement. Pour cela, on filtre les données et on construire un objet dta_bassin qui contient uniquement les stations du bassin parisien.
 
 ```{r}
