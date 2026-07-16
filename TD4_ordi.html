@@ -169,7 +169,8 @@ window.Quarto = {
 <section id="exercice-1-le-compas-dans-lœil" class="level2">
 <h2 class="anchored" data-anchor-id="exercice-1-le-compas-dans-lœil">Exercice 1 : Le compas dans l’œil</h2>
 <p>A l’œil, <strong>sans l’aide d’une règle et indépendamment de vos voisins</strong>, évaluer la longueur du segment AK (si votre nom commence par une lettre entre A et K) ou du segment LZ à la fin de l’exercice (si votre nom commence par une lettre entre L et Z).</p>
-<p>Une fois toutes les données recueillies dans votre tableur préféré, considérons deux groupes : les évalua-tions faites pour la longueur AK et celle faite pour la longueur LZ. On suppose que la longueur AK suit une loi normale d’espérance μ1 et de variance σ2 et que la longueur LZ suit une loi normale d’espérance μ2 et de variance σ2.</p>
+<p><img src="segment.png" class="img-fluid"></p>
+<p>Une fois toutes les données recueillies dans votre tableur préféré, considérons deux groupes : les évalua-tions faites pour la longueur AK et celle faite pour la longueur LZ. On suppose que la longueur AK suit une loi normale d’espérance <span class="math inline">\(\mu_1\)</span> et de variance <span class="math inline">\(\sigma_2\)</span> et que la longueur LZ suit une loi normale d’espérance <span class="math inline">\(\mu_2\)</span> et de variance <span class="math inline">\(\sigma_2\)</span>.</p>
 <p>Saisir les données, les sauvegarder dans un fichier <code>longueur.csv</code> puis les importer dans un objet <code>dta</code> de R. On cherche dans un premier temps à savoir si, en moyenne, l’évaluation de la longueur AK est non biaisée.</p>
 <ul>
 <li><p>Exprimer la problématique ci-dessus sous la forme d’un test d’hypothèses</p></li>
@@ -180,6 +181,7 @@ window.Quarto = {
 <ul>
 <li>On souhaite maintenant tester l’égalité des moyennes entre AK et LZ</li>
 </ul>
+<p><img src="segment_LZ.png" class="img-fluid"></p>
 </section>
 <section id="exercice-2-le-carbone-organique-dissout" class="level2">
 <h2 class="anchored" data-anchor-id="exercice-2-le-carbone-organique-dissout">Exercice 2 : Le carbone organique dissout</h2>
@@ -237,12 +239,12 @@ window.Quarto = {
  Max.   :3.359   Max.   :1.20983   Max.   :121.02   Max.   :823.5  </code></pre>
 </div>
 </div>
-<p>On s’intéresse maintenant au phosphore total (Ptot_P90). Dans un premier temps, on s’intéresse aux données du bassin parisien uniquement. Pour cela, on filtre les données et on construire un objet dta_bassin qui contient uniquement les stations du bassin parisien.</p>
+<p>On s’intéresse maintenant au phosphore total (<code>Ptot_P90</code>). Dans un premier temps, on s’intéresse aux données du bassin parisien uniquement. Pour cela, on filtre les données et on construire un objet dta_bassin qui contient uniquement les stations du bassin parisien.</p>
 <ol type="1">
 <li><p>Donner l’intervalle de confiance du carbone organique dissout. A quoi cet intervalle correspond-il ?</p></li>
 <li><p>Peut-on considérer que les moyennes des COD sont égales dans les deux régions ?</p></li>
 </ol>
-<p>On s’intéresse maintenant au phosphore total (Ptot_P90). Dans un premier temps, on s’intéresse aux données du bassin parisien uniquement. Pour cela, on filtre les données et on construire un objet dta_bassin qui contient uniquement les stations du bassin parisien.</p>
+<p>On s’intéresse maintenant au phosphore total (<code>Ptot_P90</code>). Dans un premier temps, on s’intéresse aux données du bassin parisien uniquement. Pour cela, on filtre les données et on construire un objet dta_bassin qui contient uniquement les stations du bassin parisien.</p>
 <ol start="3" type="1">
 <li>Construire l’intervalle de confiance du phosphore total pour les stations du bassin parisien.</li>
 <li>Construire maintenant l’intervalle de confiance du phosphore total pour les stations du massif armoricain uni-quement.</li>
