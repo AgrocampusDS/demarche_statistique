@@ -1,9 +1,6 @@
 ---
 title: "TD 3 - Démarche statistique"
 format: html
-editor: 
-  markdown: 
-    wrap: sentence
 ---
 
 ## Exercice 1 – Les haies favorisent-elles la biodiversité ?
