@@ -1,0 +1,7 @@
+library(tidyverse)
+library(plotly)
+library(latex2exp)
+library(kableExtra)
+library(htmltools)
+library(Rcpp)
+library(pdftools)
