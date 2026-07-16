@@ -1,6 +1,6 @@
 project:
   type: website
-  output_dir: "build"
+  output-dir: "build"
 website:
   title: "Agrocampus Ouest : démarche statistique"
   navbar:
