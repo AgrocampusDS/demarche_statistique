@@ -1,9 +1,7 @@
 ---
 title: "Démarche Statistique"
-author: "Département Stats/Info"
 format: html
 toc: true
-date: last-modified
 css: style.css
 execute: 
   freeze: auto
@@ -40,9 +38,11 @@ liste_complete <- do.call('rbind', ll) %>%
 
 ```
 
-#  {.tabset .tabset-fade .tabset-pills}
 
-## Liste des TDs du module
+# Liste des TDs du module
+
+::: {.panel-tabset}
+## Agronomes
 
 ```{r echo = FALSE, eval = TRUE, results='markup'}
 
@@ -57,3 +57,21 @@ liste_complete %>%
 
 
 ```
+
+## Agroalimentaires
+
+```{r echo = FALSE, eval = TRUE, results='markup'}
+
+liste_complete %>%
+  mutate(Lien = cell_spec(TD, "html", link = TD_url)) %>% 
+  select(-TD_url)    %>%
+  select(-TD) %>% 
+  kable("html", escape = FALSE) %>%
+  collapse_rows(columns = 1, valign = 'top') %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+
+
+
+```
+
+:::
