@@ -16,7 +16,7 @@ jobs:
       - name: Generate slides
         run: Rscript -e "install.packages('plotly')"
       - name: Generate slides
-        run: Rscript -e "quarto::quarto_render()"
+        run: "quarto render"
       - name: Copy R files
         run: Rscript copy_scripts.R
       - name: GitHub Pages action
