@@ -43,6 +43,7 @@ Dans un premier temps, on s’intéresse aux données du bassin parisien uniquem
 
 
 ```{r}
+library(tidyverse)
 dta_bassin <- dta |> filter(region=="bassin_parisien")
 
 
