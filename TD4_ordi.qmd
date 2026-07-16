@@ -7,7 +7,6 @@ format: html
 
 A l’œil, **sans l’aide d’une règle et indépendamment de vos voisins**, évaluer la longueur du segment AK (si votre nom commence par une lettre entre A et K) ou du segment LZ à la fin de l’exercice (si votre nom commence par une lettre entre L et Z).
 
-![](segment.png)
 
 Une fois toutes les données recueillies dans votre tableur préféré, considérons deux groupes : les évalua-tions faites pour la longueur AK et celle faite pour la longueur LZ. On suppose que la longueur AK suit une loi normale d’espérance μ1 et de variance σ2 et que la longueur LZ suit une loi normale d’espérance μ2 et de variance σ2.
 
@@ -25,7 +24,6 @@ Pour le segment LZ, tester si, en moyenne, il est évalué justement ou sous-est
 - On souhaite maintenant tester l'égalité des moyennes entre AK et LZ
 
 
-segment_LZ.png)
 
 ## Exercice 2 : Le carbone organique dissout
 
