@@ -6,7 +6,7 @@ format: html
 
 # Exercice 1 – Etude de l’évolution des températures à Paris
 
-On s'intéresse à l'évolution de la température moyenne annuelle à Paris entre 1873 et 2024. Les données sont disponibles dans le fichier [temperature_moyenne_paris.csv](temperature_moyenne_paris.csv).
+On s'intéresse à l'évolution de la température moyenne annuelle à Paris entre 1873 et 2024. Les données sont disponibles dans le fichier [temperature_moyenne_paris.csv](https://agrocampusds.github.io/demarche_statistique/temperature_moyenne_paris.csv).
 
 1. Construire un graphique pour représenter les données. Pourquoi peut-on ici relier les points ?
 2. Donner un indicateur permettant d’évaluer la relation entre les deux variables. Interpréter.
@@ -22,7 +22,7 @@ Après avoir construit un graphique en coloriant en rouge les années de 1873 à
 
 # Exercice 2 – Evolution de l’empreinte GES moyenne par français
 
-On s'intéresse à l'évolution de l’empreinte des gaz à effets de serre (GES) des français entre 1990 et 2024. Les données sont disponibles dans le fichier [empreinteGES.csv](empreinteGES.csv).
+On s'intéresse à l'évolution de l’empreinte des gaz à effets de serre (GES) des français entre 1990 et 2024. Les données sont disponibles dans le fichier [empreinteGES.csv](https://agrocampusds.github.io/demarche_statistique/empreinteGES.csv).
 
 1. Pourquoi selon vous on s’intéresse à l’empreinte moyenne par français plutôt qu’à l’empreinte totale des GES de la France ?
 2. Construire un graphique pour représenter les données.

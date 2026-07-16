@@ -1,0 +1,59 @@
+---
+title: "TD 12 - Démarche statistique"
+format: html
+---
+
+## Exercice 1 – Prise en compte d'un effet bloc
+
+On étudie le rendement de pois fourragers pour trois variétés et trois écartements entre les rangs des lignées. Pour disposer de répétitions, des expériences ont été menées sur 4 parcelles. Toutes les combinaisons variété-écartement ont été testé sur chacune des 4 parcelles. Les données sont regroupées dans le tableau suivant et disponibles dans le fichier [pois.csv](https://agrocampusds.github.io/demarche_statistique/pois.csv).
+
+| Variété | Ecartement | Parcelle 1 | Parcelle 2 | Parcelle 3 | Parcelle 4 |
+| --- | --- | --- | --- | --- | --- |
+| I | Petit | 51 | 47 | 47 | 50 |
+| I | Moyen | 60 | 50 | 45 | 48 |
+| I | Grand | 64 | 55 | 48 | 48 |
+| II | Petit | 64 | 58 | 57 | 61 |
+| II | Moyen | 60 | 58 | 56 | 60 |
+| II | Grand | 58 | 58 | 53 | 60 |
+| III | Petit | 64 | 65 | 54 | 57 |
+| III | Moyen | 62 | 68 | 67 | 60 |
+| III | Grand | 71 | 75 | 75 | 63 |
+
+1. Seuls les effets suivants intéressent l'agronome : variété, écartement, interaction variété-écartement. Pourtant, on choisit de rajouter l'effet parcelle dans le modèle. Quelle peut en être l'utilité ?
+2. Construire et sélectionner le « bon » sous-modèle.
+3. Quels sont les effets significatifs (et les effets non significatifs) du sous-modèle sélectionné ?
+4. Interpréter les effets significatifs (et l'absence des effets non significatifs) dans le modèle sélectionné.
+5. Quelles conclusions auriez-vous eues si vous aviez (mal) travaillé en oubliant l'effet parcelle dans le modèle ?
+
+## Exercice 2 – Moyenne de notes
+
+Pour l'évaluation d'un module de statistique, 10 étudiants ont passé 2 examens. Ils ont obtenu les notes du tableau ci-dessous. Les étudiants 7 et 8 ont été absents à l'épreuve 1, l'étudiant 9 a été absent à l'épreuve 2. La règle étant de calculer la moyenne des notes pour obtenir la note du module, l'étudiant 7 obtient la note de 9, l'étudiant 8 la note de 8 et l'étudiant 9 la note de 11.
+
+| | Epreuve 1 | Epreuve 2 |
+| --- | --- | --- |
+| Etudiant 1 | 12 | 9 |
+| Etudiant 2 | 14 | 10 |
+| Etudiant 3 | 15 | 12 |
+| Etudiant 4 | 18 | 13 |
+| Etudiant 5 | 8 | 3 |
+| Etudiant 6 | 13 | 9 |
+| Etudiant 7 | Abs | 9 |
+| Etudiant 8 | Abs | 8 |
+| Etudiant 9 | 11 | Abs |
+
+1. Soudain, très motivés par leur cours de statistique, les étudiants 7 et 8 le reprennent, l'étudient en détail, et décident d'argumenter que la moyenne ajustée serait beaucoup plus juste pour calculer la note du module. Outre le fait qu'ils auraient mieux fait de relire leur cours plus tôt, que pensez-vous de cette remarque ?
+2. Quel modèle sont-ils en train de considérer ?
+3. Saisir les données, construire ce modèle puis donner une estimation des paramètres et les interpréter. Vous pouvez copier-coller les lignes de code suivantes.
+
+```{r}
+Etudiant <- as.factor(paste("Etudiant",rep(1:9,2),sep="."))
+Epreuve <- as.factor(rep(1:2,each=9))
+Note <- c(12,14,15,18,8,14,NA,NA,11,9,10,12,13,3,10,9,8,NA)
+tab <- cbind.data.frame(Etudiant,Epreuve,Note)
+```
+
+4. Donner les notes que les étudiants 7 et 8 obtiendraient pour la 1ère épreuve et pour l'ensemble du module grâce à ce modèle.
+5. Quelles notes obtiendraient les étudiants 1 à 6 ? Qu'en pensez-vous ?
+6. Construire le même modèle en considérant uniquement les notes des élèves 1 à 6. Donner une estimation des paramètres puis des moyennes ajustées. Quelle différence y-a-t-il avec les moyennes ajustées de la question précédente ?
+
+7. Finalement, que fait l'analyse de variance dans ces situations où il y a des données manquantes ? Dans quel cas est-ce que l'analyse de variance n'est pas indispensable ?

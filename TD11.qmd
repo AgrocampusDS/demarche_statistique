@@ -1,0 +1,37 @@
+---
+title: "TD 11 - Démarche statistique"
+format: html
+---
+
+## Exercice 1 – Le meilleur modèle est-il forcément le plus complexe ?
+
+Pour expliquer le stockage de carbone dans les sols, deux modèles sont proposés.
+
+**Modèle A Variables explicatives : biomasse restituée ; travail du sol.**
+
+**Modèle B Variables explicatives : biomasse restituée ; travail du sol ; teneur en argile ; pente ; altitude ; pluviométrie ; température ; rotation ; profondeur du sol.**
+
+
+Un étudiant affirme : « Le modèle B est forcément meilleur puisqu'il contient plus de variables. »
+
+
+1.	Êtes-vous d'accord ? 
+2.	Quels sont les avantages d'un modèle simple ? 
+3.	Quels sont les avantages d'un modèle plus complexe ? 
+4.	Pourquoi un modèle très complexe peut-il devenir difficile à interpréter ? 
+5.	Quel compromis cherche-t-on généralement lors de la construction d'un modèle ? 
+6.	Dans un contexte agronomique, pourquoi l'interprétation peut-elle être aussi importante que la qualité prédictive ? 
+
+
+## Exercice 2 – Jouons avec l’interaction !
+
+Dans votre session R, lancer la ligne de code suivante pour ouvrir une application shiny :
+source("...") 
+Cette application montre, sur la gauche le graphe des interactions entre un effet produit et un effet juge, et en ordonnée l’appréciation ; et sur la droite, l’application donne des estimations des coefficients du modèle d’analyse de variance qui correspond à la position des points. 
+Les coefficients donnés sont les suivants : μ est l’effet moyen, α_i l’effet du produit i, β_j l’effet du juge j et γ_ij l’effet de l’interaction produit i vu par le juge j.
+Votre objectif est de bouger les points de la figure et de les positionner de sorte à trouver les configurations suivantes :
+
+1. Un effet moyen proche de 12, et un effet juge mais ni effet produit, ni effet de l’interaction
+2. Un effet produit tel que le produit 1 ait un coefficient de +1, le produit 2 un coefficient de -1 ; et ni effet juge ni interaction
+3. Un effet produit, pas d’effet juge, mais une interaction
+4. Ni effet produit, ni effet juge mais une interaction

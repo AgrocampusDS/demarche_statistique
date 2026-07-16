@@ -9,7 +9,7 @@ On s’intéresse aux éventuels liens entre le carbone organique dissous (COD) 
 
 On a par ailleurs des variables caractérisant la station (altitude, distance à la source, taille du cours d’eau, région), des indicateurs de débit, indicateurs de rejets en matières carbonées sur le bassin versant selon différentes origines ; des variables descriptives de la géographie du bassin versant et de son occupation du sol ; et enfin des mesures d’autres paramètres physicochimiques de l’eau.
 
-Ces données sont disponibles dans le fichier [Donnes_COD.csv](Donnes_COD.csv).
+Ces données sont disponibles dans le fichier [Donnes_COD.csv](https://agrocampusds.github.io/demarche_statistique/Donnes_COD.csv).
 
 
 1.	Pourquoi prendre comme indicateur le percentile 90 des mesures faites sur 15 ans ?

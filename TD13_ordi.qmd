@@ -1,0 +1,34 @@
+---
+title: "TD 13 - Démarche statistique"
+format: html
+---
+
+
+
+## Exercice 1 – Date de sortie d’hibernation des amphibiens 
+
+On s’intéresse à la variation temporelle de dates de sortie d'hibernation entre espèces d’amphibiens. L’idée est de comprendre la date de sortie d’hibernation et de voir si celle-ci évolue depuis 1983. Des données ont été recueillies et sont disponibles dans le fichier `https://agrocampusds.github.io/demarche_statistique/amphibiens.csv` (elles sont issues de l’ouvrage de JY. Barnagaud et O. Gimenez. Analyse de données pour les écologues. Biotope Editions, 2025). Les variables sont l’année (entre 1983 et 2004), la date de fin d’hibernation, le code de l’espèce (Alyte accoucheur - ALYOBS, Crapaud commun - BUFBUF, Rainette méridionale - HYLMER, Grenouille rousse - RANTEM, Triton marbré - TRIMAR), l’altitude, la température maximum entre février et mars, la pluviométrie en février mars (en mm).
+
+1.	Visualiser les données avec des graphes permettant de répondre à la problématique.
+2.	Choisir les effets et interactions que vous voulez mettre dans votre modèle.
+3.	Construire le modèle et faire la sélection de variables (vous utiliserez le critère de sélection « aic »).
+4.	Commenter les résultats des effets et interactions (significatifs et non significatifs). Comparer les valeurs des coefficients associés aux variables quantitatives. 
+5.	Certaines personnes suggèrent de ne pas mettre les variables de température et de pluviométrie dans le modèle, d’autres suggèrent de les mettre. Qu’en pensez-vous ?
+6.	Conclure par rapport à la problématique.
+
+## Exercice 2 – Une petite dégustation de chocolats
+
+Lors d’un test de dégustation sensorielle, on veut comparer plusieurs caractéristiques sensorielles de 10 chocolats noirs. Pour cela, un jury d’analyse sensoriel, constitué de 12 juges a évalué chacun des chocolats 2 fois, lors de 2 séances de dégustation. On va s’intéresser ici à la variable A.cacao qui correspond à l’arôme de cacao perçue par le juge (0 = par d’arôme cacao, 10=très fort arôme de cacao). Les données sont disponibles dans le fichier `https://agrocampusds.github.io/demarche_statistique/chocolat_2022.csv`.
+On veut répondre aux questions suivantes : 
+
+•	y a-t-il des différences d’arôme de cacao d’un produit à l’autre ? 
+•	les juges perçoivent-ils les différences entre chocolats de la même façon au niveau de l’arôme de cacao ? 
+•	d’une séance à l’autre, la perception des chocolats est-elle la même ?
+
+
+1.	Importer puis représenter les données.
+2.	Construire un modèle et faire la sélection avec le critère « bic », le critère « aic » et en faisant une sélection « à la main » (i.e. en supprimant pas à pas d’abord les interactions non significatives, puis les effets non significatifs)
+3.	Commenter les résultats des effets et interactions (significatifs et non significatifs).
+4.	Commenter les coefficients.
+5.	Quels chocolats ont des arômes de cacao perçus équivalents ?
+
