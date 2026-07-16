@@ -22,7 +22,7 @@ ll <- lapply(liste_td, function(f){
       filter(str_detect(text, "title:")) %>%
       mutate(Nom = str_remove(text, pattern = "title: [\'\"]"))    %>% 
       mutate(Nom = str_sub(Nom, start = 1, end = -2)) %>% 
-      mutate(index = as.numeric(str_sub(TD, start =3, end = 3))) %>% 
+      mutate(index = as.numeric(str_sub(TD, start =3, end = 4))) %>% 
       select(-text)
     return(td_content)}
 })
