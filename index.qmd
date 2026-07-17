@@ -1,5 +1,5 @@
 ---
-title: "Démarche Statistique"
+title: "Travaux dirigés"
 format: html
 toc: true
 css: style.css
@@ -74,3 +74,5 @@ liste_complete %>%
 ```
 
 :::
+
+

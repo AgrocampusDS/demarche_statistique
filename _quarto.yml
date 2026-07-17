@@ -8,6 +8,8 @@ website:
       - text: ""
         icon: fa-home
         href: index.qmd
+      - text: "Données"
+        href: list_datasets.qmd
     right:
       - text: ""
         icon: fa-github
