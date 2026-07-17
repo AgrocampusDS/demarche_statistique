@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TD 4 - Démarche statistique – Insitut Agro Rennes-Angers</title>
+<title>Données – Insitut Agro Rennes-Angers</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -70,40 +70,14 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
+<link rel="stylesheet" href="style.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -126,7 +100,7 @@ window.Quarto = {
 <span class="menu-text">Travaux dirigés</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./list_datasets.html"> 
+    <a class="nav-link active" href="./list_datasets.html" aria-current="page"> 
 <span class="menu-text">Données</span></a>
   </li>  
 </ul>
@@ -147,13 +121,21 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#liste-des-jeux-de-données-du-module" id="toc-liste-des-jeux-de-données-du-module" class="nav-link active" data-scroll-target="#liste-des-jeux-de-données-du-module">Liste des jeux de données du module</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">TD 4 - Démarche statistique</h1>
+<h1 class="title">Données</h1>
 </div>
 
 
@@ -170,91 +152,134 @@ window.Quarto = {
 </header>
 
 
-<section id="exercice-1-le-compas-dans-lœil" class="level2">
-<h2 class="anchored" data-anchor-id="exercice-1-le-compas-dans-lœil">Exercice 1 : Le compas dans l’œil</h2>
-<p>A l’œil, <strong>sans l’aide d’une règle et indépendamment de vos voisins</strong>, évaluer la longueur du segment AK (si votre nom commence par une lettre entre A et K) ou du segment LZ à la fin de l’exercice (si votre nom commence par une lettre entre L et Z).</p>
-<p><img src="segment.png" class="img-fluid"></p>
-<p>Une fois toutes les données recueillies dans votre tableur préféré, considérons deux groupes : les évalua-tions faites pour la longueur AK et celle faite pour la longueur LZ. On suppose que la longueur AK suit une loi normale d’espérance <span class="math inline">\(\mu_1\)</span> et de variance <span class="math inline">\(\sigma_2\)</span> et que la longueur LZ suit une loi normale d’espérance <span class="math inline">\(\mu_2\)</span> et de variance <span class="math inline">\(\sigma_2\)</span>.</p>
-<p>Saisir les données, les sauvegarder dans un fichier <code>longueur.csv</code> puis les importer dans un objet <code>dta</code> de R. On cherche dans un premier temps à savoir si, en moyenne, l’évaluation de la longueur AK est non biaisée.</p>
-<ul>
-<li><p>Exprimer la problématique ci-dessus sous la forme d’un test d’hypothèses</p></li>
-<li><p>Dans cette problématique de test, quel est l’échantillon et quelle est la population ?</p></li>
-<li><p>A l’aide des données recueillies, mettre en œuvre le test avec un niveau de confiance de 95 %.</p></li>
-</ul>
-<p>Pour le segment LZ, tester si, en moyenne, il est évalué justement ou sous-estimé (préciser <span class="math inline">\(H_0\)</span> et <span class="math inline">\(H_1\)</span> avant de construire le test sous R).</p>
-<ul>
-<li>On souhaite maintenant tester l’égalité des moyennes entre AK et LZ</li>
-</ul>
-<p><img src="segment_LZ.png" class="img-fluid"></p>
-</section>
-<section id="exercice-2-le-carbone-organique-dissout" class="level2">
-<h2 class="anchored" data-anchor-id="exercice-2-le-carbone-organique-dissout">Exercice 2 : Le carbone organique dissout</h2>
-<p>On reprend les données sur le carbone organique dissout. On s’intéresse dans un premier temps au percen-tile 90 du carbone organique dissout. Reprendre les lignes de code permettant d’importer le jeu de données :</p>
+<p>Vous trouverez sur cette page l’ensemble des jeux de données nécessaires aux TDs de démarche statistique.</p>
+<section id="liste-des-jeux-de-données-du-module" class="level1">
+<h1>Liste des jeux de données du module</h1>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Agronomes</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Agroalimentaires</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>  position     COD_p90      distance_source       alti        
- Amont:49   Min.   :2.251   Min.   :  3244   Min.   : -0.151  
- Aval :12   1st Qu.:4.250   1st Qu.: 13808   1st Qu.:  9.358  
-            Median :4.891   Median : 20873   Median : 23.942  
-            Mean   :4.964   Mean   : 29362   Mean   : 46.885  
-            3rd Qu.:5.657   3rd Qu.: 31889   3rd Qu.: 70.032  
-            Max.   :7.862   Max.   :152577   Max.   :208.761  
-  taille_cours_d_eau               region     debit_p10      
- grand     : 3       bassin_parisien  :25   Min.   :0.00100  
- moyen     : 7       massif_armoricain:36   1st Qu.:0.08814  
- petit     :27                              Median :0.25072  
- tres petit:24                              Mean   :0.70139  
-                                            3rd Qu.:0.60273  
-                                            Max.   :6.55321  
-   debit_moy           debit_p90            carb_urb          carb_ind       
- Min.   : 0.002509   Min.   : 0.004968   Min.   :   0.00   Min.   :  0.0000  
- 1st Qu.: 0.421094   1st Qu.: 1.022102   1st Qu.:  22.11   1st Qu.:  0.0000  
- Median : 0.911269   Median : 1.921737   Median :  55.16   Median :  0.2362  
- Mean   : 2.211609   Mean   : 4.616459   Mean   : 131.07   Mean   : 23.4740  
- 3rd Qu.: 2.103540   3rd Qu.: 4.113298   3rd Qu.: 124.69   3rd Qu.: 18.9119  
- Max.   :19.197424   Max.   :47.614452   Max.   :1311.97   Max.   :181.1694  
-   carb_elev         carb_sols           sup_bv           foret        
- Min.   :  17.88   Min.   :   19.7   Min.   :   7.0   Min.   :0.00000  
- 1st Qu.:  92.76   1st Qu.:  203.5   1st Qu.:  54.0   1st Qu.:0.02616  
- Median : 196.19   Median :  374.3   Median :  93.0   Median :0.04071  
- Mean   : 502.60   Mean   : 1013.6   Mean   : 228.9   Mean   :0.05744  
- 3rd Qu.: 466.34   3rd Qu.:  888.1   3rd Qu.: 182.5   3rd Qu.:0.07543  
- Max.   :3949.52   Max.   :10721.0   Max.   :2538.5   Max.   :0.18522  
-    prairie           culture           urbain             divers       
- Min.   :0.04413   Min.   :0.1069   Min.   :0.000000   Min.   :0.00000  
- 1st Qu.:0.40979   1st Qu.:0.2971   1st Qu.:0.006832   1st Qu.:0.01074  
- Median :0.48472   Median :0.4020   Median :0.010267   Median :0.01779  
- Mean   :0.49599   Mean   :0.4080   Mean   :0.014396   Mean   :0.02431  
- 3rd Qu.:0.59108   3rd Qu.:0.5001   3rd Qu.:0.017098   3rd Qu.:0.03026  
- Max.   :0.85017   Max.   :0.8755   Max.   :0.077571   Max.   :0.12171  
-     d_pop           d_betail         Ptot_p90          NO3_p90      
- Min.   :  0.00   Min.   : 29.45   Min.   :0.04006   Min.   : 8.932  
- 1st Qu.: 36.61   1st Qu.: 80.02   1st Qu.:0.09766   1st Qu.:17.719  
- Median : 51.03   Median :123.56   Median :0.11854   Median :25.074  
- Mean   : 67.75   Mean   :131.19   Mean   :0.13435   Mean   :26.813  
- 3rd Qu.: 73.08   3rd Qu.:163.43   3rd Qu.:0.14456   3rd Qu.:35.617  
- Max.   :336.43   Max.   :311.55   Max.   :0.44355   Max.   :68.305  
-    DBO_p90         NH4_p90           MES_p90        conduct._p90  
- Min.   :1.363   Min.   :0.04523   Min.   : 12.59   Min.   :137.7  
- 1st Qu.:1.823   1st Qu.:0.06802   1st Qu.: 29.08   1st Qu.:268.3  
- Median :1.989   Median :0.07959   Median : 37.76   Median :315.9  
- Mean   :1.997   Mean   :0.12068   Mean   : 39.45   Mean   :412.4  
- 3rd Qu.:2.050   3rd Qu.:0.11121   3rd Qu.: 44.68   3rd Qu.:584.9  
- Max.   :3.359   Max.   :1.20983   Max.   :121.02   Max.   :823.5  </code></pre>
+<div class="cell-output-display">
+<table class="lightable-classic caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Jeu de données</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Lien</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Amphibiens</td>
+<td style="text-align: left;"><a href="amphibiens.csv">amphibiens</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Brome</td>
+<td style="text-align: left;"><a href="brome.csv">brome</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cafe dm</td>
+<td style="text-align: left;"><a href="cafe_DM.csv">cafe_DM</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Chocolat 2022</td>
+<td style="text-align: left;"><a href="chocolat_2022.csv">chocolat_2022</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Compote</td>
+<td style="text-align: left;"><a href="compote.csv">compote</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Donnees cod</td>
+<td style="text-align: left;"><a href="Donnees_COD.csv">Donnees_COD</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Donnees echouages</td>
+<td style="text-align: left;"><a href="donnees_echouages.csv">donnees_echouages</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Empreinteges</td>
+<td style="text-align: left;"><a href="empreinteGES.csv">empreinteGES</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Pois</td>
+<td style="text-align: left;"><a href="pois.csv">pois</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Temperature moyenne paris</td>
+<td style="text-align: left;"><a href="temperature_moyenne_paris.csv">temperature_moyenne_paris</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Trees</td>
+<td style="text-align: left;"><a href="trees.csv">trees</a></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<p>On s’intéresse maintenant au phosphore total (<code>Ptot_P90</code>). Dans un premier temps, on s’intéresse aux données du bassin parisien uniquement. Pour cela, on filtre les données et on construire un objet dta_bassin qui contient uniquement les stations du bassin parisien.</p>
-<ol type="1">
-<li><p>Donner l’intervalle de confiance du carbone organique dissout. A quoi cet intervalle correspond-il ?</p></li>
-<li><p>Peut-on considérer que les moyennes des COD sont égales dans les deux régions ?</p></li>
-</ol>
-<p>On s’intéresse maintenant au phosphore total (<code>Ptot_P90</code>). Dans un premier temps, on s’intéresse aux données du bassin parisien uniquement. Pour cela, on filtre les données et on construire un objet dta_bassin qui contient uniquement les stations du bassin parisien.</p>
-<ol start="3" type="1">
-<li>Construire l’intervalle de confiance du phosphore total pour les stations du bassin parisien.</li>
-<li>Construire maintenant l’intervalle de confiance du phosphore total pour les stations du massif armoricain uni-quement.</li>
-<li>Peut-on considérer que la moyenne du phosphore total est plus grande dans le bassin parisien que dans le massif armoricain ?</li>
-<li>Comparez les largeurs des deux intervalles de confiance (bassin parisien vs massif armoricain). Quelle(s) raison(s) peux/peuvent expliquer la différence de largeur ?</li>
-</ol>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<div class="cell-output-display">
+<table class="lightable-classic caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Jeu de données</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Lien</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Amphibiens</td>
+<td style="text-align: left;"><a href="amphibiens.csv">amphibiens</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Brome</td>
+<td style="text-align: left;"><a href="brome.csv">brome</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cafe dm</td>
+<td style="text-align: left;"><a href="cafe_DM.csv">cafe_DM</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Chocolat 2022</td>
+<td style="text-align: left;"><a href="chocolat_2022.csv">chocolat_2022</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Compote</td>
+<td style="text-align: left;"><a href="compote.csv">compote</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Donnees cod</td>
+<td style="text-align: left;"><a href="Donnees_COD.csv">Donnees_COD</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Donnees echouages</td>
+<td style="text-align: left;"><a href="donnees_echouages.csv">donnees_echouages</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Empreinteges</td>
+<td style="text-align: left;"><a href="empreinteGES.csv">empreinteGES</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Pois</td>
+<td style="text-align: left;"><a href="pois.csv">pois</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Temperature moyenne paris</td>
+<td style="text-align: left;"><a href="temperature_moyenne_paris.csv">temperature_moyenne_paris</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Trees</td>
+<td style="text-align: left;"><a href="trees.csv">trees</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 
 </section>
