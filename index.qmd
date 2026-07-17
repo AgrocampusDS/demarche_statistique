@@ -46,7 +46,7 @@ liste_complete <- do.call('rbind', ll) %>%
 ```{r echo = FALSE, eval = TRUE, results='markup'}
 
 liste_complete %>%
-  mutate(Lien = cell_spec(TD, "html", link = TD_url)) %>% 
+  mutate(Lien = cell_spec(str_remove(TD, "_ordi"), "html", link = TD_url)) %>% 
   select(-TD_url)    %>%
   select(-TD) %>% 
   kable("html", escape = FALSE) %>%
@@ -62,7 +62,7 @@ liste_complete %>%
 ```{r echo = FALSE, eval = TRUE, results='markup'}
 
 liste_complete %>%
-  mutate(Lien = cell_spec(TD, "html", link = TD_url)) %>% 
+  mutate(Lien = cell_spec(str_remove(TD, "_ordi"), "html", link = TD_url)) %>% 
   select(-TD_url)    %>%
   select(-TD) %>% 
   kable("html", escape = FALSE) %>%

@@ -1,5 +1,5 @@
 ---
-title: "TD 4 - Démarche statistique"
+title: "TD 4 - Test de comparaison de moyenne"
 format: html
 ---
 

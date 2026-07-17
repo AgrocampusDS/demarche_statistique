@@ -1,5 +1,5 @@
 ---
-title: "TD 12 - Démarche statistique"
+title: "TD 12 - Prise en compte d'effets"
 format: html
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: "TD 3 - Démarche statistique"
+title: "TD 3 - Test d'hypothèse"
 format: html
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: "TD 10 - Démarche statistique"
+title: "TD 10 - Cas déséquilibré"
 format: html
 ---
 

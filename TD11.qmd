@@ -1,5 +1,5 @@
 ---
-title: "TD 11 - Démarche statistique"
+title: "TD 11 - Intéractions"
 format: html
 ---
 
