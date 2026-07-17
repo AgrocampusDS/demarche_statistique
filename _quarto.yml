@@ -2,7 +2,7 @@ project:
   type: website
   output-dir: "build"
 website:
-  title: "Agrocampus Ouest : démarche statistique"
+  title: "Insitut Agro Rennes-Angers"
   navbar:
     left:
       - text: ""
