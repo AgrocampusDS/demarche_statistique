@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TD 7 - Régression – Insitut Agro Rennes-Angers</title>
+<title>Travaux dirigés – Insitut Agro Rennes-Angers</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -29,23 +29,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3c9c489b3365030a08823a85c71cd1a4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-3c9c489b3365030a08823a85c71cd1a4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -73,18 +73,21 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
 
+<link rel="stylesheet" href="style.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Insitut Agro Rennes-Angers</span>
     </a>
   </div>
@@ -95,12 +98,12 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> <i class="bi bi-fa-home" role="img">
+    <a class="nav-link" href="../index.html"> <i class="bi bi-fa-home" role="img">
 </i> 
 <span class="menu-text">Travaux dirigés</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./list_datasets.html"> 
+    <a class="nav-link" href="../list_datasets.html"> 
 <span class="menu-text">Données</span></a>
   </li>  
 </ul>
@@ -121,13 +124,21 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#liste-des-tds-du-module" id="toc-liste-des-tds-du-module" class="nav-link active" data-scroll-target="#liste-des-tds-du-module">Liste des TDs du module</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">TD 7 - Régression</h1>
+<h1 class="title">Travaux dirigés</h1>
 </div>
 
 
@@ -144,53 +155,52 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="exercice-1-taille-des-mares-et-biodiversité-des-amphibiens" class="level2">
-<h2 class="anchored" data-anchor-id="exercice-1-taille-des-mares-et-biodiversité-des-amphibiens">Exercice 1 – Taille des mares et biodiversité des amphibiens</h2>
-<p>Un écologue s’intéresse aux mares agricoles. Pour chacune de 50 mares, il mesure la surface de la mare (en m²) et le nombre d’espèces d’amphibiens observées. Un premier graphique semble montrer que les grandes mares abritent davantage d’espèces.</p>
-<ol type="1">
-<li>Quelle est la question scientifique ?</li>
-<li>Quelle est la variable explicative ? Quelle est la variable réponse ?</li>
-<li>Pourquoi une ANOVA n’est-elle pas adaptée ici ? Quel type d’analyse paraît plus pertinent ?</li>
-<li>Si le nuage de points montre une tendance croissante, que signifie cette observation ?</li>
-<li>Peut-on conclure que l’augmentation de la surface cause directement l’augmentation du nombre d’espèces ?</li>
-<li>Quels autres facteurs pourraient intervenir ?</li>
-</ol>
-</section>
-<section id="exercice-2-estimation-du-volume-dun-arbre" class="level2">
-<h2 class="anchored" data-anchor-id="exercice-2-estimation-du-volume-dun-arbre">Exercice 2 – Estimation du volume d’un arbre</h2>
-<p>On mesure le volume (m3) et le diamètre (cm) à hauteur de buste (à 1m37) de 31 cerisiers tombés au sol. On cherche à savoir si on peut déterminer le volume d’un cerisier en fonction de son diamètre à hauteur de buste.</p>
-<ol type="1">
-<li>Préciser la nature de la variable réponse ainsi que la nature de la variable explicative.</li>
-<li>Ecrire le modèle correspondant.</li>
-<li>On ajuste le modèle en utilisant la fonction <code>LinearModel</code>. Remplacez les ??? par des valeurs que vous approximerez à partir de la figure ci-contre.</li>
-<li>Donnez une interprétation compréhensible pour un public non-spécialiste de ces coefficients.</li>
-<li>Que contiennent les différentes colonnes du tableau ? Qu’est-ce qui est testé ?</li>
-<li>On souhaite estimer le volume d’un cerisier (sur pied cette fois-ci !). On mesure son diamètre de 54 cm à hauteur de buste. En s’appuyant sur le modèle, à quel volume s’attend-on pour cet arbre ?</li>
-</ol>
-<div class="grid">
-<div class="g-col-7">
-<pre><code>&gt; LinearModel(Volume~Diamètre,data=arbre)
-
-Call:
-LinearModel(formula = Volume~Diamètre, data=arbre)
-
-Residual standard error: 0.1203 on 29 degrees of freedom
-Multiple R-squared:  0.9354 
-F-statistic: 419.7 on 1 and 29 DF,  p-value: 8.563e-19 
-AIC = -129.3    BIC = -126.5
-
-Ftest
-              SS df     MS F value    Pr(&gt;F)
-Diamètre  6.0774  1 6.0774  419.65 &lt; 2.2e-16
-Residuals 0.4200 29 0.0145                  
-
-Ttest
-              Estimate Std. Error t value  Pr(&gt;|t|)
-(Intercept)        ???      0.095 -10.980 7.591e-12
-Diamètre           ???      0.003  20.485 &lt; 2.2e-16</code></pre>
+<p>Vous trouverez sur ce site les énoncés de TDs associés au cours de démarche statistique.</p>
+<section id="liste-des-tds-du-module" class="level1">
+<h1>Liste des TDs du module</h1>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Agronomes</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Agroalimentaires</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell">
+<div class="cell-output-display">
+<table class="lightable-classic caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Nom</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Lien</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">TD 2 - Visualisation de données</td>
+<td style="text-align: left;"><a href="TD2.html">TD2</a></td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="g-col-5">
-<p><img src="volume_diametre.png" class="img-fluid" style="width:150.0%"></p>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<div class="cell-output-display">
+<table class="lightable-classic caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Nom</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Lien</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">TD 2 - Visualisation de données</td>
+<td style="text-align: left;"><a href="TD2.html">TD2</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 </div>
 </div>
 

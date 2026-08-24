@@ -1,0 +1,58 @@
+
+.header-section-number {
+  display: none;
+}
+
+body {                     /* Set a counter named 'section', and its initial value is 0. */
+  counter-reset: section;  
+}
+
+
+h3::before {
+  content: counter(section) ". ";
+}  
+
+
+
+h4:not(.author)::before {
+  counter-increment: subsection;
+  content: counter(section)"."counter(subsection) ". ";
+}  
+
+
+
+h3{
+  counter-increment: section;
+  counter-reset: subsection;
+  font-size: 1.3em;
+  font-weight: bold;
+   color:#DD4814;
+}
+
+
+h4{
+  font-size: 1.3em;
+   color:  #2F6690;
+   font-style: italic;
+
+}
+
+
+h1{
+   color: #1E415C;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+    color: #ffffff;
+    background-color: #DD4814;
+}
+
+
+.care {
+  
+  font-size: 1.3em;
+  font-style: italic;
+  color:  #1E415C;
+  align-content: center;
+}
+
