@@ -21,23 +21,23 @@ website:
       - section: "Agronomie"
       	href: agronome/tds.qmd
         contents:
-          - text: "TD 2"
+          - text: "Agronomie" 
             href: agronome/TD2.qmd          
-          - text: "TD 4 " 
+          - text: "Agronomie" 
             href: agronome/TD4.qmd
-          - text: "TD 6" 
+          - text: "Agronomie" 
             href: agronome/TD6.qmd          
-          - text: "TD 8" 
+          - text: "Agronomie" 
             href: agronome/TD8.qmd
-          - text: "TD 10" 
+          - text: "Agronomie" 
             href: agronome/TD10.qmd          
-          - text: "TD 12" 
+          - text: "Agronomie" 
             href: agronome/TD12.qmd
-          - text: "TD 13" 
+          - text: "Agronomie" 
             href: agronome/TD13.qmd          
-          - text: "TD 14" 
+          - text: "Agronomie" 
             href: agronome/TD14.qmd
-            
+
 format:
   html:
     theme: flatly
