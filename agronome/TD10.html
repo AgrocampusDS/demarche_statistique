@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TD 9 - Sélection de modèle – Institut Agro Rennes-Angers</title>
+<title>TD 10 - Cas déséquilibré – Institut Agro Rennes-Angers</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -29,23 +29,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3c9c489b3365030a08823a85c71cd1a4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-3c9c489b3365030a08823a85c71cd1a4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -74,35 +74,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -113,7 +84,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Institut Agro Rennes-Angers</span>
     </a>
   </div>
@@ -124,7 +95,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> <i class="bi bi-fa-home" role="img">
+    <a class="nav-link" href="../index.html"> <i class="bi bi-fa-home" role="img">
 </i> 
 <span class="menu-text">Travaux dirigés</span></a>
   </li>  
@@ -146,7 +117,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">TD 9 - Sélection de modèle</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">TD 10 - Cas déséquilibré</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -160,7 +131,7 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./agronome/tds.html" class="sidebar-item-text sidebar-link">
+  <a href="../agronome/tds.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
@@ -179,7 +150,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">TD 9 - Sélection de modèle</h1>
+<h1 class="title">TD 10 - Cas déséquilibré</h1>
 </div>
 
 
@@ -196,52 +167,41 @@ window.Quarto = {
 </header>
 
 
-<section id="exercice-1-construction-dun-modèle-choix-des-effets-et-interactions" class="level2">
-<h2 class="anchored" data-anchor-id="exercice-1-construction-dun-modèle-choix-des-effets-et-interactions">Exercice 1 – Construction d’un modèle, choix des effets et interactions</h2>
-<ol type="1">
-<li>Quelles variables explicatives, quelles interactions utiliseriez-vous pour construire un modèle permettant de prédire (répondre à 2 questions au choix parmi les 4)</li>
-</ol>
-<ul>
-<li>la taille d’un individu adulte ?</li>
-<li>la taille d’un enfant entre 2 et 15 ans.</li>
-<li>le nombre de lombrics dans un cube de terre de 10 cm de côté ?</li>
-<li>le poids des poubelles à la cantine de l’IA ?</li>
-</ul>
-<ol start="2" type="1">
-<li>Préciser quelles variables sont quantitatives (resp. qualitatives) puis écrire le modèle.</li>
-</ol>
-</section>
-<section id="exercice-2-interpréter-un-modèle" class="level2">
-<h2 class="anchored" data-anchor-id="exercice-2-interpréter-un-modèle">Exercice 2 – Interpréter un modèle</h2>
+<section id="exercice-1-relation-entre-la-teneur-en-amines-et-le-stress-salin" class="level1">
+<h1>Exercice 1 – Relation entre la teneur en amines et le stress salin</h1>
 <div class="grid">
-<div class="g-col-7">
-<p>On étudie l’effet d’une variable qualitative fac à 3 modalités (A, B et C) et d’une variable quantitative x sur une variable réponse Y. On visualise les données avec le graphique ci-contre avant de construire le modèle :</p>
-<p><span class="math display">\[Y_{ij} = \mu + \alpha_i + (\beta + \gamma_i)x_{ij} + \varepsilon_{ij} \]</span> 1. Quel est le nom de ce modèle ? 2. Donner une estimation de <span class="math inline">\(\mu\)</span> et une de <span class="math inline">\(\beta\)</span> 3. Donner une estimation des <span class="math inline">\(\alpha_i\)</span> 4. Donner une estimation des <span class="math inline">\(\gamma_i\)</span> 5. Selon vous, y a-t-il un effet significatif de x sur Y ? un effet de fac sur Y ? un effet de l’interaction entre fac et x sur Y ?</p>
+<div class="g-col-8">
+<p>L’étude suivante porte sur la réponse à un stress salin de différents bromes (graminées, voir photos). Nous disposions de trois espèces de bromes et pour chaque espèce la moitié des plantes ont été soumises à un stress salin et l’autre moitié des plantes “témoin” n’ont pas subi de stress. On a alors mesuré les concentrations de différentes amines sur chaque plante. Certaines données sont manquantes et donc le plan d’expériences n’est pas toujours équilibré. Toutes les données sont disponibles dans le fichier <a href="https://agrocampusds.github.io/demarche_statistique/agronome/data/brome.csv">brome.csv</a>.</p>
 </div>
-<div class="g-col-5">
-<p><img src="ancova.png" class="img-fluid" style="width:150.0%"></p>
+<div class="g-col-4">
+<!-- ![](images/amine1.jpg) -->
+<p><br></p>
+<p><img src="images/amine2.jpg" class="img-fluid" style="width:50.0%"></p>
 </div>
 </div>
-</section>
-<section id="exercice-3-stockage-de-carbone-dans-les-sols-agricoles" class="level2">
-<h2 class="anchored" data-anchor-id="exercice-3-stockage-de-carbone-dans-les-sols-agricoles">Exercice 3 – Stockage de carbone dans les sols agricoles</h2>
-<p>Une équipe de recherche souhaite comprendre pourquoi certaines parcelles stockent davantage de carbone que d’autres. Pour chaque parcelle, on mesure :</p>
+<p>On voudra répondre aux questions suivantes :</p>
 <ul>
-<li>le stock de carbone du sol ;</li>
-<li>la quantité annuelle de biomasse restituée au sol ;</li>
-<li>le nombre d’années sous couvert végétal ;</li>
-<li>le travail du sol (labour ou semis direct) ;</li>
-<li>la teneur en argile.</li>
+<li>Le traitement a-t-il un effet significatif sur la concentration en amines ?</li>
+<li>La concentration en amines diffèrent-elles d’une espèce à l’autre ?</li>
+<li>Y a-t-il des différences significatives dans la réponse au stress d’une espèce à l’autre ?</li>
 </ul>
-<p>Après analyse, les chercheurs constatent que les parcelles en semis direct stockent davantage de carbone mais elles sont aussi souvent celles qui ont les couverts végétaux les plus développés.</p>
 <ol type="1">
-<li>Quelle est la variable réponse ? Quelles sont les variables explicatives ?</li>
-<li>Pourquoi est-il difficile d’attribuer directement l’augmentation du carbone au seul semis direct ?</li>
-<li>Quelles variables pourraient jouer un rôle de confusion ?</li>
-<li>Pourquoi un modèle prenant en compte plusieurs variables explicatives semble-t-il nécessaire ?</li>
-<li>Si l’effet du semis direct disparaît après prise en compte de la biomasse restituée, comment pourriez-vous interpréter ce résultat ?</li>
-<li>Si l’effet du semis direct reste important même après prise en compte des autres variables, qu’est-ce que cela suggère ?</li>
+<li>Quel modèle utiliser ? Et à quoi correspond chaque effet que vous mettez dans votre modèle ?</li>
+<li>Visualiser les données (les effets des facteurs et de l’interaction sur la concentration en amines).</li>
+<li>Construire le modèle et donner le R² du modèle complet et du modèle sélectionné. Commenter.</li>
+<li>Calculer la variabilité de la variable réponse puis calculer la somme des carrés expliqués par le modèle. Comparer la somme des carrés du modèle avec la somme des carrés de tous les effets présents dans le modèle.</li>
+<li>Répondre aux 3 questions.</li>
 </ol>
+</section>
+<section id="exercice-2-la-paléoclimatologie-les-pollens-témoins-de-lévolution-du-climat" class="level1">
+<h1>Exercice 2 – La paléoclimatologie : les pollens témoins de l’évolution du climat</h1>
+<p>On s’intéresse ici à des données de paléoclimatologie, i.e.&nbsp;la science qui étudie les climats passés et leurs variations. Cela permet de mieux comprendre les évolutions du climat actuelles et à quel point elles sont liées à l’homme. Le jeu de données (fourni par Joël Guiot) correspond à 700 relevés (dans 700 endroits différents du globe) qui mesurent le pourcentage de pollens de 31 espèces d’arbres. Ces relevés ont été effectués récemment (lors de ce siècle) et nous disposons donc aussi des relevés de variables climatiques, et notamment la température moyenne annuelle. On donne également pour chaque relevé le macrosystème (on parle aussi de biomes) du prélèvement. 9 macrosystèmes différents sont possibles : COCO (cool conifer forest), COMX (cool mixed forest), COST (cool steppes), HODE (hot desert), TEDE (temperate deciduous forest), TUND (tundra), WAMX (warm mixed broad-leaved forest), WAST (warm steppes), XERO (xerophytic scrubs). Les données sont disponibles dans le paleo_present.csv.</p>
+<ol type="1">
+<li>On cherche à modéliser la température annuelle en fonction des données disponibles. Proposer un modèle.</li>
+<li>Construire ce modèle et commenter sa qualité.</li>
+</ol>
+<p>On souhaite maintenant utiliser ce modèle pour prévoir la température moyenne annuelle des siècles précédents. On dispose pour cela des relevés d’une carotte glaciaire à partir de laquelle, siècle par siècle, on peut obtenir le pourcentage de chacun des 31 pollens. Ces échantillons remontent à 128 siècles et sont notés BPxx pour Before Present xx siècles : BP15 il y a 15 siècles (ceci est approximatif, la datation avant le présent est donnée dans la colonne age). Pour ces données (disponibles dans le fichier <code>paleo_passe.csv</code>), on ne dispose ni du macroécosystème, ni bien entendu du climat. L’objectif est d’essayer de prédire le climat au cours des siècles passés à partir de la composition en les différents pollens. Importer le jeu de données en utilisant <code>row.names=1</code> pour que la date corresponde au nom de l’échantillon.</p>
+<p>Le modèle que vous avez construit précédemment est-il utile pour prédire la température moyenne annuelle des siècles passés ? Si non, comment feriez-vous ? Prédire la température moyenne annuelle pour le siècle BP15 et BP100 (il faudra certainement attendre le prochain cours pour savoir faire cette prévision !)</p>
 
 
 </section>
