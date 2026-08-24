@@ -2,7 +2,7 @@ project:
   type: website
   output-dir: "build"
 website:
-  title: "Insitut Agro Rennes-Angers"
+  title: "Institut Agro Rennes-Angers"
   navbar:
     left:
       - text: ""
@@ -15,28 +15,9 @@ website:
         icon: fa-github
         href: https://github.com/AgrocampusDS/demarche_statistique
   sidebar:
-    style: "docked"
-    search: true
     contents:
-      - section: "Agronomie"
-      	href: agronome/tds.qmd
-        contents:
-          - text: "Agronomie" 
-            href: agronome/TD2.qmd          
-          - text: "Agronomie" 
-            href: agronome/TD4.qmd
-          - text: "Agronomie" 
-            href: agronome/TD6.qmd          
-          - text: "Agronomie" 
-            href: agronome/TD8.qmd
-          - text: "Agronomie" 
-            href: agronome/TD10.qmd          
-          - text: "Agronomie" 
-            href: agronome/TD12.qmd
-          - text: "Agronomie" 
-            href: agronome/TD13.qmd          
-          - text: "Agronomie" 
-            href: agronome/TD14.qmd
+      - text: "Introduction"
+        href: agronome/tds.qmd
 
 format:
   html:
