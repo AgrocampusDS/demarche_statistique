@@ -18,6 +18,8 @@ website:
     contents:
       - text: "Introduction"
         href: agronome/tds.qmd
+      - section: "Introduction"
+        href: agronome/TD2.qmd
 
 format:
   html:

@@ -11,15 +11,15 @@ format: html
 ::: {.grid}
 
 ::: {.g-col-8}
-L’étude suivante porte sur la réponse à un stress salin de différents bromes (graminées, voir photos). Nous disposions de trois espèces de bromes et pour chaque espèce la moitié des plantes ont été soumises à un stress salin et l’autre moitié des plantes “témoin” n’ont pas subi de stress. On a alors mesuré les concentrations de différentes amines sur chaque plante. Certaines données sont manquantes et donc le plan d’expériences n’est pas toujours équilibré. Toutes les données sont disponibles dans le fichier [amines.csv](https://agrocampusds.github.io/demarche_statistique/amines.csv).
+L’étude suivante porte sur la réponse à un stress salin de différents bromes (graminées, voir photos). Nous disposions de trois espèces de bromes et pour chaque espèce la moitié des plantes ont été soumises à un stress salin et l’autre moitié des plantes “témoin” n’ont pas subi de stress. On a alors mesuré les concentrations de différentes amines sur chaque plante. Certaines données sont manquantes et donc le plan d’expériences n’est pas toujours équilibré. Toutes les données sont disponibles dans le fichier [brome.csv](https://agrocampusds.github.io/demarche_statistique/agronome/data/brome.csv).
 :::
 
 ::: {.g-col-4}
 
-![](amine1.jpg)
+<!-- ![](images/amine1.jpg) -->
 <br>
 
-![](amine2.jpg){width=50%}
+![](images/amine2.jpg){width=50%}
 :::
 
 :::

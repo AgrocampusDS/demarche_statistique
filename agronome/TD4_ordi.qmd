@@ -7,7 +7,7 @@ format: html
 
 A l’œil, **sans l’aide d’une règle et indépendamment de vos voisins**, évaluer la longueur du segment AK (si votre nom commence par une lettre entre A et K) ou du segment LZ à la fin de l’exercice (si votre nom commence par une lettre entre L et Z).
 
-![](segment.png)
+![](images/segment.png)
 
 
 
@@ -27,7 +27,7 @@ Pour le segment LZ, tester si, en moyenne, il est évalué justement ou sous-est
 - On souhaite maintenant tester l'égalité des moyennes entre AK et LZ
 
 
-![](segment_LZ.png)
+![](images/segment_LZ.png)
 
 
 
@@ -39,7 +39,7 @@ Reprendre les lignes de code permettant d’importer le jeu de données :
 
 
 ```{r}
-dta <- read.table("Donnees_COD.csv", sep=";", dec=",", header=TRUE, stringsAsFactors = TRUE)
+dta <- read.table("data/Donnees_COD.csv", sep=";", dec=",", header=TRUE, stringsAsFactors = TRUE)
 summary(dta)
 
 ```

@@ -5,7 +5,7 @@ format: html
 
 ## Exercice 1 – Prise en compte d'un effet bloc
 
-On étudie le rendement de pois fourragers pour trois variétés et trois écartements entre les rangs des lignées. Pour disposer de répétitions, des expériences ont été menées sur 4 parcelles. Toutes les combinaisons variété-écartement ont été testé sur chacune des 4 parcelles. Les données sont regroupées dans le tableau suivant et disponibles dans le fichier [pois.csv](https://agrocampusds.github.io/demarche_statistique/pois.csv).
+On étudie le rendement de pois fourragers pour trois variétés et trois écartements entre les rangs des lignées. Pour disposer de répétitions, des expériences ont été menées sur 4 parcelles. Toutes les combinaisons variété-écartement ont été testé sur chacune des 4 parcelles. Les données sont regroupées dans le tableau suivant et disponibles dans le fichier [pois.csv](https://agrocampusds.github.io/demarche_statistique/agronome/data/pois.csv).
 
 | Variété | Ecartement | Parcelle 1 | Parcelle 2 | Parcelle 3 | Parcelle 4 |
 | --- | --- | --- | --- | --- | --- |
