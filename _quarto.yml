@@ -3,23 +3,26 @@ project:
   output-dir: "build"
 website:
   title: "Institut Agro Rennes-Angers"
-  navbar:
-    left:
-      - text: ""
-        icon: fa-home
-        href: index.qmd
-      # - text: "Données"
-      #   href: list_datasets.qmd
-    right:
-      - text: ""
-        icon: fa-github
-        href: https://github.com/AgrocampusDS/demarche_statistique
   sidebar:
     contents:
       - text: "Introduction"
         href: agronome/tds.qmd
-      - section: "Introduction"
+      - section: "TD 2"
         href: agronome/TD2.qmd
+      - section: "TD 4"
+        href: agronome/TD4.qmd
+      - section: "TD 6"
+        href: agronome/TD6.qmd
+      - section: "TD 8"
+        href: agronome/TD8.qmd
+      - section: "TD 10"
+        href: agronome/TD10.qmd
+      - section: "TD 12"
+        href: agronome/TD12.qmd
+      - section: "TD 13"
+        href: agronome/TD13.qmd
+      - section: "TD 14"
+        href: agronome/TD14.qmd
 
 format:
   html:
