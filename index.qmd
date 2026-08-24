@@ -5,74 +5,74 @@ toc: true
 css: style.css
 ---
 
-Vous trouverez sur ce site les énoncés de TDs associés au cours de démarche statistique.
+<!-- Vous trouverez sur ce site les énoncés de TDs associés au cours de démarche statistique. -->
 
-```{r setup-TD_liste, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, cache= FALSE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'markup' )
-library(tidyverse)
-library(kableExtra)
-liste_td  <- list.files(pattern = '.qmd')  
-
-
-ll <- lapply(liste_td, function(f){
-  if(! (f %in% c( "index.qmd") ) ){
-    print(f)
-    td_content <- tibble(text = readLines(f) ) %>% 
-      mutate(TD = str_remove(f, pattern = '.qmd')) %>% 
-      filter(str_detect(text, "title:")) %>%
-      mutate(Nom = str_remove(text, pattern = "title: [\'\"]"))    %>% 
-      mutate(Nom = str_sub(Nom, start = 1, end = -2)) %>% 
-      # mutate(index = as.numeric(str_sub(TD, start =3, end = 4))) %>% 
-      mutate(index = as.numeric(str_extract(TD, "[:digit:]+"))) %>% 
-      select(-text)
-    return(td_content)}
-})
+<!-- ```{r setup-TD_liste, include=FALSE} -->
+<!-- knitr::opts_chunk$set(echo = FALSE, cache= FALSE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'markup' ) -->
+<!-- library(tidyverse) -->
+<!-- library(kableExtra) -->
+<!-- liste_td  <- list.files(pattern = '.qmd')   -->
 
 
-liste_complete <- do.call('rbind', ll) %>% 
-  mutate(TD_url = paste0(TD, '.html')) %>% 
-  arrange(index) %>% 
-  select(-index)
+<!-- ll <- lapply(liste_td, function(f){ -->
+<!--   if(! (f %in% c( "index.qmd") ) ){ -->
+<!--     print(f) -->
+<!--     td_content <- tibble(text = readLines(f) ) %>%  -->
+<!--       mutate(TD = str_remove(f, pattern = '.qmd')) %>%  -->
+<!--       filter(str_detect(text, "title:")) %>% -->
+<!--       mutate(Nom = str_remove(text, pattern = "title: [\'\"]"))    %>%  -->
+<!--       mutate(Nom = str_sub(Nom, start = 1, end = -2)) %>%  -->
+<!--       # mutate(index = as.numeric(str_sub(TD, start =3, end = 4))) %>%  -->
+<!--       mutate(index = as.numeric(str_extract(TD, "[:digit:]+"))) %>%  -->
+<!--       select(-text) -->
+<!--     return(td_content)} -->
+<!-- }) -->
 
 
-```
+<!-- liste_complete <- do.call('rbind', ll) %>%  -->
+<!--   mutate(TD_url = paste0(TD, '.html')) %>%  -->
+<!--   arrange(index) %>%  -->
+<!--   select(-index) -->
 
 
-# Liste des TDs du module
-
-::: {.panel-tabset}
-## Agronomes
-
-```{r echo = FALSE, eval = TRUE, results='markup'}
-
-liste_complete %>%
-  mutate(Lien = cell_spec(str_remove(TD, "_ordi"), "html", link = TD_url)) %>% 
-  select(-TD_url)    %>%
-  select(-TD) %>% 
-  kable("html", escape = FALSE) %>%
-  collapse_rows(columns = 1, valign = 'top') %>%
-  kable_classic(full_width = F, html_font = "Cambria")
+<!-- ``` -->
 
 
+<!-- # Liste des TDs du module -->
 
-```
+<!-- ::: {.panel-tabset} -->
+<!-- ## Agronomes -->
 
-## Agroalimentaires
+<!-- ```{r echo = FALSE, eval = TRUE, results='markup'} -->
 
-```{r echo = FALSE, eval = TRUE, results='markup'}
-
-liste_complete %>%
-  mutate(Lien = cell_spec(str_remove(TD, "_ordi"), "html", link = TD_url)) %>% 
-  select(-TD_url)    %>%
-  select(-TD) %>% 
-  kable("html", escape = FALSE) %>%
-  collapse_rows(columns = 1, valign = 'top') %>%
-  kable_classic(full_width = F, html_font = "Cambria")
+<!-- liste_complete %>% -->
+<!--   mutate(Lien = cell_spec(str_remove(TD, "_ordi"), "html", link = TD_url)) %>%  -->
+<!--   select(-TD_url)    %>% -->
+<!--   select(-TD) %>%  -->
+<!--   kable("html", escape = FALSE) %>% -->
+<!--   collapse_rows(columns = 1, valign = 'top') %>% -->
+<!--   kable_classic(full_width = F, html_font = "Cambria") -->
 
 
 
-```
+<!-- ``` -->
 
-:::
+<!-- ## Agroalimentaires -->
+
+<!-- ```{r echo = FALSE, eval = TRUE, results='markup'} -->
+
+<!-- liste_complete %>% -->
+<!--   mutate(Lien = cell_spec(str_remove(TD, "_ordi"), "html", link = TD_url)) %>%  -->
+<!--   select(-TD_url)    %>% -->
+<!--   select(-TD) %>%  -->
+<!--   kable("html", escape = FALSE) %>% -->
+<!--   collapse_rows(columns = 1, valign = 'top') %>% -->
+<!--   kable_classic(full_width = F, html_font = "Cambria") -->
+
+
+
+<!-- ``` -->
+
+<!-- ::: -->
 
 
