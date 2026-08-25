@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 )
 library(tidyverse)
 library(kableExtra)
-liste_td  <- list.files(path = "agronome/", pattern = '.qmd')
+liste_td  <- list.files(pattern = '.qmd')
 
 
 ll <- lapply(liste_td, function(f){
