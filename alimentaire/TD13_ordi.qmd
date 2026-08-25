@@ -1,0 +1,24 @@
+---
+title: "TD 13 - Démarche statistique complète"
+format: html
+---
+
+
+
+
+## Exercice 1 – Une petite dégustation de chocolats
+
+Lors d'un test de dégustation sensorielle, on veut comparer plusieurs caractéristiques sensorielles de 10 chocolats noirs. Pour cela, un jury d'analyse sensoriel, constitué de 12 juges a évalué chacun des chocolats 2 fois, lors de 2 séances de dégustation. On va s'intéresser ici à la variable A.cacao qui correspond à l'arôme de cacao perçue par le juge (0 = par d'arôme cacao, 10=très fort arôme de cacao). Les données sont disponibles dans le fichier [chocolat_2022.csv](https://agrocampusds.github.io/demarche_statistique/alimentaire/data/chocolat_2022.csv).
+On veut répondre aux questions suivantes : 
+
++	y a-t-il des différences d'arôme de cacao d'un produit à l'autre ? 
++	les juges perçoivent-ils les différences entre chocolats de la même façon au niveau de l'arôme de cacao ? 
++	d'une séance à l'autre, la perception des chocolats est-elle la même ?
+
+
+1.	Importer puis représenter les données.
+2.	Construire un modèle et faire la sélection avec le critère « bic », le critère « aic » et en faisant une sélection « à la main » (i.e. en supprimant pas à pas d'abord les interactions non significatives, puis les effets non significatifs)
+3.	Commenter les résultats des effets et interactions (significatifs et non significatifs).
+4.	Commenter les coefficients.
+5.	Quels chocolats ont des arômes de cacao perçus équivalents ?
+

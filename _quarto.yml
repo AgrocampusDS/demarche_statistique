@@ -16,6 +16,37 @@ website:
             href: agronome/TD2.qmd
           - text: "TD 4"
             href: agronome/TD4_ordi.qmd
+          - text: "TD 6"
+            href: agronome/TD6.qmd
+          - text: "TD 8"
+            href: agronome/TD8.qmd
+          - text: "TD 10"
+            href: agronome/TD10.qmd
+          - text: "TD 12"
+            href: agronome/TD12_ordi.qmd
+          - text: "TD 13"
+            href: agronome/TD13_ordi.qmd
+          - text: "TD 14"
+            href: agronome/TD14_ordi.qmd
+      - section: "Alimentaire"
+        href: agronome/tds.qmd
+        contents:
+          - text: "TD 2" 
+            href: alimentaire/TD2.qmd
+          - text: "TD 4"
+            href: alimentaire/TD4_ordi.qmd
+          - text: "TD 6"
+            href: alimentaire/TD6.qmd
+          - text: "TD 8"
+            href: alimentaire/TD8.qmd
+          - text: "TD 10"
+            href: alimentaire/TD10.qmd
+          - text: "TD 12"
+            href: alimentaire/TD12_ordi.qmd
+          - text: "TD 13"
+            href: alimentaire/TD13_ordi.qmd
+          - text: "TD 14"
+            href: alimentaire/TD14_ordi.qmd
 format:
   html:
     theme: flatly

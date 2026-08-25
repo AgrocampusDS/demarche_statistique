@@ -4,7 +4,7 @@ format: html
 ---
 
 
-# Exercice 1 – Etude de l’évolution des températures à Paris
+# Exercice 1 – Etude de l'évolution des températures à Paris
 
 On s'intéresse à l'évolution de la température moyenne annuelle à Paris entre 1873 et 2024. Les données sont disponibles dans le fichier [temperature_moyenne_paris.csv](https://agrocampusds.github.io/demarche_statistique/agronome/data/temperature_moyenne_paris.csv).
 
@@ -22,13 +22,13 @@ Après avoir construit un graphique en coloriant en rouge les années de 1873 à
 
 # Exercice 2 – Evolution de l'empreinte GES moyenne par français
 
-On s'intéresse à l'évolution de l'empreinte des gaz à effets de serre (GES) des français entre 1990 et 2024. Les données sont disponibles dans le fichier [empreinteGES.csv](https://agrocampusds.github.io/demarche_statistique/agronome/data/empreinteGES.csv).
+On s'intéresse à l'évolution de l’empreinte des gaz à effets de serre (GES) des français entre 1990 et 2024. Les données sont disponibles dans le fichier [empreinteGES.csv](https://agrocampusds.github.io/demarche_statistique/agronome/data/empreinteGES.csv).
 
-1. Pourquoi selon vous on s'intéresse à l'empreinte moyenne par français plutôt qu'à l'empreinte totale des GES de la France ?
+1. Pourquoi selon vous on s’intéresse à l’empreinte moyenne par français plutôt qu’à l’empreinte totale des GES de la France ?
 2. Construire un graphique pour représenter les données.
 
-On cherche maintenant à prévoir l'évolution jusqu'en 2050. Après avoir bien visualisé les données, proposer un modèle et les données que vous utiliseriez pour prévoir l'évolution de l'empreinte GES dans les prochaines années. 
+On cherche maintenant à prévoir l’évolution jusqu’en 2050. Après avoir bien visualisé les données, proposer un modèle et les données que vous utiliseriez pour prévoir l’évolution de l’empreinte GES dans les prochaines années. 
 3. Construire et interpréter le modèle.
 
-4. Quelle empreinte carbone prédisez-vous pour 2050 (sachant que l'objectif défini lors des accords de Paris est de 2teqCO2/hab/an) ? Quelle hypothèse sous-jacente faites-vous quand vous faites cette prédiction ? Qu'en pensez-vous.
+4. Quelle empreinte carbone prédisez-vous pour 2050 (sachant que l’objectif défini lors des accords de Paris est de 2teqCO2/hab/an) ? Quelle hypothèse sous-jacente faites-vous quand vous faites cette prédiction ? Qu’en pensez-vous.
 

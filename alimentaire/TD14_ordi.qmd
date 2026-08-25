@@ -1,0 +1,28 @@
+---
+title: "TD 14 - Comme des grands"
+format: html
+---
+
+## Exercice 1 - Prédire le rendement fromager en fonction de la composition du lait
+
+Un laboratoire d'analyse souhaite mettre en évidence l'influence de la composition du lait sur le rendement fromager. Pour ce faire, il a mesuré sur un échantillon de n = 85 laits, la densité, le taux butyreux, le taux de protéine, le taux de caséine, l'extrait sec et le rendement fromager de chacun de ces laits. Importer les données avec la ligne de code suivante :
+
+```{r}
+lait <- read.table("data/lait.csv", sep=";", header=TRUE, dec=",")
+summary(lait)
+```
+
+1. A l'aide de la fonction `cor`, calculer les corrélations entre toutes les variables (vous pourrez arrondir en appliquant la fonction `round` sur le résultat de `cor`).
+2. Construire le modèle complet permettant de prédire le rendement puis sélectionner le sous-modèle adapté en utilisant la sélection AIC puis en utilisant la sélection BIC. Quel modèle choisissez-vous de retenir ?
+3. Commenter les estimations des coefficients du modèle retenu (rappeler le test effectué pour un coefficient en rappelant les hypothèses, la statistique de test et sa conclusion).
+Les mesures sur un nouvel échantillon de lait sont les suivantes :
+
+```{r}
+library(kableExtra)
+newdata <- data.frame(Densite = 1.03, Butyreux = 37.7, Proteine=35.7, Caseine = 28.5, Extrait.sec = 127.1)
+newdata |> kbl() |> 
+    kable_styling(bootstrap_options = c("striped", "hover")) 
+
+```
+4. A l'aide de la fonction `predict`, déterminer l'intervalle de confiance associé à ce rendement moyen.
+5. Déterminer l'intervalle de prédiction associé à l'estimation du rendement d'un tel lait.

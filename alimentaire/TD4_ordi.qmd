@@ -1,0 +1,62 @@
+---
+title: "TD 4 - Test de comparaison de moyenne"
+format: html
+---
+
+## Exercice 1 : Le compas dans l'œil
+
+A l’œil, **sans l’aide d’une règle et indépendamment de vos voisins**, évaluer la longueur du segment AK (si votre nom commence par une lettre entre A et K) ou du segment LZ à la fin de l’exercice (si votre nom commence par une lettre entre L et Z).
+
+![](images/segment.png)
+
+
+
+Une fois toutes les données recueillies dans votre tableur préféré, considérons deux groupes : les évalua-tions faites pour la longueur AK et celle faite pour la longueur LZ. On suppose que la longueur AK suit une loi normale d’espérance $\mu_1$ et de variance $\sigma_2$ et que la longueur LZ suit une loi normale d’espérance $\mu_2$ et de variance $\sigma_2$.
+
+Saisir les données, les sauvegarder dans un fichier `longueur.csv` puis les importer dans un objet `dta` de R. On cherche dans un premier temps à savoir si, en moyenne, l’évaluation de la longueur AK est non biaisée.
+
+- Exprimer la problématique ci-dessus sous la forme d'un test d'hypothèses
+
+- Dans cette problématique de test, quel est l'échantillon et quelle est la population ?
+
+- A l'aide des données recueillies, mettre en œuvre le test avec un niveau de confiance de 95 %.
+
+Pour le segment LZ, tester si, en moyenne, il est évalué justement ou sous-estimé (préciser $H_0$ et $H_1$ avant de construire le test sous R).
+
+
+- On souhaite maintenant tester l'égalité des moyennes entre AK et LZ
+
+
+![](images/segment_LZ.png)
+
+
+
+## Exercice 2 : Reconnaissance de la teneur en cacao
+
+Le but ici consiste à savoir dans quelle mesure le consommateur détecte ou non une différence de teneur en cacao. Plusieurs dégustateurs ont goûté chocolat sans connaître sa teneur en cacao, et ont estimé cette teneur en cacao. Deux chocolats ont été proposés; un chocolat dont la teneur est de 72%, et un autre de teneur 85%. Les données sont enregistrées dans le fichier [chocolat_72_85.csv](https://agrocampusds.github.io/demarche_statistique/alimentaire/data/chocolat_72_85.csv).
+Importer le jeu de données et transformer la variable Pourcentage.reel en facteur :
+
+```{r}
+dta <- read.table(
+  "data/chocolat_72_85.csv",
+  sep = ";",
+  dec = ",",
+  header = TRUE,
+  stringsAsFactors = TRUE
+)
+summary(dta)
+dta$Pourcentage.reel <- as.factor(dta$Pourcentage.reel)
+```
+
+
+Dans un premier temps, on s'intéresse aux estimations de la teneur en cacao pour le chocolat 72% uniquement. Pour cela, on filtre les données et on construire un objet `dta_72` qui contient uniquement ces données.
+
+```{r}
+library(dplyr)
+dta_72 <- dta |> filter(Pourcentage.reel==72)
+```
+
+
+1. Donner l'intervalle de confiance de la teneur moyenne estimée pour le chocolat 72%. A quoi cet intervalle correspond-il ? Les dégustateurs perçoivent-ils correctement la teneur en cacao en moyenne ?
+2. Faire de même et mêmes questions pour la perception du chocolat à 85%.
+3. Peut-on considérer que la teneur en cacao est perçue comme plus élevée pour le chocolat 85% par rapport à celle du chocolat à 72% ?
