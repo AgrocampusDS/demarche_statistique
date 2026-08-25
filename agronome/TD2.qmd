@@ -1,6 +1,8 @@
 ---
 title: "TD 2 - Visualisation de données"
 format: html
+toc: true
+css: style.css
 ---
 
 ## Exercice – Visualisation de données sur le carbone organique dissout

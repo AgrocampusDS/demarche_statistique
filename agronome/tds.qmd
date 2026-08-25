@@ -8,7 +8,15 @@ css: style.css
 Vous trouverez sur ce site les énoncés de TDs associés au cours de démarche statistique.
 
 ```{r setup-TD_liste, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, cache= FALSE, eval = TRUE, fig.show='hide', message = FALSE, warning = FALSE, results = 'markup' )
+knitr::opts_chunk$set(
+  echo = FALSE,
+  cache = FALSE,
+  eval = TRUE,
+  fig.show = 'hide',
+  message = FALSE,
+  warning = FALSE,
+  results = 'markup'
+)
 library(tidyverse)
 library(kableExtra)
 liste_td  <- list.files(pattern = '.qmd')
@@ -49,7 +57,5 @@ liste_complete %>%
   kable("html", escape = FALSE) %>%
   collapse_rows(columns = 1, valign = 'top') %>%
   kable_classic(full_width = F, html_font = "Cambria")
-
-
 
 ```
