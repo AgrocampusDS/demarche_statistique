@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Données – Institut Agro Rennes-Angers</title>
+<title>TD 2 - Visualisation de données – Institut Agro Rennes-Angers</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -73,14 +73,12 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="nav-sidebar docked quarto-light">
+<body class="nav-sidebar docked fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -150,21 +148,13 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#liste-des-jeux-de-données-du-module" id="toc-liste-des-jeux-de-données-du-module" class="nav-link active" data-scroll-target="#liste-des-jeux-de-données-du-module">Liste des jeux de données du module</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Données</h1>
+<h1 class="title">TD 2 - Visualisation de données</h1>
 </div>
 
 
@@ -181,39 +171,46 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Vous trouverez sur cette page l’ensemble des jeux de données nécessaires aux TDs de démarche statistique.</p>
-<section id="liste-des-jeux-de-données-du-module" class="level1">
-<h1>Liste des jeux de données du module</h1>
+<section id="exercice-analyse-sensorielle-de-jus-dorange" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-analyse-sensorielle-de-jus-dorange">Exercice – Analyse sensorielle de jus d’orange</h2>
+<p>Une analyse sensorielle a été organisée pour comparer 12 jus d’orange. Cinq juges ont évalué ces jus d’orange 2 fois lors de deux séances de dégustations. Ils ont évalué plusieurs descripteurs sensoriels (saveur sucrée, amère, acide) ainsi que leur appréciation du produit en mettant des notes entre 0 et 10. L’objectif d’une telle analyse est de comparer les produits les uns par rapport aux autres.</p>
+<ol type="1">
+<li>Quelle est la nature de chacune des variables ?</li>
+</ol>
+<p>Pour importer les variables utiliser les lignes de commande suivantes :</p>
 <div class="cell">
-<div class="cell-output-display">
-<table class="lightable-classic caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Jeu de données</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Lien</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Chocolat 2022</td>
-<td style="text-align: left;"><a href="alimentaire/data/chocolat_2022.csv">chocolat_2022</a></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Fromages</td>
-<td style="text-align: left;"><a href="alimentaire/data/fromages.csv">fromages</a></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Jusorange</td>
-<td style="text-align: left;"><a href="alimentaire/data/jusorange.csv">jusorange</a></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Lait</td>
-<td style="text-align: left;"><a href="alimentaire/data/lait.csv">lait</a></td>
-</tr>
-</tbody>
-</table>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Produit         Juge     Seance      Sucree           Acide      
+ 1      : 24   1      : 24   1:144   Min.   : 1.000   Min.   :1.000  
+ 2      : 24   2      : 24   2:144   1st Qu.: 4.000   1st Qu.:3.000  
+ 3      : 24   3      : 24           Median : 5.000   Median :5.000  
+ 4      : 24   4      : 24           Mean   : 5.205   Mean   :4.896  
+ 5      : 24   5      : 24           3rd Qu.: 6.000   3rd Qu.:6.000  
+ 6      : 24   6      : 24           Max.   :10.000   Max.   :9.000  
+ (Other):144   (Other):144                                           
+     Amere           Pulpeux        Appreciation  
+ Min.   : 1.000   Min.   : 1.000   Min.   :1.000  
+ 1st Qu.: 1.000   1st Qu.: 1.000   1st Qu.:3.000  
+ Median : 3.000   Median : 3.000   Median :4.000  
+ Mean   : 3.549   Mean   : 3.868   Mean   :4.608  
+ 3rd Qu.: 6.000   3rd Qu.: 6.000   3rd Qu.:6.000  
+ Max.   :10.000   Max.   :10.000   Max.   :9.000  
+                                                  </code></pre>
 </div>
 </div>
+<ol start="2" type="1">
+<li>Pour chacun des points suivants, construire puis interpréter le graphique adapté pour visualiser (les lignes de code pour construire les graphiques sont celles du cours à adapter sur le jeu de données) :</li>
+</ol>
+<ul>
+<li>la distribution des valeurs de l’appréciation</li>
+<li>le nombre de notes par juge</li>
+<li>la relation entre la saveur sucrée et l’appréciation</li>
+<li>la relation entre la saveur amère et l’appréciation</li>
+<li>la relation entre l’appréciation et le produit</li>
+<li>la relation entre la saveur sucrée et l’appréciation selon le juge</li>
+<li>la relation entre le produit et le l’appréciation selon le juge</li>
+<li>si l’effet du produit est le même impact sur l’appréciation selon la séance</li>
+</ul>
 
 
 </section>
