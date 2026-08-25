@@ -1,7 +1,6 @@
 ---
 title: "Travaux dirigés"
 format: html
-toc: true
 css: style.css
 ---
 

@@ -1,7 +1,6 @@
 ---
 title: "Démarche Statistique, parcours Ingénieur Agronome"
 format: html
-toc: true
 css: style.css
 ---
 

@@ -3,7 +3,19 @@ project:
   output-dir: "build"
 website:
   title: "Institut Agro Rennes-Angers"
-  
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - text: "Index"
+        href: index.qmd
+      - section: "Agronome"
+        href: agronome/tds.qmd
+        contents:
+          - text: "TD 2" 
+            href: agronome/TD2.qmd
+          - text: "TD 4"
+            href: agronome/TD4_ordi.qmd
 format:
   html:
     theme: flatly
