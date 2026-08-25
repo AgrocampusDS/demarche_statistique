@@ -7,22 +7,6 @@ website:
     contents:
       - text: "Introduction"
         href: agronome/tds.qmd
-      - section: "TD 2"
-        href: TD2.qmd
-      - section: "TD 4"
-        href: agronome/TD4_ordi.qmd
-      - section: "TD 6"
-        href: agronome/TD6.qmd
-      - section: "TD 8"
-        href: agronome/TD8.qmd
-      - section: "TD 10"
-        href: agronome/TD10.qmd
-      - section: "TD 12"
-        href: agronome/TD12_ordi.qmd
-      - section: "TD 13"
-        href: agronome/TD13_ordi.qmd
-      - section: "TD 14"
-        href: agronome/TD14_ordi.qmd
 
 format:
   html:
