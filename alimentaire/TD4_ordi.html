@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TD 2 - Visualisation de données – Institut Agro Rennes-Angers</title>
+<title>TD 4 - Test de comparaison de moyenne – Institut Agro Rennes-Angers</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -74,8 +74,36 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="style.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 </head>
 
 <body class="nav-sidebar docked fullcontent quarto-light">
@@ -87,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD2.html">TD 2</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD4_ordi.html">TD 4</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -188,13 +216,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../alimentaire/TD2.html" class="sidebar-item-text sidebar-link active">
+  <a href="../alimentaire/TD2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">TD 2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../alimentaire/TD4_ordi.html" class="sidebar-item-text sidebar-link">
+  <a href="../alimentaire/TD4_ordi.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">TD 4</span></a>
   </div>
 </li>
@@ -245,9 +273,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD2.html">TD 2</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD4_ordi.html">TD 4</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">TD 2 - Visualisation de données</h1>
+<h1 class="title">TD 4 - Test de comparaison de moyenne</h1>
 </div>
 
 
@@ -264,46 +292,43 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="exercice-analyse-sensorielle-de-jus-dorange" class="level2">
-<h2 class="anchored" data-anchor-id="exercice-analyse-sensorielle-de-jus-dorange">Exercice – Analyse sensorielle de jus d’orange</h2>
-<p>Une analyse sensorielle a été organisée pour comparer 12 jus d’orange. Cinq juges ont évalué ces jus d’orange 2 fois lors de deux séances de dégustations. Ils ont évalué plusieurs descripteurs sensoriels (saveur sucrée, amère, acide) ainsi que leur appréciation du produit en mettant des notes entre 0 et 10. L’objectif d’une telle analyse est de comparer les produits les uns par rapport aux autres.</p>
-<ol type="1">
-<li>Quelle est la nature de chacune des variables ?</li>
-</ol>
-<p>Pour importer les variables utiliser les lignes de commande suivantes :</p>
+<section id="exercice-1-le-compas-dans-lœil" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-1-le-compas-dans-lœil">Exercice 1 : Le compas dans l’œil</h2>
+<p>A l’œil, <strong>sans l’aide d’une règle et indépendamment de vos voisins</strong>, évaluer la longueur du segment AK (si votre nom commence par une lettre entre A et K) ou du segment LZ à la fin de l’exercice (si votre nom commence par une lettre entre L et Z).</p>
+<p><img src="images/segment.png" class="img-fluid"></p>
+<p>Une fois toutes les données recueillies dans votre tableur préféré, considérons deux groupes : les évalua-tions faites pour la longueur AK et celle faite pour la longueur LZ. On suppose que la longueur AK suit une loi normale d’espérance <span class="math inline">\(\mu_1\)</span> et de variance <span class="math inline">\(\sigma_2\)</span> et que la longueur LZ suit une loi normale d’espérance <span class="math inline">\(\mu_2\)</span> et de variance <span class="math inline">\(\sigma_2\)</span>.</p>
+<p>Saisir les données, les sauvegarder dans un fichier <code>longueur.csv</code> puis les importer dans un objet <code>dta</code> de R. On cherche dans un premier temps à savoir si, en moyenne, l’évaluation de la longueur AK est non biaisée.</p>
+<ul>
+<li><p>Exprimer la problématique ci-dessus sous la forme d’un test d’hypothèses</p></li>
+<li><p>Dans cette problématique de test, quel est l’échantillon et quelle est la population ?</p></li>
+<li><p>A l’aide des données recueillies, mettre en œuvre le test avec un niveau de confiance de 95 %.</p></li>
+</ul>
+<p>Pour le segment LZ, tester si, en moyenne, il est évalué justement ou sous-estimé (préciser <span class="math inline">\(H_0\)</span> et <span class="math inline">\(H_1\)</span> avant de construire le test sous R).</p>
+<ul>
+<li>On souhaite maintenant tester l’égalité des moyennes entre AK et LZ</li>
+</ul>
+<p><img src="images/segment_LZ.png" class="img-fluid"></p>
+</section>
+<section id="exercice-2-reconnaissance-de-la-teneur-en-cacao" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-2-reconnaissance-de-la-teneur-en-cacao">Exercice 2 : Reconnaissance de la teneur en cacao</h2>
+<p>Le but ici consiste à savoir dans quelle mesure le consommateur détecte ou non une différence de teneur en cacao. Plusieurs dégustateurs ont goûté chocolat sans connaître sa teneur en cacao, et ont estimé cette teneur en cacao. Deux chocolats ont été proposés; un chocolat dont la teneur est de 72%, et un autre de teneur 85%. Les données sont enregistrées dans le fichier <a href="https://agrocampusds.github.io/demarche_statistique/alimentaire/data/chocolat_72_85.csv">chocolat_72_85.csv</a>. Importer le jeu de données et transformer la variable Pourcentage.reel en facteur :</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>    Produit         Juge     Seance      Sucree           Acide      
- 1      : 24   1      : 24   1:144   Min.   : 1.000   Min.   :1.000  
- 2      : 24   2      : 24   2:144   1st Qu.: 4.000   1st Qu.:3.000  
- 3      : 24   3      : 24           Median : 5.000   Median :5.000  
- 4      : 24   4      : 24           Mean   : 5.205   Mean   :4.896  
- 5      : 24   5      : 24           3rd Qu.: 6.000   3rd Qu.:6.000  
- 6      : 24   6      : 24           Max.   :10.000   Max.   :9.000  
- (Other):144   (Other):144                                           
-     Amere           Pulpeux        Appreciation  
- Min.   : 1.000   Min.   : 1.000   Min.   :1.000  
- 1st Qu.: 1.000   1st Qu.: 1.000   1st Qu.:3.000  
- Median : 3.000   Median : 3.000   Median :4.000  
- Mean   : 3.549   Mean   : 3.868   Mean   :4.608  
- 3rd Qu.: 6.000   3rd Qu.: 6.000   3rd Qu.:6.000  
- Max.   :10.000   Max.   :10.000   Max.   :9.000  
-                                                  </code></pre>
+<pre><code> Pourcentage.reel Pourcentage.percu
+ Min.   :72.0     Min.   :30.00    
+ 1st Qu.:72.0     1st Qu.:60.00    
+ Median :78.5     Median :70.00    
+ Mean   :78.5     Mean   :70.53    
+ 3rd Qu.:85.0     3rd Qu.:80.50    
+ Max.   :85.0     Max.   :99.00    </code></pre>
 </div>
 </div>
-<ol start="2" type="1">
-<li>Pour chacun des points suivants, construire puis interpréter le graphique adapté pour visualiser (les lignes de code pour construire les graphiques sont celles du cours à adapter sur le jeu de données) :</li>
+<p>Dans un premier temps, on s’intéresse aux estimations de la teneur en cacao pour le chocolat 72% uniquement. Pour cela, on filtre les données et on construire un objet <code>dta_72</code> qui contient uniquement ces données.</p>
+<ol type="1">
+<li>Donner l’intervalle de confiance de la teneur moyenne estimée pour le chocolat 72%. A quoi cet intervalle correspond-il ? Les dégustateurs perçoivent-ils correctement la teneur en cacao en moyenne ?</li>
+<li>Faire de même et mêmes questions pour la perception du chocolat à 85%.</li>
+<li>Peut-on considérer que la teneur en cacao est perçue comme plus élevée pour le chocolat 85% par rapport à celle du chocolat à 72% ?</li>
 </ol>
-<ul>
-<li>la distribution des valeurs de l’appréciation</li>
-<li>le nombre de notes par juge</li>
-<li>la relation entre la saveur sucrée et l’appréciation</li>
-<li>la relation entre la saveur amère et l’appréciation</li>
-<li>la relation entre l’appréciation et le produit</li>
-<li>la relation entre la saveur sucrée et l’appréciation selon le juge</li>
-<li>la relation entre le produit et le l’appréciation selon le juge</li>
-<li>si l’effet du produit est le même impact sur l’appréciation selon la séance</li>
-</ul>
 
 
 </section>

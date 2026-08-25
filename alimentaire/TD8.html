@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TD 2 - Visualisation de données – Institut Agro Rennes-Angers</title>
+<title>TD 8 - Régression – Institut Agro Rennes-Angers</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -75,7 +75,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="style.css">
 </head>
 
 <body class="nav-sidebar docked fullcontent quarto-light">
@@ -87,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD2.html">TD 2</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD8.html">TD 8</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -188,7 +187,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../alimentaire/TD2.html" class="sidebar-item-text sidebar-link active">
+  <a href="../alimentaire/TD2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">TD 2</span></a>
   </div>
 </li>
@@ -206,7 +205,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../alimentaire/TD8.html" class="sidebar-item-text sidebar-link">
+  <a href="../alimentaire/TD8.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">TD 8</span></a>
   </div>
 </li>
@@ -245,9 +244,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD2.html">TD 2</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD8.html">TD 8</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">TD 2 - Visualisation de données</h1>
+<h1 class="title">TD 8 - Régression</h1>
 </div>
 
 
@@ -264,46 +263,34 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="exercice-analyse-sensorielle-de-jus-dorange" class="level2">
-<h2 class="anchored" data-anchor-id="exercice-analyse-sensorielle-de-jus-dorange">Exercice – Analyse sensorielle de jus d’orange</h2>
-<p>Une analyse sensorielle a été organisée pour comparer 12 jus d’orange. Cinq juges ont évalué ces jus d’orange 2 fois lors de deux séances de dégustations. Ils ont évalué plusieurs descripteurs sensoriels (saveur sucrée, amère, acide) ainsi que leur appréciation du produit en mettant des notes entre 0 et 10. L’objectif d’une telle analyse est de comparer les produits les uns par rapport aux autres.</p>
+<section id="exercice-1-etude-de-lévolution-des-températures-à-paris" class="level1">
+<h1>Exercice 1 – Etude de l’évolution des températures à Paris</h1>
+<p>On s’intéresse à l’évolution de la température moyenne annuelle à Paris entre 1873 et 2024. Les données sont disponibles dans le fichier <a href="https://agrocampusds.github.io/demarche_statistique/agronome/data/temperature_moyenne_paris.csv">temperature_moyenne_paris.csv</a>.</p>
 <ol type="1">
-<li>Quelle est la nature de chacune des variables ?</li>
+<li>Construire un graphique pour représenter les données. Pourquoi peut-on ici relier les points ?</li>
+<li>Donner un indicateur permettant d’évaluer la relation entre les deux variables. Interpréter.</li>
+<li>Ecrire mathématiquement un modèle permettant l’étude d’une éventuelle relation entre la température moyenne annuelle et l’année.</li>
+<li>Construire ce modèle et interpréter les résultats.</li>
+<li>Comment interprétez-vous concrètement chaque coefficient du modèle ? Ces interprétations ont-elle un sens ici ?</li>
+<li>Comment l’expliquez-vous ?</li>
+<li>Quelle température moyenne annuelle prédisez-vous avec le modèle construit. Quelle hypothèse sous-jacente faites-vous ?</li>
 </ol>
-<p>Pour importer les variables utiliser les lignes de commande suivantes :</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>    Produit         Juge     Seance      Sucree           Acide      
- 1      : 24   1      : 24   1:144   Min.   : 1.000   Min.   :1.000  
- 2      : 24   2      : 24   2:144   1st Qu.: 4.000   1st Qu.:3.000  
- 3      : 24   3      : 24           Median : 5.000   Median :5.000  
- 4      : 24   4      : 24           Mean   : 5.205   Mean   :4.896  
- 5      : 24   5      : 24           3rd Qu.: 6.000   3rd Qu.:6.000  
- 6      : 24   6      : 24           Max.   :10.000   Max.   :9.000  
- (Other):144   (Other):144                                           
-     Amere           Pulpeux        Appreciation  
- Min.   : 1.000   Min.   : 1.000   Min.   :1.000  
- 1st Qu.: 1.000   1st Qu.: 1.000   1st Qu.:3.000  
- Median : 3.000   Median : 3.000   Median :4.000  
- Mean   : 3.549   Mean   : 3.868   Mean   :4.608  
- 3rd Qu.: 6.000   3rd Qu.: 6.000   3rd Qu.:6.000  
- Max.   :10.000   Max.   :10.000   Max.   :9.000  
-                                                  </code></pre>
-</div>
-</div>
-<ol start="2" type="1">
-<li>Pour chacun des points suivants, construire puis interpréter le graphique adapté pour visualiser (les lignes de code pour construire les graphiques sont celles du cours à adapter sur le jeu de données) :</li>
+<p>Après avoir construit un graphique en coloriant en rouge les années de 1873 à 1993 et en bleu les points de 1994 à 2024, vous remarquez que les points bleus sont très souvent au-dessus de la droite de régression.</p>
+<ol start="8" type="1">
+<li>Qu’est-ce que cela signifie sur les valeurs des résidus pour les points bleus ? (vous pouvez vérifier votre propos en regardant l’objet <code>$lmResult$residuals</code> qui donne les résidus du modèle). Comment interprétez-vous concrètement cela ?</li>
 </ol>
-<ul>
-<li>la distribution des valeurs de l’appréciation</li>
-<li>le nombre de notes par juge</li>
-<li>la relation entre la saveur sucrée et l’appréciation</li>
-<li>la relation entre la saveur amère et l’appréciation</li>
-<li>la relation entre l’appréciation et le produit</li>
-<li>la relation entre la saveur sucrée et l’appréciation selon le juge</li>
-<li>la relation entre le produit et le l’appréciation selon le juge</li>
-<li>si l’effet du produit est le même impact sur l’appréciation selon la séance</li>
-</ul>
+</section>
+<section id="exercice-2-evolution-de-lempreinte-ges-moyenne-par-français" class="level1">
+<h1>Exercice 2 – Evolution de l’empreinte GES moyenne par français</h1>
+<p>On s’intéresse à l’évolution de l’empreinte des gaz à effets de serre (GES) des français entre 1990 et 2024. Les données sont disponibles dans le fichier <a href="https://agrocampusds.github.io/demarche_statistique/agronome/data/empreinteGES.csv">empreinteGES.csv</a>.</p>
+<ol type="1">
+<li>Pourquoi selon vous on s’intéresse à l’empreinte moyenne par français plutôt qu’à l’empreinte totale des GES de la France ?</li>
+<li>Construire un graphique pour représenter les données.</li>
+</ol>
+<p>On cherche maintenant à prévoir l’évolution jusqu’en 2050. Après avoir bien visualisé les données, proposer un modèle et les données que vous utiliseriez pour prévoir l’évolution de l’empreinte GES dans les prochaines années. 3. Construire et interpréter le modèle.</p>
+<ol start="4" type="1">
+<li>Quelle empreinte carbone prédisez-vous pour 2050 (sachant que l’objectif défini lors des accords de Paris est de 2teqCO2/hab/an) ? Quelle hypothèse sous-jacente faites-vous quand vous faites cette prédiction ? Qu’en pensez-vous.</li>
+</ol>
 
 
 </section>

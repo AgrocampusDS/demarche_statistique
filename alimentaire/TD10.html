@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TD 2 - Visualisation de données – Institut Agro Rennes-Angers</title>
+<title>TD 10 - Cas déséquilibré – Institut Agro Rennes-Angers</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -75,7 +75,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="style.css">
 </head>
 
 <body class="nav-sidebar docked fullcontent quarto-light">
@@ -87,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD2.html">TD 2</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD10.html">TD 10</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -188,7 +187,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../alimentaire/TD2.html" class="sidebar-item-text sidebar-link active">
+  <a href="../alimentaire/TD2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">TD 2</span></a>
   </div>
 </li>
@@ -212,7 +211,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../alimentaire/TD10.html" class="sidebar-item-text sidebar-link">
+  <a href="../alimentaire/TD10.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">TD 10</span></a>
   </div>
 </li>
@@ -245,9 +244,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD2.html">TD 2</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD10.html">TD 10</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">TD 2 - Visualisation de données</h1>
+<h1 class="title">TD 10 - Cas déséquilibré</h1>
 </div>
 
 
@@ -264,46 +263,69 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="exercice-analyse-sensorielle-de-jus-dorange" class="level2">
-<h2 class="anchored" data-anchor-id="exercice-analyse-sensorielle-de-jus-dorange">Exercice – Analyse sensorielle de jus d’orange</h2>
-<p>Une analyse sensorielle a été organisée pour comparer 12 jus d’orange. Cinq juges ont évalué ces jus d’orange 2 fois lors de deux séances de dégustations. Ils ont évalué plusieurs descripteurs sensoriels (saveur sucrée, amère, acide) ainsi que leur appréciation du produit en mettant des notes entre 0 et 10. L’objectif d’une telle analyse est de comparer les produits les uns par rapport aux autres.</p>
+<section id="exercice-1-appréciation-de-jambons" class="level1">
+<h1>Exercice 1 – Appréciation de jambons</h1>
+<p>Un organisme d’analyse sensorielle souhaite savoir s’il est possible de prévoir l’appréciation globale d’un jambon à partir de sa description sensorielle. Un jury entraîné a utilisé les variables suivantes pour décrire 21 jambons : Jutosité, Caractère croquant, Tendreté, Caractère pâteux, Fibreux, Saveur salée, Saveur sucrée, Flaveur de viande, Assaisonnement, Flaveur métallique, Flaveur fèces/urine, Flaveur de gras, Flaveur braisé/fumé, Flaveur lactique . Puis une note d’Appréciation globale a été attribué à chacun des jambons. Importer les données grâce à la commande suivante :</p>
 <ol type="1">
-<li>Quelle est la nature de chacune des variables ?</li>
+<li>Visualiser les relations entre chaque variable explicative et la variable réponse.</li>
+<li>Ecrire le modèle complet.</li>
 </ol>
-<p>Pour importer les variables utiliser les lignes de commande suivantes :</p>
+<p>Le nombre de variables explicatives étant très important, on suggère qu’il serait préférable de sélectionner certains prédicteurs pour améliorer la prédiction du modèle.</p>
+<ol start="3" type="1">
+<li>Pourquoi cela peut-il être vrai ?</li>
+<li>Ecrire le modèle que vous retenez pour prédire l’appréciation globale.</li>
+<li>Interpréter concrètement les résultats de votre modèle.</li>
+</ol>
+</section>
+<section id="exercice-2-nalyse-sensorielle-de-chocolats-noirs" class="level1">
+<h1>Exercice 2 – nalyse sensorielle de chocolats noirs</h1>
+<p>Une analyse sensorielle a été organisée pour comparer 9 chocolats noirs (dégustation faite en 2017). Douze juges ont évalué ces chocolats 2 fois lors de deux séances de dégustations. Ils ont évalué 14 descripteurs en mettant des notes entre 0 et 10. L’objectif d’une telle analyse est de comparer les produits les uns par rapport aux autres. On va s’intéresser ici à la variable sensorielle Arôme de caramel.</p>
+<ol type="1">
+<li>Ecrire le modèle prenant en compte l’effet produit, l’effet juge et l’effet séance ainsi que toutes les interactions d’ordre 2.</li>
+</ol>
+<p>Importer les données en utilisant les lignes de code suivantes qui permettent d’importer et ensuite de transformer les trois premières variables en facteurs :</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>    Produit         Juge     Seance      Sucree           Acide      
- 1      : 24   1      : 24   1:144   Min.   : 1.000   Min.   :1.000  
- 2      : 24   2      : 24   2:144   1st Qu.: 4.000   1st Qu.:3.000  
- 3      : 24   3      : 24           Median : 5.000   Median :5.000  
- 4      : 24   4      : 24           Mean   : 5.205   Mean   :4.896  
- 5      : 24   5      : 24           3rd Qu.: 6.000   3rd Qu.:6.000  
- 6      : 24   6      : 24           Max.   :10.000   Max.   :9.000  
- (Other):144   (Other):144                                           
-     Amere           Pulpeux        Appreciation  
- Min.   : 1.000   Min.   : 1.000   Min.   :1.000  
- 1st Qu.: 1.000   1st Qu.: 1.000   1st Qu.:3.000  
- Median : 3.000   Median : 3.000   Median :4.000  
- Mean   : 3.549   Mean   : 3.868   Mean   :4.608  
- 3rd Qu.: 6.000   3rd Qu.: 6.000   3rd Qu.:6.000  
- Max.   :10.000   Max.   :10.000   Max.   :9.000  
-                                                  </code></pre>
+<pre><code>      Juge              Produit   Seance  Odeur.de.cacao   Odeur.de.lait   
+ 1      : 18   Ethiquable_70:24   1:108   Min.   : 2.000   Min.   : 1.000  
+ 2      : 18   Ethiquable_75:24   2:108   1st Qu.: 5.000   1st Qu.: 2.000  
+ 3      : 18   Lindt_70     :24           Median : 6.000   Median : 3.000  
+ 4      : 18   Lindt_78     :24           Mean   : 6.153   Mean   : 3.569  
+ 5      : 18   Lindt_85     :24           3rd Qu.: 8.000   3rd Qu.: 5.000  
+ 6      : 18   Nestle_70    :24           Max.   :10.000   Max.   :10.000  
+ (Other):108   (Other)      :72                                            
+ Saveur.sucree    Saveur.acide     Saveur.amere    Arome.de.cacao 
+ Min.   : 1.00   Min.   : 1.000   Min.   : 1.000   Min.   : 2.00  
+ 1st Qu.: 2.00   1st Qu.: 2.000   1st Qu.: 4.000   1st Qu.: 5.00  
+ Median : 4.00   Median : 3.000   Median : 6.000   Median : 7.00  
+ Mean   : 4.38   Mean   : 3.838   Mean   : 6.139   Mean   : 6.63  
+ 3rd Qu.: 6.00   3rd Qu.: 6.000   3rd Qu.: 8.000   3rd Qu.: 8.00  
+ Max.   :10.00   Max.   :10.000   Max.   :10.000   Max.   :10.00  
+                                                                  
+ Arome.de.lait   Arome.de.caramel Arome.de.vanille  Astringence    
+ Min.   :1.000   Min.   :1.000    Min.   : 1.000   Min.   : 1.000  
+ 1st Qu.:2.000   1st Qu.:1.000    1st Qu.: 1.000   1st Qu.: 4.000  
+ Median :3.000   Median :2.000    Median : 2.000   Median : 6.000  
+ Mean   :3.606   Mean   :2.648    Mean   : 2.449   Mean   : 5.569  
+ 3rd Qu.:6.000   3rd Qu.:4.000    3rd Qu.: 3.000   3rd Qu.: 7.000  
+ Max.   :8.000   Max.   :9.000    Max.   :10.000   Max.   :10.000  
+                                                                   
+    Croquant         Fondant     Collant        Granuleux    
+ Min.   : 2.000   Min.   :1   Min.   :1.000   Min.   :1.000  
+ 1st Qu.: 5.000   1st Qu.:4   1st Qu.:2.000   1st Qu.:1.000  
+ Median : 7.000   Median :5   Median :4.000   Median :2.000  
+ Mean   : 6.477   Mean   :5   Mean   :4.042   Mean   :2.843  
+ 3rd Qu.: 8.000   3rd Qu.:7   3rd Qu.:6.000   3rd Qu.:4.000  
+ Max.   :10.000   Max.   :9   Max.   :9.000   Max.   :9.000  
+                                                             </code></pre>
 </div>
 </div>
 <ol start="2" type="1">
-<li>Pour chacun des points suivants, construire puis interpréter le graphique adapté pour visualiser (les lignes de code pour construire les graphiques sont celles du cours à adapter sur le jeu de données) :</li>
+<li>Construire un graphique permettant de visualiser l’effet produit et un autre permettant de visualiser l’interaction produit-séance.</li>
+<li>Construire et sélectionner le «bon» sous-modèle.</li>
+<li>Quels sont les effets et interactions significatifs du sous-modèle sélectionné ? Interpréter chaque effet significatif et chaque absence.</li>
+<li>Dans l’optique de caractérisation sensorielle des produits, quels effets et interactions sont intéressants à interpréter? Pourquoi avoir conserver les autres effets dans le modèle ?</li>
 </ol>
-<ul>
-<li>la distribution des valeurs de l’appréciation</li>
-<li>le nombre de notes par juge</li>
-<li>la relation entre la saveur sucrée et l’appréciation</li>
-<li>la relation entre la saveur amère et l’appréciation</li>
-<li>la relation entre l’appréciation et le produit</li>
-<li>la relation entre la saveur sucrée et l’appréciation selon le juge</li>
-<li>la relation entre le produit et le l’appréciation selon le juge</li>
-<li>si l’effet du produit est le même impact sur l’appréciation selon la séance</li>
-</ul>
 
 
 </section>

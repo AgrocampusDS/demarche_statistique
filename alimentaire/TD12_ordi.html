@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TD 2 - Visualisation de données – Institut Agro Rennes-Angers</title>
+<title>TD 12 - Prise en compte d’effets – Institut Agro Rennes-Angers</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -75,7 +75,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="style.css">
 </head>
 
 <body class="nav-sidebar docked fullcontent quarto-light">
@@ -87,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD2.html">TD 2</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD12_ordi.html">TD 12</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -188,7 +187,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../alimentaire/TD2.html" class="sidebar-item-text sidebar-link active">
+  <a href="../alimentaire/TD2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">TD 2</span></a>
   </div>
 </li>
@@ -218,7 +217,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../alimentaire/TD12_ordi.html" class="sidebar-item-text sidebar-link">
+  <a href="../alimentaire/TD12_ordi.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">TD 12</span></a>
   </div>
 </li>
@@ -245,9 +244,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD2.html">TD 2</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD12_ordi.html">TD 12</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">TD 2 - Visualisation de données</h1>
+<h1 class="title">TD 12 - Prise en compte d’effets</h1>
 </div>
 
 
@@ -264,46 +263,86 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="exercice-analyse-sensorielle-de-jus-dorange" class="level2">
-<h2 class="anchored" data-anchor-id="exercice-analyse-sensorielle-de-jus-dorange">Exercice – Analyse sensorielle de jus d’orange</h2>
-<p>Une analyse sensorielle a été organisée pour comparer 12 jus d’orange. Cinq juges ont évalué ces jus d’orange 2 fois lors de deux séances de dégustations. Ils ont évalué plusieurs descripteurs sensoriels (saveur sucrée, amère, acide) ainsi que leur appréciation du produit en mettant des notes entre 0 et 10. L’objectif d’une telle analyse est de comparer les produits les uns par rapport aux autres.</p>
+<section id="exercice-1-analyse-sensorielle-de-jus-dorange" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-1-analyse-sensorielle-de-jus-dorange">Exercice 1 – Analyse sensorielle de jus d’orange</h2>
+<p>Une analyse sensorielle a été organisée pour comparer 12 jus d’orange. Cinq juges ont évalué ces jus d’orange 2 fois lors de deux séances de dégustations. Ils ont évalué plusieurs descripteurs sensoriels (saveur sucrée, amère, acide) ainsi que leur appréciation du produit en mettant des notes entre 0 et 10. On cherche ici à comprendre pourquoi les jus d’orange sont appréciés des consommateurs. Importer le jeu de données avec la ligne de code :</p>
 <ol type="1">
-<li>Quelle est la nature de chacune des variables ?</li>
+<li>Vérifier l’importation des données et la nature des variables avec la fonction <code>summary</code> et transformer si nécessaire les variables qui doivent l’être.</li>
+<li>Proposer un modèle permettant d’essayer de comprendre l’appréciation des consommateurs.</li>
+<li>Construire le modèle et faire la sélection de variables (vous utiliserez le critère de sélection «&nbsp;bic&nbsp;»). Commenter la qualité du modèle.</li>
+<li>Interpréter les résultats du modèle retenu.</li>
 </ol>
-<p>Pour importer les variables utiliser les lignes de commande suivantes :</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>    Produit         Juge     Seance      Sucree           Acide      
- 1      : 24   1      : 24   1:144   Min.   : 1.000   Min.   :1.000  
- 2      : 24   2      : 24   2:144   1st Qu.: 4.000   1st Qu.:3.000  
- 3      : 24   3      : 24           Median : 5.000   Median :5.000  
- 4      : 24   4      : 24           Mean   : 5.205   Mean   :4.896  
- 5      : 24   5      : 24           3rd Qu.: 6.000   3rd Qu.:6.000  
- 6      : 24   6      : 24           Max.   :10.000   Max.   :9.000  
- (Other):144   (Other):144                                           
-     Amere           Pulpeux        Appreciation  
- Min.   : 1.000   Min.   : 1.000   Min.   :1.000  
- 1st Qu.: 1.000   1st Qu.: 1.000   1st Qu.:3.000  
- Median : 3.000   Median : 3.000   Median :4.000  
- Mean   : 3.549   Mean   : 3.868   Mean   :4.608  
- 3rd Qu.: 6.000   3rd Qu.: 6.000   3rd Qu.:6.000  
- Max.   :10.000   Max.   :10.000   Max.   :9.000  
-                                                  </code></pre>
-</div>
-</div>
-<ol start="2" type="1">
-<li>Pour chacun des points suivants, construire puis interpréter le graphique adapté pour visualiser (les lignes de code pour construire les graphiques sont celles du cours à adapter sur le jeu de données) :</li>
+</section>
+<section id="exercice-2-moyenne-de-notes" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-2-moyenne-de-notes">Exercice 2 – Moyenne de notes</h2>
+<p>Pour l’évaluation d’un module de statistique, 10 étudiants ont passé 2 examens. Ils ont obtenu les notes du tableau ci-dessous. Les étudiants 7 et 8 ont été absents à l’épreuve 1, l’étudiant 9 a été absent à l’épreuve 2. La règle étant de calculer la moyenne des notes pour obtenir la note du module, l’étudiant 7 obtient la note de 9, l’étudiant 8 la note de 8 et l’étudiant 9 la note de 11.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Epreuve 1</th>
+<th>Epreuve 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Etudiant 1</td>
+<td>12</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>Etudiant 2</td>
+<td>14</td>
+<td>10</td>
+</tr>
+<tr class="odd">
+<td>Etudiant 3</td>
+<td>15</td>
+<td>12</td>
+</tr>
+<tr class="even">
+<td>Etudiant 4</td>
+<td>18</td>
+<td>13</td>
+</tr>
+<tr class="odd">
+<td>Etudiant 5</td>
+<td>8</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>Etudiant 6</td>
+<td>13</td>
+<td>9</td>
+</tr>
+<tr class="odd">
+<td>Etudiant 7</td>
+<td>Abs</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>Etudiant 8</td>
+<td>Abs</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td>Etudiant 9</td>
+<td>11</td>
+<td>Abs</td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>Soudain, très motivés par leur cours de statistique, les étudiants 7 et 8 le reprennent, l’étudient en détail, et décident d’argumenter que la moyenne ajustée serait beaucoup plus juste pour calculer la note du module. Outre le fait qu’ils auraient mieux fait de relire leur cours plus tôt, que pensez-vous de cette remarque ?</li>
+<li>Quel modèle sont-ils en train de considérer ?</li>
+<li>Saisir les données, construire ce modèle puis donner une estimation des paramètres et les interpréter. Vous pouvez copier-coller les lignes de code suivantes.</li>
 </ol>
-<ul>
-<li>la distribution des valeurs de l’appréciation</li>
-<li>le nombre de notes par juge</li>
-<li>la relation entre la saveur sucrée et l’appréciation</li>
-<li>la relation entre la saveur amère et l’appréciation</li>
-<li>la relation entre l’appréciation et le produit</li>
-<li>la relation entre la saveur sucrée et l’appréciation selon le juge</li>
-<li>la relation entre le produit et le l’appréciation selon le juge</li>
-<li>si l’effet du produit est le même impact sur l’appréciation selon la séance</li>
-</ul>
+<ol start="4" type="1">
+<li><p>Donner les notes que les étudiants 7 et 8 obtiendraient pour la 1ère épreuve et pour l’ensemble du module grâce à ce modèle.</p></li>
+<li><p>Quelles notes obtiendraient les étudiants 1 à 6 ? Qu’en pensez-vous ?</p></li>
+<li><p>Construire le même modèle en considérant uniquement les notes des élèves 1 à 6. Donner une estimation des paramètres puis des moyennes ajustées. Quelle différence y-a-t-il avec les moyennes ajustées de la question précédente ?</p></li>
+<li><p>Finalement, que fait l’analyse de variance dans ces situations où il y a des données manquantes ? Dans quel cas est-ce que l’analyse de variance n’est pas indispensable ?</p></li>
+</ol>
 
 
 </section>

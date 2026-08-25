@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TD 2 - Visualisation de données – Institut Agro Rennes-Angers</title>
+<title>TD 13 - Démarche statistique complète – Institut Agro Rennes-Angers</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -75,7 +75,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="style.css">
 </head>
 
 <body class="nav-sidebar docked fullcontent quarto-light">
@@ -87,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD2.html">TD 2</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD13_ordi.html">TD 13</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -188,7 +187,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../alimentaire/TD2.html" class="sidebar-item-text sidebar-link active">
+  <a href="../alimentaire/TD2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">TD 2</span></a>
   </div>
 </li>
@@ -224,7 +223,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../alimentaire/TD13_ordi.html" class="sidebar-item-text sidebar-link">
+  <a href="../alimentaire/TD13_ordi.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">TD 13</span></a>
   </div>
 </li>
@@ -245,9 +244,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD2.html">TD 2</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD13_ordi.html">TD 13</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">TD 2 - Visualisation de données</h1>
+<h1 class="title">TD 13 - Démarche statistique complète</h1>
 </div>
 
 
@@ -264,46 +263,21 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="exercice-analyse-sensorielle-de-jus-dorange" class="level2">
-<h2 class="anchored" data-anchor-id="exercice-analyse-sensorielle-de-jus-dorange">Exercice – Analyse sensorielle de jus d’orange</h2>
-<p>Une analyse sensorielle a été organisée pour comparer 12 jus d’orange. Cinq juges ont évalué ces jus d’orange 2 fois lors de deux séances de dégustations. Ils ont évalué plusieurs descripteurs sensoriels (saveur sucrée, amère, acide) ainsi que leur appréciation du produit en mettant des notes entre 0 et 10. L’objectif d’une telle analyse est de comparer les produits les uns par rapport aux autres.</p>
-<ol type="1">
-<li>Quelle est la nature de chacune des variables ?</li>
-</ol>
-<p>Pour importer les variables utiliser les lignes de commande suivantes :</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>    Produit         Juge     Seance      Sucree           Acide      
- 1      : 24   1      : 24   1:144   Min.   : 1.000   Min.   :1.000  
- 2      : 24   2      : 24   2:144   1st Qu.: 4.000   1st Qu.:3.000  
- 3      : 24   3      : 24           Median : 5.000   Median :5.000  
- 4      : 24   4      : 24           Mean   : 5.205   Mean   :4.896  
- 5      : 24   5      : 24           3rd Qu.: 6.000   3rd Qu.:6.000  
- 6      : 24   6      : 24           Max.   :10.000   Max.   :9.000  
- (Other):144   (Other):144                                           
-     Amere           Pulpeux        Appreciation  
- Min.   : 1.000   Min.   : 1.000   Min.   :1.000  
- 1st Qu.: 1.000   1st Qu.: 1.000   1st Qu.:3.000  
- Median : 3.000   Median : 3.000   Median :4.000  
- Mean   : 3.549   Mean   : 3.868   Mean   :4.608  
- 3rd Qu.: 6.000   3rd Qu.: 6.000   3rd Qu.:6.000  
- Max.   :10.000   Max.   :10.000   Max.   :9.000  
-                                                  </code></pre>
-</div>
-</div>
-<ol start="2" type="1">
-<li>Pour chacun des points suivants, construire puis interpréter le graphique adapté pour visualiser (les lignes de code pour construire les graphiques sont celles du cours à adapter sur le jeu de données) :</li>
-</ol>
+<section id="exercice-1-une-petite-dégustation-de-chocolats" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-1-une-petite-dégustation-de-chocolats">Exercice 1 – Une petite dégustation de chocolats</h2>
+<p>Lors d’un test de dégustation sensorielle, on veut comparer plusieurs caractéristiques sensorielles de 10 chocolats noirs. Pour cela, un jury d’analyse sensoriel, constitué de 12 juges a évalué chacun des chocolats 2 fois, lors de 2 séances de dégustation. On va s’intéresser ici à la variable A.cacao qui correspond à l’arôme de cacao perçue par le juge (0 = par d’arôme cacao, 10=très fort arôme de cacao). Les données sont disponibles dans le fichier <a href="https://agrocampusds.github.io/demarche_statistique/alimentaire/data/chocolat_2022.csv">chocolat_2022.csv</a>. On veut répondre aux questions suivantes :</p>
 <ul>
-<li>la distribution des valeurs de l’appréciation</li>
-<li>le nombre de notes par juge</li>
-<li>la relation entre la saveur sucrée et l’appréciation</li>
-<li>la relation entre la saveur amère et l’appréciation</li>
-<li>la relation entre l’appréciation et le produit</li>
-<li>la relation entre la saveur sucrée et l’appréciation selon le juge</li>
-<li>la relation entre le produit et le l’appréciation selon le juge</li>
-<li>si l’effet du produit est le même impact sur l’appréciation selon la séance</li>
+<li>y a-t-il des différences d’arôme de cacao d’un produit à l’autre ?</li>
+<li>les juges perçoivent-ils les différences entre chocolats de la même façon au niveau de l’arôme de cacao ?</li>
+<li>d’une séance à l’autre, la perception des chocolats est-elle la même ?</li>
 </ul>
+<ol type="1">
+<li>Importer puis représenter les données.</li>
+<li>Construire un modèle et faire la sélection avec le critère « bic », le critère « aic » et en faisant une sélection « à la main » (i.e.&nbsp;en supprimant pas à pas d’abord les interactions non significatives, puis les effets non significatifs)</li>
+<li>Commenter les résultats des effets et interactions (significatifs et non significatifs).</li>
+<li>Commenter les coefficients.</li>
+<li>Quels chocolats ont des arômes de cacao perçus équivalents ?</li>
+</ol>
 
 
 </section>
