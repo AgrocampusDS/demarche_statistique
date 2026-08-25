@@ -118,38 +118,6 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">TD 2</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">TD 4</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">TD 6</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">TD 8</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">TD 10</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">TD 12</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">TD 13</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">TD 14</span></span>
-  </li>
     </ul>
     </div>
 </nav>
@@ -181,6 +149,8 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>Vous trouverez sur ce site les énoncés de TDs associés au cours de démarche statistique.</p>
+<p>knitr::opts_chunk$set(echo = FALSE, cache= FALSE, eval = TRUE, fig.show=‘hide’, message = FALSE, warning = FALSE, results = ‘markup’ ) library(tidyverse) library(kableExtra) liste_td &lt;- list.files(pattern = ‘.qmd’)</p>
+<p>ll &lt;- lapply(liste_td, function(f){ if(! (f %in% c( “tds.qmd”) ) ){ print(f) td_content &lt;- tibble(text = readLines(f) ) %&gt;% mutate(TD = str_remove(f, pattern = ‘.qmd’)) %&gt;% filter(str_detect(text, “title:”)) %&gt;% mutate(Nom = str_remove(text, pattern = “title: ['"]”)) %&gt;% mutate(Nom = str_sub(Nom, start = 1, end = -2)) %&gt;% # mutate(index = as.numeric(str_sub(TD, start =3, end = 4))) %&gt;% mutate(index = as.numeric(str_extract(TD, “[:digit:]+”))) %&gt;% select(-text) return(td_content)} })</p>
 
 
 
