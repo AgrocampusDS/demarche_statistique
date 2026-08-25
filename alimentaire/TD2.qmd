@@ -14,8 +14,8 @@ Pour importer les variables utiliser les lignes de commande suivantes :
 
 ```{r}
 jus <- read.table("data/jusorange.csv", sep = ";", header = TRUE)
-for (i in 1:3)
-  jus[i] <- as.factor(jus[, i])
+for (i in 1:3){
+  jus[,i] <- as.factor(jus[, i])}
 summary(dta)
 ```
 
