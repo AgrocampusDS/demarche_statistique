@@ -1,5 +1,5 @@
 ---
-title: "Travaux dirigés"
+title: "Démarche Statistique, parcours Ingénieur Agronome"
 format: html
 toc: true
 css: style.css
@@ -27,3 +27,29 @@ ll <- lapply(liste_td, function(f){
       select(-text)
     return(td_content)}
 })
+
+liste_complete <- do.call('rbind', ll) %>%
+  mutate(TD_url = paste0(TD, '.html')) %>%
+  arrange(index) %>%
+  select(-index)
+
+```
+
+
+# Liste des TDs du module
+
+
+
+```{r echo = FALSE, eval = TRUE, results='markup'}
+
+liste_complete %>%
+  mutate(Lien = cell_spec(str_remove(TD, "_ordi"), "html", link = TD_url)) %>%
+  select(-TD_url)    %>%
+  select(-TD) %>%
+  kable("html", escape = FALSE) %>%
+  collapse_rows(columns = 1, valign = 'top') %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+
+
+
+```
