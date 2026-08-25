@@ -1,0 +1,31 @@
+---
+title: "TD 2 - Visualisation de données"
+format: html
+css: style.css
+---
+
+## Exercice – Analyse sensorielle de jus d’orange
+
+Une analyse sensorielle a été organisée pour comparer 12 jus d’orange. Cinq juges ont évalué ces jus d’orange 2 fois lors de deux séances de dégustations. Ils ont évalué plusieurs descripteurs sensoriels (saveur sucrée, amère, acide) ainsi que leur appréciation du produit en mettant des notes entre 0 et 10. L'objectif d'une telle analyse est de comparer les produits les uns par rapport aux autres.
+
+1. Quelle est la nature de chacune des variables ?
+
+Pour importer les variables utiliser les lignes de commande suivantes :
+
+```{r}
+jus <- read.table("jusorange.csv", sep = ";", header = TRUE)
+for (i in 1:3)
+  jus[i] <- as.factor(jus[, i])
+summary(dta)
+```
+
+2. Pour chacun des points suivants, construire puis interpréter le graphique adapté pour visualiser (les lignes de code pour construire les graphiques sont celles du cours à adapter sur le jeu de données) :
+
+  + la distribution des valeurs de l’appréciation
+  + le nombre de notes par juge
+  + la relation entre la saveur sucrée et l’appréciation
+  + la relation entre la saveur amère et l’appréciation
+  + la relation entre l’appréciation et le produit
+  + la relation entre la saveur sucrée et l’appréciation selon le juge
+  + la relation entre le produit et le l’appréciation selon le juge
+  + si l’effet du produit est le même impact sur l’appréciation selon la séance 
