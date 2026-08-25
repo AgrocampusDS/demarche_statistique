@@ -16,7 +16,7 @@ Pour importer les variables utiliser les lignes de commande suivantes :
 jus <- read.table("data/jusorange.csv", sep = ";", header = TRUE)
 for (i in 1:3){
   jus[,i] <- as.factor(jus[, i])}
-summary(dta)
+summary(jus)
 ```
 
 2. Pour chacun des points suivants, construire puis interpréter le graphique adapté pour visualiser (les lignes de code pour construire les graphiques sont celles du cours à adapter sur le jeu de données) :
