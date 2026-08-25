@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Travaux dirigés – Institut Agro Rennes-Angers</title>
+<title>Démarche Statistique, parcours Ingénieur Agronome – Institut Agro Rennes-Angers</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -30,7 +30,6 @@ ul.task-list li input[type="checkbox"] {
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
@@ -73,65 +72,35 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="nav-sidebar floating quarto-light">
+<body class="quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Introduction</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
-    </div>
-  </nav>
-</header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="../">Institut Agro Rennes-Angers</a> 
-    </div>
-      </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../agronome/tds.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Introduction</span></a>
-  </div>
-</li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#liste-des-tds-du-module" id="toc-liste-des-tds-du-module" class="nav-link active" data-scroll-target="#liste-des-tds-du-module">Liste des TDs du module</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Travaux dirigés</h1>
+<h1 class="title">Démarche Statistique, parcours Ingénieur Agronome</h1>
 </div>
 
 
@@ -149,10 +118,57 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>Vous trouverez sur ce site les énoncés de TDs associés au cours de démarche statistique.</p>
-<p>knitr::opts_chunk$set(echo = FALSE, cache= FALSE, eval = TRUE, fig.show=‘hide’, message = FALSE, warning = FALSE, results = ‘markup’ ) library(tidyverse) library(kableExtra) liste_td &lt;- list.files(pattern = ‘.qmd’)</p>
-<p>ll &lt;- lapply(liste_td, function(f){ if(! (f %in% c( “tds.qmd”) ) ){ print(f) td_content &lt;- tibble(text = readLines(f) ) %&gt;% mutate(TD = str_remove(f, pattern = ‘.qmd’)) %&gt;% filter(str_detect(text, “title:”)) %&gt;% mutate(Nom = str_remove(text, pattern = “title: ['"]”)) %&gt;% mutate(Nom = str_sub(Nom, start = 1, end = -2)) %&gt;% # mutate(index = as.numeric(str_sub(TD, start =3, end = 4))) %&gt;% mutate(index = as.numeric(str_extract(TD, “[:digit:]+”))) %&gt;% select(-text) return(td_content)} })</p>
+<section id="liste-des-tds-du-module" class="level1">
+<h1>Liste des TDs du module</h1>
+<div class="cell">
+<div class="cell-output-display">
+<table class="lightable-classic caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Nom</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Lien</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">TD 2 - Visualisation de données</td>
+<td style="text-align: left;"><a href="TD2.html">TD2</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TD 4 - Test de comparaison de moyenne</td>
+<td style="text-align: left;"><a href="TD4_ordi.html">TD4</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TD 6 - ANOVA</td>
+<td style="text-align: left;"><a href="TD6.html">TD6</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TD 8 - Régression</td>
+<td style="text-align: left;"><a href="TD8.html">TD8</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TD 10 - Cas déséquilibré</td>
+<td style="text-align: left;"><a href="TD10.html">TD10</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TD 12 - Prise en compte d'effets</td>
+<td style="text-align: left;"><a href="TD12_ordi.html">TD12</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TD 13 - Démarche statistique complète</td>
+<td style="text-align: left;"><a href="TD13_ordi.html">TD13</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TD 14 - Comme des grands</td>
+<td style="text-align: left;"><a href="TD14_ordi.html">TD14</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

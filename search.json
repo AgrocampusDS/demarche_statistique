@@ -2,12 +2,9 @@
   {
     "objectID": "agronome/tds.html",
     "href": "agronome/tds.html",
-    "title": "Travaux dirigés",
+    "title": "Démarche Statistique, parcours Ingénieur Agronome",
     "section": "",
-    "text": "Vous trouverez sur ce site les énoncés de TDs associés au cours de démarche statistique.\nknitr::opts_chunk$set(echo = FALSE, cache= FALSE, eval = TRUE, fig.show=‘hide’, message = FALSE, warning = FALSE, results = ‘markup’ ) library(tidyverse) library(kableExtra) liste_td &lt;- list.files(pattern = ‘.qmd’)\nll &lt;- lapply(liste_td, function(f){ if(! (f %in% c( “tds.qmd”) ) ){ print(f) td_content &lt;- tibble(text = readLines(f) ) %&gt;% mutate(TD = str_remove(f, pattern = ‘.qmd’)) %&gt;% filter(str_detect(text, “title:”)) %&gt;% mutate(Nom = str_remove(text, pattern = “title: ['\"]”)) %&gt;% mutate(Nom = str_sub(Nom, start = 1, end = -2)) %&gt;% # mutate(index = as.numeric(str_sub(TD, start =3, end = 4))) %&gt;% mutate(index = as.numeric(str_extract(TD, “[:digit:]+”))) %&gt;% select(-text) return(td_content)} })",
-    "crumbs": [
-      "Introduction"
-    ]
+    "text": "Vous trouverez sur ce site les énoncés de TDs associés au cours de démarche statistique.\n\nListe des TDs du module\n\n\n\n\n\nNom\nLien\n\n\n\n\nTD 2 - Visualisation de données\nTD2\n\n\nTD 4 - Test de comparaison de moyenne\nTD4\n\n\nTD 6 - ANOVA\nTD6\n\n\nTD 8 - Régression\nTD8\n\n\nTD 10 - Cas déséquilibré\nTD10\n\n\nTD 12 - Prise en compte d'effets\nTD12\n\n\nTD 13 - Démarche statistique complète\nTD13\n\n\nTD 14 - Comme des grands\nTD14"
   },
   {
     "objectID": "agronome/TD4_ordi.html",
