@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TD 6 - ANOVA – Institut Agro Rennes-Angers</title>
+<title>TD 18 - les plans en pratique – Institut Agro Rennes-Angers</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -74,6 +74,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -86,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Agronome</a></li><li class="breadcrumb-item"><a href="../agronome/TD6.html">TD 6</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../alimentaire/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD18_ordi.html">TD 18</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -140,7 +169,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../agronome/TD6.html" class="sidebar-item-text sidebar-link active">
+  <a href="../agronome/TD6.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">TD 6</span></a>
   </div>
 </li>
@@ -241,7 +270,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../alimentaire/TD18_ordi.html" class="sidebar-item-text sidebar-link">
+  <a href="../alimentaire/TD18_ordi.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">TD 18</span></a>
   </div>
 </li>
@@ -256,9 +285,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Agronome</a></li><li class="breadcrumb-item"><a href="../agronome/TD6.html">TD 6</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../alimentaire/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD18_ordi.html">TD 18</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">TD 6 - ANOVA</h1>
+<h1 class="title">TD 18 - les plans en pratique</h1>
 </div>
 
 
@@ -275,27 +304,15 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="exercice-1-composition-physico-chimique-et-provenance" class="level1">
-<h1>Exercice 1 – Composition physico-chimique et provenance</h1>
-<p>Un groupe industriel commercialisant du café souhaite comparer les cafés provenant de différents lieux de production à partir de leur profil de composition physico-chimique, dont une des composantes importantes est le taux de matière sèche (DM). Pour cela, il s’appuie sur des données contenant le lieu de production, codé par un entier allant de 1 à 7, de 240 mesures de café.</p>
-<ol type="1">
-<li><p>Après avoir importé les données et vérifié la nature de chacune des variables, visualiser les données pour représenter les taux de matière sèche en fonction du site de production des cafés.</p></li>
-<li><p>Les taux de matière sèche moyens à l’échelle de toute la production diffèrent-ils d’un site à l’autre ? (écrire le modèle, appelé M1, permettant de répondre à cette question. Quels sont les paramètres de ce modèle ?)</p></li>
-<li><p>Quelles sont les hypothèses H0 et H1 du test de l’existence de différences moyennes de taux de matière sèche entre les sites de production ? Quelle est l’expression mathématique du modèle sous l’hypothèse nulle H0?</p></li>
-<li><p>Quelle est l’expression de la statistique de test permettant de tester l’existence de différences de moyennes entre les lieux de production ? Quelle est la valeur prise par cette statistique de test ? Quelle est la distribution F0 sous l’hypothèse H0 de la statistique de test F introduite à la question précédente ? Répondre à la problématique.</p></li>
-<li><p>Pour le site de production 3, rappeler le cadre du test de nullité du coefficient associé (hypothèses, interprétation des hypothèses, statistique de test, loi sous H0, décision)</p></li>
-<li><p>Commenter le résultat de comparaison par paires des différents sites de production obtenu à l’aide de la fonction meansComp du package FactoMineR.</p></li>
-</ol>
+<section id="exercice-1-analyse-conjointe-ou-trade-off-en-marketing" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-1-analyse-conjointe-ou-trade-off-en-marketing">Exercice 1 – Analyse conjointe (ou Trade off) en marketing</h2>
+<p>L’analyse conjointe (ou Trade off) est souvent utilisée en marketing pour analyser le marché avant de lancer un nouveau produit. L’idée est de choisir parmi plusieurs produits celui qui sera le mieux perçu par les consommateurs. Le principe de l’analyse conjointe est le suivant&nbsp;: on demande à des consommateurs de classer plusieurs produits concurrents ou d’accorder une note à ces produits. On veut choisir un emballage pour une nouvelle recette de crème caramel. Plusieurs critères (7) sont étudiés : parfum/marque (parfum caramel écrit en gros ou marque écrite en gros)&nbsp;; DLC (indiquée sur le couvercle ou le côté)&nbsp;; mention “le magnésium est bon pour la santé” (indiquée ou non)&nbsp;; mention “fabriqué en France” (indiquée ou non)&nbsp;; couleur (une seule ou plusieurs couleurs)&nbsp;; taille des caractères (petite ou grande)&nbsp;; fond (avec ou sans photo en fond). Afin de réaliser l’analyse conjointe, l’entreprise peut faire des emballages correspondant à n’importe quelle combinaison des 7 critères. Cependant, la construction d’un emballage coûte cher et il n’est pas raisonnable de faire classer plus de 8 produits par un consommateur. 1. On décide de réaliser un plan en 8 essais. Quel est le nom du plan à construire&nbsp;? 2. Construire le plan (utiliser la fonction FrF2 du package FrF2). Donner les générateurs d’alias et la résolution du plan. 3. On suspecte une interaction possible entre les critères “mention magnésium” et “produit français” (si les deux mentions sont présentes, l’emballage est trop surchargé de mentions). Avec le plan que vous avez construit, pouvez-vous analyser cette interaction&nbsp;? Si oui, comment faites-vous&nbsp;? Si non, comment feriez-vous&nbsp;? Une fois ces emballages fabriqués, 100 consommateurs sont interrogés et doivent mettre une note comprise entre 0 (l’emballage ne me plaît pas) et 10 (l’emballage me plaît beaucoup) pour chacun des emballages (il y a alors 800 données). 4. Comment analysez-vous ces résultats (préciser le modèle utilisé)&nbsp;?</p>
+<p>##&nbsp;Exercice 2 – Construction d’un plan <span class="math inline">\(2^{8-4}\)</span></p>
+<p>A partir de 16 essais, on veut construire un plan à 8 facteurs à 2 niveaux tels que les effets principaux soient confondus avec des interactions d’ordre 3 ou plus. 1. Donner les générateurs d’alias d’un tel plan. 2. Les effets principaux sont-ils estimables sans ambiguïté ? 3. Construire le plan avec la fonction <code>FrF2</code> du package <code>FrF2</code> 4. Est-il possible d’estimer quelques interactions d’ordre 2 avec le plan que vous avez construit ? Si oui, combien ? Si toutes les interactions d’ordre 2 ne peuvent pas être estimées, comment faire pour pouvoir toutes les tester ?</p>
 </section>
-<section id="exercice-2-dégustation-de-compote" class="level1">
-<h1>Exercice 2 – Dégustation de compote</h1>
-<p>On cherche à évaluer comment sont perçues 6 compotes de pommes au niveau de la saveur de pomme crue. Une dégustation est mise en place et 6 juges vont déguster chacune des 6 compotes. Les notes sont attribuées sur une échelle allant de 0 à 10. La question est donc de savoir si certaines compotes sont en moyenne perçues comme ayant une plus forte saveur de pomme crue.</p>
-<ol type="1">
-<li><p>La saveur de pomme crue est-elle différente selon la compote ? (préciser le modèle, les hypothèses, la statistique sous H0 et votre décision en utilisant la fonction <code>LinearModel</code> de <code>FactoMineR</code>)</p></li>
-<li><p>Surpris du résultat, on décide de prendre en compte la variable juge. Visualiser les notes en fonction de la compote mais en coloriant les points de couleurs différentes selon les juges. Proposer un modèle et les hypothèses permettant de tester l’effet compote sur la saveur mais en prenant en compte l’effet du juge puis réaliser le test avec <code>R</code>.</p></li>
-<li><p>Dans le premier modèle, où se retrouvait la variabilité liée au juge ? En quoi cela joue-t-il sur le test de l’effet compote ?</p></li>
-<li><p>Construire des tests de comparaisons par paire et les interpréter en utilisant la fonction <code>meansComp</code> du package <code>FactoMineR</code>.</p></li>
-</ol>
+<section id="exercice-3-répartition-des-expériences-sur-2-équipes-de-travail" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-3-répartition-des-expériences-sur-2-équipes-de-travail">Exercice 3 – Répartition des expériences sur 2 équipes de travail</h2>
+<p>Vous voulez étudier l’influence de 3 facteurs qualitatifs F1, F2 et F3 présentant chacun 2 modalités : • F1 est le facteur température qui peut prendre les valeurs 30 et 45 degrés ; • F2 est le facteur pression qui peut prendre les valeurs 2 et 4 bars ; • F3 est la vitesse de rotation de l’appareil qui peut prendre les valeurs 900 tours/minute et 1200 tours/minute. On peut effectuer 8 expériences donc réaliser un plan complet. Vous voulez alors répartir ces 8 essais pour 2 équipes de travail (4 essais par équipe). Les deux équipes pouvant travailler de façon différente, décrire précisément les 4 essais que vous décidez de faire réaliser par chacune des équipes de travail.</p>
 
 
 </section>

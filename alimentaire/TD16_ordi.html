@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TD 6 - ANOVA – Institut Agro Rennes-Angers</title>
+<title>TD 16 - Analyse en composantes principales – Institut Agro Rennes-Angers</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -86,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Agronome</a></li><li class="breadcrumb-item"><a href="../agronome/TD6.html">TD 6</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../alimentaire/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD16_ordi.html">TD 16</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -140,7 +140,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../agronome/TD6.html" class="sidebar-item-text sidebar-link active">
+  <a href="../agronome/TD6.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">TD 6</span></a>
   </div>
 </li>
@@ -235,7 +235,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../alimentaire/TD16_ordi.html" class="sidebar-item-text sidebar-link">
+  <a href="../alimentaire/TD16_ordi.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">TD 16</span></a>
   </div>
 </li>
@@ -256,9 +256,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Agronome</a></li><li class="breadcrumb-item"><a href="../agronome/TD6.html">TD 6</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../alimentaire/tds.html">Alimentaire</a></li><li class="breadcrumb-item"><a href="../alimentaire/TD16_ordi.html">TD 16</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">TD 6 - ANOVA</h1>
+<h1 class="title">TD 16 - Analyse en composantes principales</h1>
 </div>
 
 
@@ -275,26 +275,40 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="exercice-1-composition-physico-chimique-et-provenance" class="level1">
-<h1>Exercice 1 – Composition physico-chimique et provenance</h1>
-<p>Un groupe industriel commercialisant du café souhaite comparer les cafés provenant de différents lieux de production à partir de leur profil de composition physico-chimique, dont une des composantes importantes est le taux de matière sèche (DM). Pour cela, il s’appuie sur des données contenant le lieu de production, codé par un entier allant de 1 à 7, de 240 mesures de café.</p>
+<section id="exercice-1---analyse-sensorielle-de-10-chocolats" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-1---analyse-sensorielle-de-10-chocolats">Exercice 1 - Analyse sensorielle de 10 chocolats</h2>
+<p>Une analyse sensorielle a été organisée pour comparer 9 chocolats noirs (dégustation faite en 2017). Douze juges ont évalué ces chocolats 2 fois lors de deux séances de dégustations. Ils ont évalué 14 descripteurs en mettant des notes entre 0 et 10. L’objectif d’une telle analyse est de comparer les produits les uns par rapport aux autres. On va s’intéresser ici à la description sensorielle des chocolats faite par l’ensemble du jury. Importer les données qui sont initialement dans un format de tableau type analyse de variance, et construire un tableau avec en lignes les chocolats, en colonnes les descripteurs sensoriels et dans une case du tableau la moyenne des notes tout juge confondu pour un produit et un descripteur :</p>
 <ol type="1">
-<li><p>Après avoir importé les données et vérifié la nature de chacune des variables, visualiser les données pour représenter les taux de matière sèche en fonction du site de production des cafés.</p></li>
-<li><p>Les taux de matière sèche moyens à l’échelle de toute la production diffèrent-ils d’un site à l’autre ? (écrire le modèle, appelé M1, permettant de répondre à cette question. Quels sont les paramètres de ce modèle ?)</p></li>
-<li><p>Quelles sont les hypothèses H0 et H1 du test de l’existence de différences moyennes de taux de matière sèche entre les sites de production ? Quelle est l’expression mathématique du modèle sous l’hypothèse nulle H0?</p></li>
-<li><p>Quelle est l’expression de la statistique de test permettant de tester l’existence de différences de moyennes entre les lieux de production ? Quelle est la valeur prise par cette statistique de test ? Quelle est la distribution F0 sous l’hypothèse H0 de la statistique de test F introduite à la question précédente ? Répondre à la problématique.</p></li>
-<li><p>Pour le site de production 3, rappeler le cadre du test de nullité du coefficient associé (hypothèses, interprétation des hypothèses, statistique de test, loi sous H0, décision)</p></li>
-<li><p>Commenter le résultat de comparaison par paires des différents sites de production obtenu à l’aide de la fonction meansComp du package FactoMineR.</p></li>
+<li>Décrire les données (variables ? individus ?) et préciser les objectifs d’une ACP effectuée sur ce tableau de données.</li>
+<li>Est-il indispensable de centrer et réduire les données sur ce tableau&nbsp;? Pourquoi&nbsp;?</li>
+</ol>
+<p>Mettre en œuvre l’ACP (normée) sur ce jeu de données avec la fonction <code>Factoshiny</code> du package <code>Factoshiny</code>.</p>
+<ol start="3" type="1">
+<li>Commenter les pourcentages d’inertie expliquée par le premier axe de l’ACP, par le plan principal.</li>
+<li>Quels sont les 3 chocolats les mieux représentés sur le plan principal ?</li>
+<li>Quels sont les chocolats qui contribuent le plus à la construction de la 1ère dimension de l’ACP ? Et à la 2ème ? Que signifie une contribution importante ?</li>
+<li>À partir du cercle des corrélations, que pouvez-vous dire concernant les corrélations suivantes&nbsp;: • Saveur amère – arôme de cacao • Croquant - fondant • Croquant – arôme de cacao • Saveur acide – granuleux • Saveur acide - croquant</li>
+<li>Comparer les profils sensoriels des chocolats Lindt_85 et Repère_72. Puis ceux de Lindt_78 et Lindt_70. Que pouvez-vous dire sur la proximité entre les chocolats Lindt_85 et Repère_85. Puis ceux de Ethiquable_70 et Ethiquable_75 ?</li>
+<li>Interpréter les facteurs principaux de l’ACP (à l’aide du graphe des individus et du graphe des variables).</li>
+<li>Interpréter la dimension 3.</li>
 </ol>
 </section>
-<section id="exercice-2-dégustation-de-compote" class="level1">
-<h1>Exercice 2 – Dégustation de compote</h1>
-<p>On cherche à évaluer comment sont perçues 6 compotes de pommes au niveau de la saveur de pomme crue. Une dégustation est mise en place et 6 juges vont déguster chacune des 6 compotes. Les notes sont attribuées sur une échelle allant de 0 à 10. La question est donc de savoir si certaines compotes sont en moyenne perçues comme ayant une plus forte saveur de pomme crue.</p>
+<section id="exercice-2---analyse-de-performances-en-décathlon" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-2---analyse-de-performances-en-décathlon">Exercice 2 - Analyse de performances en décathlon</h2>
+<p>Les épreuves du décathlon couronnent des athlètes complets. Toutefois, chaque athlète possède ses points forts et ses points faibles. C’est à cette variabilité que nous nous intéressons ici. Pour cela, on a regroupé les résultats de 4 décathlons : les Jeux Olympiques d’Athènes en 2004, ceux de Rio en 2016, les championnats d’Europe 2018 et le decastar de Talence en 2018. On dispose, pour chaque athlète, de ses performances à chacune des 10 épreuves, de son nombre de points (à chaque épreuve, un athlète gagne des points en fonction de sa performance) et de son classement final. Les épreuves se déroulent dans l’ordre suivant : 100m, longueur, poids, hauteur, 400m le premier jour et 110m haies, disque, perche, javelot, 1500m le deuxième jour. Nous avons conservé les 20 meilleurs athlètes pour chacun des décathlons dans le fichier <a href="https://agrocampusds.github.io/demarche_statistique/alimentaire/data/decathlon.csv">decathlon.csv</a>.</p>
 <ol type="1">
-<li><p>La saveur de pomme crue est-elle différente selon la compote ? (préciser le modèle, les hypothèses, la statistique sous H0 et votre décision en utilisant la fonction <code>LinearModel</code> de <code>FactoMineR</code>)</p></li>
-<li><p>Surpris du résultat, on décide de prendre en compte la variable juge. Visualiser les notes en fonction de la compote mais en coloriant les points de couleurs différentes selon les juges. Proposer un modèle et les hypothèses permettant de tester l’effet compote sur la saveur mais en prenant en compte l’effet du juge puis réaliser le test avec <code>R</code>.</p></li>
-<li><p>Dans le premier modèle, où se retrouvait la variabilité liée au juge ? En quoi cela joue-t-il sur le test de l’effet compote ?</p></li>
-<li><p>Construire des tests de comparaisons par paire et les interpréter en utilisant la fonction <code>meansComp</code> du package <code>FactoMineR</code>.</p></li>
+<li>Décrire les données (variables ? individus ?) et préciser les objectifs d’une ACP effectuée sur ces données.</li>
+<li>Pourquoi est-ce indispensable dans cet exemple de centrer et réduire les données Mettre en œuvre l’ACP sur ce jeu de données avec la fonction <code>Factoshiny</code> du package <code>Factoshiny</code>.</li>
+<li>Quelles variables doit-on considérer comme actives pour construire l’ACP ?</li>
+<li>Commenter les pourcentages d’inertie expliquée par le premier axe de l’ACP, par le plan principal. Selon quel point de vue est-il préférable que les 2 premiers axes n’expliquent pas trop l’inertie totale ?</li>
+<li>Quels sont les 3 athlètes les mieux représentés sur le plan principal ?</li>
+<li>Quels sont les athlètes qui contribuent le plus à la construction de la 1ère dimension de l’ACP ? Et à la 2ème ? Que signifie une contribution importante ?</li>
+<li>À partir du cercle des corrélations, que pouvez-vous dire concernant les corrélations suivantes&nbsp;: • 100 m haies - 400 m • 100 m - Longueur • 100 m - 1500 m • Disque - Poids</li>
+<li>Interpréter les facteurs principaux de l’ACP (à l’aide du graphe des individus et du graphe des variables actives et illustratives).</li>
+<li>Comparer les profils de MAYER et LELIEVRE. Puis ceux de Kaul et Duckworth. Que pouvez-vous dire sur la proximité entre Karpov et Clay ? Et celle entre Ziemek et Bernard ?</li>
+<li>Interpréter la dimension 3.</li>
+<li>Dans quelles épreuves les vainqueurs des décathlons excellent-ils ? Certaines épreuves influent-elles peu la performance (le nombre de points) au décathlon ?</li>
+<li>Comparer les performances réalisées aux quatre compétitions. Que pouvez-vous dire sur la performance moyenne lors de cette compétition ?</li>
 </ol>
 
 
