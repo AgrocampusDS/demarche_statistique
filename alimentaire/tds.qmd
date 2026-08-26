@@ -84,7 +84,7 @@ lll <- lapply(list_datasets, function(f){
 
 
 liste_donnees <- do.call('rbind', lll) %>% 
-  mutate(data_url = paste0("alimentaire/data/",dataset, '.csv')) 
+  mutate(data_url = paste0("data/",dataset, '.csv')) 
 
 
 ```

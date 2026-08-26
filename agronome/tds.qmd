@@ -82,8 +82,8 @@ lll <- lapply(list_datasets, function(f){
 })
 
 
-liste_donnees <- do.call('rbind', lll) %>% 
-  mutate(data_url = paste0("agronome/data/",dataset, '.csv')) 
+liste_donneesAAL <- do.call('rbind', lll) %>% 
+  mutate(data_url = paste0("data/",dataset, '.csv')) 
 
 
 ```
@@ -94,7 +94,7 @@ liste_donnees <- do.call('rbind', lll) %>%
 
 ```{r echo = FALSE, eval = TRUE, results='markup'}
 
-liste_donnees %>%
+liste_donneesAAL %>%
   mutate(Lien = cell_spec(dataset, "html", link = data_url)) %>% 
   select(-data_url)    %>%
   mutate('Jeu de données' = str_replace_all(str_to_title(dataset), c("_"= " ")), .before = 0) %>% 
