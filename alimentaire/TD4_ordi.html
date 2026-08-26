@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -325,17 +360,21 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="exercice-2-reconnaissance-de-la-teneur-en-cacao">Exercice 2 : Reconnaissance de la teneur en cacao</h2>
 <p>Le but ici consiste à savoir dans quelle mesure le consommateur détecte ou non une différence de teneur en cacao. Plusieurs dégustateurs ont goûté chocolat sans connaître sa teneur en cacao, et ont estimé cette teneur en cacao. Deux chocolats ont été proposés; un chocolat dont la teneur est de 72%, et un autre de teneur 85%. Les données sont enregistrées dans le fichier <a href="https://agrocampusds.github.io/demarche_statistique/alimentaire/data/chocolat_72_85.csv">chocolat_72_85.csv</a>. Importer le jeu de données et transformer la variable Pourcentage.reel en facteur :</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code> Pourcentage.reel Pourcentage.percu
- Min.   :72.0     Min.   :30.00    
- 1st Qu.:72.0     1st Qu.:60.00    
- Median :78.5     Median :70.00    
- Mean   :78.5     Mean   :70.53    
- 3rd Qu.:85.0     3rd Qu.:80.50    
- Max.   :85.0     Max.   :99.00    </code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> <span class="fu">read.table</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/chocolat_72_85.csv"</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sep =</span> <span class="st">";"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">dec =</span> <span class="st">","</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dta)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>dta<span class="sc">$</span>Pourcentage.reel <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dta<span class="sc">$</span>Pourcentage.reel)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Dans un premier temps, on s’intéresse aux estimations de la teneur en cacao pour le chocolat 72% uniquement. Pour cela, on filtre les données et on construire un objet <code>dta_72</code> qui contient uniquement ces données.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dta_72 <span class="ot">&lt;-</span> dta <span class="sc">|&gt;</span> <span class="fu">filter</span>(Pourcentage.reel<span class="sc">==</span><span class="dv">72</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <ol type="1">
 <li>Donner l’intervalle de confiance de la teneur moyenne estimée pour le chocolat 72%. A quoi cet intervalle correspond-il ? Les dégustateurs perçoivent-ils correctement la teneur en cacao en moyenne ?</li>
 <li>Faire de même et mêmes questions pour la perception du chocolat à 85%.</li>

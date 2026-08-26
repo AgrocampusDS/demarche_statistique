@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -278,6 +313,9 @@ ul.task-list li input[type="checkbox"] {
 <section id="exercice-1-analyse-sensorielle-de-jus-dorange" class="level2">
 <h2 class="anchored" data-anchor-id="exercice-1-analyse-sensorielle-de-jus-dorange">Exercice 1 – Analyse sensorielle de jus d’orange</h2>
 <p>Une analyse sensorielle a été organisée pour comparer 12 jus d’orange. Cinq juges ont évalué ces jus d’orange 2 fois lors de deux séances de dégustations. Ils ont évalué plusieurs descripteurs sensoriels (saveur sucrée, amère, acide) ainsi que leur appréciation du produit en mettant des notes entre 0 et 10. On cherche ici à comprendre pourquoi les jus d’orange sont appréciés des consommateurs. Importer le jeu de données avec la ligne de code :</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>jus <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/jusorange.csv"</span>, <span class="at">sep=</span><span class="st">";"</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <ol type="1">
 <li>Vérifier l’importation des données et la nature des variables avec la fonction <code>summary</code> et transformer si nécessaire les variables qui doivent l’être.</li>
 <li>Proposer un modèle permettant d’essayer de comprendre l’appréciation des consommateurs.</li>
@@ -349,6 +387,12 @@ ul.task-list li input[type="checkbox"] {
 <li>Quel modèle sont-ils en train de considérer ?</li>
 <li>Saisir les données, construire ce modèle puis donner une estimation des paramètres et les interpréter. Vous pouvez copier-coller les lignes de code suivantes.</li>
 </ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Etudiant <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">paste</span>(<span class="st">"Etudiant"</span>,<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>,<span class="dv">2</span>),<span class="at">sep=</span><span class="st">"."</span>))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Epreuve <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="at">each=</span><span class="dv">9</span>))</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Note <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>,<span class="dv">14</span>,<span class="dv">15</span>,<span class="dv">18</span>,<span class="dv">8</span>,<span class="dv">14</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="dv">11</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">12</span>,<span class="dv">13</span>,<span class="dv">3</span>,<span class="dv">10</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="cn">NA</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">cbind.data.frame</span>(Etudiant,Epreuve,Note)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <ol start="4" type="1">
 <li><p>Donner les notes que les étudiants 7 et 8 obtiendraient pour la 1ère épreuve et pour l’ensemble du module grâce à ce modèle.</p></li>
 <li><p>Quelles notes obtiendraient les étudiants 1 à 6 ? Qu’en pensez-vous ?</p></li>

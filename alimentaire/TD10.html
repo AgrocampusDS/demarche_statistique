@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -278,6 +313,9 @@ ul.task-list li input[type="checkbox"] {
 <section id="exercice-1-appréciation-de-jambons" class="level1">
 <h1>Exercice 1 – Appréciation de jambons</h1>
 <p>Un organisme d’analyse sensorielle souhaite savoir s’il est possible de prévoir l’appréciation globale d’un jambon à partir de sa description sensorielle. Un jury entraîné a utilisé les variables suivantes pour décrire 21 jambons : Jutosité, Caractère croquant, Tendreté, Caractère pâteux, Fibreux, Saveur salée, Saveur sucrée, Flaveur de viande, Assaisonnement, Flaveur métallique, Flaveur fèces/urine, Flaveur de gras, Flaveur braisé/fumé, Flaveur lactique . Puis une note d’Appréciation globale a été attribué à chacun des jambons. Importer les données grâce à la commande suivante :</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/jambon.txt"</span>, <span class="at">sep=</span><span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">dec=</span><span class="st">"."</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">row.names=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <ol type="1">
 <li>Visualiser les relations entre chaque variable explicative et la variable réponse.</li>
 <li>Ecrire le modèle complet.</li>
@@ -297,40 +335,9 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <p>Importer les données en utilisant les lignes de code suivantes qui permettent d’importer et ensuite de transformer les trois premières variables en facteurs :</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>      Juge              Produit   Seance  Odeur.de.cacao   Odeur.de.lait   
- 1      : 18   Ethiquable_70:24   1:108   Min.   : 2.000   Min.   : 1.000  
- 2      : 18   Ethiquable_75:24   2:108   1st Qu.: 5.000   1st Qu.: 2.000  
- 3      : 18   Lindt_70     :24           Median : 6.000   Median : 3.000  
- 4      : 18   Lindt_78     :24           Mean   : 6.153   Mean   : 3.569  
- 5      : 18   Lindt_85     :24           3rd Qu.: 8.000   3rd Qu.: 5.000  
- 6      : 18   Nestle_70    :24           Max.   :10.000   Max.   :10.000  
- (Other):108   (Other)      :72                                            
- Saveur.sucree    Saveur.acide     Saveur.amere    Arome.de.cacao 
- Min.   : 1.00   Min.   : 1.000   Min.   : 1.000   Min.   : 2.00  
- 1st Qu.: 2.00   1st Qu.: 2.000   1st Qu.: 4.000   1st Qu.: 5.00  
- Median : 4.00   Median : 3.000   Median : 6.000   Median : 7.00  
- Mean   : 4.38   Mean   : 3.838   Mean   : 6.139   Mean   : 6.63  
- 3rd Qu.: 6.00   3rd Qu.: 6.000   3rd Qu.: 8.000   3rd Qu.: 8.00  
- Max.   :10.00   Max.   :10.000   Max.   :10.000   Max.   :10.00  
-                                                                  
- Arome.de.lait   Arome.de.caramel Arome.de.vanille  Astringence    
- Min.   :1.000   Min.   :1.000    Min.   : 1.000   Min.   : 1.000  
- 1st Qu.:2.000   1st Qu.:1.000    1st Qu.: 1.000   1st Qu.: 4.000  
- Median :3.000   Median :2.000    Median : 2.000   Median : 6.000  
- Mean   :3.606   Mean   :2.648    Mean   : 2.449   Mean   : 5.569  
- 3rd Qu.:6.000   3rd Qu.:4.000    3rd Qu.: 3.000   3rd Qu.: 7.000  
- Max.   :8.000   Max.   :9.000    Max.   :10.000   Max.   :10.000  
-                                                                   
-    Croquant         Fondant     Collant        Granuleux    
- Min.   : 2.000   Min.   :1   Min.   :1.000   Min.   :1.000  
- 1st Qu.: 5.000   1st Qu.:4   1st Qu.:2.000   1st Qu.:1.000  
- Median : 7.000   Median :5   Median :4.000   Median :2.000  
- Mean   : 6.477   Mean   :5   Mean   :4.042   Mean   :2.843  
- 3rd Qu.: 8.000   3rd Qu.:7   3rd Qu.:6.000   3rd Qu.:4.000  
- Max.   :10.000   Max.   :9   Max.   :9.000   Max.   :9.000  
-                                                             </code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>choc <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/chocolat2017.csv"</span>, <span class="at">sep=</span><span class="st">";"</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) {choc[,i] <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(choc[,i])}</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(choc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="2" type="1">
 <li>Construire un graphique permettant de visualiser l’effet produit et un autre permettant de visualiser l’interaction produit-séance.</li>

@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -287,57 +322,8 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <p>Pour importer les variables utiliser les lignes de commande suivantes :</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>  position     COD_p90      distance_source       alti        
- Amont:49   Min.   :2.251   Min.   :  3244   Min.   : -0.151  
- Aval :12   1st Qu.:4.250   1st Qu.: 13808   1st Qu.:  9.358  
-            Median :4.891   Median : 20873   Median : 23.942  
-            Mean   :4.964   Mean   : 29362   Mean   : 46.885  
-            3rd Qu.:5.657   3rd Qu.: 31889   3rd Qu.: 70.032  
-            Max.   :7.862   Max.   :152577   Max.   :208.761  
-  taille_cours_d_eau               region     debit_p10      
- grand     : 3       bassin_parisien  :25   Min.   :0.00100  
- moyen     : 7       massif_armoricain:36   1st Qu.:0.08814  
- petit     :27                              Median :0.25072  
- tres petit:24                              Mean   :0.70139  
-                                            3rd Qu.:0.60273  
-                                            Max.   :6.55321  
-   debit_moy           debit_p90            carb_urb          carb_ind       
- Min.   : 0.002509   Min.   : 0.004968   Min.   :   0.00   Min.   :  0.0000  
- 1st Qu.: 0.421094   1st Qu.: 1.022102   1st Qu.:  22.11   1st Qu.:  0.0000  
- Median : 0.911269   Median : 1.921737   Median :  55.16   Median :  0.2362  
- Mean   : 2.211609   Mean   : 4.616459   Mean   : 131.07   Mean   : 23.4740  
- 3rd Qu.: 2.103540   3rd Qu.: 4.113298   3rd Qu.: 124.69   3rd Qu.: 18.9119  
- Max.   :19.197424   Max.   :47.614452   Max.   :1311.97   Max.   :181.1694  
-   carb_elev         carb_sols           sup_bv           foret        
- Min.   :  17.88   Min.   :   19.7   Min.   :   7.0   Min.   :0.00000  
- 1st Qu.:  92.76   1st Qu.:  203.5   1st Qu.:  54.0   1st Qu.:0.02616  
- Median : 196.19   Median :  374.3   Median :  93.0   Median :0.04071  
- Mean   : 502.60   Mean   : 1013.6   Mean   : 228.9   Mean   :0.05744  
- 3rd Qu.: 466.34   3rd Qu.:  888.1   3rd Qu.: 182.5   3rd Qu.:0.07543  
- Max.   :3949.52   Max.   :10721.0   Max.   :2538.5   Max.   :0.18522  
-    prairie           culture           urbain             divers       
- Min.   :0.04413   Min.   :0.1069   Min.   :0.000000   Min.   :0.00000  
- 1st Qu.:0.40979   1st Qu.:0.2971   1st Qu.:0.006832   1st Qu.:0.01074  
- Median :0.48472   Median :0.4020   Median :0.010267   Median :0.01779  
- Mean   :0.49599   Mean   :0.4080   Mean   :0.014396   Mean   :0.02431  
- 3rd Qu.:0.59108   3rd Qu.:0.5001   3rd Qu.:0.017098   3rd Qu.:0.03026  
- Max.   :0.85017   Max.   :0.8755   Max.   :0.077571   Max.   :0.12171  
-     d_pop           d_betail         Ptot_p90          NO3_p90      
- Min.   :  0.00   Min.   : 29.45   Min.   :0.04006   Min.   : 8.932  
- 1st Qu.: 36.61   1st Qu.: 80.02   1st Qu.:0.09766   1st Qu.:17.719  
- Median : 51.03   Median :123.56   Median :0.11854   Median :25.074  
- Mean   : 67.75   Mean   :131.19   Mean   :0.13435   Mean   :26.813  
- 3rd Qu.: 73.08   3rd Qu.:163.43   3rd Qu.:0.14456   3rd Qu.:35.617  
- Max.   :336.43   Max.   :311.55   Max.   :0.44355   Max.   :68.305  
-    DBO_p90         NH4_p90           MES_p90        conduct._p90  
- Min.   :1.363   Min.   :0.04523   Min.   : 12.59   Min.   :137.7  
- 1st Qu.:1.823   1st Qu.:0.06802   1st Qu.: 29.08   1st Qu.:268.3  
- Median :1.989   Median :0.07959   Median : 37.76   Median :315.9  
- Mean   :1.997   Mean   :0.12068   Mean   : 39.45   Mean   :412.4  
- 3rd Qu.:2.050   3rd Qu.:0.11121   3rd Qu.: 44.68   3rd Qu.:584.9  
- Max.   :3.359   Max.   :1.20983   Max.   :121.02   Max.   :823.5  </code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data_COD <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"Donnees_COD.csv"</span>, <span class="at">sep=</span><span class="st">";"</span>, <span class="at">dec=</span><span class="st">","</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data_COD)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="3" type="1">
 <li>Pour chacun des points suivants, construire puis interpréter le graphique adapté pour visualiser (les lignes de code pour construire les graphiques sont celles du cours à adapter sur le jeu de données) :</li>

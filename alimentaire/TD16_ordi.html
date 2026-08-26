@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -278,6 +313,12 @@ ul.task-list li input[type="checkbox"] {
 <section id="exercice-1---analyse-sensorielle-de-10-chocolats" class="level2">
 <h2 class="anchored" data-anchor-id="exercice-1---analyse-sensorielle-de-10-chocolats">Exercice 1 - Analyse sensorielle de 10 chocolats</h2>
 <p>Une analyse sensorielle a été organisée pour comparer 9 chocolats noirs (dégustation faite en 2017). Douze juges ont évalué ces chocolats 2 fois lors de deux séances de dégustations. Ils ont évalué 14 descripteurs en mettant des notes entre 0 et 10. L’objectif d’une telle analyse est de comparer les produits les uns par rapport aux autres. On va s’intéresser ici à la description sensorielle des chocolats faite par l’ensemble du jury. Importer les données qui sont initialement dans un format de tableau type analyse de variance, et construire un tableau avec en lignes les chocolats, en colonnes les descripteurs sensoriels et dans une case du tableau la moyenne des notes tout juge confondu pour un produit et un descripteur :</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>choc <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/chocolat2017.csv"</span>, <span class="at">sep=</span><span class="st">";"</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>moy_choc <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(choc[, <span class="dv">4</span><span class="sc">:</span><span class="dv">17</span>], <span class="at">by =</span> <span class="fu">list</span>(<span class="at">Produit =</span> choc<span class="sc">$</span>Produit), <span class="at">FUN =</span> mean)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(moy_choc) <span class="ot">&lt;-</span> moy_choc[,<span class="dv">1</span>]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>moy_choc <span class="ot">&lt;-</span> moy_choc[,<span class="sc">-</span><span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <ol type="1">
 <li>Décrire les données (variables ? individus ?) et préciser les objectifs d’une ACP effectuée sur ce tableau de données.</li>
 <li>Est-il indispensable de centrer et réduire les données sur ce tableau&nbsp;? Pourquoi&nbsp;?</li>
@@ -296,6 +337,9 @@ ul.task-list li input[type="checkbox"] {
 <section id="exercice-2---analyse-de-performances-en-décathlon" class="level2">
 <h2 class="anchored" data-anchor-id="exercice-2---analyse-de-performances-en-décathlon">Exercice 2 - Analyse de performances en décathlon</h2>
 <p>Les épreuves du décathlon couronnent des athlètes complets. Toutefois, chaque athlète possède ses points forts et ses points faibles. C’est à cette variabilité que nous nous intéressons ici. Pour cela, on a regroupé les résultats de 4 décathlons : les Jeux Olympiques d’Athènes en 2004, ceux de Rio en 2016, les championnats d’Europe 2018 et le decastar de Talence en 2018. On dispose, pour chaque athlète, de ses performances à chacune des 10 épreuves, de son nombre de points (à chaque épreuve, un athlète gagne des points en fonction de sa performance) et de son classement final. Les épreuves se déroulent dans l’ordre suivant : 100m, longueur, poids, hauteur, 400m le premier jour et 110m haies, disque, perche, javelot, 1500m le deuxième jour. Nous avons conservé les 20 meilleurs athlètes pour chacun des décathlons dans le fichier <a href="https://agrocampusds.github.io/demarche_statistique/alimentaire/data/decathlon.csv">decathlon.csv</a>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/decathlon.csv"</span>, <span class="at">sep=</span><span class="st">";"</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">row.names=</span><span class="dv">1</span>, <span class="at">check.names=</span><span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <ol type="1">
 <li>Décrire les données (variables ? individus ?) et préciser les objectifs d’une ACP effectuée sur ces données.</li>
 <li>Pourquoi est-ce indispensable dans cet exemple de centrer et réduire les données Mettre en œuvre l’ACP sur ce jeu de données avec la fonction <code>Factoshiny</code> du package <code>Factoshiny</code>.</li>
