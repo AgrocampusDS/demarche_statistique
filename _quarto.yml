@@ -57,10 +57,11 @@ format:
     highlight: tango
 
 execute: 
-  echo: false
+  echo: true
   cache: true
   message: false
   warning: false
+  eval: false
 # Important : inclure le script R
   code-overrides:
     include-before: setup.R

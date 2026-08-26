@@ -21,7 +21,7 @@ Pour importer les variables utiliser les lignes de commande suivantes :
 
 ```{r}
 
-data_COD <- read.table("data/Donnees_COD.csv", sep=";", dec=",", header=TRUE, stringsAsFactors = TRUE)
+data_COD <- read.table("Donnees_COD.csv", sep=";", dec=",", header=TRUE, stringsAsFactors = TRUE)
 summary(data_COD)
 
 

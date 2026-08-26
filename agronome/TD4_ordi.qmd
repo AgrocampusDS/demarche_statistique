@@ -39,7 +39,7 @@ Reprendre les lignes de code permettant d’importer le jeu de données :
 
 
 ```{r}
-dta <- read.table("data/Donnees_COD.csv", sep=";", dec=",", header=TRUE, stringsAsFactors = TRUE)
+dta <- read.table("Donnees_COD.csv", sep=";", dec=",", header=TRUE, stringsAsFactors = TRUE)
 summary(dta)
 
 ```
