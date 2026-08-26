@@ -14,7 +14,7 @@ Afin de réaliser l’analyse conjointe, l’entreprise peut faire des emballage
 Une fois ces emballages fabriqués, 100 consommateurs sont interrogés et doivent mettre une note comprise entre 0 (l’emballage ne me plaît pas) et 10 (l’emballage me plaît beaucoup) pour chacun des emballages (il y a alors 800 données).
 4. Comment analysez-vous ces résultats (préciser le modèle utilisé) ?
 
-## Exercice 2 – Construction d’un plan $2^{8-4}$
+## Exercice 2 – Construction d’un plan $2^{8-4}$
 
 A partir de 16 essais, on veut construire un plan à 8 facteurs à 2 niveaux tels que les effets principaux soient confondus avec des interactions d’ordre 3 ou plus.
 1. Donner les générateurs d’alias d’un tel plan.

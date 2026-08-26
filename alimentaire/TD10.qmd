@@ -10,7 +10,7 @@ format: html
 Un organisme d'analyse sensorielle souhaite savoir s'il est possible de prévoir l'appréciation globale d'un jambon à partir de sa description sensorielle. Un jury entraîné a utilisé les variables suivantes pour décrire 21 jambons : Jutosité, Caractère croquant, Tendreté, Caractère pâteux, Fibreux, Saveur salée, Saveur sucrée, Flaveur de viande, Assaisonnement, Flaveur métallique, Flaveur fèces/urine, Flaveur de gras, Flaveur braisé/fumé, Flaveur lactique . Puis une note d'Appréciation globale a été attribué à chacun des jambons.
 Importer les données grâce à la commande suivante :
 ```{r}
-dta <- read.table("data/jambon.txt", sep="\t", dec=".", header=TRUE, row.names=1)
+dta <- read.table("jambon.txt", sep="\t", dec=".", header=TRUE, row.names=1)
 ```
 
 1. Visualiser les relations entre chaque variable explicative et la variable réponse.
@@ -22,7 +22,7 @@ Le nombre de variables explicatives étant très important, on suggère qu'il se
 4. Ecrire le modèle que vous retenez pour prédire l'appréciation globale.
 5. Interpréter concrètement les résultats de votre modèle.
 
-# Exercice 2 – nalyse sensorielle de chocolats noirs
+# Exercice 2 – Analyse sensorielle de chocolats noirs
 
 Une analyse sensorielle a été organisée pour comparer 9 chocolats noirs (dégustation faite en 2017). Douze juges ont évalué ces chocolats 2 fois lors de deux séances de dégustations. Ils ont évalué 14 descripteurs en mettant des notes entre 0 et 10. L'objectif d'une telle analyse est de comparer les produits les uns par rapport aux autres.
 On va s'intéresser ici à la variable sensorielle Arôme de caramel.
@@ -32,7 +32,7 @@ On va s'intéresser ici à la variable sensorielle Arôme de caramel.
 Importer les données en utilisant les lignes de code suivantes qui permettent d'importer et ensuite de transformer les trois premières variables en facteurs :
 
 ```{r}
-choc <- read.table("data/chocolat2017.csv", sep=";", header=TRUE, stringsAsFactors = TRUE)
+choc <- read.table("chocolat2017.csv", sep=";", header=TRUE, stringsAsFactors = TRUE)
 for (i in 1:3) {choc[,i] <- as.factor(choc[,i])}
 summary(choc)
 ```

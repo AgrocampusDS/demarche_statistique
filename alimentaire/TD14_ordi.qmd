@@ -17,7 +17,7 @@ summary(lait)
 3. Commenter les estimations des coefficients du modèle retenu (rappeler le test effectué pour un coefficient en rappelant les hypothèses, la statistique de test et sa conclusion).
 Les mesures sur un nouvel échantillon de lait sont les suivantes :
 
-```{r}
+```{r, eval = TRUE, eval= FALSE}
 library(kableExtra)
 newdata <- data.frame(Densite = 1.03, Butyreux = 37.7, Proteine=35.7, Caseine = 28.5, Extrait.sec = 127.1)
 newdata |> kbl() |> 
