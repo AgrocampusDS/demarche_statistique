@@ -355,6 +355,9 @@
     "href": "alimentaire/tds.html",
     "title": "Démarche Statistique, parcours Ingénieur Alimentation",
     "section": "",
-    "text": "Vous trouverez sur ce site les énoncés de TDs associés au cours de démarche statistique ainsi que les données associées.\n\nListe des TDs du module\n\n\n\n\n\nNom\nLien\n\n\n\n\nTD 2 - Visualisation de données\nTD2\n\n\nTD 4 - Test de comparaison de moyenne\nTD4\n\n\nTD 6 - ANOVA\nTD6\n\n\nTD 8 - Régression\nTD8\n\n\nTD 10 - Cas déséquilibré\nTD10\n\n\nTD 12 - Prise en compte d'effets\nTD12\n\n\nTD 13 - Démarche statistique complète\nTD13\n\n\nTD 14 - Comme des grands\nTD14\n\n\n\n\n\n\n\nListe des jeux de données du module\n\n\n\n\n\nJeu de données\nLien\n\n\n\n\nChocolat 2022\nchocolat_2022\n\n\nChocolat 72 85\nchocolat_72_85\n\n\nChocolat2017\nchocolat2017\n\n\nFromages\nfromages\n\n\nJusorange\njusorange\n\n\nLait\nlait"
+    "text": "Vous trouverez sur ce site les énoncés de TDs associés au cours de démarche statistique ainsi que les données associées.\n\nListe des TDs du module\n\n\n\n\n\nNom\nLien\n\n\n\n\nTD 2 - Visualisation de données\nTD2\n\n\nTD 4 - Test de comparaison de moyenne\nTD4\n\n\nTD 6 - ANOVA\nTD6\n\n\nTD 8 - Régression\nTD8\n\n\nTD 10 - Cas déséquilibré\nTD10\n\n\nTD 12 - Prise en compte d'effets\nTD12\n\n\nTD 13 - Démarche statistique complète\nTD13\n\n\nTD 14 - Comme des grands\nTD14\n\n\n\n\n\n\n\nListe des jeux de données du module\n\n\n\n\n\nJeu de données\nLien\n\n\n\n\nChocolat 2022\nchocolat_2022\n\n\nChocolat 72 85\nchocolat_72_85\n\n\nChocolat2017\nchocolat2017\n\n\nFromages\nfromages\n\n\nJusorange\njusorange\n\n\nLait\nlait",
+    "crumbs": [
+      "Alimentaire"
+    ]
   }
 ]
