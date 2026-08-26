@@ -41,7 +41,7 @@ Les épreuves se déroulent dans l’ordre suivant : 100m, longueur, poids, haut
 Nous avons conservé les 20 meilleurs athlètes pour chacun des décathlons dans le fichier [decathlon.csv](https://agrocampusds.github.io/demarche_statistique/alimentaire/data/decathlon.csv).
 
 ```{r}
-dta <- read.table("decathlon.csv", sep=";", header=TRUE, row.names=1, check.names=FALSE)
+dta <- read.table("data/decathlon.csv", sep=";", header=TRUE, row.names=1, check.names=FALSE)
 ```
 
 1. Décrire les données (variables ? individus ?) et préciser les objectifs d’une ACP effectuée sur ces données.
