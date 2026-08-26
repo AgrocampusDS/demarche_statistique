@@ -47,6 +47,10 @@ website:
             href: alimentaire/TD13_ordi.qmd
           - text: "TD 14"
             href: alimentaire/TD14_ordi.qmd
+          - text: "TD 16"
+            href: alimentaire/TD16_ordi.qmd
+          - text: "TD 18"
+            href: alimentaire/TD18_ordi.qmd
 format:
   html:
     theme: flatly
