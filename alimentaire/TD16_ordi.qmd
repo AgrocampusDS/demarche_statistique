@@ -17,19 +17,21 @@ moy_choc <- moy_choc[,-1]
 ```
 
 1. Décrire les données (variables ? individus ?) et préciser les objectifs d’une ACP effectuée sur ce tableau de données.
-2. Est-il indispensable de centrer et réduire les données sur ce tableau ? Pourquoi ?
+2. Est-il indispensable de centrer et réduire les données sur ce tableau ? Pourquoi ?
 
 Mettre en œuvre l’ACP (normée) sur ce jeu de données avec la fonction `Factoshiny` du package `Factoshiny`.
 
 3. Commenter les pourcentages d’inertie expliquée par le premier axe de l’ACP, par le plan principal. 
 4. Quels sont les 3 chocolats les mieux représentés sur le plan principal ?
 5. Quels sont les chocolats qui contribuent le plus à la construction de la 1ère dimension de l’ACP ? Et à la 2ème ? Que signifie une contribution importante ?
-6. À partir du cercle des corrélations, que pouvez-vous dire concernant les corrélations suivantes :
+6. À partir du cercle des corrélations, que pouvez-vous dire concernant les corrélations suivantes :
+
     * Saveur amère – arôme de cacao
     * Croquant - fondant
     * Croquant – arôme de cacao
     * Saveur acide – granuleux
     * Saveur acide - croquant
+    
 7. Comparer les profils sensoriels des chocolats Lindt_85 et Repère_72. Puis ceux de Lindt_78 et Lindt_70. Que pouvez-vous dire sur la proximité entre les chocolats Lindt_85 et Repère_85. Puis ceux de Ethiquable_70 et Ethiquable_75 ?
 8. Interpréter les facteurs principaux de l’ACP (à l’aide du graphe des individus et du graphe des variables).
 9. Interpréter la dimension 3.
@@ -51,11 +53,13 @@ Mettre en œuvre l’ACP sur ce jeu de données avec la fonction `Factoshiny` du
 4. Commenter les pourcentages d’inertie expliquée par le premier axe de l’ACP, par le plan principal. Selon quel point de vue est-il préférable que les 2 premiers axes n’expliquent pas trop l’inertie totale ?
 5. Quels sont les 3 athlètes les mieux représentés sur le plan principal ?
 6. Quels sont les athlètes qui contribuent le plus à la construction de la 1ère dimension de l’ACP ? Et à la 2ème ? Que signifie une contribution importante ?
-7. À partir du cercle des corrélations, que pouvez-vous dire concernant les corrélations suivantes :
+7. À partir du cercle des corrélations, que pouvez-vous dire concernant les corrélations suivantes :
+
     * 100 m haies - 400 m
     * 100 m - Longueur
     * 100 m - 1500 m
     * Disque - Poids
+    
 8. Interpréter les facteurs principaux de l’ACP (à l’aide du graphe des individus et du graphe des variables actives et illustratives).
 9. Comparer les profils de MAYER et LELIEVRE. Puis ceux de Kaul et Duckworth. Que pouvez-vous dire sur la proximité entre Karpov et Clay ? Et celle entre Ziemek et Bernard ?
 10. Interpréter la dimension 3.

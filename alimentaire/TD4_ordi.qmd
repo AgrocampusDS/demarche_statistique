@@ -38,7 +38,7 @@ On souhaite maintenant tester l'égalité des moyennes entre AK et LZ
 ## Exercice 2 : Reconnaissance de la teneur en cacao
 
 Le but ici consiste à savoir dans quelle mesure le consommateur détecte ou non une différence de teneur en cacao. Plusieurs dégustateurs ont goûté chocolat sans connaître sa teneur en cacao, et ont estimé cette teneur en cacao. Deux chocolats ont été proposés; un chocolat dont la teneur est de 72%, et un autre de teneur 85%. Les données sont enregistrées dans le fichier [chocolat_72_85.csv](https://agrocampusds.github.io/demarche_statistique/alimentaire/data/chocolat_72_85.csv).
-Importer le jeu de données et transformer la variable Pourcentage.reel en facteur :
+Importer le jeu de données et transformer la variable `Pourcentage.reel` en facteur :
 
 ```{r}
 dta <- read.table(
