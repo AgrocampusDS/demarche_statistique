@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TD 4 - Test de comparaison de moyenne – Institut Agro Rennes-Angers</title>
+<title>TD 4 - Test de comparaison de moyennes – Institut Agro Rennes-Angers</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -322,7 +322,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../agronome/tds.html">Agronome</a></li><li class="breadcrumb-item"><a href="../agronome/TD4_ordi.html">TD 4</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">TD 4 - Test de comparaison de moyenne</h1>
+<h1 class="title">TD 4 - Test de comparaison de moyennes</h1>
 </div>
 
 
@@ -343,7 +343,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="exercice-1-le-compas-dans-lœil">Exercice 1 : Le compas dans l’œil</h2>
 <p>A l’œil, <strong>sans l’aide d’une règle et indépendamment de vos voisins</strong>, évaluer la longueur du segment AK (si votre nom commence par une lettre entre A et K) ou du segment LZ à la fin de l’exercice (si votre nom commence par une lettre entre L et Z).</p>
 <p><img src="images/segment.png" class="img-fluid"></p>
-<p>Une fois toutes les données recueillies dans votre tableur préféré, considérons deux groupes : les évalua-tions faites pour la longueur AK et celle faite pour la longueur LZ. On suppose que la longueur AK suit une loi normale d’espérance <span class="math inline">\(\mu_1\)</span> et de variance <span class="math inline">\(\sigma_2\)</span> et que la longueur LZ suit une loi normale d’espérance <span class="math inline">\(\mu_2\)</span> et de variance <span class="math inline">\(\sigma_2\)</span>.</p>
+<p>Une fois toutes les données recueillies dans votre tableur préféré, considérons deux groupes : les évaluations faites pour la longueur AK et celle faite pour la longueur LZ. On suppose que la longueur AK suit une loi normale d’espérance <span class="math inline">\(\mu_1\)</span> et de variance <span class="math inline">\(\sigma_2\)</span> et que la longueur LZ suit une loi normale d’espérance <span class="math inline">\(\mu_2\)</span> et de variance <span class="math inline">\(\sigma_2\)</span>.</p>
 <p>Saisir les données, les sauvegarder dans un fichier <code>longueur.csv</code> puis les importer dans un objet <code>dta</code> de R. On cherche dans un premier temps à savoir si, en moyenne, l’évaluation de la longueur AK est non biaisée.</p>
 <ul>
 <li><p>Exprimer la problématique ci-dessus sous la forme d’un test d’hypothèses</p></li>
@@ -351,19 +351,20 @@ window.Quarto = {
 <li><p>A l’aide des données recueillies, mettre en œuvre le test avec un niveau de confiance de 95 %.</p></li>
 </ul>
 <p>Pour le segment LZ, tester si, en moyenne, il est évalué justement ou sous-estimé (préciser <span class="math inline">\(H_0\)</span> et <span class="math inline">\(H_1\)</span> avant de construire le test sous R).</p>
+<p>On souhaite maintenant tester l’égalité des moyennes entre AK et LZ</p>
 <ul>
-<li>On souhaite maintenant tester l’égalité des moyennes entre AK et LZ</li>
+<li>Exprimer la problématique ci-dessus sous la forme d’un test d’hypothèses</li>
 </ul>
 <p><img src="images/segment_LZ.png" class="img-fluid"></p>
 </section>
 <section id="exercice-2-le-carbone-organique-dissout" class="level2">
 <h2 class="anchored" data-anchor-id="exercice-2-le-carbone-organique-dissout">Exercice 2 : Le carbone organique dissout</h2>
-<p>On reprend les données sur le carbone organique dissout. On s’intéresse dans un premier temps au percen-tile 90 du carbone organique dissout. Reprendre les lignes de code permettant d’importer le jeu de données :</p>
+<p>On reprend les données sur le carbone organique dissout (COD). On s’intéresse dans un premier temps au percentile 90 du COD. Reprendre les lignes de code permettant d’importer le jeu de données :</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"Donnees_COD.csv"</span>, <span class="at">sep=</span><span class="st">";"</span>, <span class="at">dec=</span><span class="st">","</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dta)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>On s’intéresse maintenant au phosphore total (<code>Ptot_P90</code>). Dans un premier temps, on s’intéresse aux données du bassin parisien uniquement. Pour cela, on filtre les données et on construire un objet dta_bassin qui contient uniquement les stations du bassin parisien.</p>
+<p>On s’intéresse maintenant au phosphore total (<code>Ptot_P90</code>). Dans un premier temps, on s’intéresse aux données du bassin parisien uniquement. Pour cela, on filtre les données et on construit un objet <code>dta_bassin</code> qui contient uniquement les stations du bassin parisien.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dta_bassin <span class="ot">&lt;-</span> dta <span class="sc">|&gt;</span> <span class="fu">filter</span>(region<span class="sc">==</span><span class="st">"bassin_parisien"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -372,15 +373,12 @@ window.Quarto = {
 <li><p>Donner l’intervalle de confiance du carbone organique dissout. A quoi cet intervalle correspond-il ?</p></li>
 <li><p>Peut-on considérer que les moyennes des COD sont égales dans les deux régions ?</p></li>
 </ol>
-<p>On s’intéresse maintenant au phosphore total (<code>Ptot_P90</code>). Dans un premier temps, on s’intéresse aux données du bassin parisien uniquement. Pour cela, on filtre les données et on construire un objet dta_bassin qui contient uniquement les stations du bassin parisien.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dta_bassin <span class="ot">&lt;-</span> dta <span class="sc">|&gt;</span> <span class="fu">filter</span>(region<span class="sc">==</span><span class="st">"bassin_parisien"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<p>On s’intéresse maintenant au phosphore total (<code>Ptot_P90</code>).</p>
 <ol start="3" type="1">
 <li>Construire l’intervalle de confiance du phosphore total pour les stations du bassin parisien.</li>
-<li>Construire maintenant l’intervalle de confiance du phosphore total pour les stations du massif armoricain uni-quement.</li>
+<li>Construire maintenant l’intervalle de confiance du phosphore total pour les stations du massif armoricain uniquement.</li>
 <li>Peut-on considérer que la moyenne du phosphore total est plus grande dans le bassin parisien que dans le massif armoricain ?</li>
-<li>Comparez les largeurs des deux intervalles de confiance (bassin parisien vs massif armoricain). Quelle(s) raison(s) peux/peuvent expliquer la différence de largeur ?</li>
+<li>Comparez les largeurs des deux intervalles de confiance (bassin parisien vs massif armoricain). Quelle(s) raison(s) peut/peuvent expliquer la différence de largeur ?</li>
 </ol>
 
 
