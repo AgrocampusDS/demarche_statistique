@@ -28,6 +28,7 @@ On s'intéresse à l'évolution de l’empreinte des gaz à effets de serre (GES
 2. Construire un graphique pour représenter les données.
 
 On cherche maintenant à prévoir l’évolution jusqu’en 2050. Après avoir bien visualisé les données, proposer un modèle et les données que vous utiliseriez pour prévoir l’évolution de l’empreinte GES dans les prochaines années. 
+
 3. Construire et interpréter le modèle.
 
 4. Quelle empreinte carbone prédisez-vous pour 2050 (sachant que l’objectif défini lors des accords de Paris est de 2teqCO2/hab/an) ? Quelle hypothèse sous-jacente faites-vous quand vous faites cette prédiction ? Qu’en pensez-vous.

@@ -5,18 +5,31 @@ format: html
 
 ## Exercice 1 – Analyse conjointe (ou Trade off) en marketing
 
-L’analyse conjointe (ou Trade off) est souvent utilisée en marketing pour analyser le marché avant de lancer un nouveau produit. L’idée est de choisir parmi plusieurs produits celui qui sera le mieux perçu par les consommateurs. Le principe de l’analyse conjointe est le suivant : on demande à des consommateurs de classer plusieurs produits concurrents ou d’accorder une note à ces produits.
-On veut choisir un emballage pour une nouvelle recette de crème caramel. Plusieurs critères (7) sont étudiés : parfum/marque (parfum caramel écrit en gros ou marque écrite en gros) ; DLC (indiquée sur le couvercle ou le côté) ; mention “le magnésium est bon pour la santé” (indiquée ou non) ; mention “fabriqué en France” (indiquée ou non) ; couleur (une seule ou plusieurs couleurs) ; taille des caractères (petite ou grande) ; fond (avec ou sans photo en fond).
+L’analyse conjointe (ou Trade off) est souvent utilisée en marketing pour analyser le marché avant de lancer un nouveau produit. L’idée est de choisir parmi plusieurs produits celui qui sera le mieux perçu par les consommateurs. Le principe de l’analyse conjointe est le suivant : on demande à des consommateurs de classer plusieurs produits concurrents ou d’accorder une note à ces produits.
+On veut choisir un emballage pour une nouvelle recette de crème caramel. Plusieurs critères (7) sont étudiés :
+
+* parfum/marque (parfum caramel écrit en gros ou marque écrite en gros) 
+* DLC (indiquée sur le couvercle ou le côté) 
+* mention “le magnésium est bon pour la santé” (indiquée ou non) 
+* mention “fabriqué en France” (indiquée ou non) 
+* couleur (une seule ou plusieurs couleurs) 
+* taille des caractères (petite ou grande) 
+* fond (avec ou sans photo en fond).
+
 Afin de réaliser l’analyse conjointe, l’entreprise peut faire des emballages correspondant à n’importe quelle combinaison des 7 critères. Cependant, la construction d’un emballage coûte cher et il n’est pas raisonnable de faire classer plus de 8 produits par un consommateur.
-1. On décide de réaliser un plan en 8 essais. Quel est le nom du plan à construire ?
+
+1. On décide de réaliser un plan en 8 essais. Quel est le nom du plan à construire ?
 2. Construire le plan (utiliser la fonction FrF2 du package FrF2). Donner les générateurs d’alias et la résolution du plan.
-3. On suspecte une interaction possible entre les critères “mention magnésium” et “produit français” (si les deux mentions sont présentes, l’emballage est trop surchargé de mentions). Avec le plan que vous avez construit, pouvez-vous analyser cette interaction ? Si oui, comment faites-vous ? Si non, comment feriez-vous ?
+3. On suspecte une interaction possible entre les critères “mention magnésium” et “produit français” (si les deux mentions sont présentes, l’emballage est trop surchargé de mentions). Avec le plan que vous avez construit, pouvez-vous analyser cette interaction ? Si oui, comment faites-vous ? Si non, comment feriez-vous ?
+
 Une fois ces emballages fabriqués, 100 consommateurs sont interrogés et doivent mettre une note comprise entre 0 (l’emballage ne me plaît pas) et 10 (l’emballage me plaît beaucoup) pour chacun des emballages (il y a alors 800 données).
-4. Comment analysez-vous ces résultats (préciser le modèle utilisé) ?
+
+4. Comment analysez-vous ces résultats (préciser le modèle utilisé) ?
 
 ## Exercice 2 – Construction d’un plan $2^{8-4}$
 
 A partir de 16 essais, on veut construire un plan à 8 facteurs à 2 niveaux tels que les effets principaux soient confondus avec des interactions d’ordre 3 ou plus.
+
 1. Donner les générateurs d’alias d’un tel plan.
 2. Les effets principaux sont-ils estimables sans ambiguïté ?
 3. Construire le plan avec la fonction `FrF2` du package `FrF2`
@@ -25,7 +38,7 @@ A partir de 16 essais, on veut construire un plan à 8 facteurs à 2 niveaux tel
 ## Exercice 3 – Répartition des expériences sur 2 équipes de travail
 
 Vous voulez étudier l’influence de 3 facteurs qualitatifs F1, F2 et F3 présentant chacun 2 modalités :
-    • F1 est le facteur température qui peut prendre les valeurs 30 et 45 degrés ;
-    • F2 est le facteur pression qui peut prendre les valeurs 2 et 4 bars ;
-    • F3 est la vitesse de rotation de l’appareil qui peut prendre les valeurs 900 tours/minute et 1200 tours/minute.
+    * F1 est le facteur température qui peut prendre les valeurs 30 et 45 degrés ;
+    * F2 est le facteur pression qui peut prendre les valeurs 2 et 4 bars ;
+    * F3 est la vitesse de rotation de l’appareil qui peut prendre les valeurs 900 tours/minute et 1200 tours/minute.
 On peut effectuer 8 expériences donc réaliser un plan complet. Vous voulez alors répartir ces 8 essais pour 2 équipes de travail (4 essais par équipe). Les deux équipes pouvant travailler de façon différente, décrire précisément les 4 essais que vous décidez de faire réaliser par chacune des équipes de travail.
