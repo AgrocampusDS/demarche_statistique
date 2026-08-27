@@ -1,5 +1,5 @@
 ---
-title: "TD 4 - Test de comparaison de moyenne"
+title: "TD 4 - Test de comparaison de moyennes"
 format: html
 ---
 
@@ -11,7 +11,7 @@ A l’œil, **sans l’aide d’une règle et indépendamment de vos voisins**, 
 
 
 
-Une fois toutes les données recueillies dans votre tableur préféré, considérons deux groupes : les évalua-tions faites pour la longueur AK et celle faite pour la longueur LZ. On suppose que la longueur AK suit une loi normale d’espérance $\mu_1$ et de variance $\sigma_2$ et que la longueur LZ suit une loi normale d’espérance $\mu_2$ et de variance $\sigma_2$.
+Une fois toutes les données recueillies dans votre tableur préféré, considérons deux groupes : les évaluations faites pour la longueur AK et celle faite pour la longueur LZ. On suppose que la longueur AK suit une loi normale d’espérance $\mu_1$ et de variance $\sigma_2$ et que la longueur LZ suit une loi normale d’espérance $\mu_2$ et de variance $\sigma_2$.
 
 Saisir les données, les sauvegarder dans un fichier `longueur.csv` puis les importer dans un objet `dta` de R. On cherche dans un premier temps à savoir si, en moyenne, l’évaluation de la longueur AK est non biaisée.
 
@@ -24,8 +24,11 @@ Saisir les données, les sauvegarder dans un fichier `longueur.csv` puis les imp
 Pour le segment LZ, tester si, en moyenne, il est évalué justement ou sous-estimé (préciser $H_0$ et $H_1$ avant de construire le test sous R).
 
 
-- On souhaite maintenant tester l'égalité des moyennes entre AK et LZ
 
+
+On souhaite maintenant tester l'égalité des moyennes entre AK et LZ
+
+- Exprimer la problématique ci-dessus sous la forme d'un test d'hypothèses
 
 ![](images/segment_LZ.png)
 
@@ -34,7 +37,7 @@ Pour le segment LZ, tester si, en moyenne, il est évalué justement ou sous-est
 ## Exercice 2 : Le carbone organique dissout
 
 
-On reprend les données sur le carbone organique dissout. On s’intéresse dans un premier temps au percen-tile 90 du carbone organique dissout.
+On reprend les données sur le carbone organique dissout (COD). On s’intéresse dans un premier temps au percentile 90 du COD.
 Reprendre les lignes de code permettant d’importer le jeu de données :
 
 
@@ -45,7 +48,7 @@ summary(dta)
 ```
 
 On s’intéresse maintenant au phosphore total (`Ptot_P90`).
-Dans un premier temps, on s’intéresse aux données du bassin parisien uniquement. Pour cela, on filtre les données et on construire un objet dta_bassin qui contient uniquement les stations du bassin parisien.
+Dans un premier temps, on s’intéresse aux données du bassin parisien uniquement. Pour cela, on filtre les données et on construit un objet `dta_bassin` qui contient uniquement les stations du bassin parisien.
 
 
 ```{r}
@@ -61,15 +64,10 @@ dta_bassin <- dta |> filter(region=="bassin_parisien")
 2. Peut-on considérer que les moyennes des COD sont égales dans les deux régions ?
 
 On s’intéresse maintenant au phosphore total (`Ptot_P90`).
-Dans un premier temps, on s’intéresse aux données du bassin parisien uniquement. Pour cela, on filtre les données et on construire un objet dta_bassin qui contient uniquement les stations du bassin parisien.
 
-```{r}
-dta_bassin <- dta |> filter(region=="bassin_parisien")
-
-```
 
 
 3. Construire l’intervalle de confiance du phosphore total pour les stations du bassin parisien.
-4. Construire maintenant l’intervalle de confiance du phosphore total pour les stations du massif armoricain uni-quement.
+4. Construire maintenant l’intervalle de confiance du phosphore total pour les stations du massif armoricain uniquement.
 5. Peut-on considérer que la moyenne du phosphore total est plus grande dans le bassin parisien que dans le massif armoricain ?
-6. Comparez les largeurs des deux intervalles de confiance (bassin parisien vs massif armoricain). Quelle(s) raison(s) peux/peuvent expliquer la différence de largeur ?
+6. Comparez les largeurs des deux intervalles de confiance (bassin parisien vs massif armoricain). Quelle(s) raison(s) peut/peuvent expliquer la différence de largeur ?

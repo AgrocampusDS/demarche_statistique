@@ -6,7 +6,7 @@ format: html
 
 # Exercice 1 – Composition physico-chimique et provenance
 
-Un groupe industriel commercialisant du café souhaite comparer les cafés provenant de différents lieux de production à partir de leur profil de composition physico-chimique, dont une des composantes importantes est le taux de matière sèche (DM). Pour cela, il s'appuie sur des données contenant le lieu de production, codé par un entier allant de 1 à 7, de 240 mesures de café.
+Un groupe industriel commercialisant du café souhaite comparer les cafés provenant de différents lieux de production à partir de leur profil de composition physico-chimique, dont une des composantes importantes est le taux de matière sèche (DM). Pour cela, il s'appuie sur des données (disponibles dans le fichier [cafe_DM.csv](https://agrocampusds.github.io/demarche_statistique/agronome/data/cafe_DM.csv)) contenant le lieu de production, codé par un entier allant de 1 à 7, de 240 mesures de café.
 
 1. Après avoir importé les données et vérifié la nature de chacune des variables, visualiser les données pour représenter les taux de matière sèche en fonction du site de production des cafés.
 
@@ -18,11 +18,11 @@ Un groupe industriel commercialisant du café souhaite comparer les cafés prove
 
 5. Pour le site de production 3, rappeler le cadre du test de nullité du coefficient associé (hypothèses, interprétation des hypothèses, statistique de test, loi sous H0, décision)
 
-6. Commenter le résultat de comparaison par paires des différents sites de production obtenu à l’aide de la fonction meansComp du package FactoMineR.
+6. Commenter le résultat de comparaison par paires des différents sites de production obtenu à l’aide de la fonction `meansComp` du package `FactoMineR`.
 
 # Exercice 2 – Dégustation de compote
 
-On cherche à évaluer comment sont perçues 6 compotes de pommes au niveau de la saveur de pomme crue. Une dégustation est mise en place et 6 juges vont déguster chacune des 6 compotes. Les notes sont attribuées sur une échelle allant de 0 à 10. La question est donc de savoir si certaines compotes sont en moyenne perçues comme ayant une plus forte saveur de pomme crue.
+On cherche à évaluer comment sont perçues 6 compotes de pommes au niveau de la saveur de pomme crue. Une dégustation est mise en place et 6 juges vont déguster chacune des 6 compotes. Les notes sont attribuées sur une échelle allant de 0 à 10. La question est donc de savoir si certaines compotes sont en moyenne perçues comme ayant une plus forte saveur de pomme crue. Les données sont disponibles dans le fichier [compote.csv](https://agrocampusds.github.io/demarche_statistique/agronome/data/compote.csv).
 
 1. La saveur de pomme crue est-elle différente selon la compote ? (préciser le modèle, les hypothèses, la statistique sous H0 et votre décision en utilisant la fonction `LinearModel` de `FactoMineR`)
 
