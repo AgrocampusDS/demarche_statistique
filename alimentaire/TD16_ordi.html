@@ -321,14 +321,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <ol type="1">
 <li>Décrire les données (variables ? individus ?) et préciser les objectifs d’une ACP effectuée sur ce tableau de données.</li>
-<li>Est-il indispensable de centrer et réduire les données sur ce tableau&nbsp;? Pourquoi&nbsp;?</li>
+<li>Est-il indispensable de centrer et réduire les données sur ce tableau ? Pourquoi ?</li>
 </ol>
 <p>Mettre en œuvre l’ACP (normée) sur ce jeu de données avec la fonction <code>Factoshiny</code> du package <code>Factoshiny</code>.</p>
 <ol start="3" type="1">
-<li>Commenter les pourcentages d’inertie expliquée par le premier axe de l’ACP, par le plan principal.</li>
-<li>Quels sont les 3 chocolats les mieux représentés sur le plan principal ?</li>
-<li>Quels sont les chocolats qui contribuent le plus à la construction de la 1ère dimension de l’ACP ? Et à la 2ème ? Que signifie une contribution importante ?</li>
-<li>À partir du cercle des corrélations, que pouvez-vous dire concernant les corrélations suivantes&nbsp;:
+<li><p>Commenter les pourcentages d’inertie expliquée par le premier axe de l’ACP, par le plan principal.</p></li>
+<li><p>Quels sont les 3 chocolats les mieux représentés sur le plan principal ?</p></li>
+<li><p>Quels sont les chocolats qui contribuent le plus à la construction de la 1ère dimension de l’ACP ? Et à la 2ème ? Que signifie une contribution importante ?</p></li>
+<li><p>À partir du cercle des corrélations, que pouvez-vous dire concernant les corrélations suivantes :</p>
 <ul>
 <li>Saveur amère – arôme de cacao</li>
 <li>Croquant - fondant</li>
@@ -336,9 +336,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Saveur acide – granuleux</li>
 <li>Saveur acide - croquant</li>
 </ul></li>
-<li>Comparer les profils sensoriels des chocolats Lindt_85 et Repère_72. Puis ceux de Lindt_78 et Lindt_70. Que pouvez-vous dire sur la proximité entre les chocolats Lindt_85 et Repère_85. Puis ceux de Ethiquable_70 et Ethiquable_75 ?</li>
-<li>Interpréter les facteurs principaux de l’ACP (à l’aide du graphe des individus et du graphe des variables).</li>
-<li>Interpréter la dimension 3.</li>
+<li><p>Comparer les profils sensoriels des chocolats Lindt_85 et Repère_72. Puis ceux de Lindt_78 et Lindt_70. Que pouvez-vous dire sur la proximité entre les chocolats Lindt_85 et Repère_85. Puis ceux de Ethiquable_70 et Ethiquable_75 ?</p></li>
+<li><p>Interpréter les facteurs principaux de l’ACP (à l’aide du graphe des individus et du graphe des variables).</p></li>
+<li><p>Interpréter la dimension 3.</p></li>
 </ol>
 </section>
 <section id="exercice-2---analyse-de-performances-en-décathlon" class="level2">
@@ -348,24 +348,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"decathlon.csv"</span>, <span class="at">sep=</span><span class="st">";"</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">row.names=</span><span class="dv">1</span>, <span class="at">check.names=</span><span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol type="1">
-<li>Décrire les données (variables ? individus ?) et préciser les objectifs d’une ACP effectuée sur ces données.</li>
-<li>Pourquoi est-ce indispensable dans cet exemple de centrer et réduire les données Mettre en œuvre l’ACP sur ce jeu de données avec la fonction <code>Factoshiny</code> du package <code>Factoshiny</code>.</li>
-<li>Quelles variables doit-on considérer comme actives pour construire l’ACP ?</li>
-<li>Commenter les pourcentages d’inertie expliquée par le premier axe de l’ACP, par le plan principal. Selon quel point de vue est-il préférable que les 2 premiers axes n’expliquent pas trop l’inertie totale ?</li>
-<li>Quels sont les 3 athlètes les mieux représentés sur le plan principal ?</li>
-<li>Quels sont les athlètes qui contribuent le plus à la construction de la 1ère dimension de l’ACP ? Et à la 2ème ? Que signifie une contribution importante ?</li>
-<li>À partir du cercle des corrélations, que pouvez-vous dire concernant les corrélations suivantes&nbsp;:
+<li><p>Décrire les données (variables ? individus ?) et préciser les objectifs d’une ACP effectuée sur ces données.</p></li>
+<li><p>Pourquoi est-ce indispensable dans cet exemple de centrer et réduire les données Mettre en œuvre l’ACP sur ce jeu de données avec la fonction <code>Factoshiny</code> du package <code>Factoshiny</code>.</p></li>
+<li><p>Quelles variables doit-on considérer comme actives pour construire l’ACP ?</p></li>
+<li><p>Commenter les pourcentages d’inertie expliquée par le premier axe de l’ACP, par le plan principal. Selon quel point de vue est-il préférable que les 2 premiers axes n’expliquent pas trop l’inertie totale ?</p></li>
+<li><p>Quels sont les 3 athlètes les mieux représentés sur le plan principal ?</p></li>
+<li><p>Quels sont les athlètes qui contribuent le plus à la construction de la 1ère dimension de l’ACP ? Et à la 2ème ? Que signifie une contribution importante ?</p></li>
+<li><p>À partir du cercle des corrélations, que pouvez-vous dire concernant les corrélations suivantes :</p>
 <ul>
 <li>100 m haies - 400 m</li>
 <li>100 m - Longueur</li>
 <li>100 m - 1500 m</li>
 <li>Disque - Poids</li>
 </ul></li>
-<li>Interpréter les facteurs principaux de l’ACP (à l’aide du graphe des individus et du graphe des variables actives et illustratives).</li>
-<li>Comparer les profils de MAYER et LELIEVRE. Puis ceux de Kaul et Duckworth. Que pouvez-vous dire sur la proximité entre Karpov et Clay ? Et celle entre Ziemek et Bernard ?</li>
-<li>Interpréter la dimension 3.</li>
-<li>Dans quelles épreuves les vainqueurs des décathlons excellent-ils ? Certaines épreuves influent-elles peu la performance (le nombre de points) au décathlon ?</li>
-<li>Comparer les performances réalisées aux quatre compétitions. Que pouvez-vous dire sur la performance moyenne lors de cette compétition ?</li>
+<li><p>Interpréter les facteurs principaux de l’ACP (à l’aide du graphe des individus et du graphe des variables actives et illustratives).</p></li>
+<li><p>Comparer les profils de MAYER et LELIEVRE. Puis ceux de Kaul et Duckworth. Que pouvez-vous dire sur la proximité entre Karpov et Clay ? Et celle entre Ziemek et Bernard ?</p></li>
+<li><p>Interpréter la dimension 3.</p></li>
+<li><p>Dans quelles épreuves les vainqueurs des décathlons excellent-ils ? Certaines épreuves influent-elles peu la performance (le nombre de points) au décathlon ?</p></li>
+<li><p>Comparer les performances réalisées aux quatre compétitions. Que pouvez-vous dire sur la performance moyenne lors de cette compétition ?</p></li>
 </ol>
 
 
