@@ -5,7 +5,7 @@ format: html
 
 ## Exercice 1 - Prédire le rendement fromager en fonction de la composition du lait
 
-Un laboratoire d'analyse souhaite mettre en évidence l'influence de la composition du lait sur le rendement fromager. Pour ce faire, il a mesuré sur un échantillon de n = 85 laits, la densité, le taux butyreux, le taux de protéine, le taux de caséine, l'extrait sec et le rendement fromager de chacun de ces laits. Importer les données avec la ligne de code suivante :
+Un laboratoire d'analyse souhaite mettre en évidence l'influence de la composition du lait sur le rendement fromager. Pour ce faire, il a mesuré sur un échantillon de n = 85 laits, la densité, le taux butyreux, le taux de protéine, le taux de caséine, l'extrait sec et le rendement fromager de chacun de ces laits. Importer [les données](https://agrocampusds.github.io/demarche_statistique/alimentaire/data/lait.csv) avec la ligne de code suivante :
 
 ```{r}
 lait <- read.table("data/lait.csv", sep=";", header=TRUE, dec=",")

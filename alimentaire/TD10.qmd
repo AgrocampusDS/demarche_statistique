@@ -8,7 +8,7 @@ format: html
 
 
 Un organisme d'analyse sensorielle souhaite savoir s'il est possible de prévoir l'appréciation globale d'un jambon à partir de sa description sensorielle. Un jury entraîné a utilisé les variables suivantes pour décrire 21 jambons : Jutosité, Caractère croquant, Tendreté, Caractère pâteux, Fibreux, Saveur salée, Saveur sucrée, Flaveur de viande, Assaisonnement, Flaveur métallique, Flaveur fèces/urine, Flaveur de gras, Flaveur braisé/fumé, Flaveur lactique . Puis une note d'Appréciation globale a été attribué à chacun des jambons.
-Importer les données grâce à la commande suivante :
+Importer les données de [jambon.txt](https://agrocampusds.github.io/demarche_statistique/alimentaire/data/jambon.txt) grâce à la commande suivante :
 ```{r}
 dta <- read.table("jambon.txt", sep="\t", dec=".", header=TRUE, row.names=1)
 ```
@@ -29,7 +29,7 @@ On va s'intéresser ici à la variable sensorielle Arôme de caramel.
 
 1. Ecrire le modèle prenant en compte l'effet produit, l'effet juge et l'effet séance ainsi que toutes les interactions d'ordre 2.
 
-Importer les données en utilisant les lignes de code suivantes qui permettent d'importer et ensuite de transformer les trois premières variables en facteurs :
+Importer les données de [chocolat2017.csv](https://agrocampusds.github.io/demarche_statistique/alimentaire/data/chocolat2017.csv) en utilisant les lignes de code suivantes qui permettent d'importer et ensuite de transformer les trois premières variables en facteurs :
 
 ```{r}
 choc <- read.table("chocolat2017.csv", sep=";", header=TRUE, stringsAsFactors = TRUE)

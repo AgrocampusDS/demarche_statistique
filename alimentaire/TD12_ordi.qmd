@@ -7,7 +7,7 @@ format: html
 
 Une analyse sensorielle a été organisée pour comparer 12 jus d'orange. Cinq juges ont évalué ces jus d'orange 2 fois lors de deux séances de dégustations. Ils ont évalué plusieurs descripteurs sensoriels (saveur sucrée, amère, acide) ainsi que leur appréciation du produit en mettant des notes entre 0 et 10. 
 On cherche ici à comprendre pourquoi les jus d'orange sont appréciés des consommateurs. 
-Importer le jeu de données avec la ligne de code :
+Importer le [jeu de données](https://agrocampusds.github.io/demarche_statistique/alimentaire/data/jusorange.csv) avec la ligne de code :
 
 ```{r}
 jus <- read.table("data/jusorange.csv", sep=";", header=TRUE)

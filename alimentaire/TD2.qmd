@@ -6,7 +6,7 @@ css: style.css
 
 ## Exercice – Analyse sensorielle de jus d'orange
 
-Une analyse sensorielle a été organisée pour comparer 12 jus d'orange. Cinq juges ont évalué ces jus d'orange 2 fois lors de deux séances de dégustations. Ils ont évalué plusieurs descripteurs sensoriels (saveur sucrée, amère, acide) ainsi que leur appréciation du produit en mettant des notes entre 0 et 10. L'objectif d'une telle analyse est de comparer les produits les uns par rapport aux autres.
+Une analyse sensorielle a été organisée pour comparer 12 jus d'orange. Cinq juges ont évalué ces jus d'orange 2 fois lors de deux séances de dégustations. Ils ont évalué plusieurs descripteurs sensoriels (saveur sucrée, amère, acide) ainsi que leur appréciation du produit en mettant des notes entre 0 et 10. Les données de cette analyse sont présentes dans le fichier [jusorange.csv](https://agrocampusds.github.io/demarche_statistique/alimentaire/data/jusorange.csv). L'objectif d'une telle analyse est de comparer les produits les uns par rapport aux autres. 
 
 1. Quelle est la nature de chacune des variables ?
 
