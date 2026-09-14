@@ -80,7 +80,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-9090db18088d1ea1ea510345f8d530f7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-989bd1b72321f01bf033876f0cbde5c4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -312,7 +312,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="exercice-1-appréciation-de-jambons" class="level1">
 <h1>Exercice 1 – Appréciation de jambons</h1>
-<p>Un organisme d’analyse sensorielle souhaite savoir s’il est possible de prévoir l’appréciation globale d’un jambon à partir de sa description sensorielle. Un jury entraîné a utilisé les variables suivantes pour décrire 21 jambons : Jutosité, Caractère croquant, Tendreté, Caractère pâteux, Fibreux, Saveur salée, Saveur sucrée, Flaveur de viande, Assaisonnement, Flaveur métallique, Flaveur fèces/urine, Flaveur de gras, Flaveur braisé/fumé, Flaveur lactique . Puis une note d’Appréciation globale a été attribué à chacun des jambons. Importer les données grâce à la commande suivante :</p>
+<p>Un organisme d’analyse sensorielle souhaite savoir s’il est possible de prévoir l’appréciation globale d’un jambon à partir de sa description sensorielle. Un jury entraîné a utilisé les variables suivantes pour décrire 21 jambons : Jutosité, Caractère croquant, Tendreté, Caractère pâteux, Fibreux, Saveur salée, Saveur sucrée, Flaveur de viande, Assaisonnement, Flaveur métallique, Flaveur fèces/urine, Flaveur de gras, Flaveur braisé/fumé, Flaveur lactique . Puis une note d’Appréciation globale a été attribué à chacun des jambons. Importer les données de <a href="https://agrocampusds.github.io/demarche_statistique/alimentaire/data/jambon.txt">jambon.txt</a> grâce à la commande suivante :</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"jambon.txt"</span>, <span class="at">sep=</span><span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">dec=</span><span class="st">"."</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">row.names=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -333,7 +333,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li>Ecrire le modèle prenant en compte l’effet produit, l’effet juge et l’effet séance ainsi que toutes les interactions d’ordre 2.</li>
 </ol>
-<p>Importer les données en utilisant les lignes de code suivantes qui permettent d’importer et ensuite de transformer les trois premières variables en facteurs :</p>
+<p>Importer les données de <a href="https://agrocampusds.github.io/demarche_statistique/alimentaire/data/chocolat2017.csv">chocolat2017.csv</a> en utilisant les lignes de code suivantes qui permettent d’importer et ensuite de transformer les trois premières variables en facteurs :</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>choc <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"chocolat2017.csv"</span>, <span class="at">sep=</span><span class="st">";"</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) {choc[,i] <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(choc[,i])}</span>

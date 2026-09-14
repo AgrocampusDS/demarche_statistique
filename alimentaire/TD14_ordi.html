@@ -80,7 +80,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-9090db18088d1ea1ea510345f8d530f7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-989bd1b72321f01bf033876f0cbde5c4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -312,7 +312,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="exercice-1---prédire-le-rendement-fromager-en-fonction-de-la-composition-du-lait" class="level2">
 <h2 class="anchored" data-anchor-id="exercice-1---prédire-le-rendement-fromager-en-fonction-de-la-composition-du-lait">Exercice 1 - Prédire le rendement fromager en fonction de la composition du lait</h2>
-<p>Un laboratoire d’analyse souhaite mettre en évidence l’influence de la composition du lait sur le rendement fromager. Pour ce faire, il a mesuré sur un échantillon de n = 85 laits, la densité, le taux butyreux, le taux de protéine, le taux de caséine, l’extrait sec et le rendement fromager de chacun de ces laits. Importer les données avec la ligne de code suivante :</p>
+<p>Un laboratoire d’analyse souhaite mettre en évidence l’influence de la composition du lait sur le rendement fromager. Pour ce faire, il a mesuré sur un échantillon de n = 85 laits, la densité, le taux butyreux, le taux de protéine, le taux de caséine, l’extrait sec et le rendement fromager de chacun de ces laits. Importer <a href="https://agrocampusds.github.io/demarche_statistique/alimentaire/data/lait.csv">les données</a> avec la ligne de code suivante :</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>lait <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/lait.csv"</span>, <span class="at">sep=</span><span class="st">";"</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">dec=</span><span class="st">","</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lait)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
