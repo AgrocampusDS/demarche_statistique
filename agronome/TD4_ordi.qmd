@@ -47,7 +47,7 @@ summary(dta)
 
 ```
 
-On s’intéresse maintenant au phosphore total (`Ptot_P90`).
+
 Dans un premier temps, on s’intéresse aux données du bassin parisien uniquement. Pour cela, on filtre les données et on construit un objet `dta_bassin` qui contient uniquement les stations du bassin parisien.
 
 
@@ -59,7 +59,7 @@ dta_bassin <- dta |> filter(region=="bassin_parisien")
 ```
 
 
-1. Donner l’intervalle de confiance du carbone organique dissout. A quoi cet intervalle correspond-il ?
+1. Donner l’intervalle de confiance du carbone organique dissout pour les stations du bassin parisien. A quoi cet intervalle correspond-il ?
 
 2. Peut-on considérer que les moyennes des COD sont égales dans les deux régions ?
 
