@@ -364,13 +364,13 @@ window.Quarto = {
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"Donnees_COD.csv"</span>, <span class="at">sep=</span><span class="st">";"</span>, <span class="at">dec=</span><span class="st">","</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dta)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>On s’intéresse maintenant au phosphore total (<code>Ptot_P90</code>). Dans un premier temps, on s’intéresse aux données du bassin parisien uniquement. Pour cela, on filtre les données et on construit un objet <code>dta_bassin</code> qui contient uniquement les stations du bassin parisien.</p>
+<p>Dans un premier temps, on s’intéresse aux données du bassin parisien uniquement. Pour cela, on filtre les données et on construit un objet <code>dta_bassin</code> qui contient uniquement les stations du bassin parisien.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dta_bassin <span class="ot">&lt;-</span> dta <span class="sc">|&gt;</span> <span class="fu">filter</span>(region<span class="sc">==</span><span class="st">"bassin_parisien"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol type="1">
-<li><p>Donner l’intervalle de confiance du carbone organique dissout. A quoi cet intervalle correspond-il ?</p></li>
+<li><p>Donner l’intervalle de confiance du carbone organique dissout pour les stations du bassin parisien. A quoi cet intervalle correspond-il ?</p></li>
 <li><p>Peut-on considérer que les moyennes des COD sont égales dans les deux régions ?</p></li>
 </ol>
 <p>On s’intéresse maintenant au phosphore total (<code>Ptot_P90</code>).</p>
