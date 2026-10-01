@@ -8,7 +8,9 @@ format: html
 
 Un groupe industriel commercialisant du café souhaite comparer les cafés provenant de différents lieux de production à partir de leur profil de composition physico-chimique, dont une des composantes importantes est le taux de matière sèche (DM). Pour cela, il s'appuie sur des données (disponibles dans le fichier [cafe_DM.csv](https://agrocampusds.github.io/demarche_statistique/agronome/data/cafe_DM.csv)) contenant le lieu de production, codé par un entier allant de 1 à 7, de 240 mesures de café.
 
-1. Importer les données à l'aide des lignes de code suivantes. A quoi sert la ligne `cafe$Localisation =as.factor(cafe$Localisation)` ? Visualiser ensuite les données pour représenter les taux de matière sèche en fonction du site de production des cafés.
+1. Importer les données à l'aide des lignes de code suivantes. 
+A quoi sert la ligne `cafe$Localisation = as.factor(cafe$Localisation)` ? 
+Visualiser ensuite les données pour représenter les taux de matière sèche en fonction du site de production des cafés.
 
 
 
