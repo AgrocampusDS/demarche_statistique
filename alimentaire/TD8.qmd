@@ -27,11 +27,11 @@ On cherche maintenant à prévoir l’évolution jusqu’en 2050. Après avoir b
 Une entreprise de production d'électricité verte souhaite prévoir la puissance électrique d'un parc éolien. Il est en effet
 très coûteux de stocker de l'énergie et il est donc important de prévoir au mieux la production.
 
-La puissance théorique d'une éolienne est connue et dépend uniquement du vent et de la longueur de ses pâles, la formule étant :
+La puissance théorique d'une éolienne est connue et dépend uniquement du vent et de la longueur de ses pales, la formule étant :
 $$Puissance = \rho V^3 \pi\ r^2$$
-avec la puissance exprimée en Watt $W$, $\rho$ la densité de l'air égale à 1.225 $kg.m^{-3}$,
-$V$ la vitesse du vent en $m.s^{-1}$, $r$ la longueur des pâles de l'éolienne en $m$.
-La longueur des pâles du rotor est ici de 20$m$.
+avec la puissance exprimée en Watt ($W$), $\rho$ la densité de l'air égale à 1.225 $kg.m^{-3}$,
+$V$ la vitesse du vent en $m.s^{-1}$, $r$ la longueur des pales de l'éolienne en $m$.
+La longueur des pales du rotor est ici de 20 $m$.
 
 Les éoliennes sont conçues pour démarrer à une vitesse de vent de 3 à 5 $m.s^{-1}$ et l'éolienne
 s'arrête de fonctionner lorsque la vitesse du vent dépasse 25 $m.s^{-1}$ afin d'éviter tout endommagement
@@ -67,7 +67,7 @@ t <- (betaHat.mean-3)/betaHat.sd
 pt(t, 4394)
 ```
 
-* Donner un intervalle de confiance de la puissance éolienne moyenne pour une vitesse de vent de 10$m.s^{-1}$. Même question pour une vitesse de vent de  18$m.s^{-1}$.
+* Donner un intervalle de confiance de la puissance éolienne moyenne pour une vitesse de vent de 10 $m.s^{-1}$. Même question pour une vitesse de vent de  18 $m.s^{-1}$.
 
 ```{r IC, eval=FALSE, echo=FALSE}
 predict(mod, newdata = data.frame(lnV = c(10,18)), interval = "confidence")
