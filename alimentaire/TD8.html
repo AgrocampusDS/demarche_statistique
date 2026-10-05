@@ -74,6 +74,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -275,25 +304,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="exercice-1-etude-de-lévolution-des-températures-à-paris" class="level1">
-<h1>Exercice 1 – Etude de l’évolution des températures à Paris</h1>
-<p>On s’intéresse à l’évolution de la température moyenne annuelle à Paris entre 1873 et 2024. Les données sont disponibles dans le fichier <a href="https://agrocampusds.github.io/demarche_statistique/agronome/data/temperature_moyenne_paris.csv">temperature_moyenne_paris.csv</a>.</p>
-<ol type="1">
-<li>Construire un graphique pour représenter les données. Pourquoi peut-on ici relier les points ?</li>
-<li>Donner un indicateur permettant d’évaluer la relation entre les deux variables. Interpréter.</li>
-<li>Ecrire mathématiquement un modèle permettant l’étude d’une éventuelle relation entre la température moyenne annuelle et l’année.</li>
-<li>Construire ce modèle et interpréter les résultats.</li>
-<li>Comment interprétez-vous concrètement chaque coefficient du modèle ? Ces interprétations ont-elle un sens ici ?</li>
-<li>Comment l’expliquez-vous ?</li>
-<li>Quelle température moyenne annuelle prédisez-vous avec le modèle construit. Quelle hypothèse sous-jacente faites-vous ?</li>
-</ol>
-<p>Après avoir construit un graphique en coloriant en rouge les années de 1873 à 1993 et en bleu les points de 1994 à 2024, vous remarquez que les points bleus sont très souvent au-dessus de la droite de régression.</p>
-<ol start="8" type="1">
-<li>Qu’est-ce que cela signifie sur les valeurs des résidus pour les points bleus ? (vous pouvez vérifier votre propos en regardant l’objet <code>$lmResult$residuals</code> qui donne les résidus du modèle). Comment interprétez-vous concrètement cela ?</li>
-</ol>
-</section>
-<section id="exercice-2-evolution-de-lempreinte-ges-moyenne-par-français" class="level1">
-<h1>Exercice 2 – Evolution de l’empreinte GES moyenne par français</h1>
+<section id="exercice-1-evolution-de-lempreinte-ges-moyenne-par-français" class="level1">
+<h1>Exercice 1 – Evolution de l’empreinte GES moyenne par français</h1>
 <p>On s’intéresse à l’évolution de l’empreinte des gaz à effets de serre (GES) des français entre 1990 et 2024. Les données sont disponibles dans le fichier <a href="https://agrocampusds.github.io/demarche_statistique/agronome/data/empreinteGES.csv">empreinteGES.csv</a>.</p>
 <ol type="1">
 <li>Pourquoi selon vous on s’intéresse à l’empreinte moyenne par français plutôt qu’à l’empreinte totale des GES de la France ?</li>
@@ -302,10 +314,33 @@ ul.task-list li input[type="checkbox"] {
 <p>On cherche maintenant à prévoir l’évolution jusqu’en 2050. Après avoir bien visualisé les données, proposer un modèle et les données que vous utiliseriez pour prévoir l’évolution de l’empreinte GES dans les prochaines années.</p>
 <ol start="3" type="1">
 <li><p>Construire et interpréter le modèle.</p></li>
-<li><p>Quelle empreinte carbone prédisez-vous pour 2050 (sachant que l’objectif défini lors des accords de Paris est de 2teqCO2/hab/an) ? Quelle hypothèse sous-jacente faites-vous quand vous faites cette prédiction ? Qu’en pensez-vous.</p></li>
+<li><p>Quelle empreinte carbone prédisez-vous pour 2050 (sachant que l’objectif défini lors des accords de Paris est de 2teqCO2/hab/an) ? Quelle hypothèse sous-jacente faites-vous quand vous faites cette prédiction ? Qu’en pensez-vous ?</p></li>
 </ol>
+</section>
+<section id="exercice-2" class="level1">
+<h1>Exercice 2</h1>
+<section id="prédiction-de-la-puissance-éolienne" class="level3">
+<h3 class="anchored" data-anchor-id="prédiction-de-la-puissance-éolienne">Prédiction de la puissance éolienne</h3>
+<p>Une entreprise de production d’électricité verte souhaite prévoir la puissance électrique d’un parc éolien. Il est en effet très coûteux de stocker de l’énergie et il est donc important de prévoir au mieux la production.</p>
+<p>La puissance théorique d’une éolienne est connue et dépend uniquement du vent et de la longueur de ses pâles, la formule étant : <span class="math display">\[Puissance = \rho V^3 \pi\ r^2\]</span> avec la puissance exprimée en Watt <span class="math inline">\(W\)</span>, <span class="math inline">\(\rho\)</span> la densité de l’air égale à 1.225 <span class="math inline">\(kg.m^{-3}\)</span>, <span class="math inline">\(V\)</span> la vitesse du vent en <span class="math inline">\(m.s^{-1}\)</span>, <span class="math inline">\(r\)</span> la longueur des pâles de l’éolienne en <span class="math inline">\(m\)</span>. La longueur des pâles du rotor est ici de 20<span class="math inline">\(m\)</span>.</p>
+<p>Les éoliennes sont conçues pour démarrer à une vitesse de vent de 3 à 5 <span class="math inline">\(m.s^{-1}\)</span> et l’éolienne s’arrête de fonctionner lorsque la vitesse du vent dépasse 25 <span class="math inline">\(m.s^{-1}\)</span> afin d’éviter tout endommagement de l’éolienne. De plus, lorsque la vitesse du vent est supérieure à 15 <span class="math inline">\(m.s^{-1}\)</span>, l’éolienne est bridée.</p>
+<p>Des données de vitesse de vent et de puissance sont disponibles dans le fichier <a href="https://agrocampusds.github.io/demarche_statistique/agronome/data/eolienne.csv">eolienne</a>. Ce fichier contient la puissance moyenne des éoliennes (en fonctionnement) d’un parc, la vitesse du vent sur un mât de 60 mètres à proximité des éoliennes et la direction du vent. Toutes les puissances sont données en <span class="math inline">\(W\)</span>. Toutes ces mesures sont effectuées toutes les heures.</p>
+<ul>
+<li>Proposer un modèle permettant de prédire la puissance moyenne en fonction de la vitesse du vent. Construire ce modèle en ne conservant que les vitesses de vent comprises entre 5 et 15 <span class="math inline">\(m.s^{-1}\)</span> et interpréter les résultats.</li>
+</ul>
+<ul>
+<li>Peut-on considérer que le réglage des éoliennes est bon (i.e.&nbsp;peut-on considérer que la puissance moyenne des éoliennes vérifie bien l’équation de puissance (cf plus haut)?</li>
+</ul>
+<ul>
+<li>Donner un intervalle de confiance de la puissance éolienne moyenne pour une vitesse de vent de 10<span class="math inline">\(m.s^{-1}\)</span>. Même question pour une vitesse de vent de 18<span class="math inline">\(m.s^{-1}\)</span>.</li>
+</ul>
+<p>On suspecte que la direction du vent à un effet sur la puissance de l’éolienne (même si le rotor est censé se positionner face au vent).</p>
+<ul>
+<li>Proposer une représentation graphique tenant compte de la direction du vent.</li>
+</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
